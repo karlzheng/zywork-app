@@ -1,0 +1,53 @@
+server:
+  port: 8088
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  banner:
+    charset: UTF-8
+    location: banner.txt
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 100MB
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/zywork_app?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false&allowMultiQueries=true
+      username: root
+      password: root
+      validation-query: select 1
+      max-active: 100
+      min-idle: 10
+      max-wait: 300000
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      initial-size: 10
+logging:
+  file:
+    max-history: 60
+  level:
+    root: INFO
+  path: .
+  pattern:
+    console: "%date %level %thread %10logger %file %line %msg%n"
+    file: "%date %level %thread %10logger %file %line %msg%n"
+    level: "%5p"
+  register-shutdown-hook: false
+mybatis:
+  configuration:
+    cache-enabled: true
+    map-underscore-to-camel-case: true
+    use-generated-keys: true
+    use-column-label: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  type-aliases-package: top.zywork.dos
+  mapper-locations: classpath:/mapper/*Mapper.xml
+jwt:
+  header: Authorization
+  header-prefix: "Bearer "
+  secret: w-oasiswgs123456
+  access-token:
+    expiration: 604800
