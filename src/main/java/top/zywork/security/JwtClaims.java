@@ -5,6 +5,14 @@ import org.springframework.security.core.GrantedAuthority;
 import java.util.Collection;
 import java.util.Date;
 
+/**
+ * 保存用户信息，在jwt token中以JSON字符串存储此用户信息<br/>
+ *
+ * 创建于2018-09-12<br/>
+ *
+ * @author 王振宇
+ * @version 1.0
+ */
 public class JwtClaims {
 
     private Long userId;

@@ -11,6 +11,14 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * SpringSecurity 用户服务<br/>
+ *
+ * 创建于2018-09-12<br/>
+ *
+ * @author 王振宇
+ * @version 1.0
+ */
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
     @Override

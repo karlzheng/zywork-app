@@ -5,6 +5,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
+/**
+ * 自定义实现SpringSecurity中的UserDetails<br/>
+ *
+ * 创建于2018-09-12<br/>
+ *
+ * @author 王振宇
+ * @version 1.0
+ */
 public class JwtUser implements UserDetails {
 
     private Long userId;
@@ -22,18 +30,14 @@ public class JwtUser implements UserDetails {
     }
 
     public JwtUser(long userId, String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
-        if (username != null && !"".equals(username) && password != null) {
-            this.userId = userId;
-            this.username = username;
-            this.password = password;
-            this.enabled = enabled;
-            this.accountNonExpired = accountNonExpired;
-            this.credentialsNonExpired = credentialsNonExpired;
-            this.accountNonLocked = accountNonLocked;
-            this.authorities = authorities;
-        } else {
-            throw new IllegalArgumentException("Cannot pass null or empty values to constructor");
-        }
+        this.userId = userId;
+        this.username = username;
+        this.password = password;
+        this.enabled = enabled;
+        this.accountNonExpired = accountNonExpired;
+        this.credentialsNonExpired = credentialsNonExpired;
+        this.accountNonLocked = accountNonLocked;
+        this.authorities = authorities;
     }
 
     @Override

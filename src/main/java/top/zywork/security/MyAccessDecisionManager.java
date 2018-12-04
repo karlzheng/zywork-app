@@ -10,6 +10,14 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 
+/**
+ * 访问权限决策管理器<br/>
+ *
+ * 创建于2018-09-12<br/>
+ *
+ * @author 王振宇
+ * @version 1.0
+ */
 @Component
 public class MyAccessDecisionManager implements AccessDecisionManager {
     @Override
@@ -21,11 +29,12 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
         for (GrantedAuthority authority : authorityList) {
             for (ConfigAttribute configAttribute : configAttributes) {
                 if (authority.getAuthority().equals(configAttribute.getAttribute())) {
-                    return; // 如果用户的权限与配置的权限有匹配项，表示有权限，直接返回
+                    // 如果用户的权限与配置的权限有匹配项，表示有权限，直接返回
+                    return;
                 }
             }
         }
-        throw new AccessDeniedException("No permission!");
+        throw new AccessDeniedException("权限不足！");
     }
 
     @Override

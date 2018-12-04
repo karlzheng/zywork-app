@@ -78,8 +78,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 })
                 .and()
                 .formLogin()
-                .loginPage("/login/require")
-                .loginProcessingUrl("/login/do")
+                // 未认证则转入此url
+                .loginPage("/auth/require")
+                // 使用此url进行用户登录
+                .loginProcessingUrl("/auth/login")
                 .permitAll()
                 .successHandler(myAuthenticationSuccessHandler)
                 .failureHandler(myAuthenticationFailureHandler)

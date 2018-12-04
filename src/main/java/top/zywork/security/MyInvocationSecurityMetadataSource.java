@@ -9,6 +9,14 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+/**
+ * 用户资源与角色元数据<br/>
+ *
+ * 创建于2018-09-12<br/>
+ *
+ * @author 王振宇
+ * @version 1.0
+ */
 @Component
 public class MyInvocationSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
 
