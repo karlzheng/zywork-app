@@ -28,28 +28,45 @@ import java.util.Map;
 public class WeixinUtils {
 
     /**
-     * 微信授权登录通过code获取access_token和openid
+     * 微信公众号授权登录通过code获取access_token和openid
      * @param code 微信授权回调所返回的code
      * @return
      */
-    public static WeixinAuth authLogin(String code) {
+    public static GzhAuth authGzh(String code) {
         String accessor = HttpUtils.get(GzhConstants.AUTH_ACCESS_TOKEN_URL.replace("{CODE}", code));
-        WeixinAuth weixinAuth = null;
+        GzhAuth gzhAuth = null;
         if (accessor != null) {
             JSONObject accessorJSON = JSON.parseObject(accessor);
-            weixinAuth.setAccessToken(accessorJSON.getString("access_token"));
-            weixinAuth.setOpenid(accessorJSON.getString("openid"));
+            gzhAuth.setAccessToken(accessorJSON.getString("access_token"));
+            gzhAuth.setOpenid(accessorJSON.getString("openid"));
         }
-        return weixinAuth;
+        return gzhAuth;
+    }
+
+    /**
+     * 微信小程序授权登录，通过code来获取session_key 和 openid
+     * @param code
+     * @return
+     */
+    public static XcxAuth authXcx(String code) {
+        String accessor = HttpUtils.get(XcxConstants.AUTH_ACCESS_URL.replace("{JSCODE}", code));
+        XcxAuth xcxAuth = null;
+        if (accessor != null) {
+            JSONObject accessorJSON = JSON.parseObject(accessor);
+            xcxAuth.setSessionKey(accessorJSON.getString("session_key"));
+            xcxAuth.setOpenid(accessorJSON.getString("openid"));
+            xcxAuth.setUnionid(accessorJSON.getString("unionid"));
+        }
+        return xcxAuth;
     }
 
     /**
      * 通过access_token和openid获取微信用户信息
-     * @param weixinAuth WeixinAuth对象
+     * @param gzhAuth WeixinAuth对象
      * @return
      */
-    public static WeixinUser userInfo(WeixinAuth weixinAuth) {
-        String userInfo = HttpUtils.get(GzhConstants.USER_INFO.replace("{ACCESS_TOKEN}", weixinAuth.getAccessToken()).replace("{OPENID}", weixinAuth.getOpenid()));
+    public static WeixinUser userInfo(GzhAuth gzhAuth) {
+        String userInfo = HttpUtils.get(GzhConstants.USER_INFO.replace("{ACCESS_TOKEN}", gzhAuth.getAccessToken()).replace("{OPENID}", gzhAuth.getOpenid()));
         WeixinUser weixinUser = null;
         if (userInfo != null) {
             try {
@@ -58,7 +75,7 @@ public class WeixinUtils {
                 e.printStackTrace();
             }
             JSONObject userInfoJSON = JSON.parseObject(userInfo);
-            weixinUser.setOpenid(weixinAuth.getOpenid());
+            weixinUser.setOpenid(gzhAuth.getOpenid());
             weixinUser.setNickname(userInfoJSON.getString("nickname"));
             weixinUser.setHeadimgurl(userInfoJSON.getString("headimgurl"));
             weixinUser.setSex(userInfoJSON.getString("sex"));

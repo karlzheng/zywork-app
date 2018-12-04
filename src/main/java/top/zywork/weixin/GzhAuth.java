@@ -1,21 +1,21 @@
 package top.zywork.weixin;
 
 /**
- * 存储微信授权登录获取的access_token与openid的对象<br/>
+ * 存储微信公众号网页授权登录获取的access_token与openid的对象<br/>
  *
  * 创建于2018-12-04<br/>
  *
  * @author 王振宇
  * @version 1.0
  */
-public class WeixinAuth {
+public class GzhAuth {
 
     private String accessToken;
     private String openid;
 
-    public WeixinAuth() {}
+    public GzhAuth() {}
 
-    public WeixinAuth(String accessToken, String openid) {
+    public GzhAuth(String accessToken, String openid) {
         this.accessToken = accessToken;
         this.openid = openid;
     }
