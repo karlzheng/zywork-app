@@ -9,6 +9,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
+import top.zywork.enums.ContentTypeEnum;
 import top.zywork.enums.ResponseStatusEnum;
 import top.zywork.security.JwtClaims;
 import top.zywork.security.JwtUser;
@@ -49,8 +50,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = request.getHeader(tokenHeader);
-        response.setContentType("application/json;charset=utf-8");
-        PrintWriter writer = null;
+
         ResponseStatusVO statusVO = new ResponseStatusVO();
         if (!StringUtils.isEmpty(token) && token.startsWith(headerPrefix)) {
             token = token.substring(headerPrefix.length());
@@ -67,7 +67,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     }
                 }
             } else {
-                writer = response.getWriter();
+                response.setContentType(ContentTypeEnum.JSON.getValue());
+                PrintWriter writer = response.getWriter();
                 statusVO.errorStatus(ResponseStatusEnum.AUTHENTICATION_TOKEN_ERROR.getCode(),
                         ResponseStatusEnum.AUTHENTICATION_TOKEN_ERROR.getMessage(), null);
                 writer.write(JSON.toJSONString(statusVO));

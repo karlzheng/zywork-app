@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
+import top.zywork.enums.ContentTypeEnum;
 import top.zywork.enums.ResponseStatusEnum;
 import top.zywork.vo.ResponseStatusVO;
 
@@ -26,7 +27,7 @@ public class MyAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e) throws IOException, ServletException {
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-        response.setContentType("application/json;charset=UTF-8");
+        response.setContentType(ContentTypeEnum.JSON.getValue());
         ResponseStatusVO statusVO = new ResponseStatusVO();
         statusVO.errorStatus(ResponseStatusEnum.AUTHORIZATION_ERROR.getCode(),
                 ResponseStatusEnum.AUTHORIZATION_ERROR.getMessage(), null);

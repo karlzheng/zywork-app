@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
+import top.zywork.enums.ContentTypeEnum;
 import top.zywork.enums.ResponseStatusEnum;
 import top.zywork.vo.ResponseStatusVO;
 
@@ -32,7 +33,7 @@ public class MyAuthenticationFailureHandler extends SimpleUrlAuthenticationFailu
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
                                         AuthenticationException exception) throws IOException, ServletException {
         logger.info("用户认证失败");
-        response.setContentType("application/json;charset=UTF-8");
+        response.setContentType(ContentTypeEnum.JSON.getValue());
         ResponseStatusVO statusVO = new ResponseStatusVO();
         statusVO.errorStatus(ResponseStatusEnum.AUTHENTICATION_FAILURE.getCode(),
                 ResponseStatusEnum.AUTHENTICATION_FAILURE.getMessage(), null);
