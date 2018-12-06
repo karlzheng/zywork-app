@@ -29,7 +29,7 @@ public class PayConstants {
     public static final String UNIFIED_ORDER_URL = "https://api.mch.weixin.qq.com/pay/unifiedorder";
 
     // 支付回调地址，用于获取支付结果
-    public static final String PAY_NOTIFY_URL = CommonConstants.BASE_URL + "/byjc/tickeorder/result";
+    public static final String PAY_NOTIFY_URL = WeixinConstants.BASE_URL + "/byjc/tickeorder/result";
 
     // 响应微信支付结果的内容
     public static final String PAY_NOTIFY_RESULT = "<xml>" +

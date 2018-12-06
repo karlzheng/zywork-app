@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.wxpay.sdk.WXPayConstants;
 import com.github.wxpay.sdk.WXPayUtil;
+import org.apache.commons.lang.StringUtils;
 import top.zywork.common.HttpUtils;
 import top.zywork.common.UUIDUtils;
 import top.zywork.enums.CharsetEnum;
@@ -35,8 +36,9 @@ public class WeixinUtils {
     public static GzhAuth authGzh(String code) {
         String accessor = HttpUtils.get(GzhConstants.AUTH_ACCESS_TOKEN_URL.replace("{CODE}", code));
         GzhAuth gzhAuth = null;
-        if (accessor != null) {
+        if (StringUtils.isNotEmpty(accessor) && !accessor.contains(WeixinConstants.ERROR_CODE_STR)) {
             JSONObject accessorJSON = JSON.parseObject(accessor);
+            gzhAuth = new GzhAuth();
             gzhAuth.setAccessToken(accessorJSON.getString("access_token"));
             gzhAuth.setOpenid(accessorJSON.getString("openid"));
         }
@@ -51,8 +53,9 @@ public class WeixinUtils {
     public static XcxAuth authXcx(String code) {
         String accessor = HttpUtils.get(XcxConstants.AUTH_ACCESS_URL.replace("{JSCODE}", code));
         XcxAuth xcxAuth = null;
-        if (accessor != null) {
+        if (StringUtils.isNotEmpty(accessor) && !accessor.contains(WeixinConstants.ERROR_CODE_STR)) {
             JSONObject accessorJSON = JSON.parseObject(accessor);
+            xcxAuth = new XcxAuth();
             xcxAuth.setSessionKey(accessorJSON.getString("session_key"));
             xcxAuth.setOpenid(accessorJSON.getString("openid"));
             xcxAuth.setUnionid(accessorJSON.getString("unionid"));
@@ -66,24 +69,27 @@ public class WeixinUtils {
      * @return
      */
     public static WeixinUser userInfo(GzhAuth gzhAuth) {
-        String userInfo = HttpUtils.get(GzhConstants.USER_INFO.replace("{ACCESS_TOKEN}", gzhAuth.getAccessToken()).replace("{OPENID}", gzhAuth.getOpenid()));
         WeixinUser weixinUser = null;
-        if (userInfo != null) {
-            try {
-                userInfo = new String(userInfo.getBytes(CharsetEnum.ISO8859_1.getValue()), CharsetEnum.UTF8.getValue());
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
+        if (gzhAuth != null) {
+            String userInfo = HttpUtils.get(GzhConstants.USER_INFO.replace("{ACCESS_TOKEN}", gzhAuth.getAccessToken()).replace("{OPENID}", gzhAuth.getOpenid()));
+            if (StringUtils.isNotEmpty(userInfo) && !userInfo.contains(WeixinConstants.ERROR_CODE_STR)) {
+                try {
+                    userInfo = new String(userInfo.getBytes(CharsetEnum.ISO8859_1.getValue()), CharsetEnum.UTF8.getValue());
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                JSONObject userInfoJSON = JSON.parseObject(userInfo);
+                weixinUser = new WeixinUser();
+                weixinUser.setOpenid(gzhAuth.getOpenid());
+                weixinUser.setNickname(userInfoJSON.getString("nickname"));
+                weixinUser.setHeadimgurl(userInfoJSON.getString("headimgurl"));
+                weixinUser.setSex(userInfoJSON.getString("sex"));
+                weixinUser.setCountry(userInfoJSON.getString("country"));
+                weixinUser.setProvince(userInfoJSON.getString("province"));
+                weixinUser.setCity(userInfoJSON.getString("city"));
+                // weixinUser.setPrivilege((String[]) userInfoJSON.getJSONArray("privilege").toArray());
+                weixinUser.setUnionid(userInfoJSON.getString("unionid"));
             }
-            JSONObject userInfoJSON = JSON.parseObject(userInfo);
-            weixinUser.setOpenid(gzhAuth.getOpenid());
-            weixinUser.setNickname(userInfoJSON.getString("nickname"));
-            weixinUser.setHeadimgurl(userInfoJSON.getString("headimgurl"));
-            weixinUser.setSex(userInfoJSON.getString("sex"));
-            weixinUser.setCountry(userInfoJSON.getString("country"));
-            weixinUser.setProvince(userInfoJSON.getString("province"));
-            weixinUser.setCity(userInfoJSON.getString("city"));
-            // weixinUser.setPrivilege((String[]) userInfoJSON.getJSONArray("privilege").toArray());
-            weixinUser.setUnionid(userInfoJSON.getString("unionid"));
         }
         return weixinUser;
     }

@@ -17,7 +17,7 @@ public class GzhConstants {
     public static final String APP_KEY = "154c338a151d3c2f5f4fbdbb698acea9";
 
     // 公众号授权登录时的回调url地址
-    public static final String REDIRECT_URL = CommonConstants.BASE_URL + "/byjc/wechat/login";
+    public static final String REDIRECT_URL = WeixinConstants.BASE_URL + "/weixin/gzh-auth";
 
     // 公众号授权登录，以获取code
     public static final String AUTHORIZE_URL = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + APP_ID + "&redirect_uri={REDIRECT_URL}" + "&response_type=code&scope=snsapi_userinfo&state=access#wechat_redirect";

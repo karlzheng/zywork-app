@@ -51,3 +51,6 @@ jwt:
   secret: w-oasiswgs123456
   access-token:
     expiration: 604800
+weixin:
+  cookie:
+    expiration: 604800
