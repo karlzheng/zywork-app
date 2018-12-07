@@ -7,6 +7,14 @@ import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 用于操作jwt token的redis类<br/>
+ *
+ * 创建于2018-12-07<br/>
+ *
+ * @author 王振宇
+ * @version 1.0
+ */
 @Component
 public class JwtTokenRedisUtils {
 
@@ -17,22 +25,45 @@ public class JwtTokenRedisUtils {
 
     private RedisTemplate<String, String> redisTemplate;
 
+    /**
+     * 存储token
+     * @param userId
+     * @param token
+     */
     public void storeToken(String userId, String token) {
         redisTemplate.opsForValue().set(TOKEN_PREFIX + userId, token, accessTokenExpiration, TimeUnit.SECONDS);
     }
 
+    /**
+     * 判断token是否存在
+     * @param userId
+     * @return
+     */
     public boolean existsToken(String userId) {
         return redisTemplate.hasKey(TOKEN_PREFIX + userId);
     }
 
+    /**
+     * 获取token
+     * @param userId
+     * @return
+     */
     public String getToken(String userId) {
         return redisTemplate.opsForValue().get(TOKEN_PREFIX + userId);
     }
 
+    /**
+     * 重置token失效时间
+     * @param userId
+     */
     public void refreshTokenExpiration(String userId) {
         redisTemplate.expire(TOKEN_PREFIX + userId, accessTokenExpiration, TimeUnit.SECONDS);
     }
 
+    /**
+     * 移除token
+     * @param userId
+     */
     public void removeToken(String userId) {
         redisTemplate.delete(TOKEN_PREFIX + userId);
     }

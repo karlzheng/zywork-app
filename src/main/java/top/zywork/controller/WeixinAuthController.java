@@ -62,9 +62,7 @@ public class WeixinAuthController {
                 if (weixinUser != null) {
                     // TODO 判断用户是否已经保存，如未保存，则保存微信用户信息到数据库
                     // 写出用户cookie到客户端
-                    Cookie cookie = new Cookie(WeixinConstants.WEIXIN_GZH_USER_COOKIE_NAME, weixinUser.getOpenid());
-                    cookie.setMaxAge(cookieExpiration);
-                    response.addCookie(cookie);
+                    writeCookie(response, weixinUser.getOpenid());
                     // 根据openid获取JwtUser，生成jwt token并返回客户端
                     JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(weixinUser.getOpenid());
                     String token = jwtUtils.generateToken(jwtUser);
@@ -93,6 +91,12 @@ public class WeixinAuthController {
     public void xcxAuth(HttpServletRequest request, String code) {
         XcxAuth xcxAuth = WeixinUtils.authXcx(code);
         // TODO 判断用户是否已经保存，如未保存，则保存微信用户信息到数据库
+    }
+
+    private void writeCookie(HttpServletResponse response, String openid) {
+        Cookie cookie = new Cookie(WeixinConstants.WEIXIN_GZH_USER_COOKIE_NAME, openid);
+        cookie.setMaxAge(cookieExpiration);
+        response.addCookie(cookie);
     }
 
     @Autowired

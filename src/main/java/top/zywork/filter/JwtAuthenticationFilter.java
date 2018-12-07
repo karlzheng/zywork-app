@@ -49,7 +49,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = request.getHeader(tokenHeader);
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         if (!StringUtils.isEmpty(token) && token.startsWith(headerPrefix)) {
             token = token.substring(headerPrefix.length());
             JwtClaims jwtClaims = jwtUtils.getTokenJwtClaims(token);
@@ -60,30 +59,36 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 if (token.equals(jwtTokenInRedis)) {
                     // 如果redis中存在此token
                     if (SecurityContextHolder.getContext().getAuthentication() == null) {
-                        // springsecurity上下文中不存在认证信息
-                        JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(jwtClaims.getUsername());
-                        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(jwtUser, null, jwtUser.getAuthorities());
-                        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                        // 将认证状态存入SpringSecurity上下文
-                        SecurityContextHolder.getContext().setAuthentication(authentication);
+                        // springsecurity上下文中不存在认证信息，则存储新的authentication到上下文
+                        storeAuthentication(request, jwtClaims);
                     }
                 } else {
-                    response.setContentType(ContentTypeEnum.JSON.getValue());
-                    PrintWriter writer = response.getWriter();
-                    statusVO.errorStatus(ResponseStatusEnum.AUTHENTICATION_TOKEN_ERROR.getCode(), "Token不存在，或已失效", null);
-                    writer.write(JSON.toJSONString(statusVO));
+                    outResponse(response, ResponseStatusEnum.AUTHENTICATION_TOKEN_ERROR.getCode(), "Token不存在，或已失效", null);
                     return;
                 }
             } else {
                 // token解析错误
-                response.setContentType(ContentTypeEnum.JSON.getValue());
-                PrintWriter writer = response.getWriter();
-                statusVO.errorStatus(ResponseStatusEnum.AUTHENTICATION_TOKEN_ERROR.getCode(), "Token错误", null);
-                writer.write(JSON.toJSONString(statusVO));
+                outResponse(response, ResponseStatusEnum.AUTHENTICATION_TOKEN_ERROR.getCode(), "Token错误", null);
                 return;
             }
         }
         filterChain.doFilter(request, response);
+    }
+
+    private void storeAuthentication(HttpServletRequest request, JwtClaims jwtClaims) {
+        JwtUser jwtUser = jwtUtils.getTokenJwtUser(jwtClaims);
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(jwtUser, null, jwtUser.getAuthorities());
+        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        // 将认证状态存入SpringSecurity上下文
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+    }
+
+    private void outResponse(HttpServletResponse response, int responseCode, String responseMsg, Object responseData) throws IOException {
+        ResponseStatusVO statusVO = new ResponseStatusVO();
+        response.setContentType(ContentTypeEnum.JSON.getValue());
+        PrintWriter writer = response.getWriter();
+        statusVO.errorStatus(responseCode, responseMsg, responseData);
+        writer.write(JSON.toJSONString(statusVO));
     }
 
     @Autowired
