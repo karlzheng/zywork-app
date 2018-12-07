@@ -30,8 +30,9 @@ public class MyAuthenticationSuccessHandler extends SimpleUrlAuthenticationSucce
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Autowired
     private JwtUtils jwtUtils;
+
+    private JwtTokenRedisUtils jwtTokenRedisUtils;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -40,8 +41,19 @@ public class MyAuthenticationSuccessHandler extends SimpleUrlAuthenticationSucce
         response.setContentType(ContentTypeEnum.JSON.getValue());
         JwtUser jwtUser = (JwtUser) authentication.getPrincipal();
         String token = jwtUtils.generateToken(jwtUser);
+        jwtTokenRedisUtils.storeToken(jwtUser.getUserId() + "", token);
         ResponseStatusVO statusVO = new ResponseStatusVO();
         statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "用户认证成功", token);
         response.getWriter().write(JSON.toJSONString(statusVO));
+    }
+
+    @Autowired
+    public void setJwtUtils(JwtUtils jwtUtils) {
+        this.jwtUtils = jwtUtils;
+    }
+
+    @Autowired
+    public void setJwtTokenRedisUtils(JwtTokenRedisUtils jwtTokenRedisUtils) {
+        this.jwtTokenRedisUtils = jwtTokenRedisUtils;
     }
 }

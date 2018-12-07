@@ -62,13 +62,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/");
+        web.ignoring().antMatchers("/wx-auth/**");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/wx-auth/**").permitAll()
+                .anyRequest()
+                .authenticated()
                 .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
                     @Override
                     public <O extends FilterSecurityInterceptor> O postProcess(O o) {
@@ -87,7 +89,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(myAuthenticationSuccessHandler)
                 .failureHandler(myAuthenticationFailureHandler)
                 .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .logout()
                 .permitAll()

@@ -45,12 +45,21 @@ mybatis:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   type-aliases-package: top.zywork.dos
   mapper-locations: classpath:/mapper/*Mapper.xml
+#自定义jwt配置信息
 jwt:
+  #header名称
   header: Authorization
+  #jwt token前缀
   header-prefix: "Bearer "
+  #密钥
   secret: w-oasiswgs123456
   access-token:
-    expiration: 604800
+    #token失效时间，单位为s
+    expiration: 31536000
+    #token在redis中的失效时间，单位为s
+    redis-expiration: 604800
+#自定义微信配置信息
 weixin:
   cookie:
+    #cookie有效期，单位为s
     expiration: 604800

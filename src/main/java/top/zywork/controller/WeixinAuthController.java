@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.zywork.common.WebUtils;
 import top.zywork.enums.ResponseStatusEnum;
+import top.zywork.security.JwtTokenRedisUtils;
 import top.zywork.security.JwtUser;
 import top.zywork.security.JwtUtils;
 import top.zywork.vo.ResponseStatusVO;
@@ -41,6 +42,8 @@ public class WeixinAuthController {
 
     private UserDetailsService jwtUserDetailsService;
 
+    private JwtTokenRedisUtils jwtTokenRedisUtils;
+
     /**
      * <p>从cookies中读取用户信息，如果没有用户信息，则需要微信授权登录，登录成功后，把用户信息cookie写出到客户端。</p>
      * <p>如果cookies中有用户信息，则不需要授权登录。</p>
@@ -60,11 +63,12 @@ public class WeixinAuthController {
                     // TODO 判断用户是否已经保存，如未保存，则保存微信用户信息到数据库
                     // 写出用户cookie到客户端
                     Cookie cookie = new Cookie(WeixinConstants.WEIXIN_GZH_USER_COOKIE_NAME, weixinUser.getOpenid());
-                    cookie.setMaxAge(cookieExpiration / 1000);
+                    cookie.setMaxAge(cookieExpiration);
                     response.addCookie(cookie);
                     // 根据openid获取JwtUser，生成jwt token并返回客户端
                     JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(weixinUser.getOpenid());
                     String token = jwtUtils.generateToken(jwtUser);
+                    jwtTokenRedisUtils.storeToken(jwtUser.getUserId() + "", token);
                     statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "微信用户授权登录成功，并返回Token", token);
                 } else {
                     statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "微信授权登录失败，请检查参数", null);
@@ -99,5 +103,10 @@ public class WeixinAuthController {
     @Autowired
     public void setJwtUserDetailsService(UserDetailsService jwtUserDetailsService) {
         this.jwtUserDetailsService = jwtUserDetailsService;
+    }
+
+    @Autowired
+    public void setJwtTokenRedisUtils(JwtTokenRedisUtils jwtTokenRedisUtils) {
+        this.jwtTokenRedisUtils = jwtTokenRedisUtils;
     }
 }
