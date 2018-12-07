@@ -28,11 +28,11 @@ public class MyInvocationSecurityMetadataSource implements FilterInvocationSecur
         List<ConfigAttribute> configAttributes = new ArrayList<>();
         configAttributes.add(new SecurityConfig("admin"));
         configAttributes.add(new SecurityConfig("user"));
-        rolePermissionMap.put("/user/edit", configAttributes);
-        rolePermissionMap.put("/user/remove/*", configAttributes);
+        rolePermissionMap.put("/test/edit", configAttributes);
+        rolePermissionMap.put("/test/remove/*", configAttributes);
         List<ConfigAttribute> configAttributes1 = new ArrayList<>();
         configAttributes1.add(new SecurityConfig("user"));
-        rolePermissionMap.put("/user/add", configAttributes1);
+        rolePermissionMap.put("/test/add", configAttributes1);
     }
 
     @Override
