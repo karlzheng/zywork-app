@@ -76,7 +76,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     private void storeAuthentication(HttpServletRequest request, JwtClaims jwtClaims) {
-        JwtUser jwtUser = jwtUtils.getTokenJwtUser(jwtClaims);
+        JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(jwtClaims.getUsername());
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(jwtUser, null, jwtUser.getAuthorities());
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         // 将认证状态存入SpringSecurity上下文
