@@ -27,7 +27,7 @@ public class AuthController {
      * login处理
      */
     @PostMapping("login")
-    public void login() {}
+    public void login(String username, String password) {}
 
     /**
      * 未认证处理
