@@ -1,12 +1,12 @@
 package top.zywork.security;
 
-import org.springframework.security.core.GrantedAuthority;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import top.zywork.dao.SpringSecurityDAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,17 +21,25 @@ import java.util.List;
  */
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
+
+    private SpringSecurityDAO springSecurityDAO;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // 根据用户名去查找用户和用户对应的角色
-        List<String> roles = new ArrayList<>();
-        roles.add("admin");
-        List<GrantedAuthority> authorities = new ArrayList<>();
+        UserDO userDO = springSecurityDAO.loadUserByUsername(username);
+        List<String> roles = springSecurityDAO.loadRolesByUsername(username);
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
         for (String role : roles) {
             authorities.add(new SimpleGrantedAuthority(role));
         }
-        // 这里的authorityes就是用户对应的角色
-        // access list即为用户可访问的url
-        return new JwtUser(10001, username, new BCryptPasswordEncoder().encode("123456"), authorities);
+        // authorities就是用户对应的角色, access list即为用户可访问的url
+        return userDO == null ? new JwtUser(0L, null, null, null)
+                : new JwtUser(userDO.getId(), username, userDO.getPassword(), userDO.getIsActive() == 0, authorities);
+    }
+
+    @Autowired
+    public void setSpringSecurityDAO(SpringSecurityDAO springSecurityDAO) {
+        this.springSecurityDAO = springSecurityDAO;
     }
 }

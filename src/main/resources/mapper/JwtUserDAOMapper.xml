@@ -1,0 +1,47 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.zywork.dao.SpringSecurityDAO">
+
+    <select id="loadUserByUsername" parameterType="string" resultType="top.zywork.security.UserDO">
+        select t_user.id as id,
+        t_user.password as password,
+        t_user.is_active as isActive
+        from t_user
+        where t_user.phone = #{username}
+        or t_user.email = #{username}
+        union
+        select t_user.id as id,
+        t_user.password as password,
+        t_user.is_active as isActive
+        from t_user, t_user_social
+        where t_user.id = t_user_social.user_id
+        and t_user_social.openid = #{username}
+    </select>
+
+    <select id="loadRolesByUsername" parameterType="string" resultType="string">
+        select t_role.title from t_role, t_user_role
+	    where t_role.id = t_user_role.role_id
+	    and t_user_role.user_id =
+	    (
+	    select t_user.id as id
+        from t_user
+        where t_user.phone = #{username}
+        or t_user.email = #{username}
+        union
+        select t_user.id as id
+        from t_user, t_user_social
+        where t_user.id = t_user_social.user_id
+        and t_user_social.openid = #{username}
+	    )
+    </select>
+
+    <select id="listAllRolePermission" resultType="top.zywork.security.RolePermissionDO">
+        select t_role.title as role, t_permission.permission as permission
+        from t_role, t_permission, t_role_permission
+        where t_role.id = t_role_permission.role_id
+        and t_permission.id = t_role_permission.permission_id
+    </select>
+
+</mapper>

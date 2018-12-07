@@ -18,12 +18,12 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class JwtTokenRedisUtils {
 
-    private static final String TOKEN_PREFIX = "jwt_token::";
+    private static final String TOKEN_PREFIX = "jwt_token::user";
 
     @Value("${jwt.access-token.redis-expiration}")
     private Long accessTokenExpiration;
 
-    private RedisTemplate<String, String> redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
     /**
      * 存储token
@@ -49,7 +49,7 @@ public class JwtTokenRedisUtils {
      * @return
      */
     public String getToken(String userId) {
-        return redisTemplate.opsForValue().get(TOKEN_PREFIX + userId);
+        return (String) redisTemplate.opsForValue().get(TOKEN_PREFIX + userId);
     }
 
     /**
@@ -69,7 +69,7 @@ public class JwtTokenRedisUtils {
     }
 
     @Autowired
-    public void setRedisTemplate(RedisTemplate<String, String> redisTemplate) {
+    public void setRedisTemplate(RedisTemplate<String, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 }

@@ -1,6 +1,7 @@
 package top.zywork.security;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -18,18 +19,22 @@ public class JwtUser implements UserDetails {
     private Long userId;
     private String password;
     private final String username;
-    private final Collection<? extends GrantedAuthority> authorities;
+    private final Collection<SimpleGrantedAuthority> authorities;
     private final boolean accountNonExpired;
     private final boolean accountNonLocked;
     private final boolean credentialsNonExpired;
     private final boolean enabled;
 
 
-    public JwtUser(long userId, String username, String password, Collection<? extends GrantedAuthority> authorities) {
+    public JwtUser(long userId, String username, String password, Collection<SimpleGrantedAuthority> authorities) {
         this(userId, username, password, true, true, true, true, authorities);
     }
 
-    public JwtUser(long userId, String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
+    public JwtUser(long userId, String username, String password, boolean enabled, Collection<SimpleGrantedAuthority> authorities) {
+        this(userId, username, password, enabled, true, true, true, authorities);
+    }
+
+    public JwtUser(long userId, String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<SimpleGrantedAuthority> authorities) {
         this.userId = userId;
         this.username = username;
         this.password = password;
@@ -41,7 +46,7 @@ public class JwtUser implements UserDetails {
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public Collection<SimpleGrantedAuthority> getAuthorities() {
         return authorities;
     }
 

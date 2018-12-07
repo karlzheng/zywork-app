@@ -3,7 +3,10 @@ package top.zywork.security;
 import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 import top.zywork.enums.ContentTypeEnum;
@@ -35,8 +38,15 @@ public class MyAuthenticationFailureHandler extends SimpleUrlAuthenticationFailu
         logger.info("用户认证失败");
         response.setContentType(ContentTypeEnum.JSON.getValue());
         ResponseStatusVO statusVO = new ResponseStatusVO();
-        statusVO.errorStatus(ResponseStatusEnum.AUTHENTICATION_FAILURE.getCode(),
-                ResponseStatusEnum.AUTHENTICATION_FAILURE.getMessage(), null);
+        String msg = ResponseStatusEnum.AUTHENTICATION_FAILURE.getMessage();
+        if (exception instanceof DisabledException) {
+            msg = "用户未启用";
+        } else if (exception instanceof UsernameNotFoundException) {
+            msg = "用户不存在";
+        } else if (exception instanceof BadCredentialsException) {
+            msg = "错误的凭证，用户名或密码错误";
+        }
+        statusVO.errorStatus(ResponseStatusEnum.AUTHENTICATION_FAILURE.getCode(), msg, null);
         response.getWriter().write(JSON.toJSONString(statusVO));
     }
 }

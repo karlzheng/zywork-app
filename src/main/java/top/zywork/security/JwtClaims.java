@@ -1,6 +1,7 @@
 package top.zywork.security;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Collection;
 import java.util.Date;
@@ -17,7 +18,7 @@ public class JwtClaims {
 
     private Long userId;
     private String username;
-    private Collection<? extends GrantedAuthority> authorities;
+    private Collection<SimpleGrantedAuthority> authorities;
     private Boolean enabled;
     private Boolean nonLocked;
     private Boolean nonExpired;
@@ -40,11 +41,11 @@ public class JwtClaims {
         this.username = username;
     }
 
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public Collection<SimpleGrantedAuthority> getAuthorities() {
         return authorities;
     }
 
-    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+    public void setAuthorities(Collection<SimpleGrantedAuthority> authorities) {
         this.authorities = authorities;
     }
 
