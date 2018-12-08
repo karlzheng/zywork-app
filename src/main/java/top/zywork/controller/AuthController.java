@@ -27,7 +27,7 @@ import top.zywork.vo.ResponseStatusVO;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private Logger logger = LoggerFactory.getLogger(AuthController.class);
+    private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     private JwtTokenRedisUtils jwtTokenRedisUtils;
 

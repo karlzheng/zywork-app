@@ -28,7 +28,7 @@ import java.io.IOException;
 @Component
 public class MyAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
-    private Logger logger = LoggerFactory.getLogger(getClass());
+    private static final Logger logger = LoggerFactory.getLogger(MyAuthenticationSuccessHandler.class);
 
     private JwtUtils jwtUtils;
 

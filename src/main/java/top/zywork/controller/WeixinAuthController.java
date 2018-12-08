@@ -33,7 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/wx-auth")
 public class WeixinAuthController {
 
-    private Logger logger = LoggerFactory.getLogger(WeixinAuthController.class);
+    private static final Logger logger = LoggerFactory.getLogger(WeixinAuthController.class);
 
     @Value("${weixin.cookie.expiration}")
     private Integer cookieExpiration;

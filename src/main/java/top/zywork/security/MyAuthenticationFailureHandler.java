@@ -30,7 +30,7 @@ import java.io.IOException;
 @Component
 public class MyAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
-    private Logger logger = LoggerFactory.getLogger(getClass());
+    private static final Logger logger = LoggerFactory.getLogger(MyAuthenticationFailureHandler.class);
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,

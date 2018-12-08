@@ -10,7 +10,7 @@ import top.zywork.security.JwtUser;
 @RequestMapping("/test")
 public class TestController {
 
-    private Logger logger = LoggerFactory.getLogger(TestController.class);
+    private static final Logger logger = LoggerFactory.getLogger(TestController.class);
 
     @GetMapping("add")
     public String add() {
