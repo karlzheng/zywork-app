@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class SmsCodeRedisUtils {
 
-    private static final String SMS_CODE_PREFIX = "sms_code::";
+    public static final String SMS_CODE_LOGIN_PREFIX = "sms_code_login::";
 
     @Value("${verify.sms-code.expiration}")
     private Long smsCodeExpiration;
@@ -27,29 +27,29 @@ public class SmsCodeRedisUtils {
 
     /**
      * 存储验证码
-     * @param sessionId 用于标识哪个用户
+     * @param phone
      * @param code
      */
-    public void storeCode(String sessionId, String code) {
-        redisTemplate.opsForValue().set(SMS_CODE_PREFIX + sessionId, code, smsCodeExpiration, TimeUnit.SECONDS);
+    public void storeCode(String prefix, String phone, String code) {
+        redisTemplate.opsForValue().set(prefix + phone, code, smsCodeExpiration, TimeUnit.SECONDS);
     }
 
     /**
      * 判断验证码是否存在
-     * @param sessionId 用于标识哪个用户
+     * @param phone
      * @return
      */
-    public boolean existsCode(String sessionId) {
-        return redisTemplate.hasKey(SMS_CODE_PREFIX + sessionId);
+    public boolean existsCode(String prefix, String phone) {
+        return redisTemplate.hasKey(prefix + phone);
     }
 
     /**
      * 获取验证码
-     * @param sessionId 用于标识哪个用户
+     * @param phone
      * @return
      */
-    public String getCode(String sessionId) {
-        return (String) redisTemplate.opsForValue().get(SMS_CODE_PREFIX + sessionId);
+    public String getCode(String prefix, String phone) {
+        return (String) redisTemplate.opsForValue().get(prefix + phone);
     }
 
     @Autowired

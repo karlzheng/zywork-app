@@ -14,17 +14,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import top.zywork.common.RegexUtils;
-import top.zywork.common.UUIDUtils;
-import top.zywork.common.VerifyCodeUtils;
-import top.zywork.common.WebUtils;
+import top.zywork.common.*;
 import top.zywork.enums.ContentTypeEnum;
 import top.zywork.enums.MIMETypeEnum;
+import top.zywork.enums.RandomCodeEnum;
 import top.zywork.enums.ResponseStatusEnum;
-import top.zywork.security.AliyunSmsUtils;
-import top.zywork.security.JwtTokenRedisUtils;
-import top.zywork.security.JwtUser;
-import top.zywork.security.VerifyCodeRedisUtils;
+import top.zywork.security.*;
 import top.zywork.vo.ResponseStatusVO;
 
 import javax.imageio.ImageIO;
@@ -51,9 +46,14 @@ public class AuthController {
     @Value("${verify.code.cookie-name}")
     private String verifyCodeCookieName;
 
+    @Value("${verify.sms-code.expiration}")
+    private Integer smsCodeExpiration;
+
     private JwtTokenRedisUtils jwtTokenRedisUtils;
 
     private VerifyCodeRedisUtils verifyCodeRedisUtils;
+
+    private SmsCodeRedisUtils smsCodeRedisUtils;
 
     /**
      * login处理
@@ -122,9 +122,12 @@ public class AuthController {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         if (!StringUtils.isEmpty(phone) && RegexUtils.match(RegexUtils.REGEX_PHONE, phone)) {
             try {
+                // 此code用于发送短信
+                String code = RandomUtils.randomCode(RandomCodeEnum.NUMBER_CODE, 6);
                 SendSmsResponse smsResponse = AliyunSmsUtils.sendSms(phone, "signName", "templateCode", "templateParam", null);
                 if(smsResponse.getCode() != null && smsResponse.getCode().equals("OK")) {
-                    statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "短信发送成功", null);
+                    smsCodeRedisUtils.storeCode(SmsCodeRedisUtils.SMS_CODE_LOGIN_PREFIX, phone, code);
+                    statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "短信发送成功", smsCodeExpiration);
                 } else {
                     logger.error("短信发送失败：{}", smsResponse.getMessage());
                     statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "短信发送失败", null);
@@ -147,5 +150,10 @@ public class AuthController {
     @Autowired
     public void setVerifyCodeRedisUtils(VerifyCodeRedisUtils verifyCodeRedisUtils) {
         this.verifyCodeRedisUtils = verifyCodeRedisUtils;
+    }
+
+    @Autowired
+    public void setSmsCodeRedisUtils(SmsCodeRedisUtils smsCodeRedisUtils) {
+        this.smsCodeRedisUtils = smsCodeRedisUtils;
     }
 }
