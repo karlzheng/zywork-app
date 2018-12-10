@@ -2,17 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d55c7d3e-ec5e-4423-9c06-7026916396ba" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/top/zywork/filter/VerifyCodeFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/top/zywork/security/SmsCodeRedisUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/top/zywork/security/VerifyCodeRedisUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_wxpay_wxpay_sdk_3_0_9.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_simple_1_7_25.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/configuration/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/configuration/WebSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/controller/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/controller/TestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/controller/TestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/controller/WeixinAuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/controller/WeixinAuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/weixin/WeixinConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/weixin/WeixinConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application-prod.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-prod.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/wxpay/sdk/IWXPayDomain.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/wxpay/sdk/WXPay.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/wxpay/sdk/WXPayConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/wxpay/sdk/WXPayConstants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/wxpay/sdk/WXPayReport.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/wxpay/sdk/WXPayRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/wxpay/sdk/WXPayUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/wxpay/sdk/WXPayXmlUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/zywork-app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/zywork-app.iml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -84,23 +86,23 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="class" value="101" />
-          <entry key="java" value="302" />
+          <entry key="java" value="303" />
           <entry key="log" value="1" />
           <entry key="md" value="2" />
           <entry key="sql" value="6" />
-          <entry key="xml" value="11" />
+          <entry key="xml" value="12" />
           <entry key="yml" value="21" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CLASS" value="101" />
-          <entry key="JAVA" value="302" />
+          <entry key="JAVA" value="303" />
           <entry key="Markdown" value="2" />
           <entry key="PLAIN_TEXT" value="1" />
           <entry key="SQL" value="5" />
           <entry key="Scratch" value="1" />
-          <entry key="XML" value="11" />
+          <entry key="XML" value="12" />
           <entry key="YAML" value="21" />
         </counts>
       </usages-collector>
@@ -109,7 +111,7 @@
           <entry key="class" value="1" />
           <entry key="dummy" value="44" />
           <entry key="java" value="17702" />
-          <entry key="xml" value="627" />
+          <entry key="xml" value="731" />
           <entry key="yml" value="851" />
         </counts>
       </usages-collector>
@@ -119,7 +121,7 @@
           <entry key="JAVA" value="17702" />
           <entry key="PLAIN_TEXT" value="44" />
           <entry key="SQL" value="37" />
-          <entry key="XML" value="590" />
+          <entry key="XML" value="694" />
           <entry key="YAML" value="851" />
         </counts>
       </usages-collector>
@@ -175,7 +177,6 @@
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/controller/WeixinController.java" />
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/weixin/CommonConstants.java" />
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/weixin/WeixinUtils.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/configuration/Swagger2Config.java" />
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/controller/UserController.java" />
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/filter/VerifyCodeAuthenticationFilter.java" />
@@ -207,6 +208,7 @@
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/configuration/WebSecurityConfig.java" />
         <option value="$PROJECT_DIR$/src/main/resources/application-dev.yml" />
         <option value="$PROJECT_DIR$/src/main/resources/application-prod.yml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
   </component>
@@ -277,11 +279,6 @@
             <path>
               <item name="zywork-app" type="b2602c69:ProjectViewProjectNode" />
               <item name="zywork-app" type="462c0819:PsiDirectoryNode" />
-              <item name="documents" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zywork-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zywork-app" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -304,42 +301,6 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="zywork" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zywork-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zywork-app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="configuration" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zywork-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zywork-app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zywork-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zywork-app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="filter" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zywork-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zywork-app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="security" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="zywork-app" type="b2602c69:ProjectViewProjectNode" />
@@ -349,21 +310,6 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="zywork" type="462c0819:PsiDirectoryNode" />
               <item name="weixin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zywork-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zywork-app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zywork-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zywork-app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="mapper" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -382,7 +328,7 @@
     <property name="RequestMappingsPanelWidth2" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544430292600" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544434164846" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
@@ -470,7 +416,7 @@
       <option name="presentableId" value="Default" />
       <updated>1540539764410</updated>
       <workItem from="1540539766701" duration="16166000" />
-      <workItem from="1543827698249" duration="125025000" />
+      <workItem from="1543827698249" duration="127799000" />
     </task>
     <servers />
   </component>
@@ -507,13 +453,13 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="141191000" />
+    <option name="totallyTimeSpent" value="143965000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="721" extended-state="6" />
     <layout>
       <window_info id="Web" order="0" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.2536349" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.2536349" />
       <window_info id="Structure" order="2" weight="0.25" />
       <window_info id="Capture Tool" order="3" />
       <window_info id="Image Layers" order="4" />
@@ -525,7 +471,7 @@
       <window_info anchor="bottom" id="Statistic" order="2" />
       <window_info anchor="bottom" id="Message" order="3" />
       <window_info anchor="bottom" id="Find" order="4" weight="0.32991204" />
-      <window_info anchor="bottom" id="Run" order="5" weight="0.7710652" />
+      <window_info active="true" anchor="bottom" id="Run" order="5" visible="true" weight="0.7710652" />
       <window_info anchor="bottom" id="Debug" order="6" weight="0.3990461" />
       <window_info anchor="bottom" id="Cvs" order="7" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="8" weight="0.4" />
@@ -731,16 +677,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/weixin/WeixinUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-969">
-          <caret line="28" column="13" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/handler/GlobalExceptionHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -866,13 +802,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="32">
-          <caret line="84" column="50" selection-start-line="84" selection-start-column="50" selection-end-line="84" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/weixin/WeixinConstants.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -981,6 +910,20 @@
             <element signature="e#456#457#0" expanded="true" />
             <element signature="e#484#485#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="100" lean-forward="true" selection-start-line="100" selection-end-line="100" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/weixin/WeixinUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="16" column="34" selection-start-line="16" selection-start-column="34" selection-end-line="16" selection-end-column="34" />
         </state>
       </provider>
     </entry>
