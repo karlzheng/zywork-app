@@ -40,7 +40,7 @@ public class VerifyCodeFilter extends OncePerRequestFilter {
                     return;
                 }
             } else {
-                outResponse(response, ResponseStatusEnum.AUTHENTICATION_ERROR.getCode(), "验证码不存在，需要刷新", null);
+                outResponse(response, ResponseStatusEnum.AUTHENTICATION_ERROR.getCode(), "验证码不存在，请刷新 ", null);
                 return;
             }
         }
