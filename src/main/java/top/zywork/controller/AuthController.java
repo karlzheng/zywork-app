@@ -1,5 +1,8 @@
 package top.zywork.controller;
 
+import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
+import com.aliyuncs.exceptions.ClientException;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +14,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import top.zywork.common.RegexUtils;
 import top.zywork.common.UUIDUtils;
 import top.zywork.common.VerifyCodeUtils;
 import top.zywork.common.WebUtils;
 import top.zywork.enums.ContentTypeEnum;
 import top.zywork.enums.MIMETypeEnum;
 import top.zywork.enums.ResponseStatusEnum;
+import top.zywork.security.AliyunSmsUtils;
 import top.zywork.security.JwtTokenRedisUtils;
 import top.zywork.security.JwtUser;
 import top.zywork.security.VerifyCodeRedisUtils;
@@ -113,8 +118,25 @@ public class AuthController {
      * @param phone
      */
     @PostMapping("sms-code")
-    public void sendSmsCode(String phone) {
-
+    public ResponseStatusVO sendSmsCode(String phone) {
+        ResponseStatusVO statusVO = new ResponseStatusVO();
+        if (!StringUtils.isEmpty(phone) && RegexUtils.match(RegexUtils.REGEX_PHONE, phone)) {
+            try {
+                SendSmsResponse smsResponse = AliyunSmsUtils.sendSms(phone, "signName", "templateCode", "templateParam", null);
+                if(smsResponse.getCode() != null && smsResponse.getCode().equals("OK")) {
+                    statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "短信发送成功", null);
+                } else {
+                    logger.error("短信发送失败：{}", smsResponse.getMessage());
+                    statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "短信发送失败", null);
+                }
+            } catch (ClientException e) {
+                logger.error("短信发送失败：{}", e.getMessage());
+                statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "短信发送失败", null);
+            }
+        } else {
+            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "错误的手机号", null);
+        }
+        return statusVO;
     }
 
     @Autowired
