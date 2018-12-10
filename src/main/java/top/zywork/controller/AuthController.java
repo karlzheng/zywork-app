@@ -19,7 +19,11 @@ import top.zywork.enums.ContentTypeEnum;
 import top.zywork.enums.MIMETypeEnum;
 import top.zywork.enums.RandomCodeEnum;
 import top.zywork.enums.ResponseStatusEnum;
-import top.zywork.security.*;
+import top.zywork.security.JwtTokenRedisUtils;
+import top.zywork.security.JwtUser;
+import top.zywork.security.VerifyCodeRedisUtils;
+import top.zywork.security.mobile.AliyunSmsUtils;
+import top.zywork.security.mobile.SmsCodeRedisUtils;
 import top.zywork.vo.ResponseStatusVO;
 
 import javax.imageio.ImageIO;
@@ -56,10 +60,21 @@ public class AuthController {
     private SmsCodeRedisUtils smsCodeRedisUtils;
 
     /**
-     * login处理
+     * 普通账号（手机号，邮箱），密码登录处理，可以配置是否开启验证码功能
+     * @param username
+     * @param password
+     * @param verifyCode
      */
     @PostMapping("login")
     public void login(String username, String password, String verifyCode) {}
+
+    /**
+     * 手机验证码登录处理
+     * @param phone
+     * @param smsCode
+     */
+    @PostMapping("mobile")
+    public void mobile(String phone, String smsCode) {}
 
     /**
      * 未认证处理

@@ -14,8 +14,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import top.zywork.filter.JwtAuthenticationFilter;
-import top.zywork.filter.VerifyCodeFilter;
+import top.zywork.filter.SmsCodeAuthenticationFilter;
+import top.zywork.filter.VerifyCodeAuthenticationFilter;
 import top.zywork.security.*;
+import top.zywork.security.mobile.SmsCodeAuthenticationProvider;
 
 /**
  * 创建于2018-10-26<br/>
@@ -60,7 +62,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Autowired
-    private VerifyCodeFilter verifyCodeFilter;
+    private VerifyCodeAuthenticationFilter verifyCodeAuthenticationFilter;
+
+    // @Autowired
+    // private SmsCodeAuthenticationFilter smsCodeAuthenticationFilter;
+
+    @Autowired
+    private SmsCodeAuthenticationProvider smsCodeAuthenticationProvider;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -75,12 +83,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // 不能直接使用@Autowired注解，否则authenticationManager未设置会报错
+        SmsCodeAuthenticationFilter smsCodeAuthenticationFilter = new SmsCodeAuthenticationFilter();
+        smsCodeAuthenticationFilter.setAuthenticationManager(super.authenticationManagerBean());
+        smsCodeAuthenticationFilter.setAuthenticationFailureHandler(myAuthenticationFailureHandler);
+        smsCodeAuthenticationFilter.setAuthenticationSuccessHandler(myAuthenticationSuccessHandler);
+        http.authenticationProvider(smsCodeAuthenticationProvider);
         if (enableVerifyCode) {
-            http.addFilterBefore(verifyCodeFilter, UsernamePasswordAuthenticationFilter.class)
-                    .addFilterBefore(jwtAuthenticationFilter, VerifyCodeFilter.class);
+            http.addFilterBefore(verifyCodeAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                    .addFilterBefore(jwtAuthenticationFilter, VerifyCodeAuthenticationFilter.class);
         } else {
             http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         }
+        http.addFilterAfter(smsCodeAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         http.authorizeRequests()
                 .anyRequest()
                 .authenticated()

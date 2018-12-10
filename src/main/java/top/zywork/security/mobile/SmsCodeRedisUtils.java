@@ -1,4 +1,4 @@
-package top.zywork.security;
+package top.zywork.security.mobile;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

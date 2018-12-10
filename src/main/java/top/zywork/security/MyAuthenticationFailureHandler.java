@@ -11,6 +11,8 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationFa
 import org.springframework.stereotype.Component;
 import top.zywork.enums.ContentTypeEnum;
 import top.zywork.enums.ResponseStatusEnum;
+import top.zywork.security.mobile.SmsCodeErrorException;
+import top.zywork.security.mobile.SmsCodeExpirationException;
 import top.zywork.vo.ResponseStatusVO;
 
 import javax.servlet.ServletException;
@@ -45,6 +47,10 @@ public class MyAuthenticationFailureHandler extends SimpleUrlAuthenticationFailu
             msg = "用户不存在";
         } else if (exception instanceof BadCredentialsException) {
             msg = "错误的凭证，用户名或密码错误";
+        } else if (exception instanceof SmsCodeExpirationException) {
+            msg = exception.getMessage();
+        } else if (exception instanceof SmsCodeErrorException) {
+            msg = exception.getMessage();
         }
         statusVO.errorStatus(ResponseStatusEnum.AUTHENTICATION_FAILURE.getCode(), msg, null);
         response.getWriter().write(JSON.toJSONString(statusVO));

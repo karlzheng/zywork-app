@@ -1,4 +1,4 @@
-package top.zywork.security;
+package top.zywork.security.mobile;
 
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;

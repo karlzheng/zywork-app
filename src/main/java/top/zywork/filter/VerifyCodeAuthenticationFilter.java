@@ -20,8 +20,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ * 验证码认证过滤器<br/>
+ *
+ * 创建于2018-12-10<br/>
+ *
+ * @author 王振宇
+ * @version 1.0
+ */
 @Component
-public class VerifyCodeFilter extends OncePerRequestFilter {
+public class VerifyCodeAuthenticationFilter extends OncePerRequestFilter {
 
     @Value("${verify.code.cookie-name}")
     private String verifyCodeCookieName;
