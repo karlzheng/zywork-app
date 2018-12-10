@@ -12,12 +12,12 @@ public class TestController {
 
     private static final Logger logger = LoggerFactory.getLogger(TestController.class);
 
-    @GetMapping("add")
+    @PostMapping("add")
     public String add() {
         return "add";
     }
 
-    @GetMapping("edit")
+    @PostMapping("edit")
     public String edit() {
         JwtUser jwtUser = (JwtUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         logger.info("userId: {}, userName: {}", jwtUser.getUserId(), jwtUser.getUsername());

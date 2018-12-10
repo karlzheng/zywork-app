@@ -63,3 +63,17 @@ weixin:
   cookie:
     #cookie有效期，单位为s
     expiration: 604800
+    #公众号登录后的cookie
+    gzh-cookie-name: "zywork_weixin_gzh_openid"
+    #小程序登录后的cookie
+    xcx-cookie-name: "zywork_weixin_xcx_openid"
+verify:
+  code:
+    #是否启用验证码功能
+    enable: true
+    #验证码有效期
+    expiration: 600
+    cookie-name: "zywork_verify_code"
+  sms-code:
+    #手机验证码有效期
+    expiration: 300

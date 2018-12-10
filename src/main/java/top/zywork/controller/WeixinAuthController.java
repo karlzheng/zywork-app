@@ -38,6 +38,9 @@ public class WeixinAuthController {
     @Value("${weixin.cookie.expiration}")
     private Integer cookieExpiration;
 
+    @Value("${weixin.cookie.gzh-cookie-name}")
+    private String gzhCookieName;
+
     private JwtUtils jwtUtils;
 
     private UserDetailsService jwtUserDetailsService;
@@ -53,7 +56,7 @@ public class WeixinAuthController {
     @GetMapping("gzh")
     public ResponseStatusVO gzhAuth(HttpServletRequest request, HttpServletResponse response,  String code) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
-        String openid = WebUtils.getCookieValue(request, WeixinConstants.WEIXIN_GZH_USER_COOKIE_NAME);
+        String openid = WebUtils.getCookieValue(request, gzhCookieName);
         if (StringUtils.isEmpty(openid)) {
             if (StringUtils.isNotEmpty(code)) {
                 // 没有授权登录，则开始微信授权登录并写出cookie到客户端，返回jwt token
@@ -62,7 +65,7 @@ public class WeixinAuthController {
                 if (weixinUser != null) {
                     // TODO 判断用户是否已经保存，如未保存，则保存微信用户信息到数据库
                     // 写出用户cookie到客户端
-                    writeCookie(response, weixinUser.getOpenid());
+                    writeCookie(response, gzhCookieName, weixinUser.getOpenid());
                     // 根据openid获取JwtUser，生成jwt token并返回客户端
                     JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(weixinUser.getOpenid());
                     String token = jwtUtils.generateToken(jwtUser);
@@ -93,8 +96,8 @@ public class WeixinAuthController {
         // TODO 判断用户是否已经保存，如未保存，则保存微信用户信息到数据库
     }
 
-    private void writeCookie(HttpServletResponse response, String openid) {
-        Cookie cookie = new Cookie(WeixinConstants.WEIXIN_GZH_USER_COOKIE_NAME, openid);
+    private void writeCookie(HttpServletResponse response, String name, String openid) {
+        Cookie cookie = new Cookie(name, openid);
         cookie.setMaxAge(cookieExpiration);
         response.addCookie(cookie);
     }
