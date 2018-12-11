@@ -136,20 +136,24 @@ public class AuthController {
     public ResponseStatusVO sendSmsCode(String phone) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         if (!StringUtils.isEmpty(phone) && RegexUtils.match(RegexUtils.REGEX_PHONE, phone)) {
-            try {
+            if (smsCodeRedisUtils.existsCode(SmsCodeRedisUtils.SMS_CODE_LOGIN_PREFIX, phone)) {
+                statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "已获取过手机验证码，请稍候再获取", null);
+            } else {
                 // 此code用于发送短信
                 String code = RandomUtils.randomCode(RandomCodeEnum.NUMBER_CODE, 6);
-                SendSmsResponse smsResponse = AliyunSmsUtils.sendSms(phone, "signName", "templateCode", "templateParam", null);
-                if(smsResponse.getCode() != null && smsResponse.getCode().equals("OK")) {
-                    smsCodeRedisUtils.storeCode(SmsCodeRedisUtils.SMS_CODE_LOGIN_PREFIX, phone, code);
-                    statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "短信发送成功", smsCodeExpiration);
-                } else {
-                    logger.error("短信发送失败：{}", smsResponse.getMessage());
+                try {
+                    SendSmsResponse smsResponse = AliyunSmsUtils.sendSms(phone, "signName", "templateCode", "templateParam", null);
+                    if (smsResponse.getCode() != null && smsResponse.getCode().equals("OK")) {
+                        smsCodeRedisUtils.storeCode(SmsCodeRedisUtils.SMS_CODE_LOGIN_PREFIX, phone, code);
+                        statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "短信发送成功", smsCodeExpiration);
+                    } else {
+                        logger.error("短信发送失败：{}", smsResponse.getMessage());
+                        statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "短信发送失败", null);
+                    }
+                } catch (ClientException e) {
+                    logger.error("短信发送失败：{}", e.getMessage());
                     statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "短信发送失败", null);
                 }
-            } catch (ClientException e) {
-                logger.error("短信发送失败：{}", e.getMessage());
-                statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "短信发送失败", null);
             }
         } else {
             statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "错误的手机号", null);
