@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,6 +59,8 @@ public class AuthController {
     private VerifyCodeRedisUtils verifyCodeRedisUtils;
 
     private SmsCodeRedisUtils smsCodeRedisUtils;
+
+    private UserDetailsService jwtUserDetailsService;
 
     /**
      * 普通账号（手机号，邮箱），密码登录处理，可以配置是否开启验证码功能
@@ -139,20 +142,26 @@ public class AuthController {
             if (smsCodeRedisUtils.existsCode(SmsCodeRedisUtils.SMS_CODE_LOGIN_PREFIX, phone)) {
                 statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "已获取过手机验证码，请稍候再获取", null);
             } else {
-                // 此code用于发送短信
-                String code = RandomUtils.randomCode(RandomCodeEnum.NUMBER_CODE, 6);
-                try {
-                    SendSmsResponse smsResponse = AliyunSmsUtils.sendSms(phone, "signName", "templateCode", "templateParam", null);
-                    if (smsResponse.getCode() != null && smsResponse.getCode().equals("OK")) {
-                        smsCodeRedisUtils.storeCode(SmsCodeRedisUtils.SMS_CODE_LOGIN_PREFIX, phone, code);
-                        statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "短信发送成功", smsCodeExpiration);
-                    } else {
-                        logger.error("短信发送失败：{}", smsResponse.getMessage());
+                JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(phone);
+                if (StringUtils.isEmpty(jwtUser.getUsername())) {
+                    // 此用户还未注册
+                    statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "手机号还未注册用户", null);
+                } else {
+                    // 是平台用户，准备发送手机验证码，此code用于发送短信
+                    String code = RandomUtils.randomCode(RandomCodeEnum.NUMBER_CODE, 6);
+                    try {
+                        SendSmsResponse smsResponse = AliyunSmsUtils.sendSms(phone, "signName", "templateCode", "templateParam", null);
+                        if (smsResponse.getCode() != null && smsResponse.getCode().equals("OK")) {
+                            smsCodeRedisUtils.storeCode(SmsCodeRedisUtils.SMS_CODE_LOGIN_PREFIX, phone, code);
+                            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "短信发送成功", smsCodeExpiration);
+                        } else {
+                            logger.error("短信发送失败：{}", smsResponse.getMessage());
+                            statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "短信发送失败", null);
+                        }
+                    } catch (ClientException e) {
+                        logger.error("短信发送失败：{}", e.getMessage());
                         statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "短信发送失败", null);
                     }
-                } catch (ClientException e) {
-                    logger.error("短信发送失败：{}", e.getMessage());
-                    statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "短信发送失败", null);
                 }
             }
         } else {
@@ -174,5 +183,10 @@ public class AuthController {
     @Autowired
     public void setSmsCodeRedisUtils(SmsCodeRedisUtils smsCodeRedisUtils) {
         this.smsCodeRedisUtils = smsCodeRedisUtils;
+    }
+
+    @Autowired
+    public void setJwtUserDetailsService(UserDetailsService jwtUserDetailsService) {
+        this.jwtUserDetailsService = jwtUserDetailsService;
     }
 }
