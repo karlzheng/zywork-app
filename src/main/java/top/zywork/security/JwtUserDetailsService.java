@@ -28,14 +28,17 @@ public class JwtUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // 根据用户名去查找用户和用户对应的角色
         UserDO userDO = springSecurityDAO.loadUserByUsername(username);
-        List<String> roles = springSecurityDAO.loadRolesByUsername(username);
-        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        for (String role : roles) {
-            authorities.add(new SimpleGrantedAuthority(role));
+        if (userDO != null) {
+            List<String> roles = springSecurityDAO.loadRolesByUsername(username);
+            List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+            for (String role : roles) {
+                authorities.add(new SimpleGrantedAuthority(role));
+            }
+            // authorities就是用户对应的角色, access list即为用户可访问的url
+            return new JwtUser(userDO.getId(), username, userDO.getPassword(), userDO.getIsActive() == 0, authorities);
+        } else {
+            return new JwtUser(0L, null, null, null);
         }
-        // authorities就是用户对应的角色, access list即为用户可访问的url
-        return userDO == null ? new JwtUser(0L, null, null, null)
-                : new JwtUser(userDO.getId(), username, userDO.getPassword(), userDO.getIsActive() == 0, authorities);
     }
 
     @Autowired
