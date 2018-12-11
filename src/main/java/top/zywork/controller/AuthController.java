@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import top.zywork.ali.AliyunSmsUtils;
 import top.zywork.common.*;
 import top.zywork.enums.ContentTypeEnum;
 import top.zywork.enums.MIMETypeEnum;
@@ -23,7 +24,6 @@ import top.zywork.enums.ResponseStatusEnum;
 import top.zywork.security.JwtTokenRedisUtils;
 import top.zywork.security.JwtUser;
 import top.zywork.security.VerifyCodeRedisUtils;
-import top.zywork.security.mobile.AliyunSmsUtils;
 import top.zywork.security.mobile.SmsCodeRedisUtils;
 import top.zywork.vo.ResponseStatusVO;
 

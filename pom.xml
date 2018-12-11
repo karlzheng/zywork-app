@@ -86,25 +86,6 @@
 			<version>${aspectj.version}</version>
 		</dependency>
 
-		<!-- 需要把zywork-sdk中的wx-pay项目mvn install -->
-		<dependency>
-			<groupId>com.github.wxpay</groupId>
-			<artifactId>wxpay-sdk</artifactId>
-			<version>3.0.9</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.aliyun</groupId>
-			<artifactId>aliyun-java-sdk-core</artifactId>
-			<version>4.0.6</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.aliyun</groupId>
-			<artifactId>aliyun-java-sdk-dysmsapi</artifactId>
-			<version>1.1.0</version>
-		</dependency>
-
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>

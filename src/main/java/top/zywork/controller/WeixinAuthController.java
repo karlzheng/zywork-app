@@ -15,7 +15,10 @@ import top.zywork.security.JwtTokenRedisUtils;
 import top.zywork.security.JwtUser;
 import top.zywork.security.JwtUtils;
 import top.zywork.vo.ResponseStatusVO;
-import top.zywork.weixin.*;
+import top.zywork.weixin.GzhAuth;
+import top.zywork.weixin.WeixinUser;
+import top.zywork.weixin.WeixinUtils;
+import top.zywork.weixin.XcxAuth;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
