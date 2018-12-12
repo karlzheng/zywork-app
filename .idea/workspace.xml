@@ -2,14 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d55c7d3e-ec5e-4423-9c06-7026916396ba" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_aliyun_aliyun_java_sdk_dm_3_3_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_aliyun_aliyun_java_sdk_core_4_0_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_aliyun_aliyun_java_sdk_core_4_2_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/top/zywork/dao/UserRegDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/top/zywork/dos/UserRegDO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/top/zywork/service/UserRegService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/top/zywork/service/impl/UserRegServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/mapper/UserRegDAOMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/top/zywork/service/UserRegServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/controller/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/filter/VerifyCodeAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/filter/VerifyCodeAuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/security/VerifyCodeRedisUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/security/VerifyCodeRedisUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/security/mobile/SmsCodeRedisUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/security/mobile/SmsCodeRedisUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zywork-app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/zywork-app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/controller/WeixinAuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/controller/WeixinAuthController.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -83,45 +84,45 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="0" value="2" />
-          <entry key="class" value="142" />
-          <entry key="java" value="366" />
+          <entry key="class" value="146" />
+          <entry key="java" value="379" />
           <entry key="log" value="1" />
           <entry key="md" value="2" />
           <entry key="sql" value="6" />
-          <entry key="xml" value="15" />
-          <entry key="yml" value="23" />
+          <entry key="xml" value="18" />
+          <entry key="yml" value="25" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CLASS" value="142" />
-          <entry key="JAVA" value="366" />
+          <entry key="CLASS" value="146" />
+          <entry key="JAVA" value="379" />
           <entry key="Markdown" value="2" />
           <entry key="PLAIN_TEXT" value="1" />
           <entry key="SQL" value="5" />
           <entry key="Scratch" value="1" />
           <entry key="UML" value="2" />
-          <entry key="XML" value="15" />
-          <entry key="YAML" value="23" />
+          <entry key="XML" value="18" />
+          <entry key="YAML" value="25" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="class" value="1" />
           <entry key="dummy" value="58" />
-          <entry key="java" value="23139" />
-          <entry key="xml" value="783" />
-          <entry key="yml" value="851" />
+          <entry key="java" value="25921" />
+          <entry key="xml" value="1152" />
+          <entry key="yml" value="875" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CLASS" value="1" />
-          <entry key="JAVA" value="23139" />
+          <entry key="JAVA" value="25921" />
           <entry key="PLAIN_TEXT" value="58" />
-          <entry key="SQL" value="37" />
-          <entry key="XML" value="746" />
-          <entry key="YAML" value="851" />
+          <entry key="SQL" value="43" />
+          <entry key="XML" value="1109" />
+          <entry key="YAML" value="875" />
         </counts>
       </usages-collector>
     </session>
@@ -131,13 +132,22 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/controller/AuthController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="212" column="88" selection-start-line="212" selection-start-column="88" selection-end-line="212" selection-end-column="88" />
+            <state relative-caret-position="172">
+              <caret line="270" selection-start-line="270" selection-end-line="270" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#6801#6802#0" expanded="true" />
-                <element signature="e#6828#6829#0" expanded="true" />
+                <element signature="e#15379#15380#0" expanded="true" />
+                <element signature="e#15431#15432#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/security/JwtUserDetailsService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -145,7 +155,77 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/application-dev.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-678" />
+            <state relative-caret-position="630">
+              <caret line="42" column="28" lean-forward="true" selection-start-line="42" selection-start-column="28" selection-end-line="42" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/JwtUserDAOMapper.xml">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/dao/UserRegDAO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="765">
+              <caret line="51" column="26" selection-start-line="51" selection-start-column="9" selection-end-line="51" selection-end-column="26" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/controller/WeixinAuthController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="79" column="29" selection-start-line="79" selection-start-column="29" selection-end-line="79" selection-end-column="29" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#4809#4810#0" expanded="true" />
+                <element signature="e#4861#4862#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/service/impl/UserRegServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="510">
+              <caret line="34" column="18" selection-start-line="34" selection-start-column="18" selection-end-line="34" selection-end-column="18" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#508#509#0" expanded="true" />
+                <element signature="e#545#546#0" expanded="true" />
+                <element signature="e#639#640#0" expanded="true" />
+                <element signature="e#664#665#0" expanded="true" />
+                <element signature="e#1160#1161#0" expanded="true" />
+                <element signature="e#1204#1205#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/dos/UserRegDO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" column="23" selection-start-line="3" selection-start-column="23" selection-end-line="3" selection-end-column="23" />
+              <folding>
+                <element signature="e#278#279#0" expanded="true" />
+                <element signature="e#303#304#0" expanded="true" />
+                <element signature="e#337#338#0" expanded="true" />
+                <element signature="e#365#366#0" expanded="true" />
+                <element signature="e#400#401#0" expanded="true" />
+                <element signature="e#431#432#0" expanded="true" />
+                <element signature="e#479#480#0" expanded="true" />
+                <element signature="e#519#520#0" expanded="true" />
+              </folding>
+            </state>
           </provider>
         </entry>
       </file>
@@ -171,6 +251,7 @@
       <find>private Logger</find>
       <find>chain.doFilter</find>
       <find>authenticationManager</find>
+      <find>isEmpty</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -179,12 +260,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/top/zywork/weixin/XcxConstants.java" />
-        <option value="$PROJECT_DIR$/src/main/java/top/zywork/weixin/WeixinAuth.java" />
-        <option value="$PROJECT_DIR$/src/main/java/top/zywork/weixin/GzhAuth.java" />
-        <option value="$PROJECT_DIR$/src/main/java/top/zywork/weixin/XchAuth.java" />
-        <option value="$PROJECT_DIR$/src/main/java/top/zywork/weixin/package-info.java" />
-        <option value="$PROJECT_DIR$/src/main/java/top/zywork/weixin/GzhConstants.java" />
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/controller/WeixinController.java" />
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/weixin/CommonConstants.java" />
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/weixin/WeixinUtils.java" />
@@ -207,7 +282,6 @@
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/controller/VerifyCodeController.java" />
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/weixin/WeixinConstants.java" />
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/controller/TestController.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/application-dev.yml" />
         <option value="$PROJECT_DIR$/src/main/resources/application-prod.yml" />
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/security/JwtClaims.java" />
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/security/AliyunSmsUtils.java" />
@@ -224,11 +298,18 @@
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/security/JwtUserDetailsService.java" />
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/controller/RegController.java" />
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/vo/AuthLoginVO.java" />
-        <option value="$PROJECT_DIR$/src/main/java/top/zywork/controller/WeixinAuthController.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/security/mobile/SmsCodeRedisUtils.java" />
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/security/VerifyCodeRedisUtils.java" />
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/filter/VerifyCodeAuthenticationFilter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/top/zywork/service/UserRegService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/top/zywork/dos/UserRegDO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/top/zywork/dao/UserRegDAO.java" />
+        <option value="$PROJECT_DIR$/src/test/java/top/zywork/service/UserRegServiceTest.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/application-dev.yml" />
+        <option value="$PROJECT_DIR$/src/main/resources/mapper/UserRegDAOMapper.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/top/zywork/service/impl/UserRegServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/top/zywork/controller/WeixinAuthController.java" />
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/controller/AuthController.java" />
       </list>
     </option>
@@ -341,6 +422,15 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="zywork" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zywork-app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zywork-app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="zywork" type="462c0819:PsiDirectoryNode" />
               <item name="dao" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -350,7 +440,26 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="security" type="462c0819:PsiDirectoryNode" />
+              <item name="dos" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zywork-app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zywork-app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="zywork" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zywork-app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zywork-app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="zywork" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="impl" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="zywork-app" type="b2602c69:ProjectViewProjectNode" />
@@ -358,6 +467,44 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zywork-app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zywork-app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="mapper" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zywork-app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zywork-app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zywork-app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zywork-app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zywork-app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zywork-app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="zywork" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zywork-app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zywork-app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="zywork" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -376,7 +523,7 @@
     <property name="RequestMappingsPanelWidth2" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544599863657" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544611536155" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
@@ -384,18 +531,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="top.zywork.service" />
       <recent name="top.zywork.security" />
       <recent name="top.zywork.filter" />
       <recent name="top.zywork.configuration" />
       <recent name="top.zywork.controller" />
-      <recent name="top.zywork.weixin" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/mapper" />
       <recent name="$PROJECT_DIR$/src/main/java/top/zywork/security/mobile" />
       <recent name="$PROJECT_DIR$/src/main/java/top/zywork/security" />
       <recent name="$PROJECT_DIR$/src/main/java/top/zywork" />
       <recent name="$PROJECT_DIR$/src/main/java" />
-      <recent name="$PROJECT_DIR$/src/main/java/top/zywork/weixin" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -437,6 +584,57 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="UserRegServiceTest.testSaveGzhUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="zywork-app" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="top.zywork.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="top.zywork.service" />
+      <option name="MAIN_CLASS_NAME" value="top.zywork.service.UserRegServiceTest" />
+      <option name="METHOD_NAME" value="testSaveGzhUser" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserRegServiceTest.testSaveUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="zywork-app" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="top.zywork.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="top.zywork.service" />
+      <option name="MAIN_CLASS_NAME" value="top.zywork.service.UserRegServiceTest" />
+      <option name="METHOD_NAME" value="testSaveUser" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserRegServiceTest.testSaveUserMobile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="zywork-app" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="top.zywork.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="top.zywork.service" />
+      <option name="MAIN_CLASS_NAME" value="top.zywork.service.UserRegServiceTest" />
+      <option name="METHOD_NAME" value="testSaveUserMobile" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
@@ -470,9 +668,15 @@
     <list>
       <item itemvalue="Spring Boot.ZyworkAppApplication" />
       <item itemvalue="Application.AliyunSmsUtils" />
+      <item itemvalue="JUnit.UserRegServiceTest.testSaveUser" />
+      <item itemvalue="JUnit.UserRegServiceTest.testSaveUserMobile" />
+      <item itemvalue="JUnit.UserRegServiceTest.testSaveGzhUser" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.UserRegServiceTest.testSaveGzhUser" />
+        <item itemvalue="JUnit.UserRegServiceTest.testSaveUserMobile" />
+        <item itemvalue="JUnit.UserRegServiceTest.testSaveUser" />
         <item itemvalue="Application.AliyunSmsUtils" />
       </list>
     </recent_temporary>
@@ -489,44 +693,44 @@
       <updated>1540539764410</updated>
       <workItem from="1540539766701" duration="16166000" />
       <workItem from="1543827698249" duration="147198000" />
-      <workItem from="1544529283343" duration="7220000" />
+      <workItem from="1544529283343" duration="18713000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="RedisTest_get - 2018.12.04 at 10h 17m 20s.xml">
-      <configuration name="RedisTest.get" configurationId="JUnit" />
+    <history-entry file="UserRegServiceTest_testSaveGzhUser - 2018.12.12 at 17h 05m 48s.xml">
+      <configuration name="UserRegServiceTest.testSaveGzhUser" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RedisTest_get - 2018.12.04 at 10h 26m 10s.xml">
-      <configuration name="RedisTest.get" configurationId="JUnit" />
+    <history-entry file="UserRegServiceTest_testSaveGzhUser - 2018.12.12 at 17h 05m 56s.xml">
+      <configuration name="UserRegServiceTest.testSaveGzhUser" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RedisTest_get - 2018.12.04 at 10h 30m 10s.xml">
-      <configuration name="RedisTest.get" configurationId="JUnit" />
+    <history-entry file="UserRegServiceTest_testSaveGzhUser - 2018.12.12 at 17h 13m 14s.xml">
+      <configuration name="UserRegServiceTest.testSaveGzhUser" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RedisTest_get - 2018.12.04 at 10h 32m 06s.xml">
-      <configuration name="RedisTest.get" configurationId="JUnit" />
+    <history-entry file="UserRegServiceTest_testSaveGzhUser - 2018.12.12 at 17h 17m 24s.xml">
+      <configuration name="UserRegServiceTest.testSaveGzhUser" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RedisTest_get - 2018.12.04 at 10h 32m 47s.xml">
-      <configuration name="RedisTest.get" configurationId="JUnit" />
+    <history-entry file="UserRegServiceTest_testSaveGzhUser - 2018.12.12 at 17h 19m 04s.xml">
+      <configuration name="UserRegServiceTest.testSaveGzhUser" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RedisTest_get - 2018.12.04 at 10h 38m 20s.xml">
-      <configuration name="RedisTest.get" configurationId="JUnit" />
+    <history-entry file="UserRegServiceTest_testSaveGzhUser - 2018.12.12 at 17h 28m 11s.xml">
+      <configuration name="UserRegServiceTest.testSaveGzhUser" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RedisTest_get - 2018.12.04 at 10h 40m 52s.xml">
-      <configuration name="RedisTest.get" configurationId="JUnit" />
+    <history-entry file="UserRegServiceTest_testSaveGzhUser - 2018.12.12 at 17h 31m 29s.xml">
+      <configuration name="UserRegServiceTest.testSaveGzhUser" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RedisTest_get - 2018.12.04 at 10h 44m 41s.xml">
-      <configuration name="RedisTest.get" configurationId="JUnit" />
+    <history-entry file="UserRegServiceTest_testSaveGzhUser - 2018.12.12 at 17h 34m 51s.xml">
+      <configuration name="UserRegServiceTest.testSaveGzhUser" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RedisTest_get - 2018.12.04 at 10h 50m 13s.xml">
-      <configuration name="RedisTest.get" configurationId="JUnit" />
+    <history-entry file="UserRegServiceTest_testSaveGzhUser - 2018.12.12 at 17h 36m 20s.xml">
+      <configuration name="UserRegServiceTest.testSaveGzhUser" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RedisTest_get - 2018.12.04 at 10h 58m 03s.xml">
-      <configuration name="RedisTest.get" configurationId="JUnit" />
+    <history-entry file="UserRegServiceTest_testSaveGzhUser - 2018.12.12 at 17h 37m 10s.xml">
+      <configuration name="UserRegServiceTest.testSaveGzhUser" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="170584000" />
+    <option name="totallyTimeSpent" value="182077000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="721" extended-state="0" />
@@ -546,7 +750,7 @@
       <window_info anchor="bottom" id="Message" order="3" />
       <window_info anchor="bottom" id="Find" order="4" weight="0.32991204" />
       <window_info anchor="bottom" id="Run" order="5" weight="0.7710652" />
-      <window_info anchor="bottom" id="Debug" order="6" weight="0.3990461" />
+      <window_info anchor="bottom" id="Debug" order="6" weight="0.7106518" />
       <window_info anchor="bottom" id="Cvs" order="7" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="8" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="9" />
@@ -581,7 +785,7 @@
       <window_info anchor="bottom" id="Message" order="3" />
       <window_info anchor="bottom" id="Find" order="4" weight="0.32991204" />
       <window_info anchor="bottom" id="Run" order="5" weight="0.7710652" />
-      <window_info anchor="bottom" id="Debug" order="6" weight="0.3990461" />
+      <window_info anchor="bottom" id="Debug" order="6" weight="0.7106518" />
       <window_info anchor="bottom" id="Cvs" order="7" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="8" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="9" />
@@ -631,76 +835,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/5.1.2.RELEASE/spring-security-core-5.1.2.RELEASE.jar!/org/springframework/security/authentication/UserDetailsRepositoryReactiveAuthenticationManager.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/5.1.2.RELEASE/spring-security-core-5.1.2.RELEASE.jar!/org/springframework/security/authentication/AuthenticationManager.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/5.1.2.RELEASE/spring-security-core-5.1.2.RELEASE.jar!/org/springframework/security/authentication/AuthenticationProvider.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/5.1.2.RELEASE/spring-security-web-5.1.2.RELEASE.jar!/org/springframework/security/web/authentication/AbstractAuthenticationProcessingFilter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="101">
-          <caret line="60" column="16" selection-start-line="60" selection-start-column="16" selection-end-line="60" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/5.1.2.RELEASE/spring-security-core-5.1.2.RELEASE.jar!/org/springframework/security/authentication/dao/DaoAuthenticationProvider.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="42" selection-start-line="42" selection-end-line="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/5.1.2.RELEASE/spring-security-core-5.1.2.RELEASE.jar!/org/springframework/security/authentication/dao/AbstractUserDetailsAuthenticationProvider.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="83">
-          <caret line="102" selection-start-line="102" selection-end-line="102" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/5.1.2.RELEASE/spring-security-core-5.1.2.RELEASE.jar!/org/springframework/security/authentication/ProviderManager.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="107" selection-start-line="107" selection-end-line="107" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/5.1.2.RELEASE/spring-security-core-5.1.2.RELEASE.jar!/org/springframework/security/authentication/AbstractAuthenticationToken.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/5.1.2.RELEASE/spring-security-core-5.1.2.RELEASE.jar!/org/springframework/security/authentication/UsernamePasswordAuthenticationToken.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="554">
-          <caret line="47" column="8" lean-forward="true" selection-start-line="47" selection-start-column="8" selection-end-line="47" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/5.1.2.RELEASE/spring-security-core-5.1.2.RELEASE.jar!/org/springframework/security/core/Authentication.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/5.1.2.RELEASE/spring-security-core-5.1.2.RELEASE.jar!/org/springframework/security/core/userdetails/UsernameNotFoundException.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -804,24 +938,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/controller/RegController.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/vo/AuthLoginVO.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/security/JwtUserDetailsService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="39" column="28" selection-start-line="39" selection-start-column="28" selection-end-line="39" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/security/MyAuthenticationFailureHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
           <caret line="46" column="26" selection-start-line="46" selection-start-column="18" selection-end-line="46" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/5.1.2.RELEASE/spring-security-core-5.1.2.RELEASE.jar!/org/springframework/security/core/userdetails/UserDetailsService.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -905,23 +1025,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/controller/WeixinAuthController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="106" selection-start-line="106" selection-end-line="106" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/dao/SpringSecurityDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="16" column="17" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -3352,19 +3455,145 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/dao/SpringSecurityDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="16" column="17" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/top/zywork/ZyworkAppApplicationTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="7" selection-start-line="7" selection-end-line="8" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/service/UserRegService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="447">
+          <caret line="34" column="20" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/top/zywork/service/UserRegServiceTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="27" column="25" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/dos/UserRegDO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="23" selection-start-line="3" selection-start-column="23" selection-end-line="3" selection-end-column="23" />
+          <folding>
+            <element signature="e#278#279#0" expanded="true" />
+            <element signature="e#303#304#0" expanded="true" />
+            <element signature="e#337#338#0" expanded="true" />
+            <element signature="e#365#366#0" expanded="true" />
+            <element signature="e#400#401#0" expanded="true" />
+            <element signature="e#431#432#0" expanded="true" />
+            <element signature="e#479#480#0" expanded="true" />
+            <element signature="e#519#520#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/5.1.3.RELEASE/spring-core-5.1.3.RELEASE.jar!/org/springframework/cglib/proxy/MethodProxy.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="104" selection-start-line="104" selection-end-line="104" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/JwtUserDAOMapper.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/internal/runners/model/ReflectiveCallable.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/dao/UserRegDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="765">
+          <caret line="51" column="26" selection-start-line="51" selection-start-column="9" selection-end-line="51" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/UserRegDAOMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="25" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/service/impl/UserRegServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="34" column="18" selection-start-line="34" selection-start-column="18" selection-end-line="34" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#508#509#0" expanded="true" />
+            <element signature="e#545#546#0" expanded="true" />
+            <element signature="e#639#640#0" expanded="true" />
+            <element signature="e#664#665#0" expanded="true" />
+            <element signature="e#1160#1161#0" expanded="true" />
+            <element signature="e#1204#1205#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/controller/WeixinAuthController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="79" column="29" selection-start-line="79" selection-start-column="29" selection-end-line="79" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4809#4810#0" expanded="true" />
+            <element signature="e#4861#4862#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/application-dev.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-678" />
+        <state relative-caret-position="630">
+          <caret line="42" column="28" lean-forward="true" selection-start-line="42" selection-start-column="28" selection-end-line="42" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/5.1.2.RELEASE/spring-security-core-5.1.2.RELEASE.jar!/org/springframework/security/core/userdetails/UserDetailsService.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="8" column="16" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/security/JwtUserDetailsService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/controller/AuthController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="212" column="88" selection-start-line="212" selection-start-column="88" selection-end-line="212" selection-end-column="88" />
+        <state relative-caret-position="172">
+          <caret line="270" selection-start-line="270" selection-end-line="270" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#6801#6802#0" expanded="true" />
-            <element signature="e#6828#6829#0" expanded="true" />
+            <element signature="e#15379#15380#0" expanded="true" />
+            <element signature="e#15431#15432#0" expanded="true" />
           </folding>
         </state>
       </provider>

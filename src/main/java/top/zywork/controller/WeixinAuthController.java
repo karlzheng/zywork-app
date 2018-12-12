@@ -6,14 +6,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import top.zywork.common.RandomUtils;
 import top.zywork.common.WebUtils;
+import top.zywork.enums.RandomCodeEnum;
 import top.zywork.enums.ResponseStatusEnum;
 import top.zywork.security.JwtTokenRedisUtils;
 import top.zywork.security.JwtUser;
 import top.zywork.security.JwtUtils;
+import top.zywork.service.UserRegService;
 import top.zywork.vo.ResponseStatusVO;
 import top.zywork.weixin.GzhAuth;
 import top.zywork.weixin.WeixinUser;
@@ -50,6 +54,8 @@ public class WeixinAuthController {
 
     private JwtTokenRedisUtils jwtTokenRedisUtils;
 
+    private UserRegService userRegService;
+
     /**
      * <p>从cookies中读取用户信息，如果没有用户信息，则需要微信授权登录，登录成功后，把用户信息cookie写出到客户端。</p>
      * <p>如果cookies中有用户信息，则不需要授权登录。</p>
@@ -66,11 +72,16 @@ public class WeixinAuthController {
                 GzhAuth gzhAuth = WeixinUtils.authGzh(code);
                 WeixinUser weixinUser = WeixinUtils.userInfo(gzhAuth);
                 if (weixinUser != null) {
-                    // TODO 判断用户是否已经保存，如未保存，则保存微信用户信息到数据库
+                    // 判断用户是否已经保存，如未保存，则保存微信用户信息到数据库
+                    JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(weixinUser.getOpenid());
+                    if (StringUtils.isEmpty(jwtUser.getUsername())) {
+                        userRegService.saveGzhUser(weixinUser.getOpenid(), new BCryptPasswordEncoder().encode(RandomUtils.randomCode(RandomCodeEnum.MIX_CODE, 8)),
+                                weixinUser.getNickname(), weixinUser.getHeadimgurl(), Byte.valueOf(weixinUser.getSex()));
+                        // 重新根据openid获取JwtUser，生成jwt token并返回客户端
+                        jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(weixinUser.getOpenid());
+                    }
                     // 写出用户cookie到客户端
                     writeCookie(response, gzhCookieName, weixinUser.getOpenid());
-                    // 根据openid获取JwtUser，生成jwt token并返回客户端
-                    JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(weixinUser.getOpenid());
                     String token = jwtUtils.generateToken(jwtUser);
                     jwtTokenRedisUtils.storeToken(jwtUser.getUserId() + "", token);
                     statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "微信用户授权登录成功，并返回Token", token);
@@ -118,5 +129,10 @@ public class WeixinAuthController {
     @Autowired
     public void setJwtTokenRedisUtils(JwtTokenRedisUtils jwtTokenRedisUtils) {
         this.jwtTokenRedisUtils = jwtTokenRedisUtils;
+    }
+
+    @Autowired
+    public void setUserRegService(UserRegService userRegService) {
+        this.userRegService = userRegService;
     }
 }

@@ -1,0 +1,30 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.zywork.dao.UserRegDAO">
+
+    <insert id="saveUser">
+        insert into t_user(email, password) values (#{email}, #{password})
+    </insert>
+
+    <insert id="saveUserMobile">
+        insert into t_user(phone, password) values (#{phone}, #{password})
+    </insert>
+
+    <insert id="saveGzhUser" parameterType="UserRegDO">
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into t_user(password) values (#{password})
+    </insert>
+
+    <insert id="saveGzhUserDetail">
+        insert into t_user_detail(id, nickname, headicon, gender) values (#{userId}, #{nickname}, #{headicon}, #{gender})
+    </insert>
+
+    <insert id="saveGzhUserSocial">
+        insert into t_user_social(user_id, openid, social_type) values (#{userId}, #{openid}, '微信')
+    </insert>
+
+</mapper>

@@ -12,6 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,7 @@ import top.zywork.security.JwtTokenRedisUtils;
 import top.zywork.security.JwtUser;
 import top.zywork.security.VerifyCodeRedisUtils;
 import top.zywork.security.mobile.SmsCodeRedisUtils;
+import top.zywork.service.UserRegService;
 import top.zywork.vo.ResponseStatusVO;
 
 import javax.imageio.ImageIO;
@@ -66,6 +68,8 @@ public class AuthController {
     private SmsCodeRedisUtils smsCodeRedisUtils;
 
     private UserDetailsService jwtUserDetailsService;
+
+    private UserRegService userRegService;
 
     /**
      * 普通账号（手机号，邮箱），密码登录处理，可以配置是否开启验证码功能
@@ -143,7 +147,7 @@ public class AuthController {
     @PostMapping("sms-code")
     public ResponseStatusVO sendSmsCode(String phone) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
-        if (!StringUtils.isEmpty(phone) && RegexUtils.match(RegexUtils.REGEX_PHONE, phone)) {
+        if (StringUtils.isNotEmpty(phone) && RegexUtils.match(RegexUtils.REGEX_PHONE, phone)) {
             if (smsCodeRedisUtils.existsCode(SmsCodeRedisUtils.SMS_CODE_LOGIN_PREFIX, phone)) {
                 statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "已获取过手机验证码，请稍候再获取", null);
             } else {
@@ -185,7 +189,30 @@ public class AuthController {
      */
     @PostMapping("reg")
     public ResponseStatusVO reg(String email, String password, String confirmPassword, String regCode) {
-        return null;
+        ResponseStatusVO statusVO = new ResponseStatusVO();
+        if (StringUtils.isNotEmpty(email) && RegexUtils.match(RegexUtils.REGEX_EMAIL, email)) {
+            JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(email);
+            if (StringUtils.isEmpty(jwtUser.getUsername())) {
+                if (StringUtils.isNotEmpty(password) && RegexUtils.match(RegexUtils.REGEX_PASSWORD, password.trim())) {
+                    if (StringUtils.isNotEmpty(confirmPassword) && password.trim().equals(confirmPassword.trim())) {
+                        if (verifyCodeRedisUtils.existsCode(VerifyCodeRedisUtils.CODE_REG_PREFIX, regCode)) {
+                            userRegService.saveUser(email, new BCryptPasswordEncoder().encode(password));
+                        } else {
+                            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "邮箱验证码不正确", null);
+                        }
+                    } else {
+                        statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "密码和确认密码不一致", null);
+                    }
+                } else {
+                    statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "密码不符合要求", null);
+                }
+            } else {
+                statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "邮箱已注册用户，请直接登录", null);
+            }
+        } else {
+            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "错误的邮箱地址", null);
+        }
+        return statusVO;
     }
 
     /**
@@ -196,7 +223,7 @@ public class AuthController {
     @PostMapping("reg-code")
     public ResponseStatusVO sendRegCode(String email) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
-        if (!StringUtils.isEmpty(email) && RegexUtils.match(RegexUtils.REGEX_EMAIL, email)) {
+        if (StringUtils.isNotEmpty(email) && RegexUtils.match(RegexUtils.REGEX_EMAIL, email)) {
             if (verifyCodeRedisUtils.existsCode(VerifyCodeRedisUtils.CODE_REG_PREFIX, email)) {
                 statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "已获取过邮箱验证码，请稍候再获取", null);
             } else {
@@ -233,7 +260,30 @@ public class AuthController {
      */
     @PostMapping("reg-mobile")
     public ResponseStatusVO regMobile(String phone, String password, String confirmPassword, String regCode) {
-        return null;
+        ResponseStatusVO statusVO = new ResponseStatusVO();
+        if (StringUtils.isNotEmpty(phone) && RegexUtils.match(RegexUtils.REGEX_PHONE, phone)) {
+            JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(phone);
+            if (StringUtils.isEmpty(jwtUser.getUsername())) {
+                if (StringUtils.isNotEmpty(password) && RegexUtils.match(RegexUtils.REGEX_PASSWORD, password.trim())) {
+                    if (StringUtils.isNotEmpty(confirmPassword) && password.trim().equals(confirmPassword.trim())) {
+                        if (smsCodeRedisUtils.existsCode(SmsCodeRedisUtils.SMS_CODE_REG_PREFIX, regCode)) {
+                            userRegService.saveUserMobile(phone, new BCryptPasswordEncoder().encode(password));
+                        } else {
+                            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "手机验证码不正确", null);
+                        }
+                    } else {
+                        statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "密码和确认密码不一致", null);
+                    }
+                } else {
+                    statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "密码不符合要求", null);
+                }
+            } else {
+                statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "手机号已注册用户，请直接登录", null);
+            }
+        } else {
+            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "错误的手机号", null);
+        }
+        return statusVO;
     }
 
     /**
@@ -244,14 +294,14 @@ public class AuthController {
     @PostMapping("reg-sms-code")
     public ResponseStatusVO sendRegSmsCode(String phone) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
-        if (!StringUtils.isEmpty(phone) && RegexUtils.match(RegexUtils.REGEX_PHONE, phone)) {
+        if (StringUtils.isNotEmpty(phone) && RegexUtils.match(RegexUtils.REGEX_PHONE, phone)) {
             if (smsCodeRedisUtils.existsCode(SmsCodeRedisUtils.SMS_CODE_REG_PREFIX, phone)) {
                 statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "已获取过手机验证码，请稍候再获取", null);
             } else {
                 JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(phone);
                 if (StringUtils.isNotEmpty(jwtUser.getUsername())) {
                     // 此手机号已注册
-                    statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "手机号已注册用户，请直接  登录", null);
+                    statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "手机号已注册用户，请直接登录", null);
                 } else {
                     // 还不是平台用户，准备发送手机验证码，此code用于发送短信
                     String code = RandomUtils.randomCode(RandomCodeEnum.NUMBER_CODE, 6);
@@ -294,5 +344,10 @@ public class AuthController {
     @Autowired
     public void setJwtUserDetailsService(UserDetailsService jwtUserDetailsService) {
         this.jwtUserDetailsService = jwtUserDetailsService;
+    }
+
+    @Autowired
+    public void setUserRegService(UserRegService userRegService) {
+        this.userRegService = userRegService;
     }
 }
