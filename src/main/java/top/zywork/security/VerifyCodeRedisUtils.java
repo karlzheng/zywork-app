@@ -18,7 +18,8 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class VerifyCodeRedisUtils {
 
-    private static final String CODE_PREFIX = "verify_code::";
+    public static final String CODE_LOGIN_PREFIX = "verify_code_login::";
+    public static final String CODE_REG_PREFIX = "verify_code_reg::";
 
     @Value("${verify.code.expiration}")
     private Long verifyCodeExpiration;
@@ -27,29 +28,32 @@ public class VerifyCodeRedisUtils {
 
     /**
      * 存储验证码
+     * @param prefix
      * @param sessionId 用于标识哪个用户
      * @param code
      */
-    public void storeCode(String sessionId, String code) {
-        redisTemplate.opsForValue().set(CODE_PREFIX + sessionId, code, verifyCodeExpiration, TimeUnit.SECONDS);
+    public void storeCode(String prefix, String sessionId, String code) {
+        redisTemplate.opsForValue().set(prefix + sessionId, code, verifyCodeExpiration, TimeUnit.SECONDS);
     }
 
     /**
      * 判断验证码是否存在
+     * @param prefix
      * @param sessionId 用于标识哪个用户
      * @return
      */
-    public boolean existsCode(String sessionId) {
-        return redisTemplate.hasKey(CODE_PREFIX + sessionId);
+    public boolean existsCode(String prefix, String sessionId) {
+        return redisTemplate.hasKey(prefix + sessionId);
     }
 
     /**
      * 获取验证码
+     * @param prefix
      * @param sessionId 用于标识哪个用户
      * @return
      */
-    public String getCode(String sessionId) {
-        return (String) redisTemplate.opsForValue().get(CODE_PREFIX + sessionId);
+    public String getCode(String prefix, String sessionId) {
+        return (String) redisTemplate.opsForValue().get(prefix+ sessionId);
     }
 
     @Autowired

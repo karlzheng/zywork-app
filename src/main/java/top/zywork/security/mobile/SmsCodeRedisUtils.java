@@ -19,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 public class SmsCodeRedisUtils {
 
     public static final String SMS_CODE_LOGIN_PREFIX = "sms_code_login::";
+    public static final String SMS_CODE_REG_PREFIX = "sms_code_reg::";
 
     @Value("${verify.sms-code.expiration}")
     private Long smsCodeExpiration;
@@ -27,6 +28,7 @@ public class SmsCodeRedisUtils {
 
     /**
      * 存储验证码
+     * @param prefix
      * @param phone
      * @param code
      */
@@ -36,6 +38,7 @@ public class SmsCodeRedisUtils {
 
     /**
      * 判断验证码是否存在
+     * @param prefix
      * @param phone
      * @return
      */
@@ -45,6 +48,7 @@ public class SmsCodeRedisUtils {
 
     /**
      * 获取验证码
+     * @param prefix
      * @param phone
      * @return
      */

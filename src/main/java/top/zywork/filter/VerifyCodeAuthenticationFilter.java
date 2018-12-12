@@ -41,7 +41,7 @@ public class VerifyCodeAuthenticationFilter extends OncePerRequestFilter {
         if (StringUtils.equals("/auth/login", request.getRequestURI()) && StringUtils.equalsIgnoreCase(request.getMethod(), "POST")) {
             String sessionId = WebUtils.getCookieValue(request, verifyCodeCookieName);
             String verifyCode = ServletRequestUtils.getStringParameter(request, "verifyCode");
-            String codeInRedis = verifyCodeRedisUtils.getCode(sessionId);
+            String codeInRedis = verifyCodeRedisUtils.getCode(VerifyCodeRedisUtils.CODE_LOGIN_PREFIX, sessionId);
             if (StringUtils.isNotEmpty(codeInRedis)) {
                 if (!codeInRedis.equalsIgnoreCase(verifyCode)) {
                     outResponse(response, ResponseStatusEnum.AUTHENTICATION_ERROR.getCode(), "验证码错误", null);

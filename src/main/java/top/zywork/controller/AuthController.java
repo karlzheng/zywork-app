@@ -1,5 +1,6 @@
 package top.zywork.controller;
 
+import com.aliyuncs.dm.model.v20151123.SingleSendMailResponse;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
 import org.apache.commons.lang.StringUtils;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import top.zywork.ali.AliyunMailUtils;
 import top.zywork.ali.AliyunSmsUtils;
 import top.zywork.common.*;
 import top.zywork.enums.ContentTypeEnum;
@@ -50,6 +52,9 @@ public class AuthController {
 
     @Value("${verify.code.cookie-name}")
     private String verifyCodeCookieName;
+
+    @Value("${verify.code.expiration}")
+    private Integer verifyCodeExpiration;
 
     @Value("${verify.sms-code.expiration}")
     private Integer smsCodeExpiration;
@@ -124,7 +129,7 @@ public class AuthController {
                 sessionId = UUIDUtils.uuid();
                 response.addCookie(new Cookie(verifyCodeCookieName, sessionId));
             }
-            verifyCodeRedisUtils.storeCode(sessionId, verifyCode);
+            verifyCodeRedisUtils.storeCode(VerifyCodeRedisUtils.CODE_LOGIN_PREFIX, sessionId, verifyCode);
             ImageIO.write(bufferedImage, MIMETypeEnum.PNG.getValue(), response.getOutputStream());
         } catch (IOException e) {
             logger.error("返回验证码图片出错： {}", e.getMessage());
@@ -153,6 +158,107 @@ public class AuthController {
                         SendSmsResponse smsResponse = AliyunSmsUtils.sendSms(phone, "signName", "templateCode", "templateParam", null);
                         if (smsResponse.getCode() != null && smsResponse.getCode().equals("OK")) {
                             smsCodeRedisUtils.storeCode(SmsCodeRedisUtils.SMS_CODE_LOGIN_PREFIX, phone, code);
+                            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "短信发送成功", smsCodeExpiration);
+                        } else {
+                            logger.error("短信发送失败：{}", smsResponse.getMessage());
+                            statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "短信发送失败", null);
+                        }
+                    } catch (ClientException e) {
+                        logger.error("短信发送失败：{}", e.getMessage());
+                        statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "短信发送失败", null);
+                    }
+                }
+            }
+        } else {
+            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "错误的手机号", null);
+        }
+        return statusVO;
+    }
+
+    /**
+     * 邮箱注册
+     * @param email
+     * @param password
+     * @param confirmPassword
+     * @param regCode
+     * @return
+     */
+    @PostMapping("reg")
+    public ResponseStatusVO reg(String email, String password, String confirmPassword, String regCode) {
+        return null;
+    }
+
+    /**
+     * 发送邮箱注册码到注册邮箱
+     * @param email
+     * @return
+     */
+    @PostMapping("reg-code")
+    public ResponseStatusVO sendRegCode(String email) {
+        ResponseStatusVO statusVO = new ResponseStatusVO();
+        if (!StringUtils.isEmpty(email) && RegexUtils.match(RegexUtils.REGEX_EMAIL, email)) {
+            if (verifyCodeRedisUtils.existsCode(VerifyCodeRedisUtils.CODE_REG_PREFIX, email)) {
+                statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "已获取过邮箱验证码，请稍候再获取", null);
+            } else {
+                JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(email);
+                if (StringUtils.isNotEmpty(jwtUser.getUsername())) {
+                    // 此邮箱已注册
+                    statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "邮箱已注册用户，请直接登录", null);
+                } else {
+                    // 还不是平台用户，准备发送邮箱验证码，此code用于发送邮件
+                    String code = RandomUtils.randomCode(RandomCodeEnum.NUMBER_CODE, 6);
+                    try {
+                        SingleSendMailResponse singleSendMailResponse = AliyunMailUtils.sendEmail("service@mail.zywork.top", "赣州智悦科技",  email, false, "注册验证码", code, "verifyRegCode");
+                        verifyCodeRedisUtils.storeCode(VerifyCodeRedisUtils.CODE_REG_PREFIX, email, code);
+                        statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "邮件发送成功，请查收邮件", verifyCodeExpiration);
+                    } catch (ClientException e) {
+                        logger.error("邮件发送失败：{}", e.getMessage());
+                        statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "邮件发送失败", null);
+                    }
+                }
+            }
+        } else {
+            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "错误的邮箱", null);
+        }
+        return statusVO;
+    }
+
+    /**
+     * 手机注册
+     * @param phone
+     * @param password
+     * @param confirmPassword
+     * @param regCode
+     * @return
+     */
+    @PostMapping("reg-mobile")
+    public ResponseStatusVO regMobile(String phone, String password, String confirmPassword, String regCode) {
+        return null;
+    }
+
+    /**
+     * 发送手机注册验证码到注册手机号
+     * @param phone
+     * @return
+     */
+    @PostMapping("reg-sms-code")
+    public ResponseStatusVO sendRegSmsCode(String phone) {
+        ResponseStatusVO statusVO = new ResponseStatusVO();
+        if (!StringUtils.isEmpty(phone) && RegexUtils.match(RegexUtils.REGEX_PHONE, phone)) {
+            if (smsCodeRedisUtils.existsCode(SmsCodeRedisUtils.SMS_CODE_REG_PREFIX, phone)) {
+                statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "已获取过手机验证码，请稍候再获取", null);
+            } else {
+                JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(phone);
+                if (StringUtils.isNotEmpty(jwtUser.getUsername())) {
+                    // 此手机号已注册
+                    statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "手机号已注册用户，请直接  登录", null);
+                } else {
+                    // 还不是平台用户，准备发送手机验证码，此code用于发送短信
+                    String code = RandomUtils.randomCode(RandomCodeEnum.NUMBER_CODE, 6);
+                    try {
+                        SendSmsResponse smsResponse = AliyunSmsUtils.sendSms(phone, "signName", "templateCode", "templateParam", null);
+                        if (smsResponse.getCode() != null && smsResponse.getCode().equals("OK")) {
+                            smsCodeRedisUtils.storeCode(SmsCodeRedisUtils.SMS_CODE_REG_PREFIX, phone, code);
                             statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "短信发送成功", smsCodeExpiration);
                         } else {
                             logger.error("短信发送失败：{}", smsResponse.getMessage());
