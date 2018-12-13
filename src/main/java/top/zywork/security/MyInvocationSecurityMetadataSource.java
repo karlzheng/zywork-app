@@ -1,7 +1,6 @@
 package top.zywork.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
@@ -25,11 +24,9 @@ import java.util.List;
 @Component
 public class MyInvocationSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
 
-    private static final String ROLE_PERMISSION_LIST = "spring_security::role_permission_list";
-
     private SpringSecurityDAO springSecurityDAO;
 
-    private RedisTemplate<String, Object> redisTemplate;
+    private RolePermissionRedisUtils rolePermissionRedisUtils;
 
     @Override
     public Collection<ConfigAttribute> getAttributes(Object o) throws IllegalArgumentException {
@@ -49,10 +46,12 @@ public class MyInvocationSecurityMetadataSource implements FilterInvocationSecur
     }
 
     private List<RolePermissionDO> listAllRolePermission() {
-        List<RolePermissionDO> rolePermissionDOList = (List<RolePermissionDO>) redisTemplate.opsForValue().get(ROLE_PERMISSION_LIST);
-        if (rolePermissionDOList == null || rolePermissionDOList.size() == 0) {
+        List<RolePermissionDO> rolePermissionDOList;
+        if (rolePermissionRedisUtils.exists()) {
+            rolePermissionDOList = rolePermissionRedisUtils.get();
+        } else {
             rolePermissionDOList = springSecurityDAO.listAllRolePermission();
-            redisTemplate.opsForValue().set(ROLE_PERMISSION_LIST, rolePermissionDOList);
+            rolePermissionRedisUtils.store(rolePermissionDOList);
         }
         return rolePermissionDOList;
     }
@@ -73,7 +72,7 @@ public class MyInvocationSecurityMetadataSource implements FilterInvocationSecur
     }
 
     @Autowired
-    public void setRedisTemplate(RedisTemplate<String, Object> redisTemplate) {
-        this.redisTemplate = redisTemplate;
+    public void setRolePermissionRedisUtils(RolePermissionRedisUtils rolePermissionRedisUtils) {
+        this.rolePermissionRedisUtils = rolePermissionRedisUtils;
     }
 }
