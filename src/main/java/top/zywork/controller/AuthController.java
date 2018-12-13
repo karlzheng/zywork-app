@@ -240,7 +240,11 @@ public class AuthController {
                         statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "邮件发送成功，请查收邮件", verifyCodeExpiration);
                     } catch (ClientException e) {
                         logger.error("邮件发送失败：{}", e.getMessage());
-                        statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "邮件发送失败", null);
+                        if (e.getErrCode().equals("InvalidToAddress.Spam")) {
+                            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "邮箱地址无效，请重新填写", null);
+                        } else {
+                            statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "邮件发送失败", null);
+                        }
                     }
                 }
             }
