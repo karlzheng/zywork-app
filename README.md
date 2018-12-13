@@ -34,6 +34,9 @@ zywork-common项目依赖了zywork-sdk（[https://github.com/gz-zywork/zywork-sd
 
 ```documents/zywork_app_data_test.sql``` 包含有数据库结构和测试数据
 
+#### Druid数据监控
+```http://localhost:8088/druid/index.html``` 请修改成自己配置的端口号地址
+
 #### API接口测试
 ```http://localhost:8088/swagger-ui.html``` 请修改成自己配置的端口号地址
 
