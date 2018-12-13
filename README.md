@@ -40,3 +40,6 @@ zywork-common项目依赖了zywork-sdk（[https://github.com/gz-zywork/zywork-sd
 #### 第三方SDK说明
 微信支付SDK，阿里云短信，阿里云邮件推送相关配置请自行修改
 
+#### 支持与赞赏
+![支持与赞赏](documents/wxpay.jpg)
+
