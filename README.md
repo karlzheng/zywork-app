@@ -6,9 +6,9 @@ zywork-app是基于SpringBoot，SpringCloud，SpringSecurity，MyBatis的快速�
 
 建议使用IntellijIDEA集成开发工具。
 
-zywork-app依赖于zywork-common项目，zywork-common需要自行mvn install。
+zywork-app依赖于zywork-common（[https://github.com/gz-zywork/zywork-common](https://github.com/gz-zywork/zywork-common)）项目，zywork-common需要自行mvn install。
 
-zywork-common项目依赖了zywork-sdk中的微信支付SDK，微信支付SDK需要自行mvn install。
+zywork-common项目依赖了zywork-sdk（[https://github.com/gz-zywork/zywork-sdk](https://github.com/gz-zywork/zywork-sdk)）中的微信支付SDK，微信支付SDK需要自行mvn install。
 
 #### 使用的技术
 1. Maven
