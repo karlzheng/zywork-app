@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 12/12/2018 15:44:58
+ Date: 15/12/2018 11:14:38
 */
 
 SET NAMES utf8mb4;
@@ -44,9 +44,7 @@ CREATE TABLE `t_permission` (
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`),
-  KEY `fk_permission_module_id` (`module_id`),
-  CONSTRAINT `fk_permission_module_id` FOREIGN KEY (`module_id`) REFERENCES `t_module` (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统权限表';
 
 -- ----------------------------
@@ -91,11 +89,7 @@ CREATE TABLE `t_role_permission` (
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`),
-  KEY `fk_role_permission_per_id` (`permission_id`),
-  KEY `fk_role_permission_rold_id` (`role_id`),
-  CONSTRAINT `fk_role_permission_per_id` FOREIGN KEY (`permission_id`) REFERENCES `t_permission` (`id`),
-  CONSTRAINT `fk_role_permission_rold_id` FOREIGN KEY (`role_id`) REFERENCES `t_role` (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='角色权限关联表';
 
 -- ----------------------------
@@ -141,9 +135,7 @@ CREATE TABLE `t_sys_log` (
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`),
-  KEY `t_sys_log_user_id` (`user_id`),
-  CONSTRAINT `t_sys_log_user_id` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统操作日志表';
 
 -- ----------------------------
@@ -181,8 +173,7 @@ CREATE TABLE `t_user_detail` (
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`),
-  CONSTRAINT `fk_user_detail_id` FOREIGN KEY (`id`) REFERENCES `t_user` (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户扩展信息表';
 
 -- ----------------------------
@@ -196,11 +187,7 @@ CREATE TABLE `t_user_role` (
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`),
-  KEY `fk_user_role_rold_id` (`role_id`),
-  KEY `fk_user_role_user_id` (`user_id`),
-  CONSTRAINT `fk_user_role_rold_id` FOREIGN KEY (`role_id`) REFERENCES `t_role` (`id`),
-  CONSTRAINT `fk_user_role_user_id` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户角色表';
 
 -- ----------------------------
@@ -217,9 +204,7 @@ CREATE TABLE `t_user_social` (
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '第三方登录绑定时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`),
-  KEY `fk_user_social_id_idx` (`user_id`),
-  CONSTRAINT `fk_user_social_id` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户第三方登录信息表';
 
 SET FOREIGN_KEY_CHECKS = 1;

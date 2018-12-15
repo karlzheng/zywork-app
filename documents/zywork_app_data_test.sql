@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 12/12/2018 15:47:10
+ Date: 15/12/2018 11:11:13
 */
 
 SET NAMES utf8mb4;
@@ -51,9 +51,7 @@ CREATE TABLE `t_permission` (
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`),
-  KEY `fk_permission_module_id` (`module_id`),
-  CONSTRAINT `fk_permission_module_id` FOREIGN KEY (`module_id`) REFERENCES `t_module` (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统权限表';
 
 -- ----------------------------
@@ -116,12 +114,8 @@ CREATE TABLE `t_role_permission` (
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`),
-  KEY `fk_role_permission_per_id` (`permission_id`),
-  KEY `fk_role_permission_rold_id` (`role_id`),
-  CONSTRAINT `fk_role_permission_per_id` FOREIGN KEY (`permission_id`) REFERENCES `t_permission` (`id`),
-  CONSTRAINT `fk_role_permission_rold_id` FOREIGN KEY (`role_id`) REFERENCES `t_role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='角色权限关联表';
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='角色权限关联表';
 
 -- ----------------------------
 -- Records of t_role_permission
@@ -133,7 +127,7 @@ INSERT INTO `t_role_permission` VALUES (4, 3, 1, '2018-12-07 19:44:09', NULL, 0)
 INSERT INTO `t_role_permission` VALUES (5, 3, 2, '2018-12-07 19:44:28', NULL, 0);
 INSERT INTO `t_role_permission` VALUES (6, 2, 1, '2018-12-07 19:49:09', NULL, 0);
 INSERT INTO `t_role_permission` VALUES (7, 2, 2, '2018-12-07 19:49:15', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (9, 3, 3, '2018-12-07 20:55:44', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (10, 3, 3, '2018-12-13 20:49:30', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -179,9 +173,7 @@ CREATE TABLE `t_sys_log` (
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`),
-  KEY `t_sys_log_user_id` (`user_id`),
-  CONSTRAINT `t_sys_log_user_id` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统操作日志表';
 
 -- ----------------------------
@@ -198,13 +190,18 @@ CREATE TABLE `t_user` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户基本信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户基本信息表';
 
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
 BEGIN;
 INSERT INTO `t_user` VALUES (1, '13672297775', '847315251@qq.com', '$2a$10$wok8Kiq3/wCM2uGqGSiFGeYeP9oZ7lKLgmSPXpy9mrkiEg2kWzIe2', NULL, '2018-12-07 18:50:51', NULL, 0);
+INSERT INTO `t_user` VALUES (2, NULL, 'wgssmarter@126.com', '$2a$10$NRBlx5wTAV5j6yt3ocqOJuSEI760KmUrvtaP/QcsIsKXLLWNzsyq2', NULL, '2018-12-12 16:29:31', NULL, 0);
+INSERT INTO `t_user` VALUES (4, '18888888888', NULL, '$2a$10$xWTNNu3RfrJqnhItrD0cGexQb1vZyfnQxTl/Y5CrHp89HbpKmIYcC', NULL, '2018-12-12 16:31:39', NULL, 0);
+INSERT INTO `t_user` VALUES (19, NULL, NULL, '$2a$10$3d/ps2pQ2RQ3Xe4TzpOu7u97m14kUkZVBwHLsjNnw555TrlYNOXF2', NULL, '2018-12-12 17:34:50', NULL, 0);
+INSERT INTO `t_user` VALUES (20, NULL, NULL, '$2a$10$SeDwW9A7ft0kgSLgBN698OsKQeY9Sqmf6w5RhXIqeYCXXsUPXRONm', NULL, '2018-12-12 17:36:19', NULL, 0);
+INSERT INTO `t_user` VALUES (21, NULL, NULL, '$2a$10$ePlfOylmN6DOa0KlkZmtq.4So7dXNimMqHBEdNzrVJLzGMbRg6G7O', NULL, '2018-12-12 17:37:09', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -226,9 +223,17 @@ CREATE TABLE `t_user_detail` (
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`),
-  CONSTRAINT `fk_user_detail_id` FOREIGN KEY (`id`) REFERENCES `t_user` (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户扩展信息表';
+
+-- ----------------------------
+-- Records of t_user_detail
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_user_detail` VALUES (19, 'wgssmarter@126.com', 'headicon', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, '2018-12-12 17:34:51', NULL, 0);
+INSERT INTO `t_user_detail` VALUES (20, 'wgssmarter@126.com', 'headicon', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, '2018-12-12 17:36:19', NULL, 0);
+INSERT INTO `t_user_detail` VALUES (21, 'wgssmarter@126.com', 'headicon', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, '2018-12-12 17:37:09', NULL, 0);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for t_user_role
@@ -241,11 +246,7 @@ CREATE TABLE `t_user_role` (
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`),
-  KEY `fk_user_role_rold_id` (`role_id`),
-  KEY `fk_user_role_user_id` (`user_id`),
-  CONSTRAINT `fk_user_role_rold_id` FOREIGN KEY (`role_id`) REFERENCES `t_role` (`id`),
-  CONSTRAINT `fk_user_role_user_id` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户角色表';
 
 -- ----------------------------
@@ -270,16 +271,17 @@ CREATE TABLE `t_user_social` (
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '第三方登录绑定时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`),
-  KEY `fk_user_social_id_idx` (`user_id`),
-  CONSTRAINT `fk_user_social_id` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户第三方登录信息表';
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户第三方登录信息表';
 
 -- ----------------------------
 -- Records of t_user_social
 -- ----------------------------
 BEGIN;
 INSERT INTO `t_user_social` VALUES (1, 1, '12345678', NULL, NULL, '微信', '2018-12-07 18:54:34', NULL, 0);
+INSERT INTO `t_user_social` VALUES (2, 19, 'openid', NULL, NULL, '微信', '2018-12-12 17:34:51', NULL, 0);
+INSERT INTO `t_user_social` VALUES (3, 20, 'openid', NULL, NULL, '微信', '2018-12-12 17:36:19', NULL, 0);
+INSERT INTO `t_user_social` VALUES (4, 21, 'openid', NULL, NULL, '微信', '2018-12-12 17:37:09', NULL, 0);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
