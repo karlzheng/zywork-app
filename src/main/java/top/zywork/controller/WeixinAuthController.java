@@ -14,15 +14,14 @@ import top.zywork.common.RandomUtils;
 import top.zywork.common.WebUtils;
 import top.zywork.enums.RandomCodeEnum;
 import top.zywork.enums.ResponseStatusEnum;
+import top.zywork.enums.SysConfigEnum;
 import top.zywork.security.JwtTokenRedisUtils;
 import top.zywork.security.JwtUser;
 import top.zywork.security.JwtUtils;
+import top.zywork.service.SysConfigQueryService;
 import top.zywork.service.UserRegService;
 import top.zywork.vo.ResponseStatusVO;
-import top.zywork.weixin.GzhAuth;
-import top.zywork.weixin.WeixinUser;
-import top.zywork.weixin.WeixinUtils;
-import top.zywork.weixin.XcxAuth;
+import top.zywork.weixin.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -56,6 +55,8 @@ public class WeixinAuthController {
 
     private UserRegService userRegService;
 
+    private SysConfigQueryService sysConfigQueryService;
+
     /**
      * <p>从cookies中读取用户信息，如果没有用户信息，则需要微信授权登录，登录成功后，把用户信息cookie写出到客户端。</p>
      * <p>如果cookies中有用户信息，则不需要授权登录。</p>
@@ -69,7 +70,8 @@ public class WeixinAuthController {
         if (StringUtils.isEmpty(openid)) {
             if (StringUtils.isNotEmpty(code)) {
                 // 没有授权登录，则开始微信授权登录并写出cookie到客户端，返回jwt token
-                GzhAuth gzhAuth = WeixinUtils.authGzh("appId", "appSecret", code);
+                WeixinGzhConfig weixinGzhConfig = sysConfigQueryService.getByName(SysConfigEnum.WEIXIN_GZH_CONFIG.getValue(), WeixinGzhConfig.class);
+                GzhAuth gzhAuth = WeixinUtils.authGzh(weixinGzhConfig.getAppId(), weixinGzhConfig.getAppSecret(), code);
                 WeixinUser weixinUser = WeixinUtils.userInfo(gzhAuth);
                 if (weixinUser != null) {
                     // 判断用户是否已经保存，如未保存，则保存微信用户信息到数据库
@@ -106,7 +108,8 @@ public class WeixinAuthController {
      */
     @GetMapping("xcx")
     public void xcxAuth(HttpServletRequest request, String code) {
-        XcxAuth xcxAuth = WeixinUtils.authXcx("appId", "appSecret", code);
+        WeixinXcxConfig weixinXcxConfig = sysConfigQueryService.getByName(SysConfigEnum.WEIXIN_GZH_CONFIG.getValue(), WeixinXcxConfig.class);
+        XcxAuth xcxAuth = WeixinUtils.authXcx(weixinXcxConfig.getAppId(), weixinXcxConfig.getAppSecret(), code);
         // TODO 判断用户是否已经保存，如未保存，则保存微信用户信息到数据库
     }
 
@@ -134,5 +137,10 @@ public class WeixinAuthController {
     @Autowired
     public void setUserRegService(UserRegService userRegService) {
         this.userRegService = userRegService;
+    }
+
+    @Autowired
+    public void setSysConfigQueryService(SysConfigQueryService sysConfigQueryService) {
+        this.sysConfigQueryService = sysConfigQueryService;
     }
 }
