@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import top.zywork.ali.AliyunMailConfig;
 import top.zywork.ali.AliyunMailUtils;
+import top.zywork.ali.AliyunSmsConfig;
 import top.zywork.ali.AliyunSmsUtils;
 import top.zywork.common.*;
 import top.zywork.enums.ContentTypeEnum;
@@ -159,7 +161,8 @@ public class AuthController {
                     // 是平台用户，准备发送手机验证码，此code用于发送短信
                     String code = RandomUtils.randomCode(RandomCodeEnum.NUMBER_CODE, 6);
                     try {
-                        SendSmsResponse smsResponse = AliyunSmsUtils.sendSms(phone, "signName", "templateCode", "templateParam", null);
+                        AliyunSmsConfig aliyunSmsConfig = new AliyunSmsConfig();
+                        SendSmsResponse smsResponse = AliyunSmsUtils.sendSms(aliyunSmsConfig, phone, "signName", "templateCode", "templateParam");
                         if (smsResponse.getCode() != null && smsResponse.getCode().equals("OK")) {
                             smsCodeRedisUtils.storeCode(SmsCodeRedisUtils.SMS_CODE_LOGIN_PREFIX, phone, code);
                             statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "短信发送成功", smsCodeExpiration);
@@ -235,7 +238,8 @@ public class AuthController {
                     // 还不是平台用户，准备发送邮箱验证码，此code用于发送邮件
                     String code = RandomUtils.randomCode(RandomCodeEnum.NUMBER_CODE, 6);
                     try {
-                        SingleSendMailResponse singleSendMailResponse = AliyunMailUtils.sendEmail("service@mail.zywork.top", "赣州智悦科技",  email, false, "注册验证码", code, "verifyRegCode");
+                        AliyunMailConfig aliyunMailConfig = new AliyunMailConfig();
+                        SingleSendMailResponse singleSendMailResponse = AliyunMailUtils.sendEmail(aliyunMailConfig, "service@mail.zywork.top", "赣州智悦科技",  email, false, "注册验证码", code, "verifyRegCode");
                         verifyCodeRedisUtils.storeCode(VerifyCodeRedisUtils.CODE_REG_PREFIX, email, code);
                         statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "邮件发送成功，请查收邮件", verifyCodeExpiration);
                     } catch (ClientException e) {
@@ -310,7 +314,8 @@ public class AuthController {
                     // 还不是平台用户，准备发送手机验证码，此code用于发送短信
                     String code = RandomUtils.randomCode(RandomCodeEnum.NUMBER_CODE, 6);
                     try {
-                        SendSmsResponse smsResponse = AliyunSmsUtils.sendSms(phone, "signName", "templateCode", "templateParam", null);
+                        AliyunSmsConfig aliyunSmsConfig = new AliyunSmsConfig();
+                        SendSmsResponse smsResponse = AliyunSmsUtils.sendSms(aliyunSmsConfig, phone, "signName", "templateCode", "templateParam");
                         if (smsResponse.getCode() != null && smsResponse.getCode().equals("OK")) {
                             smsCodeRedisUtils.storeCode(SmsCodeRedisUtils.SMS_CODE_REG_PREFIX, phone, code);
                             statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "短信发送成功", smsCodeExpiration);

@@ -69,7 +69,7 @@ public class WeixinAuthController {
         if (StringUtils.isEmpty(openid)) {
             if (StringUtils.isNotEmpty(code)) {
                 // 没有授权登录，则开始微信授权登录并写出cookie到客户端，返回jwt token
-                GzhAuth gzhAuth = WeixinUtils.authGzh(code);
+                GzhAuth gzhAuth = WeixinUtils.authGzh("appId", "appSecret", code);
                 WeixinUser weixinUser = WeixinUtils.userInfo(gzhAuth);
                 if (weixinUser != null) {
                     // 判断用户是否已经保存，如未保存，则保存微信用户信息到数据库
@@ -106,7 +106,7 @@ public class WeixinAuthController {
      */
     @GetMapping("xcx")
     public void xcxAuth(HttpServletRequest request, String code) {
-        XcxAuth xcxAuth = WeixinUtils.authXcx(code);
+        XcxAuth xcxAuth = WeixinUtils.authXcx("appId", "appSecret", code);
         // TODO 判断用户是否已经保存，如未保存，则保存微信用户信息到数据库
     }
 
