@@ -162,7 +162,7 @@ public class AuthController {
                     String code = RandomUtils.randomCode(RandomCodeEnum.NUMBER_CODE, 6);
                     try {
                         AliyunSmsConfig aliyunSmsConfig = new AliyunSmsConfig();
-                        SendSmsResponse smsResponse = AliyunSmsUtils.sendSms(aliyunSmsConfig, phone, "signName", "templateCode", "templateParam");
+                        SendSmsResponse smsResponse = AliyunSmsUtils.sendSms(aliyunSmsConfig, phone, "templateCode", "templateParam", "outId");
                         if (smsResponse.getCode() != null && smsResponse.getCode().equals("OK")) {
                             smsCodeRedisUtils.storeCode(SmsCodeRedisUtils.SMS_CODE_LOGIN_PREFIX, phone, code);
                             statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "短信发送成功", smsCodeExpiration);
@@ -315,7 +315,7 @@ public class AuthController {
                     String code = RandomUtils.randomCode(RandomCodeEnum.NUMBER_CODE, 6);
                     try {
                         AliyunSmsConfig aliyunSmsConfig = new AliyunSmsConfig();
-                        SendSmsResponse smsResponse = AliyunSmsUtils.sendSms(aliyunSmsConfig, phone, "signName", "templateCode", "templateParam");
+                        SendSmsResponse smsResponse = AliyunSmsUtils.sendSms(aliyunSmsConfig, phone, "templateCode", "templateParam", "outId");
                         if (smsResponse.getCode() != null && smsResponse.getCode().equals("OK")) {
                             smsCodeRedisUtils.storeCode(SmsCodeRedisUtils.SMS_CODE_REG_PREFIX, phone, code);
                             statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "短信发送成功", smsCodeExpiration);
