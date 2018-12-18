@@ -52,7 +52,7 @@ public class UserUserDetailController extends BaseController {
      * 查询登录用户自己的信息
      * @return
      */
-    @GetMapping("user/detail")
+    @GetMapping("get")
     public ResponseStatusVO getUserDetail() {
         JwtUser jwtUser = SecurityUtils.getJwtUser();
         ResponseStatusVO statusVO = new ResponseStatusVO();
