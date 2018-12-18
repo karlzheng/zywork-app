@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 18/12/2018 12:55:21
+ Date: 18/12/2018 15:48:15
 */
 
 SET NAMES utf8mb4;
@@ -187,14 +187,15 @@ CREATE TABLE `t_sys_log` (
   `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
   `user_account` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '用户账号',
   `description` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '执行说明',
-  `execute_class` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '完整类名',
-  `execute_method` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '方法名称',
+  `request_url` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '请求URL',
+  `request_method` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '请求方式',
+  `request_params` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '请求参数',
+  `response_code` int(11) DEFAULT NULL COMMENT '响应编码',
+  `response_msg` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '响应消息',
+  `execute_class` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '完整类名',
+  `execute_method` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '方法名称',
   `execute_time` datetime DEFAULT NULL COMMENT '开始执行时间',
   `execute_cost_time` bigint(20) DEFAULT NULL COMMENT '执行耗时(ms)',
-  `request_method` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '请求方式',
-  `request_params` text COLLATE utf8mb4_general_ci COMMENT '请求参数',
-  `response_code` int(11) DEFAULT NULL COMMENT '响应编码',
-  `response_msg` text COLLATE utf8mb4_general_ci COMMENT '响应消息',
   `has_exception` tinyint(4) DEFAULT '0' COMMENT '是否异常',
   `exception_msg` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '异常消息',
   `execute_ip` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'IP地址',
@@ -202,7 +203,20 @@ CREATE TABLE `t_sys_log` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统操作日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统操作日志表';
+
+-- ----------------------------
+-- Records of t_sys_log
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_sys_log` VALUES (1, 1, '13672297775', '用户编辑', 'http://localhost:8088/test/edit', 'POST', '[]', 1001, '成功', 'top.zywork.controller.TestController', 'edit', '2018-12-18 15:28:26', 13, 0, NULL, '0:0:0:0:0:0:0:1', '2018-12-18 15:28:25', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (2, 1, '13672297775', '用户编辑', 'http://localhost:8088/test/edit', 'POST', '[]', 1001, '成功', 'top.zywork.controller.TestController', 'edit', '2018-12-18 15:32:31', 7, 0, NULL, '0:0:0:0:0:0:0:1', '2018-12-18 15:32:30', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (3, 1, '13672297775', '用户添加', 'http://localhost:8088/test/add', 'POST', '[]', 1001, '成功', 'top.zywork.controller.TestController', 'add', '2018-12-18 15:32:35', 0, 0, NULL, '0:0:0:0:0:0:0:1', '2018-12-18 15:32:35', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (4, 1, '847315251@qq.com', '用户添加', 'http://localhost:8088/test/add', 'POST', '[]', 1001, '成功', 'top.zywork.controller.TestController', 'add', '2018-12-18 15:33:31', 0, 0, NULL, '0:0:0:0:0:0:0:1', '2018-12-18 15:33:30', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (5, 1, '13672297775', '用户删除', 'http://localhost:8088/test/remove/100', 'GET', '[\"100\"]', 1001, '成功', 'top.zywork.controller.TestController', 'remove', '2018-12-18 15:35:36', 6, 0, NULL, '0:0:0:0:0:0:0:1', '2018-12-18 15:35:35', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (6, 1, '13672297775', '用户添加', 'http://localhost:8088/test/add', 'POST', '[]', 1001, '成功', 'top.zywork.controller.TestController', 'add', '2018-12-18 15:44:56', 17629, 0, NULL, '0:0:0:0:0:0:0:1', '2018-12-18 15:45:01', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (7, 1, '13672297775', '用户添加', 'http://localhost:8088/test/add', 'POST', '[]', 1001, '成功', 'top.zywork.controller.TestController', 'add', '2018-12-18 15:47:33', 4, 0, NULL, '0:0:0:0:0:0:0:1', '2018-12-18 15:47:32', NULL, 0);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for t_user
