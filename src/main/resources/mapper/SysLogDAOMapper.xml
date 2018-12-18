@@ -19,6 +19,9 @@
 			<if test="description != null">
 				description,
 			</if>
+			<if test="userAgent != null">
+				user_agent,
+			</if>
 			<if test="requestUrl != null">
 				request_url,
 			</if>
@@ -75,6 +78,9 @@
 			</if>
 			<if test="description != null">
 				#{description},
+			</if>
+			<if test="userAgent != null">
+				#{userAgent},
 			</if>
 			<if test="requestUrl != null">
 				#{requestUrl},
@@ -141,6 +147,9 @@
 			<if test="item.description != null">
 				description,
 			</if>
+			<if test="item.userAgent != null">
+				user_agent,
+			</if>
 			<if test="item.requestUrl != null">
 				request_url,
 			</if>
@@ -197,6 +206,9 @@
 			</if>
 			<if test="item.description != null">
 				#{item.description},
+			</if>
+			<if test="item.userAgent != null">
+				#{item.userAgent},
 			</if>
 			<if test="item.requestUrl != null">
 				#{item.requestUrl},
@@ -271,6 +283,9 @@
 			<if test="description != null">
 				description = #{description},
 			</if>
+			<if test="userAgent != null">
+				user_agent = #{userAgent},
+			</if>
 			<if test="requestUrl != null">
 				request_url = #{requestUrl},
 			</if>
@@ -334,6 +349,9 @@
 			<if test="item.description != null">
 				description = #{item.description},
 			</if>
+			<if test="item.userAgent != null">
+				user_agent = #{item.userAgent},
+			</if>
 			<if test="item.requestUrl != null">
 				request_url = #{item.requestUrl},
 			</if>
@@ -386,7 +404,7 @@
     </update>
 
     <sql id="select_columns">
-        id as id, user_id as userId, user_account as userAccount, description as description, request_url as requestUrl, request_method as requestMethod, request_params as requestParams, response_code as responseCode, response_msg as responseMsg, execute_class as executeClass, execute_method as executeMethod, execute_time as executeTime, execute_cost_time as executeCostTime, has_exception as hasException, exception_msg as exceptionMsg, execute_ip as executeIp, create_time as createTime, update_time as updateTime, is_active as isActive
+        id as id, user_id as userId, user_account as userAccount, description as description, user_agent as userAgent, request_url as requestUrl, request_method as requestMethod, request_params as requestParams, response_code as responseCode, response_msg as responseMsg, execute_class as executeClass, execute_method as executeMethod, execute_time as executeTime, execute_cost_time as executeCostTime, has_exception as hasException, exception_msg as exceptionMsg, execute_ip as executeIp, create_time as createTime, update_time as updateTime, is_active as isActive
     </sql>
 
     <sql id="query_where_clause">
@@ -419,6 +437,9 @@
 		</if>
 		<if test="query != null and query.description != null and query.description != ''">
 			and description like concat('%', #{query.description}, '%')
+		</if>
+		<if test="query != null and query.userAgent != null and query.userAgent != ''">
+			and user_agent like concat('%', #{query.userAgent}, '%')
 		</if>
 		<if test="query != null and query.requestUrl != null and query.requestUrl != ''">
 			and request_url like concat('%', #{query.requestUrl}, '%')

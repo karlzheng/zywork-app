@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class SysLogDO extends BaseDO {
 
-    private static final long serialVersionUID = -9223372035856554121L;
+    private static final long serialVersionUID = -9223372035366927375L;
 
     // 日志编号
 	private Long id;
@@ -23,6 +23,8 @@ public class SysLogDO extends BaseDO {
 	private String userAccount;
 	// 执行说明
 	private String description;
+	// User-Agent
+	private String userAgent;
 	// 请求URL
 	private String requestUrl;
 	// 请求方式
@@ -56,11 +58,12 @@ public class SysLogDO extends BaseDO {
 	
     public SysLogDO () {}
 
-    public SysLogDO (Long id, Long userId, String userAccount, String description, String requestUrl, String requestMethod, String requestParams, Integer responseCode, String responseMsg, String executeClass, String executeMethod, Date executeTime, Long executeCostTime, Byte hasException, String exceptionMsg, String executeIp, Date createTime, Date updateTime, Byte isActive) {
+    public SysLogDO (Long id, Long userId, String userAccount, String description, String userAgent, String requestUrl, String requestMethod, String requestParams, Integer responseCode, String responseMsg, String executeClass, String executeMethod, Date executeTime, Long executeCostTime, Byte hasException, String exceptionMsg, String executeIp, Date createTime, Date updateTime, Byte isActive) {
         this.id = id;
 		this.userId = userId;
 		this.userAccount = userAccount;
 		this.description = description;
+		this.userAgent = userAgent;
 		this.requestUrl = requestUrl;
 		this.requestMethod = requestMethod;
 		this.requestParams = requestParams;
@@ -109,6 +112,14 @@ public class SysLogDO extends BaseDO {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getUserAgent() {
+		return userAgent;
+	}
+
+	public void setUserAgent(String userAgent) {
+		this.userAgent = userAgent;
 	}
 
 	public String getRequestUrl() {
@@ -239,6 +250,7 @@ public class SysLogDO extends BaseDO {
 				", userId = " + userId + 
 				", userAccount = " + userAccount + 
 				", description = " + description + 
+				", userAgent = " + userAgent + 
 				", requestUrl = " + requestUrl + 
 				", requestMethod = " + requestMethod + 
 				", requestParams = " + requestParams + 

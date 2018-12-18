@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import top.zywork.annotation.SysLog;
 import top.zywork.common.IPUtils;
+import top.zywork.common.UserAgentUtils;
 import top.zywork.common.WebUtils;
 import top.zywork.dto.SysLogDTO;
 import top.zywork.security.JwtUser;
@@ -81,6 +82,7 @@ public class SysLogAspect {
         sysLogDTO.setUserAccount(jwtUser.getUsername());
         sysLogDTO.setDescription(sysLog.description());
         HttpServletRequest request = WebUtils.getServletRequest();
+        sysLogDTO.setUserAgent(request.getHeader(UserAgentUtils.USER_AGENT));
         sysLogDTO.setRequestUrl(request.getRequestURL().toString());
         sysLogDTO.setRequestMethod(request.getMethod());
         sysLogDTO.setExecuteClass(signature.getDeclaringTypeName());

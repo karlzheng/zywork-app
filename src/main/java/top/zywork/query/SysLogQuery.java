@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  */
 public class SysLogQuery extends PageQuery {
 
-    private static final long serialVersionUID = -9223372034876308384L;
+    private static final long serialVersionUID = -9223372034753474023L;
 
     // 日志编号
 	private Long id;
@@ -33,6 +33,8 @@ public class SysLogQuery extends PageQuery {
 	private String userAccount;
 	// 执行说明
 	private String description;
+	// User-Agent
+	private String userAgent;
 	// 请求URL
 	private String requestUrl;
 	// 请求方式
@@ -103,7 +105,7 @@ public class SysLogQuery extends PageQuery {
 	
     public SysLogQuery () {}
 
-    public SysLogQuery (Long id, Long idMin, Long idMax, Long userId, Long userIdMin, Long userIdMax, String userAccount, String description, String requestUrl, String requestMethod, String requestParams, Integer responseCode, Integer responseCodeMin, Integer responseCodeMax, String responseMsg, String executeClass, String executeMethod, Date executeTime, Date executeTimeMin, Date executeTimeMax, Long executeCostTime, Long executeCostTimeMin, Long executeCostTimeMax, Byte hasException, Byte hasExceptionMin, Byte hasExceptionMax, String exceptionMsg, String executeIp, Date createTime, Date createTimeMin, Date createTimeMax, Date updateTime, Date updateTimeMin, Date updateTimeMax, Byte isActive, Byte isActiveMin, Byte isActiveMax) {
+    public SysLogQuery (Long id, Long idMin, Long idMax, Long userId, Long userIdMin, Long userIdMax, String userAccount, String description, String userAgent, String requestUrl, String requestMethod, String requestParams, Integer responseCode, Integer responseCodeMin, Integer responseCodeMax, String responseMsg, String executeClass, String executeMethod, Date executeTime, Date executeTimeMin, Date executeTimeMax, Long executeCostTime, Long executeCostTimeMin, Long executeCostTimeMax, Byte hasException, Byte hasExceptionMin, Byte hasExceptionMax, String exceptionMsg, String executeIp, Date createTime, Date createTimeMin, Date createTimeMax, Date updateTime, Date updateTimeMin, Date updateTimeMax, Byte isActive, Byte isActiveMin, Byte isActiveMax) {
         this.id = id;
 		this.idMin = idMin;
 		this.idMax = idMax;
@@ -112,6 +114,7 @@ public class SysLogQuery extends PageQuery {
 		this.userIdMax = userIdMax;
 		this.userAccount = userAccount;
 		this.description = description;
+		this.userAgent = userAgent;
 		this.requestUrl = requestUrl;
 		this.requestMethod = requestMethod;
 		this.requestParams = requestParams;
@@ -206,6 +209,14 @@ public class SysLogQuery extends PageQuery {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getUserAgent() {
+		return userAgent;
+	}
+
+	public void setUserAgent(String userAgent) {
+		this.userAgent = userAgent;
 	}
 
 	public String getRequestUrl() {
@@ -452,6 +463,7 @@ public class SysLogQuery extends PageQuery {
 				", userIdMax = " + userIdMax + 
 				", userAccount = " + userAccount + 
 				", description = " + description + 
+				", userAgent = " + userAgent + 
 				", requestUrl = " + requestUrl + 
 				", requestMethod = " + requestMethod + 
 				", requestParams = " + requestParams + 

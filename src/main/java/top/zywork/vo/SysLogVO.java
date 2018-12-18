@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  */
 public class SysLogVO extends BaseVO {
 
-    private static final long serialVersionUID = -9223372035195018263L;
+    private static final long serialVersionUID = -9223372036126894487L;
 
     // 日志编号
 	private Long id;
@@ -31,6 +31,9 @@ public class SysLogVO extends BaseVO {
 	// 执行说明
 	@Size(min = 0, max = 200, message = "必须小于200个字符")
 	private String description;
+	// User-Agent
+	@Size(min = 0, max = 255, message = "必须小于255个字符")
+	private String userAgent;
 	// 请求URL
 	@Size(min = 0, max = 500, message = "必须小于500个字符")
 	private String requestUrl;
@@ -75,11 +78,12 @@ public class SysLogVO extends BaseVO {
 	
     public SysLogVO () {}
 
-    public SysLogVO (Long id, Long userId, String userAccount, String description, String requestUrl, String requestMethod, String requestParams, Integer responseCode, String responseMsg, String executeClass, String executeMethod, Date executeTime, Long executeCostTime, Byte hasException, String exceptionMsg, String executeIp, Date createTime, Date updateTime, Byte isActive) {
+    public SysLogVO (Long id, Long userId, String userAccount, String description, String userAgent, String requestUrl, String requestMethod, String requestParams, Integer responseCode, String responseMsg, String executeClass, String executeMethod, Date executeTime, Long executeCostTime, Byte hasException, String exceptionMsg, String executeIp, Date createTime, Date updateTime, Byte isActive) {
         this.id = id;
 		this.userId = userId;
 		this.userAccount = userAccount;
 		this.description = description;
+		this.userAgent = userAgent;
 		this.requestUrl = requestUrl;
 		this.requestMethod = requestMethod;
 		this.requestParams = requestParams;
@@ -128,6 +132,14 @@ public class SysLogVO extends BaseVO {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getUserAgent() {
+		return userAgent;
+	}
+
+	public void setUserAgent(String userAgent) {
+		this.userAgent = userAgent;
 	}
 
 	public String getRequestUrl() {
@@ -258,6 +270,7 @@ public class SysLogVO extends BaseVO {
 				", userId = " + userId + 
 				", userAccount = " + userAccount + 
 				", description = " + description + 
+				", userAgent = " + userAgent + 
 				", requestUrl = " + requestUrl + 
 				", requestMethod = " + requestMethod + 
 				", requestParams = " + requestParams + 
