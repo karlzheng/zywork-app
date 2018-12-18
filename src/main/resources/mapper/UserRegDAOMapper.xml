@@ -4,11 +4,17 @@
 
 <mapper namespace="top.zywork.dao.UserRegDAO">
 
-    <insert id="saveUser">
+    <insert id="saveUser" parameterType="userRegDO">
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
         insert into t_user(email, password) values (#{email}, #{password})
     </insert>
 
-    <insert id="saveUserMobile">
+    <insert id="saveUserMobile" parameterType="userRegDO">
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
         insert into t_user(phone, password) values (#{phone}, #{password})
     </insert>
 

@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 17/12/2018 22:18:31
+ Date: 18/12/2018 12:55:35
 */
 
 SET NAMES utf8mb4;
@@ -72,6 +72,7 @@ CREATE TABLE `t_role` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '角色编号',
   `title` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '角色标题',
   `description` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '角色描述',
+  `is_default` tinyint(4) DEFAULT '0' COMMENT '是否默认角色',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
@@ -126,7 +127,7 @@ CREATE TABLE `t_sys_config` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统配置表，以JSON格式记录常用配置，如阿里云，微信等';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统配置表，以JSON格式记录常用配置，如阿里云，微信等';
 
 -- ----------------------------
 -- Table structure for t_sys_log

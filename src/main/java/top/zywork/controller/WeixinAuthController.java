@@ -18,6 +18,7 @@ import top.zywork.enums.SysConfigEnum;
 import top.zywork.security.JwtTokenRedisUtils;
 import top.zywork.security.JwtUser;
 import top.zywork.security.JwtUtils;
+import top.zywork.service.DefaultRoleQueryService;
 import top.zywork.service.SysConfigQueryService;
 import top.zywork.service.UserRegService;
 import top.zywork.vo.ResponseStatusVO;
@@ -55,6 +56,8 @@ public class WeixinAuthController {
 
     private UserRegService userRegService;
 
+    private DefaultRoleQueryService defaultRoleQueryService;
+
     private SysConfigQueryService sysConfigQueryService;
 
     /**
@@ -78,7 +81,7 @@ public class WeixinAuthController {
                     JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(weixinUser.getOpenid());
                     if (StringUtils.isEmpty(jwtUser.getUsername())) {
                         userRegService.saveGzhUser(weixinUser.getOpenid(), new BCryptPasswordEncoder().encode(RandomUtils.randomCode(RandomCodeEnum.MIX_CODE, 8)),
-                                weixinUser.getNickname(), weixinUser.getHeadimgurl(), Byte.valueOf(weixinUser.getSex()));
+                                weixinUser.getNickname(), weixinUser.getHeadimgurl(), Byte.valueOf(weixinUser.getSex()), defaultRoleQueryService.getDefaultRole());
                         // 重新根据openid获取JwtUser，生成jwt token并返回客户端
                         jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(weixinUser.getOpenid());
                     }
@@ -137,6 +140,11 @@ public class WeixinAuthController {
     @Autowired
     public void setUserRegService(UserRegService userRegService) {
         this.userRegService = userRegService;
+    }
+
+    @Autowired
+    public void setDefaultRoleQueryService(DefaultRoleQueryService defaultRoleQueryService) {
+        this.defaultRoleQueryService = defaultRoleQueryService;
     }
 
     @Autowired

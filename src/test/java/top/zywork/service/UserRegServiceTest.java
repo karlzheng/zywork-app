@@ -14,19 +14,22 @@ public class UserRegServiceTest {
     @Autowired
     private UserRegService userRegService;
 
+    @Autowired
+    private DefaultRoleQueryService defaultRoleQueryService;
+
     @Test
     public void testSaveUser() {
-        userRegService.saveUser("wgssmarter@126.com", new BCryptPasswordEncoder().encode("123456"));
+        userRegService.saveUser("wgssmart@126.com", new BCryptPasswordEncoder().encode("123456"), defaultRoleQueryService.getDefaultRole());
     }
 
     @Test
     public void testSaveUserMobile() {
-        userRegService.saveUserMobile("18888888888", new BCryptPasswordEncoder().encode("123456"));
+        userRegService.saveUserMobile("18888888899", new BCryptPasswordEncoder().encode("123456"), defaultRoleQueryService.getDefaultRole());
     }
 
     @Test
     public void testSaveGzhUser() {
-        userRegService.saveGzhUser("openid", new BCryptPasswordEncoder().encode("123456"), "wgssmarter@126.com", "headicon", (byte) 0);
+        userRegService.saveGzhUser("openid_wechat", new BCryptPasswordEncoder().encode("123456"), "wgssmarter@126.com", "headicon", (byte) 0, defaultRoleQueryService.getDefaultRole());
     }
 
 }

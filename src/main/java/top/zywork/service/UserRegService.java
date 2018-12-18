@@ -15,14 +15,14 @@ public interface UserRegService {
      * @param email
      * @param password
      */
-    void saveUser(String email, String password);
+    void saveUser(String email, String password, Long roleId);
 
     /**
      * 保存手机注册用户信息
      * @param phone
      * @param password
      */
-    void saveUserMobile(String phone, String password);
+    void saveUserMobile(String phone, String password, Long roleId);
 
     /**
      * 保存微信公众号登录用户信息
@@ -32,6 +32,6 @@ public interface UserRegService {
      * @param headicon
      * @param gender
      */
-    void saveGzhUser(String openid, String password, String nickname, String headicon, byte gender);
+    void saveGzhUser(String openid, String password, String nickname, String headicon, byte gender, Long roleId);
 
 }

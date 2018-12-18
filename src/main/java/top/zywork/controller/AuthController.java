@@ -27,6 +27,7 @@ import top.zywork.security.JwtTokenRedisUtils;
 import top.zywork.security.JwtUser;
 import top.zywork.security.VerifyCodeRedisUtils;
 import top.zywork.security.mobile.SmsCodeRedisUtils;
+import top.zywork.service.DefaultRoleQueryService;
 import top.zywork.service.SysConfigQueryService;
 import top.zywork.service.UserRegService;
 import top.zywork.vo.ResponseStatusVO;
@@ -70,6 +71,8 @@ public class AuthController {
     private UserDetailsService jwtUserDetailsService;
 
     private UserRegService userRegService;
+
+    private DefaultRoleQueryService defaultRoleQueryService;
 
     private SysConfigQueryService sysConfigQueryService;
 
@@ -199,7 +202,7 @@ public class AuthController {
                 if (StringUtils.isNotEmpty(password) && RegexUtils.match(RegexUtils.REGEX_PASSWORD, password.trim())) {
                     if (StringUtils.isNotEmpty(confirmPassword) && password.trim().equals(confirmPassword.trim())) {
                         if (verifyCodeRedisUtils.existsCode(VerifyCodeRedisUtils.CODE_REG_PREFIX, regCode)) {
-                            userRegService.saveUser(email, new BCryptPasswordEncoder().encode(password));
+                            userRegService.saveUser(email, new BCryptPasswordEncoder().encode(password), defaultRoleQueryService.getDefaultRole());
                         } else {
                             statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "邮箱验证码不正确", null);
                         }
@@ -275,7 +278,7 @@ public class AuthController {
                 if (StringUtils.isNotEmpty(password) && RegexUtils.match(RegexUtils.REGEX_PASSWORD, password.trim())) {
                     if (StringUtils.isNotEmpty(confirmPassword) && password.trim().equals(confirmPassword.trim())) {
                         if (smsCodeRedisUtils.existsCode(SmsCodeRedisUtils.SMS_CODE_REG_PREFIX, regCode)) {
-                            userRegService.saveUserMobile(phone, new BCryptPasswordEncoder().encode(password));
+                            userRegService.saveUserMobile(phone, new BCryptPasswordEncoder().encode(password), defaultRoleQueryService.getDefaultRole());
                         } else {
                             statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "手机验证码不正确", null);
                         }
@@ -358,6 +361,11 @@ public class AuthController {
     @Autowired
     public void setUserRegService(UserRegService userRegService) {
         this.userRegService = userRegService;
+    }
+
+    @Autowired
+    public void setDefaultRoleQueryService(DefaultRoleQueryService defaultRoleQueryService) {
+        this.defaultRoleQueryService = defaultRoleQueryService;
     }
 
     @Autowired

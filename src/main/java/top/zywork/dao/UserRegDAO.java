@@ -17,17 +17,15 @@ public interface UserRegDAO {
 
     /**
      * 邮箱注册保存用户信息
-     * @param email
-     * @param password
+     * @param userRegDO
      */
-    void saveUser(@Param("email") String email, @Param("password") String password);
+    void saveUser(UserRegDO userRegDO);
 
     /**
      * 手机注册保存用户信息
-     * @param phone
-     * @param password
+     * @param userRegDO
      */
-    void saveUserMobile(@Param("phone") String phone,  @Param("password") String password);
+    void saveUserMobile(UserRegDO userRegDO);
 
     /**
      * 公众号登录时保存用户基础信息
