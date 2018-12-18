@@ -9,6 +9,8 @@ import top.zywork.dto.PagerDTO;
 import top.zywork.enums.ResponseStatusEnum;
 import top.zywork.exception.ServiceException;
 import top.zywork.query.UserUserDetailQuery;
+import top.zywork.security.JwtUser;
+import top.zywork.security.SecurityUtils;
 import top.zywork.service.UserUserDetailService;
 import top.zywork.vo.PagerVO;
 import top.zywork.vo.ResponseStatusVO;
@@ -44,6 +46,28 @@ public class UserUserDetailController extends BaseController {
             statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "查询失败", null);
         }
         return statusVO;
+    }
+
+    /**
+     * 根据用户id查询用户信息，只能查询自己的用户信息
+     * @param id
+     * @return
+     */
+    @GetMapping("user/multi/{id}")
+    public ResponseStatusVO listByIdUser(@PathVariable("id") Long id) {
+        JwtUser jwtUser = SecurityUtils.getJwtUser();
+        ResponseStatusVO statusVO = new ResponseStatusVO();
+        if (jwtUser == null) {
+            statusVO.errorStatus(ResponseStatusEnum.AUTHENTICATION_ERROR.getCode(), ResponseStatusEnum.AUTHENTICATION_ERROR.getMessage(), null);
+            return statusVO;
+        } else {
+            if (jwtUser.getUserId() != id) {
+                statusVO.errorStatus(ResponseStatusEnum.AUTHORIZATION_ERROR.getCode(), ResponseStatusEnum.AUTHORIZATION_ERROR.getMessage(), null);
+                return statusVO;
+            } else {
+                return listById(id);
+            }
+        }
     }
 
     @GetMapping("all")
