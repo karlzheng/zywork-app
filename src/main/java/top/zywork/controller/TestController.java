@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import top.zywork.annotation.SysLog;
 import top.zywork.enums.ResponseStatusEnum;
 import top.zywork.security.JwtUser;
+import top.zywork.security.SecurityUtils;
 import top.zywork.vo.ResponseStatusVO;
 
 @RestController
@@ -24,8 +25,10 @@ public class TestController {
     @PostMapping("edit")
     @SysLog(description = "用户编辑")
     public ResponseStatusVO edit() {
-        JwtUser jwtUser = (JwtUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        logger.info("userId: {}, userName: {}", jwtUser.getUserId(), jwtUser.getUsername());
+        JwtUser jwtUser = SecurityUtils.getJwtUser();
+        if (jwtUser != null) {
+            logger.info("userId: {}, userName: {}", jwtUser.getUserId(), jwtUser.getUsername());
+        }
         return new ResponseStatusVO(ResponseStatusEnum.OK.getCode(), ResponseStatusEnum.OK.getMessage(), null);
     }
 
