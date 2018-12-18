@@ -49,24 +49,18 @@ public class UserUserDetailController extends BaseController {
     }
 
     /**
-     * 根据用户id查询用户信息，只能查询自己的用户信息
-     * @param id
+     * 查询登录用户自己的信息
      * @return
      */
-    @GetMapping("user/multi/{id}")
-    public ResponseStatusVO listByIdUser(@PathVariable("id") Long id) {
+    @GetMapping("user/detail")
+    public ResponseStatusVO getUserDetail() {
         JwtUser jwtUser = SecurityUtils.getJwtUser();
         ResponseStatusVO statusVO = new ResponseStatusVO();
         if (jwtUser == null) {
             statusVO.errorStatus(ResponseStatusEnum.AUTHENTICATION_ERROR.getCode(), ResponseStatusEnum.AUTHENTICATION_ERROR.getMessage(), null);
             return statusVO;
         } else {
-            if (jwtUser.getUserId() != id) {
-                statusVO.errorStatus(ResponseStatusEnum.AUTHORIZATION_ERROR.getCode(), ResponseStatusEnum.AUTHORIZATION_ERROR.getMessage(), null);
-                return statusVO;
-            } else {
-                return listById(id);
-            }
+            return listById(jwtUser.getUserId());
         }
     }
 
