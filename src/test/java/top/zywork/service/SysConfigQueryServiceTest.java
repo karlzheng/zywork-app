@@ -16,14 +16,6 @@ public class SysConfigQueryServiceTest {
 
     @Test
     public void testGetByName() {
-        SysConfigQueryDTO sysConfigQueryDTO = sysConfigQueryService.getByName("aliyun_sms_config");
-        if (sysConfigQueryDTO != null) {
-            System.out.println(sysConfigQueryDTO.getValue());
-        }
-    }
-
-    @Test
-    public void testGetByName1() {
         AliyunSmsConfig aliyunSmsConfig = sysConfigQueryService.getByName("aliyun_sms_config", AliyunSmsConfig.class);
         if (aliyunSmsConfig != null) {
             System.out.println("******** " + aliyunSmsConfig.getAccessKeyId() + " ********");
