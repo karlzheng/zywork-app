@@ -47,6 +47,22 @@ public class UserRoleController extends BaseController {
         return statusVO;
     }
 
+    /**
+     * 查询登录用户自己的所有角色
+     * @return
+     */
+    @GetMapping("list")
+    public ResponseStatusVO listUserRoles() {
+        JwtUser jwtUser = SecurityUtils.getJwtUser();
+        ResponseStatusVO statusVO = new ResponseStatusVO();
+        if (jwtUser == null) {
+            statusVO.errorStatus(ResponseStatusEnum.AUTHENTICATION_ERROR.getCode(), ResponseStatusEnum.AUTHENTICATION_ERROR.getMessage(), null);
+            return statusVO;
+        } else {
+            return listById(jwtUser.getUserId());
+        }
+    }
+
     @GetMapping("all")
     public ResponseStatusVO listAll() {
         ResponseStatusVO statusVO = new ResponseStatusVO();
