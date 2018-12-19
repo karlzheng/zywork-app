@@ -42,7 +42,7 @@ public class SmsCodeRedisUtils {
      * @param phone
      * @return
      */
-    public boolean existsCode(String prefix, String phone) {
+    public Boolean existsCode(String prefix, String phone) {
         return redisTemplate.hasKey(prefix + phone);
     }
 

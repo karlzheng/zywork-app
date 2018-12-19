@@ -39,7 +39,7 @@ public class JwtTokenRedisUtils {
      * @param userId
      * @return
      */
-    public boolean existsToken(String userId) {
+    public Boolean existsToken(String userId) {
         return redisTemplate.hasKey(TOKEN_PREFIX + userId);
     }
 

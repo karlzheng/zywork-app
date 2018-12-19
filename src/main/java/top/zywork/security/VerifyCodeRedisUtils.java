@@ -42,7 +42,7 @@ public class VerifyCodeRedisUtils {
      * @param sessionId 用于标识哪个用户
      * @return
      */
-    public boolean existsCode(String prefix, String sessionId) {
+    public Boolean existsCode(String prefix, String sessionId) {
         return redisTemplate.hasKey(prefix + sessionId);
     }
 
