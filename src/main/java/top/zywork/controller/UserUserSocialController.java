@@ -10,6 +10,8 @@ import top.zywork.dto.PagerDTO;
 import top.zywork.enums.ResponseStatusEnum;
 import top.zywork.exception.ServiceException;
 import top.zywork.query.UserUserSocialQuery;
+import top.zywork.security.JwtUser;
+import top.zywork.security.SecurityUtils;
 import top.zywork.service.UserUserSocialService;
 import top.zywork.vo.ResponseStatusVO;
 import top.zywork.vo.PagerVO;
@@ -46,6 +48,22 @@ public class UserUserSocialController extends BaseController {
             statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "查询失败", null);
         }
         return statusVO;
+    }
+
+    /**
+     * 查询登录用户自己的所有第三方登录信息
+     * @return
+     */
+    @GetMapping("list")
+    public ResponseStatusVO listUserSocial() {
+        JwtUser jwtUser = SecurityUtils.getJwtUser();
+        ResponseStatusVO statusVO = new ResponseStatusVO();
+        if (jwtUser == null) {
+            statusVO.errorStatus(ResponseStatusEnum.AUTHENTICATION_ERROR.getCode(), ResponseStatusEnum.AUTHENTICATION_ERROR.getMessage(), null);
+            return statusVO;
+        } else {
+            return listById(jwtUser.getUserId());
+        }
     }
 
     @GetMapping("all")
