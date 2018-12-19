@@ -16,8 +16,6 @@ import top.zywork.vo.PagerVO;
 import top.zywork.vo.ResponseStatusVO;
 import top.zywork.vo.UserUserDetailVO;
 
-import java.util.List;
-
 /**
  * UserUserDetailController控制器类<br/>
  *
@@ -38,9 +36,10 @@ public class UserUserDetailController extends BaseController {
     public ResponseStatusVO listById(@PathVariable("id") Long id) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
-            List<Object> objectList = userUserDetailService.listById(id);
-            List<UserUserDetailVO> userUserDetailVOList =  BeanUtils.copy(objectList, UserUserDetailVO.class);
-            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "查询成功", userUserDetailVOList);
+            PagerDTO pagerDTO = userUserDetailService.listById(id);
+            PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
+            pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), UserUserDetailVO.class));
+            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "查询成功", pagerVO);
         } catch (ServiceException e) {
             logger.error("返回单个对象JSON数据失败：{}", e.getMessage());
             statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "查询失败", null);
@@ -68,9 +67,10 @@ public class UserUserDetailController extends BaseController {
     public ResponseStatusVO listAll() {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
-            List<Object> objectList = userUserDetailService.listAll();
-            List<UserUserDetailVO> userUserDetailVOList =  BeanUtils.copy(objectList, UserUserDetailVO.class);
-            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "查询成功", userUserDetailVOList);
+            PagerDTO pagerDTO = userUserDetailService.listAll();
+            PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
+            pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), UserUserDetailVO.class));
+            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "查询成功", pagerVO);
         } catch (ServiceException e) {
             logger.error("返回所有对象JSON数据失败：{}", e.getMessage());
             statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "查询失败", null);
