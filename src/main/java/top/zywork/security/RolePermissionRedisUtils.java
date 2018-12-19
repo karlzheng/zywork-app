@@ -33,7 +33,7 @@ public class RolePermissionRedisUtils {
      * 判断是否缓存了角色权限
      * @return
      */
-    public boolean exists() {
+    public Boolean exists() {
         return redisTemplate.hasKey(ROLE_PERMISSION_LIST);
     }
 
@@ -41,6 +41,7 @@ public class RolePermissionRedisUtils {
      * 从缓存获取角色权限
      * @return
      */
+    @SuppressWarnings({"unchecked"})
     public List<RolePermissionDO> get() {
         return (List<RolePermissionDO>) redisTemplate.opsForValue().get(ROLE_PERMISSION_LIST);
     }
