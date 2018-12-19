@@ -179,9 +179,10 @@ public class SysLogController extends BaseController {
     public ResponseStatusVO listAll() {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
-            List<Object> objectList = sysLogService.listAll();
-            List<SysLogVO> sysLogVOList =  BeanUtils.copy(objectList, SysLogVO.class);
-            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "查询成功", sysLogVOList);
+            PagerDTO pagerDTO = sysLogService.listAll();
+            PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
+            pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), SysLogVO.class));
+            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "查询成功", pagerVO);
         } catch (ServiceException e) {
             logger.error("返回所有对象JSON数据失败：{}", e.getMessage());
             statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "查询失败", null);
