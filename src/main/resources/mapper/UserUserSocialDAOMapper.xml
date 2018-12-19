@@ -1,0 +1,99 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.zywork.dao.UserUserSocialDAO">
+
+    <sql id="select_columns">
+        t_user.id as userId, t_user.phone as userPhone, t_user.email as userEmail, t_user_social.openid as userSocialOpenid, t_user_social.union_id as userSocialUnionId, t_user_social.refresh_token as userSocialRefreshToken, t_user_social.social_type as userSocialSocialType, t_user_social.create_time as userSocialCreateTime
+    </sql>
+
+    <sql id="query_where_clause">
+        <if test="query != null and query.userId != null">
+			t_user.id = #{query.userId}
+		</if>
+		<if test="query != null and query.userIdMin != null and query.userIdMax == null">
+			t_user.id <![CDATA[ >= ]]> #{query.userIdMin}
+		</if>
+		<if test="query != null and query.userIdMin == null and query.userIdMax != null">
+			t_user.id <![CDATA[ <= ]]> #{query.userIdMax}
+		</if>
+		<if test="query != null and query.userIdMin != null and query.userIdMax != null">
+			t_user.id <![CDATA[ >= ]]> #{query.userIdMin} and t_user.id <![CDATA[ <= ]]> #{query.userIdMax}
+		</if>
+		<if test="query != null and query.userPhone != null and query.userPhone != ''">
+			and t_user.phone like concat('%', #{query.userPhone}, '%')
+		</if>
+		<if test="query != null and query.userEmail != null and query.userEmail != ''">
+			and t_user.email like concat('%', #{query.userEmail}, '%')
+		</if>
+		<if test="query != null and query.userSocialOpenid != null and query.userSocialOpenid != ''">
+			and t_user_social.openid like concat('%', #{query.userSocialOpenid}, '%')
+		</if>
+		<if test="query != null and query.userSocialUnionId != null and query.userSocialUnionId != ''">
+			and t_user_social.union_id like concat('%', #{query.userSocialUnionId}, '%')
+		</if>
+		<if test="query != null and query.userSocialRefreshToken != null and query.userSocialRefreshToken != ''">
+			and t_user_social.refresh_token like concat('%', #{query.userSocialRefreshToken}, '%')
+		</if>
+		<if test="query != null and query.userSocialSocialType != null and query.userSocialSocialType != ''">
+			and t_user_social.social_type like concat('%', #{query.userSocialSocialType}, '%')
+		</if>
+		<if test="query != null and query.userSocialCreateTime != null">
+			and t_user_social.create_time = #{query.userSocialCreateTime}
+		</if>
+		<if test="query != null and query.userSocialCreateTimeMin != null and query.userSocialCreateTimeMax == null">
+			and t_user_social.create_time <![CDATA[ >= ]]> #{query.userSocialCreateTimeMin}
+		</if>
+		<if test="query != null and query.userSocialCreateTimeMin == null and query.userSocialCreateTimeMax != null">
+			and t_user_social.create_time <![CDATA[ <= ]]> #{query.userSocialCreateTimeMax}
+		</if>
+		<if test="query != null and query.userSocialCreateTimeMin != null and query.userSocialCreateTimeMax != null">
+			and t_user_social.create_time <![CDATA[ >= ]]> #{query.userSocialCreateTimeMin} and t_user_social.create_time <![CDATA[ <= ]]> #{query.userSocialCreateTimeMax}
+		</if>
+		
+        and
+        t_user.id = t_user_social.user_id
+    </sql>
+
+    <select id="listById" parameterType="long" resultType="userUserSocialDO">
+        select
+        <include refid="select_columns"/>
+        from t_user, t_user_social where t_user.id = #{id} and
+        t_user.id = t_user_social.user_id
+    </select>
+
+    <select id="listAll" resultType="userUserSocialDO">
+        select
+        <include refid="select_columns"/>
+        from t_user, t_user_social
+        where
+        t_user.id = t_user_social.user_id
+        order by t_user.update_time desc, t_user.create_time desc
+    </select>
+
+    <select id="listPageByCondition" resultType="userUserSocialDO">
+        select
+        <include refid="select_columns"/>
+        from t_user, t_user_social
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+        order by
+        <if test="query.sortColumn != null and query.sortColumn != ''">
+            ${query.sortColumn} ${query.sortOrder}
+        </if>
+        <if test="query.sortColumn == null or query.sortColumn == ''">
+            t_user.update_time desc, t_user.create_time desc
+        </if>
+        limit #{query.beginIndex}, #{query.pageSize}
+    </select>
+
+    <select id="countByCondition" resultType="long">
+        select count(*) from t_user, t_user_social
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+    </select>
+
+</mapper>
