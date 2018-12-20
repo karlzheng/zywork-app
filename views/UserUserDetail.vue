@@ -109,11 +109,20 @@
 <FormItem label="QQ号" prop="userDetailQq">
 	<Input v-model="searchForm.userDetailQq"/>
 </FormItem>
+<FormItem label="QQ二维码" prop="userDetailQqQrcode">
+	<Input v-model="searchForm.userDetailQqQrcode"/>
+</FormItem>
 <FormItem label="微信号" prop="userDetailWechat">
 	<Input v-model="searchForm.userDetailWechat"/>
 </FormItem>
+<FormItem label="微信二维码" prop="userDetailWechatQrcode">
+	<Input v-model="searchForm.userDetailWechatQrcode"/>
+</FormItem>
 <FormItem label="支付宝账号" prop="userDetailAlipay">
 	<Input v-model="searchForm.userDetailAlipay"/>
+</FormItem>
+<FormItem label="支付宝二维码" prop="userDetailAlipayQrcode">
+	<Input v-model="searchForm.userDetailAlipayQrcode"/>
 </FormItem>
 
       </Form>
@@ -136,8 +145,11 @@
 <p>生日: <span v-text="form.userDetailBirthday"></span></p>
 <p>年龄: <span v-text="form.userDetailAge"></span></p>
 <p>QQ号: <span v-text="form.userDetailQq"></span></p>
+<p>QQ二维码: <span v-text="form.userDetailQqQrcode"></span></p>
 <p>微信号: <span v-text="form.userDetailWechat"></span></p>
+<p>微信二维码: <span v-text="form.userDetailWechatQrcode"></span></p>
 <p>支付宝账号: <span v-text="form.userDetailAlipay"></span></p>
+<p>支付宝二维码: <span v-text="form.userDetailAlipayQrcode"></span></p>
 
     </Modal>
   </div>
@@ -178,8 +190,11 @@ userDetailGender: null,
 userDetailBirthday: null,
 userDetailAge: null,
 userDetailQq: null,
+userDetailQqQrcode: null,
 userDetailWechat: null,
+userDetailWechatQrcode: null,
 userDetailAlipay: null,
+userDetailAlipayQrcode: null,
 
         },
         searchForm: {
@@ -209,8 +224,11 @@ userDetailAge: null,
 userDetailAgeMin: null, 
 userDetailAgeMax: null, 
 userDetailQq: null,
+userDetailQqQrcode: null,
 userDetailWechat: null,
+userDetailWechatQrcode: null,
 userDetailAlipay: null,
+userDetailAlipayQrcode: null,
 
         },
         table: {
@@ -304,14 +322,32 @@ width: 120,
 sortable: true
 },
 {
+title: 'QQ二维码',
+key: 'userDetailQqQrcode',
+width: 120,
+sortable: true
+},
+{
 title: '微信号',
 key: 'userDetailWechat',
 width: 120,
 sortable: true
 },
 {
+title: '微信二维码',
+key: 'userDetailWechatQrcode',
+width: 120,
+sortable: true
+},
+{
 title: '支付宝账号',
 key: 'userDetailAlipay',
+width: 120,
+sortable: true
+},
+{
+title: '支付宝二维码',
+key: 'userDetailAlipayQrcode',
 width: 120,
 sortable: true
 },
@@ -338,7 +374,7 @@ sortable: true
                       }
                     }
                   }, '详情')
-                ])
+                ]);
               }
             }
           ],
@@ -395,7 +431,7 @@ sortable: true
         utils.changePageSize(this, pageSize)
       },
       fitTable() {
-        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['userId','userPhone','userEmail','userCreateTime','userDetailNickname','userDetailHeadicon','userDetailIdentity','userDetailRealName','userDetailGender','userDetailBirthday','userDetailAge','userDetailQq','userDetailWechat','userDetailAlipay',])
+        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['userId','userPhone','userEmail','userCreateTime','userDetailNickname','userDetailHeadicon','userDetailIdentity','userDetailRealName','userDetailGender','userDetailBirthday','userDetailAge','userDetailQq','userDetailQqQrcode','userDetailWechat','userDetailWechatQrcode','userDetailAlipay','userDetailAlipayQrcode',])
       }
     }
   }

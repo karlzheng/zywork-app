@@ -2,8 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d55c7d3e-ec5e-4423-9c06-7026916396ba" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/views/SysConfig.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documents/zywork_app.sql" beforeDir="false" afterPath="$PROJECT_DIR$/documents/zywork_app.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documents/zywork_app_data_test.sql" beforeDir="false" afterPath="$PROJECT_DIR$/documents/zywork_app_data_test.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/dos/UserUserDetailDO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/dos/UserUserDetailDO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/dto/UserUserDetailDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/dto/UserUserDetailDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/query/UserUserDetailQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/query/UserUserDetailQuery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/vo/UserUserDetailVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/vo/UserUserDetailVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/UserUserDetailDAOMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/UserUserDetailDAOMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/UserUserDetail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/views/UserUserDetail.vue" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -58,12 +65,12 @@
         <counts>
           <entry key="0" value="3" />
           <entry key="class" value="172" />
-          <entry key="java" value="514" />
+          <entry key="java" value="518" />
           <entry key="jpg" value="3" />
           <entry key="log" value="1" />
           <entry key="md" value="7" />
-          <entry key="sql" value="20" />
-          <entry key="vue" value="10" />
+          <entry key="sql" value="22" />
+          <entry key="vue" value="11" />
           <entry key="xml" value="33" />
           <entry key="yml" value="36" />
         </counts>
@@ -72,13 +79,13 @@
         <counts>
           <entry key="CLASS" value="172" />
           <entry key="Image" value="3" />
-          <entry key="JAVA" value="514" />
+          <entry key="JAVA" value="518" />
           <entry key="Markdown" value="7" />
           <entry key="PLAIN_TEXT" value="4" />
-          <entry key="SQL" value="19" />
+          <entry key="SQL" value="21" />
           <entry key="Scratch" value="1" />
           <entry key="UML" value="3" />
-          <entry key="Vue.js" value="7" />
+          <entry key="Vue.js" value="8" />
           <entry key="XML" value="33" />
           <entry key="YAML" value="36" />
         </counts>
@@ -147,7 +154,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/top/zywork/configuration/WebSecurityConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/security/MyInvocationSecurityMetadataSource.java" />
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/listener/AppListener.java" />
         <option value="$PROJECT_DIR$/README.md" />
@@ -179,7 +185,6 @@
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/controller/AuthController.java" />
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/dao/SysLogSaveDAO.java" />
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/aspect/SysLogAspect.java" />
-        <option value="$PROJECT_DIR$/documents/zywork_app.sql" />
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/configuration/WebMvcConfig.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/UserUserDetailDAOMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/security/SecurityUtils.java" />
@@ -198,6 +203,8 @@
         <option value="$PROJECT_DIR$/views/UserRole.vue" />
         <option value="$PROJECT_DIR$/views/UserUserDetail.vue" />
         <option value="$PROJECT_DIR$/views/UserUserSocial.vue" />
+        <option value="$PROJECT_DIR$/src/main/java/top/zywork/dos/UserUserDetailDO.java" />
+        <option value="$PROJECT_DIR$/documents/zywork_app.sql" />
       </list>
     </option>
   </component>
@@ -290,7 +297,35 @@
               <item name="zywork-app" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="zywork" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zywork-app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zywork-app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="zywork" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zywork-app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zywork-app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="zywork" type="462c0819:PsiDirectoryNode" />
+              <item name="dos" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zywork-app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zywork-app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="zywork" type="462c0819:PsiDirectoryNode" />
+              <item name="vo" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="zywork-app" type="b2602c69:ProjectViewProjectNode" />
@@ -298,42 +333,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zywork-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zywork-app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zywork-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zywork-app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zywork-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zywork-app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="zywork" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zywork-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zywork-app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zywork-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zywork-app" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -350,7 +349,7 @@
     <property name="RequestMappingsPanelWidth2" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545301213457" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545313131752" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
@@ -388,7 +387,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.UserRegServiceTest.testSaveGzhUser">
+  <component name="RunManager" selected="Spring Boot.ZyworkAppApplication">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -528,7 +527,7 @@
       <workItem from="1540539766701" duration="16166000" />
       <workItem from="1543827698249" duration="147198000" />
       <workItem from="1544529283343" duration="94420000" />
-      <workItem from="1545219428959" duration="5931000" />
+      <workItem from="1545219428959" duration="7396000" />
     </task>
     <servers />
   </component>
@@ -565,7 +564,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="263715000" />
+    <option name="totallyTimeSpent" value="265180000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="721" extended-state="0" />
@@ -669,20 +668,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/dao/UserRoleRegDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="2" lean-forward="true" selection-start-line="7" selection-start-column="2" selection-end-line="7" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/dao/DefaultRoleQueryDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="17" selection-start-line="13" selection-start-column="17" selection-end-line="13" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/service/impl/DefaultRoleQueryServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="197">
@@ -754,13 +739,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/documents/zywork_app_data_test.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2477">
-          <caret line="16" column="18" lean-forward="true" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/aspect/SysLogAspect.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="387">
@@ -768,13 +746,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/documents/zywork_app.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="221" column="12" lean-forward="true" selection-start-line="221" selection-start-column="12" selection-end-line="221" selection-end-column="12" />
         </state>
       </provider>
     </entry>
@@ -852,6 +823,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="21" column="57" selection-start-line="21" selection-start-column="57" selection-end-line="21" selection-end-column="57" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#961#962#0" expanded="true" />
+            <element signature="e#1036#1037#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -888,13 +864,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="419">
           <caret line="57" column="42" selection-start-line="57" selection-start-column="42" selection-end-line="57" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/controller/UserUserDetailController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="63" column="5" selection-start-line="49" selection-start-column="4" selection-end-line="63" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -983,13 +952,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/UserUserDetail.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="421">
-          <caret line="340" column="18" lean-forward="true" selection-start-line="340" selection-start-column="18" selection-end-line="340" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/UserUserSocial.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="93">
@@ -1007,6 +969,51 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/SysConfig.vue">
       <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/vo/UserUserDetailVO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-287">
+          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/controller/UserUserDetailController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="945">
+          <caret line="63" column="5" selection-start-line="49" selection-start-column="4" selection-end-line="63" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/dos/UserUserDetailDO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1923">
+          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/documents/zywork_app.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3435">
+          <caret line="229" selection-start-line="229" selection-end-line="229" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/documents/zywork_app_data_test.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3424">
+          <caret line="16" column="18" lean-forward="true" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/UserUserDetail.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5100">
+          <caret line="340" column="2" lean-forward="true" selection-start-line="340" selection-start-column="2" selection-end-line="340" selection-end-column="2" />
+        </state>
+      </provider>
     </entry>
   </component>
   <component name="masterDetails">

@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 18/12/2018 17:09:27
+ Date: 20/12/2018 21:39:43
 */
 
 SET NAMES utf8mb4;
@@ -265,8 +265,11 @@ CREATE TABLE `t_user_detail` (
   `birthday` date DEFAULT NULL COMMENT '生日',
   `age` int(11) DEFAULT NULL COMMENT '年龄',
   `qq` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'QQ号',
+  `qq_qrcode` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'QQ二维码',
   `wechat` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '微信号',
+  `wechat_qrcode` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '微信二维码',
   `alipay` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '支付宝账号',
+  `alipay_qrcode` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '支付宝二维码',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
@@ -277,10 +280,10 @@ CREATE TABLE `t_user_detail` (
 -- Records of t_user_detail
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_user_detail` VALUES (19, 'wgssmarter@126.com', 'headicon', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, '2018-12-12 17:34:51', NULL, 0);
-INSERT INTO `t_user_detail` VALUES (20, 'wgssmarter@126.com', 'headicon', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, '2018-12-12 17:36:19', NULL, 0);
-INSERT INTO `t_user_detail` VALUES (21, 'wgssmarter@126.com', 'headicon', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, '2018-12-12 17:37:09', NULL, 0);
-INSERT INTO `t_user_detail` VALUES (24, 'wgssmarter@126.com', 'headicon', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, '2018-12-18 12:30:28', NULL, 0);
+INSERT INTO `t_user_detail` VALUES (19, 'wgssmarter@126.com', 'headicon', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-12-12 17:34:51', NULL, 0);
+INSERT INTO `t_user_detail` VALUES (20, 'wgssmarter@126.com', 'headicon', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-12-12 17:36:19', NULL, 0);
+INSERT INTO `t_user_detail` VALUES (21, 'wgssmarter@126.com', 'headicon', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-12-12 17:37:09', NULL, 0);
+INSERT INTO `t_user_detail` VALUES (24, 'wgssmarter@126.com', 'headicon', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-12-18 12:30:28', NULL, 0);
 COMMIT;
 
 -- ----------------------------

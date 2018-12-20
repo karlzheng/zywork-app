@@ -6,24 +6,15 @@ import java.util.Date;
 /**
  * UserUserDetailDO数据对象实体类<br/>
  *
- * 创建于2018-12-18<br/>
+ * 创建于2018-12-20<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class UserUserDetailDO extends BaseDO {
 
-    private static final long serialVersionUID = -9223372036621711597L;
+	private static final long serialVersionUID = -9223372034909509219L;
 
-    //t_user表的字段对应的属性
-	// 用户编号
-	private Long userId;
-	// 手机号
-	private String userPhone;
-	// 用户邮箱
-	private String userEmail;
-	// 创建时间
-	private Date userCreateTime;
 	//t_user_detail表的字段对应的属性
 	// 昵称
 	private String userDetailNickname;
@@ -41,18 +32,29 @@ public class UserUserDetailDO extends BaseDO {
 	private Integer userDetailAge;
 	// QQ号
 	private String userDetailQq;
+	// QQ二维码
+	private String userDetailQqQrcode;
 	// 微信号
 	private String userDetailWechat;
+	// 微信二维码
+	private String userDetailWechatQrcode;
 	// 支付宝账号
 	private String userDetailAlipay;
-	
-    public UserUserDetailDO () {}
+	// 支付宝二维码
+	private String userDetailAlipayQrcode;
+	//t_user表的字段对应的属性
+	// 用户编号
+	private Long userId;
+	// 手机号
+	private String userPhone;
+	// 用户邮箱
+	private String userEmail;
+	// 创建时间
+	private Date userCreateTime;
 
-    public UserUserDetailDO (Long userId, String userPhone, String userEmail, Date userCreateTime, String userDetailNickname, String userDetailHeadicon, String userDetailIdentity, String userDetailRealName, Byte userDetailGender, Date userDetailBirthday, Integer userDetailAge, String userDetailQq, String userDetailWechat, String userDetailAlipay) {
-        this.userId = userId;
-		this.userPhone = userPhone;
-		this.userEmail = userEmail;
-		this.userCreateTime = userCreateTime;
+	public UserUserDetailDO () {}
+
+	public UserUserDetailDO (String userDetailNickname, String userDetailHeadicon, String userDetailIdentity, String userDetailRealName, Byte userDetailGender, Date userDetailBirthday, Integer userDetailAge, String userDetailQq, String userDetailQqQrcode, String userDetailWechat, String userDetailWechatQrcode, String userDetailAlipay, String userDetailAlipayQrcode, Long userId, String userPhone, String userEmail, Date userCreateTime) {
 		this.userDetailNickname = userDetailNickname;
 		this.userDetailHeadicon = userDetailHeadicon;
 		this.userDetailIdentity = userDetailIdentity;
@@ -61,41 +63,16 @@ public class UserUserDetailDO extends BaseDO {
 		this.userDetailBirthday = userDetailBirthday;
 		this.userDetailAge = userDetailAge;
 		this.userDetailQq = userDetailQq;
+		this.userDetailQqQrcode = userDetailQqQrcode;
 		this.userDetailWechat = userDetailWechat;
+		this.userDetailWechatQrcode = userDetailWechatQrcode;
 		this.userDetailAlipay = userDetailAlipay;
-		
-    }
-
-    public Long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Long userId) {
+		this.userDetailAlipayQrcode = userDetailAlipayQrcode;
 		this.userId = userId;
-	}
-
-	public String getUserPhone() {
-		return userPhone;
-	}
-
-	public void setUserPhone(String userPhone) {
 		this.userPhone = userPhone;
-	}
-
-	public String getUserEmail() {
-		return userEmail;
-	}
-
-	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
-	}
-
-	public Date getUserCreateTime() {
-		return userCreateTime;
-	}
-
-	public void setUserCreateTime(Date userCreateTime) {
 		this.userCreateTime = userCreateTime;
+
 	}
 
 	public String getUserDetailNickname() {
@@ -162,12 +139,28 @@ public class UserUserDetailDO extends BaseDO {
 		this.userDetailQq = userDetailQq;
 	}
 
+	public String getUserDetailQqQrcode() {
+		return userDetailQqQrcode;
+	}
+
+	public void setUserDetailQqQrcode(String userDetailQqQrcode) {
+		this.userDetailQqQrcode = userDetailQqQrcode;
+	}
+
 	public String getUserDetailWechat() {
 		return userDetailWechat;
 	}
 
 	public void setUserDetailWechat(String userDetailWechat) {
 		this.userDetailWechat = userDetailWechat;
+	}
+
+	public String getUserDetailWechatQrcode() {
+		return userDetailWechatQrcode;
+	}
+
+	public void setUserDetailWechatQrcode(String userDetailWechatQrcode) {
+		this.userDetailWechatQrcode = userDetailWechatQrcode;
 	}
 
 	public String getUserDetailAlipay() {
@@ -178,25 +171,68 @@ public class UserUserDetailDO extends BaseDO {
 		this.userDetailAlipay = userDetailAlipay;
 	}
 
-	
-    @Override
-    public String toString() {
-        return "UserUserDetailDO {" +
-                "userId = " + userId + 
-				", userPhone = " + userPhone + 
-				", userEmail = " + userEmail + 
-				", userCreateTime = " + userCreateTime + 
-				", userDetailNickname = " + userDetailNickname + 
-				", userDetailHeadicon = " + userDetailHeadicon + 
-				", userDetailIdentity = " + userDetailIdentity + 
-				", userDetailRealName = " + userDetailRealName + 
-				", userDetailGender = " + userDetailGender + 
-				", userDetailBirthday = " + userDetailBirthday + 
-				", userDetailAge = " + userDetailAge + 
-				", userDetailQq = " + userDetailQq + 
-				", userDetailWechat = " + userDetailWechat + 
-				", userDetailAlipay = " + userDetailAlipay + 
+	public String getUserDetailAlipayQrcode() {
+		return userDetailAlipayQrcode;
+	}
+
+	public void setUserDetailAlipayQrcode(String userDetailAlipayQrcode) {
+		this.userDetailAlipayQrcode = userDetailAlipayQrcode;
+	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	public String getUserPhone() {
+		return userPhone;
+	}
+
+	public void setUserPhone(String userPhone) {
+		this.userPhone = userPhone;
+	}
+
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+
+	public Date getUserCreateTime() {
+		return userCreateTime;
+	}
+
+	public void setUserCreateTime(Date userCreateTime) {
+		this.userCreateTime = userCreateTime;
+	}
+
+
+	@Override
+	public String toString() {
+		return "UserUserDetailDO {" +
+				"userDetailNickname = " + userDetailNickname +
+				", userDetailHeadicon = " + userDetailHeadicon +
+				", userDetailIdentity = " + userDetailIdentity +
+				", userDetailRealName = " + userDetailRealName +
+				", userDetailGender = " + userDetailGender +
+				", userDetailBirthday = " + userDetailBirthday +
+				", userDetailAge = " + userDetailAge +
+				", userDetailQq = " + userDetailQq +
+				", userDetailQqQrcode = " + userDetailQqQrcode +
+				", userDetailWechat = " + userDetailWechat +
+				", userDetailWechatQrcode = " + userDetailWechatQrcode +
+				", userDetailAlipay = " + userDetailAlipay +
+				", userDetailAlipayQrcode = " + userDetailAlipayQrcode +
+				", userId = " + userId +
+				", userPhone = " + userPhone +
+				", userEmail = " + userEmail +
+				", userCreateTime = " + userCreateTime +
 				" }";
-    }
+	}
 
 }
