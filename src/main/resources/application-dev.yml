@@ -71,9 +71,9 @@ verify:
   code:
     #是否启用验证码功能
     enable: true
-    #验证码有效期
+    #验证码有效期，单位为s
     expiration: 600
     cookie-name: "zywork_verify_code"
   sms-code:
-    #手机验证码有效期
+    #手机验证码有效期，单位为s
     expiration: 300
