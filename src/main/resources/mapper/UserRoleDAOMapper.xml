@@ -10,16 +10,16 @@
 
     <sql id="query_where_clause">
         <if test="query != null and query.userId != null">
-			t_user.id = #{query.userId}
+			and t_user.id = #{query.userId}
 		</if>
 		<if test="query != null and query.userIdMin != null and query.userIdMax == null">
-			t_user.id <![CDATA[ >= ]]> #{query.userIdMin}
+			and t_user.id <![CDATA[ >= ]]> #{query.userIdMin}
 		</if>
 		<if test="query != null and query.userIdMin == null and query.userIdMax != null">
-			t_user.id <![CDATA[ <= ]]> #{query.userIdMax}
+			and t_user.id <![CDATA[ <= ]]> #{query.userIdMax}
 		</if>
 		<if test="query != null and query.userIdMin != null and query.userIdMax != null">
-			t_user.id <![CDATA[ >= ]]> #{query.userIdMin} and t_user.id <![CDATA[ <= ]]> #{query.userIdMax}
+			and t_user.id <![CDATA[ >= ]]> #{query.userIdMin} and t_user.id <![CDATA[ <= ]]> #{query.userIdMax}
 		</if>
 		<if test="query != null and query.userPhone != null and query.userPhone != ''">
 			and t_user.phone like concat('%', #{query.userPhone}, '%')

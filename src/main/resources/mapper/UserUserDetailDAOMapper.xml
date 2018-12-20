@@ -10,7 +10,7 @@
 
     <sql id="query_where_clause">
         <if test="query != null and query.userDetailNickname != null and query.userDetailNickname != ''">
-			t_user_detail.nickname like concat('%', #{query.userDetailNickname}, '%')
+			and t_user_detail.nickname like concat('%', #{query.userDetailNickname}, '%')
 		</if>
 		<if test="query != null and query.userDetailHeadicon != null and query.userDetailHeadicon != ''">
 			and t_user_detail.headicon like concat('%', #{query.userDetailHeadicon}, '%')

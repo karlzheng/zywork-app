@@ -193,16 +193,16 @@
 
     <sql id="query_where_clause">
         <if test="query != null and query.id != null">
-			id = #{query.id}
+			and id = #{query.id}
 		</if>
 		<if test="query != null and query.idMin != null and query.idMax == null">
-			id <![CDATA[ >= ]]> #{query.idMin}
+			and id <![CDATA[ >= ]]> #{query.idMin}
 		</if>
 		<if test="query != null and query.idMin == null and query.idMax != null">
-			id <![CDATA[ <= ]]> #{query.idMax}
+			and id <![CDATA[ <= ]]> #{query.idMax}
 		</if>
 		<if test="query != null and query.idMin != null and query.idMax != null">
-			id <![CDATA[ >= ]]> #{query.idMin} and id <![CDATA[ <= ]]> #{query.idMax}
+			and id <![CDATA[ >= ]]> #{query.idMin} and id <![CDATA[ <= ]]> #{query.idMax}
 		</if>
 		<if test="query != null and query.name != null and query.name != ''">
 			and name like concat('%', #{query.name}, '%')
