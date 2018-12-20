@@ -641,51 +641,56 @@ sortable: true
             {
               title: '操作',
               key: 'action',
-              width: 180,
+              width: 120,
               align: 'center',
               fixed: 'right',
               render: (h, params) => {
-                return h('div', [
-                  h('Button', {
-                    props: {
-                      type: 'primary',
-                      size: 'small'
-                    },
-                    style: {
-                      marginRight: '5px'
-                    },
-                    on: {
-                      click: () => {
-                        this.showDetail('detail', params.row)
-                      }
+                return h('Dropdown', {
+                  on: {
+                    'on-click': (itemName) => {
+                      this.userOpt(itemName, params.row)
                     }
-                  }, '详情'),
+                  }
+                }, [
                   h('Button', {
-                    props: {
-                      type: 'primary',
-                      size: 'small'
-                    },
-                    style: {
-                      marginRight: '5px'
-                    },
-                    on: {
-                      click: () => {
-                        this.showEdit('edit', params.row)
+                      props: {
+                        type: 'primary',
+                        size: 'small'
                       }
-                    }
-                  }, '编辑'),
-                  h('Button', {
-                    props: {
-                      type: 'error',
-                      size: 'small'
-                    },
-                    on: {
-                      click: () => {
-                        this.remove(params.row)
-                      }
-                    }
-                  }, '删除')
-                ]);
+                    }, [
+                      '选择操作 ',
+                      h('Icon', {
+                        props: {
+                          type: 'ios-arrow-down'
+                        }
+                      })
+                  ]),
+                  h('DropdownMenu', {
+                      slot:"list"
+                    },[
+                      h('DropdownItem', {
+                        props:{
+                          name: 'showEdit'
+                        }
+                      }, '编辑'),
+                      h('DropdownItem', {
+                        props:{
+                          name: 'showDetail'
+                        }
+                      }, '详情'),
+                      h('DropdownItem', {
+                        props:{
+                          name: 'remove'
+                        }
+                      }, [
+                        h('span', {
+                          style: {
+                            color: 'red'
+                          }
+                        }, '删除')
+                      ])
+                  ])
+                ])
               }
             }
           ],
@@ -702,14 +707,6 @@ sortable: true
     methods: {
       showModal(modal) {
         utils.showModal(this, modal)
-      },
-      showEdit(modal, row) {
-        utils.showModal(this, modal)
-        this.form = JSON.parse(JSON.stringify(row))
-      },
-      showDetail(modal, row) {
-        utils.showModal(this, modal)
-        this.form = JSON.parse(JSON.stringify(row))
       },
       changeModalVisibleResetForm(formRef, visible) {
         if (!visible) {
@@ -739,6 +736,17 @@ sortable: true
           utils.batchRemove(this)
         }
       },
+      userOpt(itemName, row) {
+        if (itemName === 'showEdit') {
+          utils.showModal(this, 'edit')
+          this.form = JSON.parse(JSON.stringify(row))
+        } else if (itemName === 'showDetail') {
+          utils.showModal(this, 'detail')
+          this.form = JSON.parse(JSON.stringify(row))
+        } else if (itemName === 'remove') {
+          utils.remove(this, row)
+        }
+      },
       add() {
         utils.add(this)
       },
@@ -747,9 +755,6 @@ sortable: true
       },
       active(row) {
         utils.active(this, row)
-      },
-      remove(row) {
-        utils.remove(this, row)
       },
       search() {
         utils.search(this)
