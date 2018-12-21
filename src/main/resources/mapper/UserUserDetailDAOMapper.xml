@@ -5,11 +5,41 @@
 <mapper namespace="top.zywork.dao.UserUserDetailDAO">
 
     <sql id="select_columns">
-        t_user_detail.nickname as userDetailNickname, t_user_detail.headicon as userDetailHeadicon, t_user_detail.identity as userDetailIdentity, t_user_detail.real_name as userDetailRealName, t_user_detail.gender as userDetailGender, t_user_detail.birthday as userDetailBirthday, t_user_detail.age as userDetailAge, t_user_detail.qq as userDetailQq, t_user_detail.qq_qrcode as userDetailQqQrcode, t_user_detail.wechat as userDetailWechat, t_user_detail.wechat_qrcode as userDetailWechatQrcode, t_user_detail.alipay as userDetailAlipay, t_user_detail.alipay_qrcode as userDetailAlipayQrcode, t_user.id as userId, t_user.phone as userPhone, t_user.email as userEmail, t_user.create_time as userCreateTime
+        t_user.id as userId, t_user.phone as userPhone, t_user.email as userEmail, t_user.create_time as userCreateTime, t_user_detail.nickname as userDetailNickname, t_user_detail.headicon as userDetailHeadicon, t_user_detail.identity as userDetailIdentity, t_user_detail.real_name as userDetailRealName, t_user_detail.gender as userDetailGender, t_user_detail.birthday as userDetailBirthday, t_user_detail.age as userDetailAge, t_user_detail.qq as userDetailQq, t_user_detail.qq_qrcode as userDetailQqQrcode, t_user_detail.wechat as userDetailWechat, t_user_detail.wechat_qrcode as userDetailWechatQrcode, t_user_detail.alipay as userDetailAlipay, t_user_detail.alipay_qrcode as userDetailAlipayQrcode, t_user_detail.share_code as userDetailShareCode
     </sql>
 
     <sql id="query_where_clause">
-        <if test="query != null and query.userDetailNickname != null and query.userDetailNickname != ''">
+        <if test="query != null and query.userId != null">
+			and t_user.id = #{query.userId}
+		</if>
+		<if test="query != null and query.userIdMin != null and query.userIdMax == null">
+			and t_user.id <![CDATA[ >= ]]> #{query.userIdMin}
+		</if>
+		<if test="query != null and query.userIdMin == null and query.userIdMax != null">
+			and t_user.id <![CDATA[ <= ]]> #{query.userIdMax}
+		</if>
+		<if test="query != null and query.userIdMin != null and query.userIdMax != null">
+			and t_user.id <![CDATA[ >= ]]> #{query.userIdMin} and t_user.id <![CDATA[ <= ]]> #{query.userIdMax}
+		</if>
+		<if test="query != null and query.userPhone != null and query.userPhone != ''">
+			and t_user.phone like concat('%', #{query.userPhone}, '%')
+		</if>
+		<if test="query != null and query.userEmail != null and query.userEmail != ''">
+			and t_user.email like concat('%', #{query.userEmail}, '%')
+		</if>
+		<if test="query != null and query.userCreateTime != null">
+			and t_user.create_time = #{query.userCreateTime}
+		</if>
+		<if test="query != null and query.userCreateTimeMin != null and query.userCreateTimeMax == null">
+			and t_user.create_time <![CDATA[ >= ]]> #{query.userCreateTimeMin}
+		</if>
+		<if test="query != null and query.userCreateTimeMin == null and query.userCreateTimeMax != null">
+			and t_user.create_time <![CDATA[ <= ]]> #{query.userCreateTimeMax}
+		</if>
+		<if test="query != null and query.userCreateTimeMin != null and query.userCreateTimeMax != null">
+			and t_user.create_time <![CDATA[ >= ]]> #{query.userCreateTimeMin} and t_user.create_time <![CDATA[ <= ]]> #{query.userCreateTimeMax}
+		</if>
+		<if test="query != null and query.userDetailNickname != null and query.userDetailNickname != ''">
 			and t_user_detail.nickname like concat('%', #{query.userDetailNickname}, '%')
 		</if>
 		<if test="query != null and query.userDetailHeadicon != null and query.userDetailHeadicon != ''">
@@ -75,35 +105,8 @@
 		<if test="query != null and query.userDetailAlipayQrcode != null and query.userDetailAlipayQrcode != ''">
 			and t_user_detail.alipay_qrcode like concat('%', #{query.userDetailAlipayQrcode}, '%')
 		</if>
-		<if test="query != null and query.userId != null">
-			and t_user.id = #{query.userId}
-		</if>
-		<if test="query != null and query.userIdMin != null and query.userIdMax == null">
-			and t_user.id <![CDATA[ >= ]]> #{query.userIdMin}
-		</if>
-		<if test="query != null and query.userIdMin == null and query.userIdMax != null">
-			and t_user.id <![CDATA[ <= ]]> #{query.userIdMax}
-		</if>
-		<if test="query != null and query.userIdMin != null and query.userIdMax != null">
-			and t_user.id <![CDATA[ >= ]]> #{query.userIdMin} and t_user.id <![CDATA[ <= ]]> #{query.userIdMax}
-		</if>
-		<if test="query != null and query.userPhone != null and query.userPhone != ''">
-			and t_user.phone like concat('%', #{query.userPhone}, '%')
-		</if>
-		<if test="query != null and query.userEmail != null and query.userEmail != ''">
-			and t_user.email like concat('%', #{query.userEmail}, '%')
-		</if>
-		<if test="query != null and query.userCreateTime != null">
-			and t_user.create_time = #{query.userCreateTime}
-		</if>
-		<if test="query != null and query.userCreateTimeMin != null and query.userCreateTimeMax == null">
-			and t_user.create_time <![CDATA[ >= ]]> #{query.userCreateTimeMin}
-		</if>
-		<if test="query != null and query.userCreateTimeMin == null and query.userCreateTimeMax != null">
-			and t_user.create_time <![CDATA[ <= ]]> #{query.userCreateTimeMax}
-		</if>
-		<if test="query != null and query.userCreateTimeMin != null and query.userCreateTimeMax != null">
-			and t_user.create_time <![CDATA[ >= ]]> #{query.userCreateTimeMin} and t_user.create_time <![CDATA[ <= ]]> #{query.userCreateTimeMax}
+		<if test="query != null and query.userDetailShareCode != null and query.userDetailShareCode != ''">
+			and t_user_detail.share_code like concat('%', #{query.userDetailShareCode}, '%')
 		</if>
 		
         and

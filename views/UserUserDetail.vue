@@ -124,6 +124,9 @@
 <FormItem label="支付宝二维码" prop="userDetailAlipayQrcode">
 	<Input v-model="searchForm.userDetailAlipayQrcode"/>
 </FormItem>
+<FormItem label="分享码" prop="userDetailShareCode">
+	<Input v-model="searchForm.userDetailShareCode"/>
+</FormItem>
 
       </Form>
       <div slot="footer">
@@ -150,6 +153,7 @@
 <p>微信二维码: <span v-text="form.userDetailWechatQrcode"></span></p>
 <p>支付宝账号: <span v-text="form.userDetailAlipay"></span></p>
 <p>支付宝二维码: <span v-text="form.userDetailAlipayQrcode"></span></p>
+<p>分享码: <span v-text="form.userDetailShareCode"></span></p>
 
     </Modal>
   </div>
@@ -195,6 +199,7 @@ userDetailWechat: null,
 userDetailWechatQrcode: null,
 userDetailAlipay: null,
 userDetailAlipayQrcode: null,
+userDetailShareCode: null,
 
         },
         searchForm: {
@@ -229,6 +234,7 @@ userDetailWechat: null,
 userDetailWechatQrcode: null,
 userDetailAlipay: null,
 userDetailAlipayQrcode: null,
+userDetailShareCode: null,
 
         },
         table: {
@@ -351,6 +357,12 @@ key: 'userDetailAlipayQrcode',
 width: 120,
 sortable: true
 },
+{
+title: '分享码',
+key: 'userDetailShareCode',
+width: 120,
+sortable: true
+},
 
             {
               title: '操作',
@@ -374,7 +386,7 @@ sortable: true
                       }
                     }
                   }, '详情')
-                ]);
+                ])
               }
             }
           ],
@@ -431,7 +443,7 @@ sortable: true
         utils.changePageSize(this, pageSize)
       },
       fitTable() {
-        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['userId','userPhone','userEmail','userCreateTime','userDetailNickname','userDetailHeadicon','userDetailIdentity','userDetailRealName','userDetailGender','userDetailBirthday','userDetailAge','userDetailQq','userDetailQqQrcode','userDetailWechat','userDetailWechatQrcode','userDetailAlipay','userDetailAlipayQrcode',])
+        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['userId','userPhone','userEmail','userCreateTime','userDetailNickname','userDetailHeadicon','userDetailIdentity','userDetailRealName','userDetailGender','userDetailBirthday','userDetailAge','userDetailQq','userDetailQqQrcode','userDetailWechat','userDetailWechatQrcode','userDetailAlipay','userDetailAlipayQrcode','userDetailShareCode',])
       }
     }
   }

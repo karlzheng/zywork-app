@@ -6,16 +6,25 @@ import java.util.Date;
 /**
  * UserUserDetailDTO数据传输对象类<br/>
  *
- * 创建于2018-12-20<br/>
+ * 创建于2018-12-21<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class UserUserDetailDTO extends BaseDTO {
 
-    private static final long serialVersionUID = -9223372036094014789L;
+    private static final long serialVersionUID = -9223372034836581419L;
 
-    //t_user_detail表的字段对应的属性
+    //t_user表的字段对应的属性
+	// 用户编号
+	private Long userId;
+	// 手机号
+	private String userPhone;
+	// 用户邮箱
+	private String userEmail;
+	// 创建时间
+	private Date userCreateTime;
+	//t_user_detail表的字段对应的属性
 	// 昵称
 	private String userDetailNickname;
 	// 头像地址
@@ -42,20 +51,17 @@ public class UserUserDetailDTO extends BaseDTO {
 	private String userDetailAlipay;
 	// 支付宝二维码
 	private String userDetailAlipayQrcode;
-	//t_user表的字段对应的属性
-	// 用户编号
-	private Long userId;
-	// 手机号
-	private String userPhone;
-	// 用户邮箱
-	private String userEmail;
-	// 创建时间
-	private Date userCreateTime;
+	// 分享码
+	private String userDetailShareCode;
 	
     public UserUserDetailDTO () {}
 
-    public UserUserDetailDTO (String userDetailNickname, String userDetailHeadicon, String userDetailIdentity, String userDetailRealName, Byte userDetailGender, Date userDetailBirthday, Integer userDetailAge, String userDetailQq, String userDetailQqQrcode, String userDetailWechat, String userDetailWechatQrcode, String userDetailAlipay, String userDetailAlipayQrcode, Long userId, String userPhone, String userEmail, Date userCreateTime) {
-        this.userDetailNickname = userDetailNickname;
+    public UserUserDetailDTO (Long userId, String userPhone, String userEmail, Date userCreateTime, String userDetailNickname, String userDetailHeadicon, String userDetailIdentity, String userDetailRealName, Byte userDetailGender, Date userDetailBirthday, Integer userDetailAge, String userDetailQq, String userDetailQqQrcode, String userDetailWechat, String userDetailWechatQrcode, String userDetailAlipay, String userDetailAlipayQrcode, String userDetailShareCode) {
+        this.userId = userId;
+		this.userPhone = userPhone;
+		this.userEmail = userEmail;
+		this.userCreateTime = userCreateTime;
+		this.userDetailNickname = userDetailNickname;
 		this.userDetailHeadicon = userDetailHeadicon;
 		this.userDetailIdentity = userDetailIdentity;
 		this.userDetailRealName = userDetailRealName;
@@ -68,14 +74,43 @@ public class UserUserDetailDTO extends BaseDTO {
 		this.userDetailWechatQrcode = userDetailWechatQrcode;
 		this.userDetailAlipay = userDetailAlipay;
 		this.userDetailAlipayQrcode = userDetailAlipayQrcode;
-		this.userId = userId;
-		this.userPhone = userPhone;
-		this.userEmail = userEmail;
-		this.userCreateTime = userCreateTime;
+		this.userDetailShareCode = userDetailShareCode;
 		
     }
 
-    public String getUserDetailNickname() {
+    public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	public String getUserPhone() {
+		return userPhone;
+	}
+
+	public void setUserPhone(String userPhone) {
+		this.userPhone = userPhone;
+	}
+
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+
+	public Date getUserCreateTime() {
+		return userCreateTime;
+	}
+
+	public void setUserCreateTime(Date userCreateTime) {
+		this.userCreateTime = userCreateTime;
+	}
+
+	public String getUserDetailNickname() {
 		return userDetailNickname;
 	}
 
@@ -179,43 +214,23 @@ public class UserUserDetailDTO extends BaseDTO {
 		this.userDetailAlipayQrcode = userDetailAlipayQrcode;
 	}
 
-	public Long getUserId() {
-		return userId;
+	public String getUserDetailShareCode() {
+		return userDetailShareCode;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
-
-	public String getUserPhone() {
-		return userPhone;
-	}
-
-	public void setUserPhone(String userPhone) {
-		this.userPhone = userPhone;
-	}
-
-	public String getUserEmail() {
-		return userEmail;
-	}
-
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
-	}
-
-	public Date getUserCreateTime() {
-		return userCreateTime;
-	}
-
-	public void setUserCreateTime(Date userCreateTime) {
-		this.userCreateTime = userCreateTime;
+	public void setUserDetailShareCode(String userDetailShareCode) {
+		this.userDetailShareCode = userDetailShareCode;
 	}
 
 	
     @Override
     public String toString() {
         return "UserUserDetailDTO {" +
-                "userDetailNickname = " + userDetailNickname + 
+                "userId = " + userId + 
+				", userPhone = " + userPhone + 
+				", userEmail = " + userEmail + 
+				", userCreateTime = " + userCreateTime + 
+				", userDetailNickname = " + userDetailNickname + 
 				", userDetailHeadicon = " + userDetailHeadicon + 
 				", userDetailIdentity = " + userDetailIdentity + 
 				", userDetailRealName = " + userDetailRealName + 
@@ -228,10 +243,7 @@ public class UserUserDetailDTO extends BaseDTO {
 				", userDetailWechatQrcode = " + userDetailWechatQrcode + 
 				", userDetailAlipay = " + userDetailAlipay + 
 				", userDetailAlipayQrcode = " + userDetailAlipayQrcode + 
-				", userId = " + userId + 
-				", userPhone = " + userPhone + 
-				", userEmail = " + userEmail + 
-				", userCreateTime = " + userCreateTime + 
+				", userDetailShareCode = " + userDetailShareCode + 
 				" }";
     }
 
