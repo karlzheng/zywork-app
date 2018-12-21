@@ -69,7 +69,7 @@ weixin:
     xcx-cookie-name: "zywork_weixin_xcx_openid"
 verify:
   code:
-    #是否启用验证码功能
+    #是否启用邮箱登录时的验证码功能
     enable: true
     #验证码有效期，单位为s
     expiration: 600

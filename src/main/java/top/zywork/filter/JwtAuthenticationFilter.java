@@ -11,7 +11,10 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 import top.zywork.enums.ContentTypeEnum;
 import top.zywork.enums.ResponseStatusEnum;
-import top.zywork.security.*;
+import top.zywork.security.JwtClaims;
+import top.zywork.security.JwtTokenRedisUtils;
+import top.zywork.security.JwtUser;
+import top.zywork.security.JwtUtils;
 import top.zywork.vo.ResponseStatusVO;
 
 import javax.servlet.FilterChain;
@@ -41,8 +44,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private String headerPrefix;
 
     private JwtUtils jwtUtils;
-
-    private JwtUserDetailsService jwtUserDetailsService;
 
     private JwtTokenRedisUtils jwtTokenRedisUtils;
 
@@ -94,11 +95,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     public void setJwtUtils(JwtUtils jwtUtils) {
         this.jwtUtils = jwtUtils;
-    }
-
-    @Autowired
-    public void setJwtUserDetailsService(JwtUserDetailsService jwtUserDetailsService) {
-        this.jwtUserDetailsService = jwtUserDetailsService;
     }
 
     @Autowired

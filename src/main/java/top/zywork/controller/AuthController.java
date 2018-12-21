@@ -8,9 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +22,7 @@ import top.zywork.common.*;
 import top.zywork.enums.*;
 import top.zywork.security.JwtTokenRedisUtils;
 import top.zywork.security.JwtUser;
+import top.zywork.security.SecurityUtils;
 import top.zywork.security.VerifyCodeRedisUtils;
 import top.zywork.security.mobile.SmsCodeRedisUtils;
 import top.zywork.service.DefaultRoleQueryService;
@@ -112,9 +110,8 @@ public class AuthController {
     @GetMapping("logout")
     public ResponseStatusVO logout() {
         ResponseStatusVO statusVO = new ResponseStatusVO();
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication instanceof UsernamePasswordAuthenticationToken) {
-            JwtUser jwtUser = (JwtUser) authentication.getPrincipal();
+        JwtUser jwtUser = SecurityUtils.getJwtUser();
+        if (jwtUser != null) {
             jwtTokenRedisUtils.removeToken(jwtUser.getUserId() + "");
             statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "已安全退出", null);
         } else {
