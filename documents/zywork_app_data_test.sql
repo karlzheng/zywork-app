@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 20/12/2018 21:39:43
+ Date: 21/12/2018 19:48:55
 */
 
 SET NAMES utf8mb4;
@@ -234,7 +234,7 @@ CREATE TABLE `t_user` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户基本信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户基本信息表';
 
 -- ----------------------------
 -- Records of t_user
@@ -249,6 +249,7 @@ INSERT INTO `t_user` VALUES (21, NULL, NULL, '$2a$10$ePlfOylmN6DOa0KlkZmtq.4So7d
 INSERT INTO `t_user` VALUES (22, NULL, 'wgssmart@126.com', '$2a$10$FeqZqJIQPIAuR5fWM9VDOeDVoYI9AMXK//C1GIRqbTbYNM6LhUIYO', NULL, '2018-12-18 12:28:45', NULL, 0);
 INSERT INTO `t_user` VALUES (23, '18888888899', NULL, '$2a$10$fb/Yu2tx71cs1AbrVfXjWuJn4Hyhprj5r6biD0d0cXfjFHQ8sGvKK', NULL, '2018-12-18 12:30:17', NULL, 0);
 INSERT INTO `t_user` VALUES (24, NULL, NULL, '$2a$10$NHv4sQCfTLRg9teU4GG3oOTSoQMcGJ8N2ZM2tJhTHX0jwCU5fEBxO', NULL, '2018-12-18 12:30:27', NULL, 0);
+INSERT INTO `t_user` VALUES (26, NULL, 'testcc@126.com', '$2a$10$0Uj1vGNT9G8aRRk9NT7x0OT.os/aX877us/936n/YItA39fY4kOla', NULL, '2018-12-21 19:45:04', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -270,6 +271,7 @@ CREATE TABLE `t_user_detail` (
   `wechat_qrcode` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '微信二维码',
   `alipay` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '支付宝账号',
   `alipay_qrcode` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '支付宝二维码',
+  `share_code` varchar(36) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '分享码',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
@@ -280,10 +282,11 @@ CREATE TABLE `t_user_detail` (
 -- Records of t_user_detail
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_user_detail` VALUES (19, 'wgssmarter@126.com', 'headicon', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-12-12 17:34:51', NULL, 0);
-INSERT INTO `t_user_detail` VALUES (20, 'wgssmarter@126.com', 'headicon', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-12-12 17:36:19', NULL, 0);
-INSERT INTO `t_user_detail` VALUES (21, 'wgssmarter@126.com', 'headicon', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-12-12 17:37:09', NULL, 0);
-INSERT INTO `t_user_detail` VALUES (24, 'wgssmarter@126.com', 'headicon', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-12-18 12:30:28', NULL, 0);
+INSERT INTO `t_user_detail` VALUES (19, 'wgssmarter@126.com', 'headicon', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-12-12 17:34:51', NULL, 0);
+INSERT INTO `t_user_detail` VALUES (20, 'wgssmarter@126.com', 'headicon', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-12-12 17:36:19', NULL, 0);
+INSERT INTO `t_user_detail` VALUES (21, 'wgssmarter@126.com', 'headicon', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-12-12 17:37:09', NULL, 0);
+INSERT INTO `t_user_detail` VALUES (24, 'wgssmarter@126.com', 'headicon', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-12-18 12:30:28', NULL, 0);
+INSERT INTO `t_user_detail` VALUES (26, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8V4txJ', '2018-12-21 19:45:04', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -298,7 +301,7 @@ CREATE TABLE `t_user_role` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户角色表';
 
 -- ----------------------------
 -- Records of t_user_role
@@ -309,6 +312,7 @@ INSERT INTO `t_user_role` VALUES (2, 1, 2, '2018-12-07 19:10:52', NULL, 0);
 INSERT INTO `t_user_role` VALUES (3, 22, 3, '2018-12-18 12:28:45', NULL, 0);
 INSERT INTO `t_user_role` VALUES (4, 23, 3, '2018-12-18 12:30:17', NULL, 0);
 INSERT INTO `t_user_role` VALUES (5, 24, 3, '2018-12-18 12:30:28', NULL, 0);
+INSERT INTO `t_user_role` VALUES (6, 26, 3, '2018-12-21 19:45:04', NULL, 0);
 COMMIT;
 
 -- ----------------------------

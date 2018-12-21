@@ -26,11 +26,19 @@
     </insert>
 
     <insert id="saveGzhUserDetail">
-        insert into t_user_detail(id, nickname, headicon, gender) values (#{userId}, #{nickname}, #{headicon}, #{gender})
+        insert into t_user_detail(id, nickname, headicon, gender, share_code) values (#{userId}, #{nickname}, #{headicon}, #{gender}, #{shareCode})
     </insert>
 
     <insert id="saveGzhUserSocial">
         insert into t_user_social(user_id, openid, social_type) values (#{userId}, #{openid}, '微信')
     </insert>
+
+    <insert id="saveShareCode">
+        insert into t_user_detail(id, share_code) values (#{userId}, #{shareCode})
+    </insert>
+
+    <select id="countShareCode" parameterType="string" resultType="integer">
+        select count(id) from t_user_detail where t_user_detail.share_code = #{shareCode}
+    </select>
 
 </mapper>

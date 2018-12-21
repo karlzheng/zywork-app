@@ -77,3 +77,7 @@ verify:
   sms-code:
     #手机验证码有效期，单位为s
     expiration: 300
+user:
+  share-code:
+    #用户分享码长度
+    length: 6

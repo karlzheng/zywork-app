@@ -1,11 +1,14 @@
 package top.zywork.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import top.zywork.common.RandomUtils;
 import top.zywork.dao.UserRegDAO;
 import top.zywork.dao.UserRoleRegDAO;
 import top.zywork.dos.UserRegDO;
+import top.zywork.enums.RandomCodeEnum;
 import top.zywork.service.UserRegService;
 
 /**
@@ -20,6 +23,9 @@ import top.zywork.service.UserRegService;
 @Transactional(rollbackFor = Exception.class)
 public class UserRegServiceImpl implements UserRegService {
 
+    @Value("${user.share-code.length}")
+    private Integer shareCodeLength;
+
     private UserRegDAO userRegDAO;
 
     private UserRoleRegDAO userRoleRegDAO;
@@ -30,6 +36,7 @@ public class UserRegServiceImpl implements UserRegService {
         userRegDO.setEmail(email);
         userRegDO.setPassword(password);
         userRegDAO.saveUser(userRegDO);
+        userRegDAO.saveShareCode(userRegDO.getId(), generateShareCode());
         if (roleId != null) {
             userRoleRegDAO.saveUserRole(userRegDO.getId(), roleId);
         }
@@ -41,6 +48,7 @@ public class UserRegServiceImpl implements UserRegService {
         userRegDO.setPhone(phone);
         userRegDO.setPassword(password);
         userRegDAO.saveUserMobile(userRegDO);
+        userRegDAO.saveShareCode(userRegDO.getId(), generateShareCode());
         if (roleId != null) {
             userRoleRegDAO.saveUserRole(userRegDO.getId(), roleId);
         }
@@ -51,10 +59,24 @@ public class UserRegServiceImpl implements UserRegService {
         UserRegDO userRegDO = new UserRegDO();
         userRegDO.setPassword(password);
         userRegDAO.saveGzhUser(userRegDO);
-        userRegDAO.saveGzhUserDetail(userRegDO.getId(), nickname, headicon, gender);
+        userRegDAO.saveGzhUserDetail(userRegDO.getId(), nickname, headicon, gender, generateShareCode());
         userRegDAO.saveGzhUserSocial(userRegDO.getId(), openid);
         if (roleId != null) {
             userRoleRegDAO.saveUserRole(userRegDO.getId(), roleId);
+        }
+    }
+
+    /**
+     * 生成用户分享码
+     */
+    private String generateShareCode() {
+        String shareCode = RandomUtils.randomCode(RandomCodeEnum.MIX_CODE, shareCodeLength);
+        if (userRegDAO.countShareCode(shareCode) == 0) {
+            // 如果分享码不存在，则返回生成的分享码
+            return shareCode;
+        } else {
+            // 如果分享码已存在，则继续生成分享码
+            return generateShareCode();
         }
     }
 

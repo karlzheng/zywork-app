@@ -201,8 +201,10 @@ public class AuthController {
             if (StringUtils.isEmpty(jwtUser.getUsername())) {
                 if (StringUtils.isNotEmpty(password) && RegexUtils.match(RegexUtils.REGEX_PASSWORD, password.trim())) {
                     if (StringUtils.isNotEmpty(confirmPassword) && password.trim().equals(confirmPassword.trim())) {
-                        if (verifyCodeRedisUtils.existsCode(VerifyCodeRedisUtils.CODE_REG_PREFIX, regCode)) {
+                        if (verifyCodeRedisUtils.existsCode(VerifyCodeRedisUtils.CODE_REG_PREFIX, email)
+                                && verifyCodeRedisUtils.getCode(VerifyCodeRedisUtils.CODE_REG_PREFIX, email).equals(regCode)) {
                             userRegService.saveUser(email, new BCryptPasswordEncoder().encode(password), defaultRoleQueryService.getDefaultRole());
+                            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "注册成功", null);
                         } else {
                             statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "邮箱验证码不正确", null);
                         }
@@ -277,8 +279,10 @@ public class AuthController {
             if (StringUtils.isEmpty(jwtUser.getUsername())) {
                 if (StringUtils.isNotEmpty(password) && RegexUtils.match(RegexUtils.REGEX_PASSWORD, password.trim())) {
                     if (StringUtils.isNotEmpty(confirmPassword) && password.trim().equals(confirmPassword.trim())) {
-                        if (smsCodeRedisUtils.existsCode(SmsCodeRedisUtils.SMS_CODE_REG_PREFIX, regCode)) {
+                        if (verifyCodeRedisUtils.existsCode(VerifyCodeRedisUtils.CODE_REG_PREFIX, phone)
+                                && verifyCodeRedisUtils.getCode(VerifyCodeRedisUtils.CODE_REG_PREFIX, phone).equals(regCode)) {
                             userRegService.saveUserMobile(phone, new BCryptPasswordEncoder().encode(password), defaultRoleQueryService.getDefaultRole());
+                            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "注册成功", null);
                         } else {
                             statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "手机验证码不正确", null);
                         }
