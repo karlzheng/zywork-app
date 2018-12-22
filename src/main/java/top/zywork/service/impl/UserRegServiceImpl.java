@@ -2,6 +2,7 @@ package top.zywork.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.zywork.common.RandomUtils;
@@ -34,7 +35,7 @@ public class UserRegServiceImpl implements UserRegService {
     public void saveUser(String email, String password, Long roleId) {
         UserRegDO userRegDO = new UserRegDO();
         userRegDO.setEmail(email);
-        userRegDO.setPassword(password);
+        userRegDO.setPassword(new BCryptPasswordEncoder().encode(password));
         userRegDAO.saveUser(userRegDO);
         userRegDAO.saveShareCode(userRegDO.getId(), generateShareCode());
         if (roleId != null) {
@@ -46,7 +47,7 @@ public class UserRegServiceImpl implements UserRegService {
     public void saveUserMobile(String phone, String password, Long roleId) {
         UserRegDO userRegDO = new UserRegDO();
         userRegDO.setPhone(phone);
-        userRegDO.setPassword(password);
+        userRegDO.setPassword(new BCryptPasswordEncoder().encode(password));
         userRegDAO.saveUserMobile(userRegDO);
         userRegDAO.saveShareCode(userRegDO.getId(), generateShareCode());
         if (roleId != null) {
@@ -57,7 +58,7 @@ public class UserRegServiceImpl implements UserRegService {
     @Override
     public void saveGzhUser(String openid, String password, String nickname, String headicon, byte gender, Long roleId) {
         UserRegDO userRegDO = new UserRegDO();
-        userRegDO.setPassword(password);
+        userRegDO.setPassword(new BCryptPasswordEncoder().encode(password));
         userRegDAO.saveGzhUser(userRegDO);
         userRegDAO.saveGzhUserDetail(userRegDO.getId(), nickname, headicon, gender, generateShareCode());
         userRegDAO.saveGzhUserSocial(userRegDO.getId(), openid);

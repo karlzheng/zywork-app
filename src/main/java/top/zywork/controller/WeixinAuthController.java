@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -80,7 +79,7 @@ public class WeixinAuthController {
                     // 判断用户是否已经保存，如未保存，则保存微信用户信息到数据库
                     JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(weixinUser.getOpenid());
                     if (StringUtils.isEmpty(jwtUser.getUsername())) {
-                        userRegService.saveGzhUser(weixinUser.getOpenid(), new BCryptPasswordEncoder().encode(RandomUtils.randomCode(RandomCodeEnum.MIX_CODE, 8)),
+                        userRegService.saveGzhUser(weixinUser.getOpenid(), RandomUtils.randomCode(RandomCodeEnum.MIX_CODE, 8),
                                 weixinUser.getNickname(), weixinUser.getHeadimgurl(), Byte.valueOf(weixinUser.getSex()), defaultRoleQueryService.getDefaultRole());
                         // 重新根据openid获取JwtUser，生成jwt token并返回客户端
                         jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(weixinUser.getOpenid());
