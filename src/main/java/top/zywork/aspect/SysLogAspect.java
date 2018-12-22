@@ -6,7 +6,6 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import top.zywork.annotation.SysLog;
 import top.zywork.common.IPUtils;
@@ -14,6 +13,7 @@ import top.zywork.common.UserAgentUtils;
 import top.zywork.common.WebUtils;
 import top.zywork.dto.SysLogDTO;
 import top.zywork.security.JwtUser;
+import top.zywork.security.SecurityUtils;
 import top.zywork.service.SysLogService;
 import top.zywork.vo.ResponseStatusVO;
 
@@ -77,9 +77,11 @@ public class SysLogAspect {
     private SysLogDTO createSysLogDTO(MethodSignature signature, long costTime) {
         SysLog sysLog = signature.getMethod().getDeclaredAnnotation(SysLog.class);
         SysLogDTO sysLogDTO = new SysLogDTO();
-        JwtUser jwtUser = (JwtUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        sysLogDTO.setUserId(jwtUser.getUserId());
-        sysLogDTO.setUserAccount(jwtUser.getUsername());
+        JwtUser jwtUser = SecurityUtils.getJwtUser();
+        if (jwtUser != null) {
+            sysLogDTO.setUserId(jwtUser.getUserId());
+            sysLogDTO.setUserAccount(jwtUser.getUsername());
+        }
         sysLogDTO.setDescription(sysLog.description());
         HttpServletRequest request = WebUtils.getServletRequest();
         sysLogDTO.setUserAgent(request.getHeader(UserAgentUtils.USER_AGENT));
