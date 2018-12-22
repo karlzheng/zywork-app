@@ -389,7 +389,7 @@ CREATE TABLE `t_user_wallet` (
   `id` bigint(20) NOT NULL COMMENT '钱包编号',
   `pay_password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '支付密码',
   `rmb_balance` bigint(20) DEFAULT '0' COMMENT '人民币余额',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT NULL COMMENT '是否激活',
   PRIMARY KEY (`id`)
