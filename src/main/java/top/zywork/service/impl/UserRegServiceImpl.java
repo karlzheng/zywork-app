@@ -58,7 +58,7 @@ public class UserRegServiceImpl implements UserRegService {
     @Override
     public void saveGzhUser(String openid, String password, String nickname, String headicon, byte gender, Long roleId) {
         UserRegDO userRegDO = new UserRegDO();
-        userRegDO.setPassword(new BCryptPasswordEncoder().encode(password));
+        // userRegDO.setPassword(new BCryptPasswordEncoder().encode(password));
         userRegDAO.saveGzhUser(userRegDO);
         userRegDAO.saveGzhUserDetail(userRegDO.getId(), nickname, headicon, gender, generateShareCode());
         userRegDAO.saveGzhUserSocial(userRegDO.getId(), openid);
