@@ -18,6 +18,10 @@
         insert into t_user(phone, password) values (#{phone}, #{password})
     </insert>
 
+    <insert id="saveUserDetail" parameterType="long">
+        insert into t_user_detail (id) values (#{userId})
+    </insert>
+
     <insert id="saveGzhUser" parameterType="UserRegDO">
         <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
             SELECT LAST_INSERT_ID()
@@ -40,5 +44,9 @@
     <select id="countShareCode" parameterType="string" resultType="integer">
         select count(id) from t_user_detail where t_user_detail.share_code = #{shareCode}
     </select>
+
+    <insert id="saveUserWallet" parameterType="long">
+        insert into t_user_wallet (id) values (#{userId})
+    </insert>
 
 </mapper>

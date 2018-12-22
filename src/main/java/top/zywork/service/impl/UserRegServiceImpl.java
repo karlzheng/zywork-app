@@ -37,6 +37,7 @@ public class UserRegServiceImpl implements UserRegService {
         userRegDO.setEmail(email);
         userRegDO.setPassword(new BCryptPasswordEncoder().encode(password));
         userRegDAO.saveUser(userRegDO);
+        userRegDAO.saveUserWallet(userRegDO.getId());
         userRegDAO.saveShareCode(userRegDO.getId(), generateShareCode());
         if (roleId != null) {
             userRoleRegDAO.saveUserRole(userRegDO.getId(), roleId);
@@ -49,6 +50,7 @@ public class UserRegServiceImpl implements UserRegService {
         userRegDO.setPhone(phone);
         userRegDO.setPassword(new BCryptPasswordEncoder().encode(password));
         userRegDAO.saveUserMobile(userRegDO);
+        userRegDAO.saveUserWallet(userRegDO.getId());
         userRegDAO.saveShareCode(userRegDO.getId(), generateShareCode());
         if (roleId != null) {
             userRoleRegDAO.saveUserRole(userRegDO.getId(), roleId);
@@ -61,6 +63,7 @@ public class UserRegServiceImpl implements UserRegService {
         // userRegDO.setPassword(new BCryptPasswordEncoder().encode(password));
         userRegDAO.saveGzhUser(userRegDO);
         userRegDAO.saveGzhUserDetail(userRegDO.getId(), nickname, headicon, gender, generateShareCode());
+        userRegDAO.saveUserWallet(userRegDO.getId());
         userRegDAO.saveGzhUserSocial(userRegDO.getId(), openid);
         if (roleId != null) {
             userRoleRegDAO.saveUserRole(userRegDO.getId(), roleId);

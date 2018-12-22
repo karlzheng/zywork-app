@@ -11,7 +11,10 @@ package top.zywork.service;
 public interface UserRegService {
 
     /**
-     * 保存邮箱注册用户信息
+     * 保存邮箱注册用户信息<br/>
+     * 1、基体信息
+     * 2、分享码信息（详情）
+     * 3、钱包信息
      * @param email
      * @param password
      */
@@ -19,6 +22,9 @@ public interface UserRegService {
 
     /**
      * 保存手机注册用户信息
+     * 1、基体信息
+     * 2、分享码信息（详情）
+     * 3、钱包信息
      * @param phone
      * @param password
      */
@@ -26,6 +32,9 @@ public interface UserRegService {
 
     /**
      * 保存微信公众号登录用户信息
+     * 1、基体信息
+     * 2、分享码信息（详情）
+     * 3、钱包信息
      * @param openid
      * @param password
      * @param nickname

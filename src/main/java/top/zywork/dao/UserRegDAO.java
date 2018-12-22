@@ -66,4 +66,10 @@ public interface UserRegDAO {
      */
     int countShareCode(String shareCode);
 
+    /**
+     * 注册用户时，需要在用户钱包表中插入一条对应的记录
+     * @param userId
+     */
+    void saveUserWallet(Long userId);
+
 }
