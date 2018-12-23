@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.zywork.dao.UserWalletDAO;
 import top.zywork.dao.UserWithdrawDAO;
-import top.zywork.dos.UserWalletDO;
 import top.zywork.dos.UserWithdrawDO;
+import top.zywork.dto.UserWalletDTO;
 import top.zywork.enums.WithdrawStatusEnum;
 import top.zywork.service.UserWithdrawService;
 
@@ -52,14 +52,10 @@ public class UserWithdrawServiceImpl implements UserWithdrawService {
     }
 
     @Override
-    public long getAvailableWithdraw(Long userId) {
-        Object obj = userWalletDAO.getById(userId);
-        if (obj != null) {
-            UserWalletDO userWalletDO = (UserWalletDO) obj;
-            Long totalUncomplete = userWithdrawDAO.getTotalUncompleteWithdraw(userId);
-            return userWalletDO.getUsableRmbBalance() -  (totalUncomplete == null ? 0 : totalUncomplete);
-        }
-        return -1;
+    public long getAvailableWithdraw(UserWalletDTO userWalletDTO) {
+        Long totalUncomplete = userWithdrawDAO.getTotalUncompleteWithdraw(userWalletDTO.getId());
+        return userWalletDTO.getUsableRmbBalance() - (totalUncomplete == null ? 0 : totalUncomplete);
+
     }
 
     @Override

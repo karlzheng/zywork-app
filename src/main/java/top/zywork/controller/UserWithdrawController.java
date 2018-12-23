@@ -2,16 +2,19 @@ package top.zywork.controller;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.zywork.annotation.SysLog;
 import top.zywork.common.UUIDUtils;
 import top.zywork.dos.UserWithdrawDO;
+import top.zywork.dto.UserWalletDTO;
 import top.zywork.enums.ResponseStatusEnum;
 import top.zywork.enums.WithdrawStatusEnum;
 import top.zywork.security.JwtUser;
 import top.zywork.security.SecurityUtils;
+import top.zywork.service.UserWalletService;
 import top.zywork.service.UserWithdrawService;
 import top.zywork.vo.ResponseStatusVO;
 
@@ -29,6 +32,8 @@ public class UserWithdrawController {
 
     private UserWithdrawService userWithdrawService;
 
+    private UserWalletService userWalletService;
+
     /**
      * 提交提现申请
      * @param amount
@@ -36,24 +41,29 @@ public class UserWithdrawController {
      */
     @PostMapping("submit")
     @SysLog(description = "提交提现申请")
-    public ResponseStatusVO submitWithdraw(Long amount, Long bankcardId) {
+    public ResponseStatusVO submitWithdraw(Long amount, Long bankcardId, String payPassword) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         JwtUser jwtUser = SecurityUtils.getJwtUser();
         if (jwtUser != null) {
             if (amount != null) {
-                long availableWithdraw = userWithdrawService.getAvailableWithdraw(jwtUser.getUserId());
-                if (availableWithdraw == -1) {
-                    // 返回-1表示没有钱包记录
-                    statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "此用户无钱包记录", null);
-                } else {
-                    if (availableWithdraw < amount) {
-                        statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "提现金额必须小于等于可提现余额", availableWithdraw);
-                    } else if (amount <= 0) {
-                        statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "提现金额必须大于0", null);
+                Object obj = userWalletService.getById(jwtUser.getUserId());
+                if (obj != null) {
+                    UserWalletDTO userWalletDTO = (UserWalletDTO) obj;
+                    if (new BCryptPasswordEncoder().matches(payPassword, userWalletDTO.getPayPassword())) {
+                        long availableWithdraw = userWithdrawService.getAvailableWithdraw(userWalletDTO);
+                        if (availableWithdraw < amount) {
+                            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "提现金额必须小于等于可提现余额", availableWithdraw);
+                        } else if (amount <= 0) {
+                            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "提现金额必须大于0", null);
+                        } else {
+                            userWithdrawService.saveWithdraw(jwtUser.getUserId(), UUIDUtils.simpleUuid(), amount, bankcardId);
+                            statusVO.dataErrorStatus(ResponseStatusEnum.OK.getCode(), "提现申请提交成功", null);
+                        }
                     } else {
-                        userWithdrawService.saveWithdraw(jwtUser.getUserId(), UUIDUtils.simpleUuid(), amount, bankcardId);
-                        statusVO.dataErrorStatus(ResponseStatusEnum.OK.getCode(), "提现申请提交成功", null);
+                        statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "支付密码错误", null);
                     }
+                } else {
+                    statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "此用户无钱包记录", null);
                 }
             } else {
                 statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "必须填写提现金额", null);
@@ -134,5 +144,10 @@ public class UserWithdrawController {
     @Autowired
     public void setUserWithdrawService(UserWithdrawService userWithdrawService) {
         this.userWithdrawService = userWithdrawService;
+    }
+
+    @Autowired
+    public void setUserWalletService(UserWalletService userWalletService) {
+        this.userWalletService = userWalletService;
     }
 }

@@ -1,6 +1,7 @@
 package top.zywork.service;
 
 import top.zywork.dos.UserWithdrawDO;
+import top.zywork.dto.UserWalletDTO;
 
 /**
  * 用户提现Service接口<br/>
@@ -55,8 +56,8 @@ public interface UserWithdrawService {
 
     /**
      * 获取可提现金额
-     * @param userId
-     * @return 如果返回-1，表示没有钱包记录
+     * @param userWalletDTO
+     * @return
      */
-    long getAvailableWithdraw(Long userId);
+    long getAvailableWithdraw(UserWalletDTO userWalletDTO);
 }
