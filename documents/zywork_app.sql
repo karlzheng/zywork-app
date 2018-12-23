@@ -11,11 +11,84 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 22/12/2018 15:33:10
+ Date: 23/12/2018 21:08:46
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for t_funds_frezee
+-- ----------------------------
+DROP TABLE IF EXISTS `t_funds_frezee`;
+CREATE TABLE `t_funds_frezee` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '充值编号',
+  `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
+  `amount` bigint(20) DEFAULT NULL COMMENT '金额',
+  `frezee_type` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '类型',
+  `frezee_description` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '描述',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='资金冻结与解冻记录表';
+
+-- ----------------------------
+-- Table structure for t_funds_recharge
+-- ----------------------------
+DROP TABLE IF EXISTS `t_funds_recharge`;
+CREATE TABLE `t_funds_recharge` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '充值编号',
+  `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
+  `amount` bigint(20) DEFAULT NULL COMMENT '充值金额',
+  `recharge_type` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '充值类型',
+  `is_success` tinyint(4) DEFAULT '0' COMMENT '是否成功',
+  `out_trade_no` varchar(64) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '商户订单号',
+  `trade_no` varchar(64) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '支付系统订单号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='资金充值记录表';
+
+-- ----------------------------
+-- Table structure for t_funds_transfer
+-- ----------------------------
+DROP TABLE IF EXISTS `t_funds_transfer`;
+CREATE TABLE `t_funds_transfer` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '充值编号',
+  `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
+  `amount` bigint(20) DEFAULT NULL COMMENT '金额',
+  `from_user_id` bigint(20) DEFAULT NULL COMMENT 'FROM',
+  `to_user_id` bigint(20) DEFAULT NULL COMMENT 'TO',
+  `transfer_type` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '类型',
+  `transfer_description` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '描述',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='资金转入与转出记录表';
+
+-- ----------------------------
+-- Table structure for t_funds_withdraw
+-- ----------------------------
+DROP TABLE IF EXISTS `t_funds_withdraw`;
+CREATE TABLE `t_funds_withdraw` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '充值编号',
+  `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
+  `withdraw_no` varchar(32) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '提现单号',
+  `amount` bigint(20) DEFAULT NULL COMMENT '提现金额',
+  `bankcard_id` bigint(20) DEFAULT NULL COMMENT '提现银行卡',
+  `withdraw_status` tinyint(4) DEFAULT NULL COMMENT '提现状态',
+  `withdraw_description` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '提现描述',
+  `checked_user_id` bigint(20) DEFAULT NULL COMMENT '审核人编号',
+  `checked_time` datetime DEFAULT NULL COMMENT '审核时间',
+  `complete_time` datetime DEFAULT NULL COMMENT '完成时间',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='资金提现记录表';
 
 -- ----------------------------
 -- Table structure for t_module
@@ -174,6 +247,23 @@ CREATE TABLE `t_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户基本信息表';
 
 -- ----------------------------
+-- Table structure for t_user_bankcard
+-- ----------------------------
+DROP TABLE IF EXISTS `t_user_bankcard`;
+CREATE TABLE `t_user_bankcard` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '银行卡编号',
+  `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
+  `account_name` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '持卡人姓名',
+  `bank_code` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '银行代码',
+  `bank_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '银行名称',
+  `bankcard_no` varchar(25) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '银行卡号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT NULL COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户银行卡记录表';
+
+-- ----------------------------
 -- Table structure for t_user_detail
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user_detail`;
@@ -242,7 +332,7 @@ CREATE TABLE `t_user_wallet` (
   `frozen_rmb_balance` bigint(20) DEFAULT '0' COMMENT '冻结余额',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT NULL COMMENT '是否激活',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户钱包表';
 
