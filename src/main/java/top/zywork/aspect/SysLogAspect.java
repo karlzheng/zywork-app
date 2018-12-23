@@ -52,9 +52,7 @@ public class SysLogAspect {
             statusVO = (ResponseStatusVO) result;
         }
         long endTime = System.currentTimeMillis();
-        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-        SysLogDTO sysLogDTO = createSysLogDTO(signature, endTime - startTime);
-        sysLogDTO.setRequestParams(JSON.toJSONString(joinPoint.getArgs()));
+        SysLogDTO sysLogDTO = createSysLogDTO(joinPoint, endTime - startTime);
         sysLogDTO.setExecuteTime(new Timestamp(endTime));
         sysLogDTO.setResponseCode(statusVO == null ? 0 : statusVO.getCode());
         sysLogDTO.setResponseMsg(statusVO == null ? "" : statusVO.getMessage());
@@ -65,16 +63,15 @@ public class SysLogAspect {
     @AfterThrowing(pointcut = "methodAspect()", throwing = "e")
     public void afterThrowing(JoinPoint joinPoint, Throwable e) {
         long endTime = System.currentTimeMillis();
-        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-        SysLogDTO sysLogDTO = createSysLogDTO(signature, endTime - startTime);
-        sysLogDTO.setRequestParams(JSON.toJSONString(joinPoint.getArgs()));
+        SysLogDTO sysLogDTO = createSysLogDTO(joinPoint, endTime - startTime);
         sysLogDTO.setExecuteTime(new Timestamp(endTime));
         sysLogDTO.setHasException((byte) 1);
         sysLogDTO.setExceptionMsg(e.getMessage());
         sysLogService.save(sysLogDTO);
     }
 
-    private SysLogDTO createSysLogDTO(MethodSignature signature, long costTime) {
+    private SysLogDTO createSysLogDTO(JoinPoint joinPoint, long costTime) {
+        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         SysLog sysLog = signature.getMethod().getDeclaredAnnotation(SysLog.class);
         SysLogDTO sysLogDTO = new SysLogDTO();
         JwtUser jwtUser = SecurityUtils.getJwtUser();
@@ -87,6 +84,9 @@ public class SysLogAspect {
         sysLogDTO.setUserAgent(request.getHeader(UserAgentUtils.USER_AGENT));
         sysLogDTO.setRequestUrl(request.getRequestURL().toString());
         sysLogDTO.setRequestMethod(request.getMethod());
+        if (sysLog.requestParams()) {
+            sysLogDTO.setRequestParams(JSON.toJSONString(joinPoint.getArgs()));
+        }
         sysLogDTO.setExecuteClass(signature.getDeclaringTypeName());
         sysLogDTO.setExecuteMethod(signature.getName());
         sysLogDTO.setExecuteCostTime(costTime);
