@@ -1,0 +1,322 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.zywork.dao.UserWalletDAO">
+
+    <insert id="save" parameterType="userWalletDO">
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+    		SELECT LAST_INSERT_ID()
+    	</selectKey>
+        insert into t_user_wallet
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="payPassword != null">
+				pay_password,
+			</if>
+			<if test="rmbBalance != null">
+				rmb_balance,
+			</if>
+			<if test="usableRmbBalance != null">
+				usable_rmb_balance,
+			</if>
+			<if test="frozenRmbBalance != null">
+				frozen_rmb_balance,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="isActive != null">
+				is_active,
+			</if>
+			
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="payPassword != null">
+				#{payPassword},
+			</if>
+			<if test="rmbBalance != null">
+				#{rmbBalance},
+			</if>
+			<if test="usableRmbBalance != null">
+				#{usableRmbBalance},
+			</if>
+			<if test="frozenRmbBalance != null">
+				#{frozenRmbBalance},
+			</if>
+			<if test="createTime != null">
+				#{createTime},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime},
+			</if>
+			<if test="isActive != null">
+				#{isActive},
+			</if>
+			
+        </trim>
+    </insert>
+
+    <insert id="saveBatch" parameterType="java.util.List">
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+    		SELECT LAST_INSERT_ID()
+    	</selectKey>
+    	<foreach collection="list" item="item" separator=";">
+            insert into t_user_wallet
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="item.payPassword != null">
+				pay_password,
+			</if>
+			<if test="item.rmbBalance != null">
+				rmb_balance,
+			</if>
+			<if test="item.usableRmbBalance != null">
+				usable_rmb_balance,
+			</if>
+			<if test="item.frozenRmbBalance != null">
+				frozen_rmb_balance,
+			</if>
+			<if test="item.createTime != null">
+				create_time,
+			</if>
+			<if test="item.updateTime != null">
+				update_time,
+			</if>
+			<if test="item.isActive != null">
+				is_active,
+			</if>
+			
+            </trim>
+            <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="item.payPassword != null">
+				#{item.payPassword},
+			</if>
+			<if test="item.rmbBalance != null">
+				#{item.rmbBalance},
+			</if>
+			<if test="item.usableRmbBalance != null">
+				#{item.usableRmbBalance},
+			</if>
+			<if test="item.frozenRmbBalance != null">
+				#{item.frozenRmbBalance},
+			</if>
+			<if test="item.createTime != null">
+				#{item.createTime},
+			</if>
+			<if test="item.updateTime != null">
+				#{item.updateTime},
+			</if>
+			<if test="item.isActive != null">
+				#{item.isActive},
+			</if>
+			
+            </trim>
+        </foreach>
+    </insert>
+
+    <delete id="removeById" parameterType="long">
+        delete from t_user_wallet where id = #{id}
+    </delete>
+
+    <delete id="removeByIds">
+        delete from t_user_wallet where id in
+        <foreach item="id" collection="array" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="update" parameterType="userWalletDO">
+        update t_user_wallet
+        <set>
+            <if test="payPassword != null">
+				pay_password = #{payPassword},
+			</if>
+			<if test="rmbBalance != null">
+				rmb_balance = #{rmbBalance},
+			</if>
+			<if test="usableRmbBalance != null">
+				usable_rmb_balance = #{usableRmbBalance},
+			</if>
+			<if test="frozenRmbBalance != null">
+				frozen_rmb_balance = #{frozenRmbBalance},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime},
+			</if>
+			<if test="isActive != null">
+				is_active = #{isActive},
+			</if>
+			update_time = CURRENT_TIMESTAMP,
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="updateBatch" parameterType="java.util.List">
+    	<foreach collection="list" item="item" separator=";">
+            update t_user_wallet
+            <set>
+                <if test="item.payPassword != null">
+				pay_password = #{item.payPassword},
+			</if>
+			<if test="item.rmbBalance != null">
+				rmb_balance = #{item.rmbBalance},
+			</if>
+			<if test="item.usableRmbBalance != null">
+				usable_rmb_balance = #{item.usableRmbBalance},
+			</if>
+			<if test="item.frozenRmbBalance != null">
+				frozen_rmb_balance = #{item.frozenRmbBalance},
+			</if>
+			<if test="item.createTime != null">
+				create_time = #{item.createTime},
+			</if>
+			<if test="item.updateTime != null">
+				update_time = #{item.updateTime},
+			</if>
+			<if test="item.isActive != null">
+				is_active = #{item.isActive},
+			</if>
+			update_time = CURRENT_TIMESTAMP,
+            </set>
+            where id = #{item.id}
+        </foreach>
+    </update>
+
+    <sql id="select_columns">
+        id as id, pay_password as payPassword, rmb_balance as rmbBalance, usable_rmb_balance as usableRmbBalance, frozen_rmb_balance as frozenRmbBalance, create_time as createTime, update_time as updateTime, is_active as isActive
+    </sql>
+
+    <sql id="query_where_clause">
+        <if test="query != null and query.id != null">
+			and id = #{query.id}
+		</if>
+		<if test="query != null and query.idMin != null and query.idMax == null">
+			and id <![CDATA[ >= ]]> #{query.idMin}
+		</if>
+		<if test="query != null and query.idMin == null and query.idMax != null">
+			and id <![CDATA[ <= ]]> #{query.idMax}
+		</if>
+		<if test="query != null and query.idMin != null and query.idMax != null">
+			and id <![CDATA[ >= ]]> #{query.idMin} and id <![CDATA[ <= ]]> #{query.idMax}
+		</if>
+		<if test="query != null and query.payPassword != null and query.payPassword != ''">
+			and pay_password like concat('%', #{query.payPassword}, '%')
+		</if>
+		<if test="query != null and query.rmbBalance != null">
+			and rmb_balance = #{query.rmbBalance}
+		</if>
+		<if test="query != null and query.rmbBalanceMin != null and query.rmbBalanceMax == null">
+			and rmb_balance <![CDATA[ >= ]]> #{query.rmbBalanceMin}
+		</if>
+		<if test="query != null and query.rmbBalanceMin == null and query.rmbBalanceMax != null">
+			and rmb_balance <![CDATA[ <= ]]> #{query.rmbBalanceMax}
+		</if>
+		<if test="query != null and query.rmbBalanceMin != null and query.rmbBalanceMax != null">
+			and rmb_balance <![CDATA[ >= ]]> #{query.rmbBalanceMin} and rmb_balance <![CDATA[ <= ]]> #{query.rmbBalanceMax}
+		</if>
+		<if test="query != null and query.usableRmbBalance != null">
+			and usable_rmb_balance = #{query.usableRmbBalance}
+		</if>
+		<if test="query != null and query.usableRmbBalanceMin != null and query.usableRmbBalanceMax == null">
+			and usable_rmb_balance <![CDATA[ >= ]]> #{query.usableRmbBalanceMin}
+		</if>
+		<if test="query != null and query.usableRmbBalanceMin == null and query.usableRmbBalanceMax != null">
+			and usable_rmb_balance <![CDATA[ <= ]]> #{query.usableRmbBalanceMax}
+		</if>
+		<if test="query != null and query.usableRmbBalanceMin != null and query.usableRmbBalanceMax != null">
+			and usable_rmb_balance <![CDATA[ >= ]]> #{query.usableRmbBalanceMin} and usable_rmb_balance <![CDATA[ <= ]]> #{query.usableRmbBalanceMax}
+		</if>
+		<if test="query != null and query.frozenRmbBalance != null">
+			and frozen_rmb_balance = #{query.frozenRmbBalance}
+		</if>
+		<if test="query != null and query.frozenRmbBalanceMin != null and query.frozenRmbBalanceMax == null">
+			and frozen_rmb_balance <![CDATA[ >= ]]> #{query.frozenRmbBalanceMin}
+		</if>
+		<if test="query != null and query.frozenRmbBalanceMin == null and query.frozenRmbBalanceMax != null">
+			and frozen_rmb_balance <![CDATA[ <= ]]> #{query.frozenRmbBalanceMax}
+		</if>
+		<if test="query != null and query.frozenRmbBalanceMin != null and query.frozenRmbBalanceMax != null">
+			and frozen_rmb_balance <![CDATA[ >= ]]> #{query.frozenRmbBalanceMin} and frozen_rmb_balance <![CDATA[ <= ]]> #{query.frozenRmbBalanceMax}
+		</if>
+		<if test="query != null and query.createTime != null">
+			and create_time = #{query.createTime}
+		</if>
+		<if test="query != null and query.createTimeMin != null and query.createTimeMax == null">
+			and create_time <![CDATA[ >= ]]> #{query.createTimeMin}
+		</if>
+		<if test="query != null and query.createTimeMin == null and query.createTimeMax != null">
+			and create_time <![CDATA[ <= ]]> #{query.createTimeMax}
+		</if>
+		<if test="query != null and query.createTimeMin != null and query.createTimeMax != null">
+			and create_time <![CDATA[ >= ]]> #{query.createTimeMin} and create_time <![CDATA[ <= ]]> #{query.createTimeMax}
+		</if>
+		<if test="query != null and query.updateTime != null">
+			and update_time = #{query.updateTime}
+		</if>
+		<if test="query != null and query.updateTimeMin != null and query.updateTimeMax == null">
+			and update_time <![CDATA[ >= ]]> #{query.updateTimeMin}
+		</if>
+		<if test="query != null and query.updateTimeMin == null and query.updateTimeMax != null">
+			and update_time <![CDATA[ <= ]]> #{query.updateTimeMax}
+		</if>
+		<if test="query != null and query.updateTimeMin != null and query.updateTimeMax != null">
+			and update_time <![CDATA[ >= ]]> #{query.updateTimeMin} and update_time <![CDATA[ <= ]]> #{query.updateTimeMax}
+		</if>
+		<if test="query != null and query.isActive != null">
+			and is_active = #{query.isActive}
+		</if>
+		<if test="query != null and query.isActiveMin != null and query.isActiveMax == null">
+			and is_active <![CDATA[ >= ]]> #{query.isActiveMin}
+		</if>
+		<if test="query != null and query.isActiveMin == null and query.isActiveMax != null">
+			and is_active <![CDATA[ <= ]]> #{query.isActiveMax}
+		</if>
+		<if test="query != null and query.isActiveMin != null and query.isActiveMax != null">
+			and is_active <![CDATA[ >= ]]> #{query.isActiveMin} and is_active <![CDATA[ <= ]]> #{query.isActiveMax}
+		</if>
+		
+    </sql>
+
+    <select id="getById" parameterType="long" resultType="userWalletDO">
+        select
+        <include refid="select_columns"/>
+        from t_user_wallet where id = #{id}
+    </select>
+
+    <select id="listAll" resultType="userWalletDO">
+        select
+        <include refid="select_columns"/>
+        from t_user_wallet
+        order by update_time desc, create_time desc
+    </select>
+
+    <select id="listPageByCondition" resultType="userWalletDO">
+        select
+        <include refid="select_columns"/>
+        from t_user_wallet
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+        order by
+        <if test="query.sortColumn != null and query.sortColumn != ''">
+            ${query.sortColumn} ${query.sortOrder}
+        </if>
+        <if test="query.sortColumn == null or query.sortColumn == ''">
+            update_time desc, create_time desc
+        </if>
+        limit #{query.beginIndex}, #{query.pageSize}
+    </select>
+
+    <select id="countByCondition" resultType="long">
+        select count(*) from t_user_wallet
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+    </select>
+
+</mapper>
