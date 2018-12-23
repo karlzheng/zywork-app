@@ -35,13 +35,26 @@ zywork-common项目依赖了zywork-sdk（[https://github.com/gz-zywork/zywork-sd
 ```documents/zywork_app_data_test.sql``` 包含有数据库结构和测试数据
 
 #### Druid数据监控
-```http://localhost:8088/druid/index.html``` 请修改成自己配置的端口号地址
+```http://localhost:8088/druid/index.html``` 请修改成自己配置的端口号
 
 #### API接口测试
-```http://localhost:8088/swagger-ui.html``` 请修改成自己配置的端口号地址
+```http://localhost:8088/swagger-ui.html``` 请修改成自己配置的端口号
 
 #### 第三方SDK说明
 微信支付SDK，阿里云短信，阿里云邮件推送相关配置请自行修改
+
+#### 目前已实现并测试的功能
+
+1. 基于SpringSecurity与JWT的用户认证及权限验证，适配任何前端
+2. 基于自定义注解```@SysLog```的系统详细日志记录
+3. 使用JSON的系统配置存储，如API相关配置等
+3. 用户邮箱加邮箱验证码注册，用户手机号加手机验证码注册
+4. 用户邮箱或手机号加密码登录，用户手机号加手机验证码登录，微信授权登录
+5. 用户登录密码和支付密码的邮箱重置、手机验证码重置
+6. 用户登录密码和支付密码更新
+7. 用户详情信息，用户角色信息，用户第三方登录信息
+8. 用户银行卡管理
+8. 用户钱包信息，用户充值，用户提现申请、审核、人工完成提现（暂未对接第三方支付系统提现）
 
 #### 支持与赞赏
 ![支持与赞赏](documents/wxpay.jpg)
