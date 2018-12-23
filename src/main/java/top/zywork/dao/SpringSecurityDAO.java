@@ -30,6 +30,16 @@ public interface SpringSecurityDAO {
      */
     List<String> loadRolesByUsername(String username);
 
+    /**
+     * 获取所有角色
+     * @return
+     */
     List<RolePermissionDO> listAllRolePermission();
 
+    /**
+     * 根据用户编号查询用户信息
+     * @param userId
+     * @return
+     */
+    UserDO loadUserByUserId(Long userId);
 }

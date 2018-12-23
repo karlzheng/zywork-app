@@ -5,18 +5,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import top.zywork.common.RandomUtils;
 import top.zywork.common.WebUtils;
-import top.zywork.enums.RandomCodeEnum;
 import top.zywork.enums.ResponseStatusEnum;
 import top.zywork.enums.SysConfigEnum;
 import top.zywork.security.JwtTokenRedisUtils;
 import top.zywork.security.JwtUser;
 import top.zywork.security.JwtUtils;
+import top.zywork.security.MyUserDetailsService;
 import top.zywork.service.DefaultRoleQueryService;
 import top.zywork.service.SysConfigQueryService;
 import top.zywork.service.UserRegService;
@@ -49,7 +47,7 @@ public class WeixinAuthController {
 
     private JwtUtils jwtUtils;
 
-    private UserDetailsService jwtUserDetailsService;
+    private MyUserDetailsService jwtUserDetailsService;
 
     private JwtTokenRedisUtils jwtTokenRedisUtils;
 
@@ -127,7 +125,7 @@ public class WeixinAuthController {
     }
 
     @Autowired
-    public void setJwtUserDetailsService(UserDetailsService jwtUserDetailsService) {
+    public void setJwtUserDetailsService(MyUserDetailsService jwtUserDetailsService) {
         this.jwtUserDetailsService = jwtUserDetailsService;
     }
 

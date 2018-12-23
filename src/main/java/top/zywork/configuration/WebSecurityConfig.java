@@ -42,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private Boolean enableVerifyCode;
 
     @Autowired
-    private JwtUserDetailsService jwtUserDetailsService;
+    private MyUserDetailsService jwtUserDetailsService;
 
     @Autowired
     private MyInvocationSecurityMetadataSource myInvocationSecurityMetadataSource;

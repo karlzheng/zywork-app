@@ -8,7 +8,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import top.zywork.security.JwtUser;
-import top.zywork.security.JwtUserDetailsService;
+import top.zywork.security.MyUserDetailsService;
 
 /**
  * 手机验证码验证器，先判断手机号是否正确，如果手机号正确则用户存在，
@@ -25,7 +25,7 @@ import top.zywork.security.JwtUserDetailsService;
 public class SmsCodeAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
-    private JwtUserDetailsService jwtUserDetailsService;
+    private MyUserDetailsService jwtUserDetailsService;
 
     @Autowired
     private SmsCodeRedisUtils smsCodeRedisUtils;

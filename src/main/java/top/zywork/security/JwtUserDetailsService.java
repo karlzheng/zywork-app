@@ -3,7 +3,6 @@ package top.zywork.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import top.zywork.dao.SpringSecurityDAO;
@@ -20,7 +19,7 @@ import java.util.List;
  * @version 1.0
  */
 @Service
-public class JwtUserDetailsService implements UserDetailsService {
+public class JwtUserDetailsService implements MyUserDetailsService {
 
     private SpringSecurityDAO springSecurityDAO;
 
@@ -39,6 +38,11 @@ public class JwtUserDetailsService implements UserDetailsService {
         } else {
             return new JwtUser(0L, null, null, null);
         }
+    }
+
+    @Override
+    public UserDO loadUserByUserId(Long userId) {
+        return springSecurityDAO.loadUserByUserId(userId);
     }
 
     @Autowired

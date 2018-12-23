@@ -22,7 +22,7 @@ import top.zywork.enums.RandomCodeEnum;
 import top.zywork.enums.ResponseStatusEnum;
 import top.zywork.enums.SysConfigEnum;
 import top.zywork.security.JwtUser;
-import top.zywork.security.JwtUserDetailsService;
+import top.zywork.security.MyUserDetailsService;
 import top.zywork.security.SecurityUtils;
 import top.zywork.security.VerifyCodeRedisUtils;
 import top.zywork.security.mobile.SmsCodeRedisUtils;
@@ -53,7 +53,7 @@ public class PasswordController {
 
     private UserPasswordService userPasswordService;
 
-    private JwtUserDetailsService jwtUserDetailsService;
+    private MyUserDetailsService jwtUserDetailsService;
 
     private SysConfigQueryService sysConfigQueryService;
 
@@ -408,7 +408,7 @@ public class PasswordController {
     }
 
     @Autowired
-    public void setJwtUserDetailsService(JwtUserDetailsService jwtUserDetailsService) {
+    public void setJwtUserDetailsService(MyUserDetailsService jwtUserDetailsService) {
         this.jwtUserDetailsService = jwtUserDetailsService;
     }
 

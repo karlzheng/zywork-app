@@ -44,4 +44,11 @@
         and t_permission.id = t_role_permission.permission_id
     </select>
 
+    <select id="loadUserByUserId" parameterType="long" resultType="top.zywork.security.UserDO">
+        select t_user.id as id,
+        t_user.password as password,
+        t_user.is_active as isActive
+        from t_user where t_user.id = #{userId}
+    </select>
+
 </mapper>

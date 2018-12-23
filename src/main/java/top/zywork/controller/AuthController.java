@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,10 +18,7 @@ import top.zywork.ali.AliyunSmsConfig;
 import top.zywork.ali.AliyunSmsUtils;
 import top.zywork.common.*;
 import top.zywork.enums.*;
-import top.zywork.security.JwtTokenRedisUtils;
-import top.zywork.security.JwtUser;
-import top.zywork.security.SecurityUtils;
-import top.zywork.security.VerifyCodeRedisUtils;
+import top.zywork.security.*;
 import top.zywork.security.mobile.SmsCodeRedisUtils;
 import top.zywork.service.DefaultRoleQueryService;
 import top.zywork.service.SysConfigQueryService;
@@ -65,7 +61,7 @@ public class AuthController {
 
     private SmsCodeRedisUtils smsCodeRedisUtils;
 
-    private UserDetailsService jwtUserDetailsService;
+    private MyUserDetailsService jwtUserDetailsService;
 
     private UserRegService userRegService;
 
@@ -354,7 +350,7 @@ public class AuthController {
     }
 
     @Autowired
-    public void setJwtUserDetailsService(UserDetailsService jwtUserDetailsService) {
+    public void setJwtUserDetailsService(MyUserDetailsService jwtUserDetailsService) {
         this.jwtUserDetailsService = jwtUserDetailsService;
     }
 
