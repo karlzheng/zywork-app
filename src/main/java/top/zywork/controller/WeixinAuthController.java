@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import top.zywork.annotation.SysLog;
 import top.zywork.common.WebUtils;
 import top.zywork.enums.ResponseStatusEnum;
 import top.zywork.enums.SysConfigEnum;
@@ -64,6 +65,7 @@ public class WeixinAuthController {
      * @param code
      */
     @GetMapping("gzh")
+    @SysLog(description = "微信公众号登录", requestParams = false)
     public ResponseStatusVO gzhAuth(HttpServletRequest request, HttpServletResponse response,  String code) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         String openid = WebUtils.getCookieValue(request, gzhCookieName);

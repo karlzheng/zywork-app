@@ -16,6 +16,7 @@ import top.zywork.ali.AliyunMailConfig;
 import top.zywork.ali.AliyunMailUtils;
 import top.zywork.ali.AliyunSmsConfig;
 import top.zywork.ali.AliyunSmsUtils;
+import top.zywork.annotation.SysLog;
 import top.zywork.common.*;
 import top.zywork.enums.*;
 import top.zywork.security.*;
@@ -76,6 +77,7 @@ public class AuthController {
      * @param verifyCode
      */
     @PostMapping("login")
+    @SysLog(description = "用户账号密码登录", requestParams = false)
     public void login(String username, String password, String verifyCode) {}
 
     /**
@@ -84,6 +86,7 @@ public class AuthController {
      * @param smsCode
      */
     @PostMapping("mobile")
+    @SysLog(description = "手机验证码登录")
     public void mobile(String phone, String smsCode) {}
 
     /**
@@ -186,6 +189,7 @@ public class AuthController {
      * @return
      */
     @PostMapping("reg")
+    @SysLog(description = "用户邮箱注册", requestParams = false)
     public ResponseStatusVO reg(String email, String password, String confirmPassword, String regCode) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         if (StringUtils.isNotEmpty(email) && RegexUtils.match(RegexUtils.REGEX_EMAIL, email)) {
@@ -264,6 +268,7 @@ public class AuthController {
      * @return
      */
     @PostMapping("reg-mobile")
+    @SysLog(description = "用户手机注册", requestParams = false)
     public ResponseStatusVO regMobile(String phone, String password, String confirmPassword, String regCode) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         if (StringUtils.isNotEmpty(phone) && RegexUtils.match(RegexUtils.REGEX_PHONE, phone)) {

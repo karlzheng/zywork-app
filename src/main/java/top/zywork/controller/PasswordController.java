@@ -70,7 +70,7 @@ public class PasswordController {
      * @return
      */
     @PostMapping("reset-login/email")
-    @SysLog(description = "邮箱重置登录密码")
+    @SysLog(description = "邮箱重置登录密码", requestParams = false)
     public ResponseStatusVO resetLoginPwdByEmail(String email, String password, String confirmPassword, String verifyCode) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         if (StringUtils.isNotEmpty(email) && RegexUtils.match(RegexUtils.REGEX_EMAIL, email)) {
@@ -109,7 +109,7 @@ public class PasswordController {
      * @return
      */
     @PostMapping("reset-login/sms")
-    @SysLog(description = "手机重置登录密码")
+    @SysLog(description = "手机重置登录密码", requestParams = false)
     public ResponseStatusVO resetLoginPwdByPhone(String phone, String password, String confirmPassword, String verifyCode) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         if (StringUtils.isNotEmpty(phone) && RegexUtils.match(RegexUtils.REGEX_PHONE, phone)) {
@@ -167,7 +167,7 @@ public class PasswordController {
      * @return
      */
     @PostMapping("update-login")
-    @SysLog(description = "更新登录密码")
+    @SysLog(description = "更新登录密码", requestParams = false)
     public ResponseStatusVO updateLoginPwd(String oldPassword, String password, String confirmPassword) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         JwtUser jwtUser = SecurityUtils.getJwtUser();
@@ -200,7 +200,7 @@ public class PasswordController {
      * @return
      */
     @PostMapping("reset-pay/email")
-    @SysLog(description = "邮箱重置支付密码")
+    @SysLog(description = "邮箱重置支付密码", requestParams = false)
     public ResponseStatusVO resetPayPwdByEmail(String email, String password, String confirmPassword, String verifyCode) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         if (StringUtils.isNotEmpty(email) && RegexUtils.match(RegexUtils.REGEX_EMAIL, email)) {
@@ -239,7 +239,7 @@ public class PasswordController {
      * @return
      */
     @PostMapping("reset-pay/sms")
-    @SysLog(description = "手机重置支付密码")
+    @SysLog(description = "手机重置支付密码", requestParams = false)
     public ResponseStatusVO resetPayPwdByPhone(String phone, String password, String confirmPassword, String verifyCode) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         if (StringUtils.isNotEmpty(phone) && RegexUtils.match(RegexUtils.REGEX_PHONE, phone)) {
@@ -297,7 +297,7 @@ public class PasswordController {
      * @return
      */
     @PostMapping("update-pay")
-    @SysLog(description = "更新支付密码")
+    @SysLog(description = "更新支付密码", requestParams = false)
     public ResponseStatusVO updatePayPwd(String oldPassword, String password, String confirmPassword) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         JwtUser jwtUser = SecurityUtils.getJwtUser();
