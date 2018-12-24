@@ -2,7 +2,7 @@ package top.zywork.dao;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-import top.zywork.query.PageQuery;
+import top.zywork.dos.UserBankcardDO;
 
 import java.util.List;
 
@@ -22,4 +22,11 @@ public interface UserBankcardDAO extends BaseDAO {
 
     @Override
     Long countByCondition(@Param("query") Object queryObj);
+
+    /**
+     * 根据银行卡号获取UserBankcardDO对象
+     * @param bankcardNo
+     * @return
+     */
+    UserBankcardDO getByCardNo(String bankcardNo);
 }

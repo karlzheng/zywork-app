@@ -1,5 +1,7 @@
 package top.zywork.service;
 
+import top.zywork.dto.UserBankcardDTO;
+
 /**
  * UserBankcardService服务接口<br/>
  *
@@ -9,4 +11,12 @@ package top.zywork.service;
  * @version 1.0
  */
 public interface UserBankcardService extends BaseService {
+
+    /**
+     * 根据银行卡号获取UserBankcardDO对象
+     * @param bankcardNo
+     * @return
+     */
+    UserBankcardDTO getByCardNo(String bankcardNo);
+
 }

@@ -54,19 +54,52 @@ public class UserBankcardController extends BaseController {
                 String cardInfoJson = BankCardAliapiUtils.getBankCardInfoJson(bankcardNo);
                 String bankName = BankCardAliapiUtils.getBankNameByCardInfo(cardInfoJson);
                 if (bankName != null) {
-                    UserBankcardDTO userBankcardDTO = new UserBankcardDTO();
-                    userBankcardDTO.setUserId(jwtUser.getUserId());
-                    userBankcardDTO.setAccountName(accountName);
-                    userBankcardDTO.setBankcardNo(bankcardNo);
-                    userBankcardDTO.setBankName(bankName);
-                    userBankcardDTO.setBankCode(BankCardAliapiUtils.getBankCodeByCardInfo(cardInfoJson));
-                    userBankcardService.save(userBankcardDTO);
-                    statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "已绑定银行卡", null);
+                    UserBankcardDTO userBankcardDTO = userBankcardService.getByCardNo(bankcardNo);
+                    if (userBankcardDTO == null) {
+                        userBankcardDTO = new UserBankcardDTO();
+                        userBankcardDTO.setUserId(jwtUser.getUserId());
+                        userBankcardDTO.setAccountName(accountName);
+                        userBankcardDTO.setBankcardNo(bankcardNo);
+                        userBankcardDTO.setBankName(bankName);
+                        userBankcardDTO.setBankCode(BankCardAliapiUtils.getBankCodeByCardInfo(cardInfoJson));
+                        userBankcardService.save(userBankcardDTO);
+                        statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "已绑定银行卡", null);
+                    } else {
+                        statusVO.okStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "不能再次绑定已绑定的银行卡", null);
+                    }
                 } else {
                     statusVO.okStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "无法获取银行卡基本信息", null);
                 }
             } else {
                 statusVO.okStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "填写正确的姓名和银行卡号", null);
+            }
+        } else {
+            statusVO.okStatus(ResponseStatusEnum.AUTHENTICATION_ERROR.getCode(), ResponseStatusEnum.AUTHENTICATION_ERROR.getMessage(), null);
+        }
+        return statusVO;
+    }
+
+    /**
+     * 解除绑定银行卡
+     * @param bankcardNo
+     * @return
+     */
+    @PostMapping("unbind")
+    @SysLog(description = "解除绑定银行卡")
+    public ResponseStatusVO unbindBankcard(String bankcardNo) {
+        ResponseStatusVO statusVO = new ResponseStatusVO();
+        JwtUser jwtUser = SecurityUtils.getJwtUser();
+        if (jwtUser != null) {
+            UserBankcardDTO userBankcardDTO = userBankcardService.getByCardNo(bankcardNo);
+            if (userBankcardDTO != null) {
+                if (userBankcardDTO.getUserId() == jwtUser.getUserId()) {
+                    userBankcardService.removeById(userBankcardDTO.getId());
+                    statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "已解除绑定银行卡", null);
+                } else {
+                    statusVO.okStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "银行卡不属于此用户", null);
+                }
+            } else {
+                statusVO.okStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "不存在的银行卡", null);
             }
         } else {
             statusVO.okStatus(ResponseStatusEnum.AUTHENTICATION_ERROR.getCode(), ResponseStatusEnum.AUTHENTICATION_ERROR.getMessage(), null);
