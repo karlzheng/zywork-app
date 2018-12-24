@@ -32,13 +32,19 @@ public interface UserWithdrawService {
     void checkWithdraw(String withdrawNo, Byte withdrawStatus, String description, Long checkedUserId);
 
     /**
-     * 更新用户提现记录，如提现成功或提现失败
+     *
+     * @param withdrawNo
+     */
+    void cancelWithdraw(String withdrawNo);
+
+    /**
+     * 完成用户提现记录，如提现成功或提现失败
      * @param withdrawNo
      * @param withdrawStatus
      * @param userId
      * @param amount
      */
-    void updateWithdraw(String withdrawNo, Byte withdrawStatus, Long userId, Long amount);
+    void completeWithdraw(String withdrawNo, Byte withdrawStatus, Long userId, Long amount);
 
     /**
      * 获取所有未完成的即complete_time为null的提现总额

@@ -75,6 +75,34 @@ public class UserWithdrawController {
     }
 
     /**
+     * 取消提现申请
+     * @param withdrawNo
+     * @return
+     */
+    @PostMapping("cancel")
+    @SysLog(description = "取消提现申请")
+    public ResponseStatusVO cancelWithdraw(String withdrawNo) {
+        ResponseStatusVO statusVO = new ResponseStatusVO();
+        JwtUser jwtUser = SecurityUtils.getJwtUser();
+        if (jwtUser != null) {
+            UserWithdrawDO userWithdrawDO = userWithdrawService.getByWithdrawNo(withdrawNo);
+            if (userWithdrawDO != null && userWithdrawDO.getWithdrawStatus().byteValue() == WithdrawStatusEnum.CHECKING.getValue()) {
+                if (userWithdrawDO.getUserId() == jwtUser.getUserId()) {
+                    userWithdrawService.cancelWithdraw(withdrawNo);
+                    statusVO.errorStatus(ResponseStatusEnum.OK.getCode(), "已取消提现", null);
+                } else {
+                    statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "提现单号不属于此用户", null);
+                }
+            } else {
+                statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "提现单号不正确或提现申请不是审核中状态", null);
+            }
+        } else {
+            statusVO.errorStatus(ResponseStatusEnum.AUTHENTICATION_ERROR.getCode(), ResponseStatusEnum.AUTHENTICATION_ERROR.getMessage(), null);
+        }
+        return statusVO;
+    }
+
+    /**
      * 提现申请审核，注意权限配置，审核完成后，再由人工完成提现并确认或第三方系统完成提现自动确认
      * @param withdrawNo
      * @param withdrawStatus
@@ -130,13 +158,13 @@ public class UserWithdrawController {
                 || withdrawStatus == WithdrawStatusEnum.FAILURE.getValue().byteValue())) {
             UserWithdrawDO userWithdrawDO = userWithdrawService.getByWithdrawNo(withdrawNo);
             if (userWithdrawDO != null && userWithdrawDO.getWithdrawStatus().byteValue() == WithdrawStatusEnum.CHECKED.getValue()) {
-                userWithdrawService.updateWithdraw(withdrawNo, withdrawStatus, userWithdrawDO.getUserId(), userWithdrawDO.getAmount());
+                userWithdrawService.completeWithdraw(withdrawNo, withdrawStatus, userWithdrawDO.getUserId(), userWithdrawDO.getAmount());
                 statusVO.dataErrorStatus(ResponseStatusEnum.OK.getCode(), "已人工完成提现操作，提现" + WithdrawStatusEnum.findByValue(withdrawStatus.intValue()).getDes(), null);
             } else {
                 statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "提现单号不正确或提现申请不是已通过状态", null);
             }
         } else {
-            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "请选择正确的提现单号和审核状态，3成功，4失败", null);
+            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "请选择正确的提现单号和审核状态", null);
         }
         return statusVO;
     }

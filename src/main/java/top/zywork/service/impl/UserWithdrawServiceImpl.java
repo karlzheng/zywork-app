@@ -3,7 +3,6 @@ package top.zywork.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import top.zywork.dao.UserWalletDAO;
 import top.zywork.dao.UserWithdrawDAO;
 import top.zywork.dos.UserWithdrawDO;
 import top.zywork.dto.UserWalletDTO;
@@ -23,8 +22,6 @@ public class UserWithdrawServiceImpl implements UserWithdrawService {
 
     private UserWithdrawDAO userWithdrawDAO;
 
-    private UserWalletDAO userWalletDAO;
-
     @Override
     public void saveWithdraw(Long userId, String withdrawNo, Long amount, Long bankcardId) {
         userWithdrawDAO.saveWithdraw(userId, withdrawNo, amount, bankcardId);
@@ -36,8 +33,13 @@ public class UserWithdrawServiceImpl implements UserWithdrawService {
     }
 
     @Override
+    public void cancelWithdraw(String withdrawNo) {
+        userWithdrawDAO.updateWithdraw(withdrawNo, WithdrawStatusEnum.CANCELED.getValue().byteValue());
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
-    public void updateWithdraw(String withdrawNo, Byte withdrawStatus, Long userId, Long amount) {
+    public void completeWithdraw(String withdrawNo, Byte withdrawStatus, Long userId, Long amount) {
         userWithdrawDAO.updateWithdraw(withdrawNo, withdrawStatus);
         if (withdrawStatus == WithdrawStatusEnum.SUCCESS.getValue().byteValue()) {
             // 如果提现成功，则更新钱包余额和可用余额
@@ -68,8 +70,4 @@ public class UserWithdrawServiceImpl implements UserWithdrawService {
         this.userWithdrawDAO = userWithdrawDAO;
     }
 
-    @Autowired
-    public void setUserWalletDAO(UserWalletDAO userWalletDAO) {
-        this.userWalletDAO = userWalletDAO;
-    }
 }

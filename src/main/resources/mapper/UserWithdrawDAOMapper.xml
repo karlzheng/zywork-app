@@ -23,7 +23,7 @@
             checked_time = CURRENT_TIMESTAMP,
             update_time = CURRENT_TIMESTAMP,
         </set>
-        where withdraw_no = #{withdrawNo} and withdraw_status = 0
+        where withdraw_no = #{withdrawNo} and
     </update>
 
     <update id="updateWithdraw">
@@ -31,7 +31,7 @@
         withdraw_status = #{withdrawStatus},
         complete_time = CURRENT_TIMESTAMP,
         update_time = CURRENT_TIMESTAMP
-        where withdraw_no = #{withdrawNo} and withdraw_status = 1
+        where withdraw_no = #{withdrawNo}
     </update>
 
     <select id="getTotalUncompleteWithdraw" parameterType="long" resultType="long">
