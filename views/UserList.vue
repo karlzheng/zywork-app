@@ -19,7 +19,7 @@
     </Row>
     <Modal v-model="modal.search" title="高级搜索">
       <Form ref="searchForm" :model="searchForm" :label-width="80">
-        <FormItem label="银行卡编号"><Row>
+        <FormItem label="用户编号"><Row>
 	<i-col span="11">
 	<FormItem prop="idMin">
 	<InputNumber v-model="searchForm.idMin" style="width: 100%;"/>
@@ -33,31 +33,17 @@
 </i-col>
 </Row>
 </FormItem>
-<FormItem label="用户编号"><Row>
-	<i-col span="11">
-	<FormItem prop="userIdMin">
-	<InputNumber v-model="searchForm.userIdMin" style="width: 100%;"/>
+<FormItem label="手机号" prop="phone">
+	<Input v-model="searchForm.phone"/>
 </FormItem>
-</i-col>
-	<i-col span="2" style="text-align: center">-</i-col>
-	<i-col span="11">
-	<FormItem prop="userIdMax">
-	<InputNumber v-model="searchForm.userIdMax" style="width: 100%;"/>
+<FormItem label="用户邮箱" prop="email">
+	<Input v-model="searchForm.email"/>
 </FormItem>
-</i-col>
-</Row>
+<FormItem label="登录密码" prop="password">
+	<Input v-model="searchForm.password"/>
 </FormItem>
-<FormItem label="持卡人姓名" prop="accountName">
-	<Input v-model="searchForm.accountName"/>
-</FormItem>
-<FormItem label="银行代码" prop="bankCode">
-	<Input v-model="searchForm.bankCode"/>
-</FormItem>
-<FormItem label="银行名称" prop="bankName">
-	<Input v-model="searchForm.bankName"/>
-</FormItem>
-<FormItem label="银行卡号" prop="bankcardNo">
-	<Input v-model="searchForm.bankcardNo"/>
+<FormItem label="加密盐值" prop="salt">
+	<Input v-model="searchForm.salt"/>
 </FormItem>
 <FormItem label="创建时间"><Row>
 	<i-col span="11">
@@ -110,12 +96,11 @@
       </div>
     </Modal>
     <Modal v-model="modal.detail" title="详情">
-      <p>银行卡编号: <span v-text="form.id"></span></p>
-<p>用户编号: <span v-text="form.userId"></span></p>
-<p>持卡人姓名: <span v-text="form.accountName"></span></p>
-<p>银行代码: <span v-text="form.bankCode"></span></p>
-<p>银行名称: <span v-text="form.bankName"></span></p>
-<p>银行卡号: <span v-text="form.bankcardNo"></span></p>
+      <p>用户编号: <span v-text="form.id"></span></p>
+<p>手机号: <span v-text="form.phone"></span></p>
+<p>用户邮箱: <span v-text="form.email"></span></p>
+<p>登录密码: <span v-text="form.password"></span></p>
+<p>加密盐值: <span v-text="form.salt"></span></p>
 <p>创建时间: <span v-text="form.createTime"></span></p>
 <p>更新时间: <span v-text="form.updateTime"></span></p>
 <p>是否激活: <span v-text="form.isActive"></span></p>
@@ -128,7 +113,7 @@
   import * as utils from '@/api/utils'
 
   export default {
-    name: 'UserBankcardList',
+    name: 'UserList',
     data() {
       return {
         modal: {
@@ -141,21 +126,20 @@
               search: false
           },
         urls: {
-          searchUrl: '/user-bankcard/pager-cond',
-          allUrl: '/user-bankcard/all',
-          detailUrl: '/user-bankcard/one/',
-          multiUrl: '/user-bankcard/multi/'
+          searchUrl: '/user/pager-cond',
+          allUrl: '/user/all',
+          detailUrl: '/user/one/',
+          multiUrl: '/user/multi/'
         },
         page: {
           total: 0
         },
         form: {
           id: null,
-userId: null,
-accountName: null,
-bankCode: null,
-bankName: null,
-bankcardNo: null,
+phone: null,
+email: null,
+password: null,
+salt: null,
 createTime: null,
 updateTime: null,
 isActive: null,
@@ -169,13 +153,10 @@ isActive: null,
           id: null,
 idMin: null, 
 idMax: null, 
-userId: null,
-userIdMin: null, 
-userIdMax: null, 
-accountName: null,
-bankCode: null,
-bankName: null,
-bankcardNo: null,
+phone: null,
+email: null,
+password: null,
+salt: null,
 createTime: null,
 createTimeMin: null, 
 createTimeMax: null, 
@@ -206,38 +187,32 @@ isActiveMax: null,
               }
             },
             {
-title: '银行卡编号',
+title: '用户编号',
 key: 'id',
 width: 120,
 sortable: true
 },
 {
-title: '用户编号',
-key: 'userId',
+title: '手机号',
+key: 'phone',
 width: 120,
 sortable: true
 },
 {
-title: '持卡人姓名',
-key: 'accountName',
+title: '用户邮箱',
+key: 'email',
 width: 120,
 sortable: true
 },
 {
-title: '银行代码',
-key: 'bankCode',
+title: '登录密码',
+key: 'password',
 width: 120,
 sortable: true
 },
 {
-title: '银行名称',
-key: 'bankName',
-width: 120,
-sortable: true
-},
-{
-title: '银行卡号',
-key: 'bankcardNo',
+title: '加密盐值',
+key: 'salt',
 width: 120,
 sortable: true
 },
@@ -339,7 +314,7 @@ sortable: true
         utils.changePageSize(this, pageSize)
       },
       fitTable() {
-        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['id','userId','accountName','bankCode','bankName','bankcardNo','createTime','updateTime','isActive',])
+        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['id','phone','email','password','salt','createTime','updateTime','isActive',])
       },
       confirmSelection() {
         // 确认选择的逻辑

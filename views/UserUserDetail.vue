@@ -132,7 +132,7 @@
       <div slot="footer">
         <Button type="text" size="large" @click="resetForm('searchForm')">清空</Button>
         <Button type="text" size="large" @click="cancelModal('search')">取消</Button>
-        <Button type="primary" size="large" @click="searchOkModal('search')">确定</Button>
+        <Button type="primary" size="large" @click="searchOkModal('search')" :loading="loading.search">搜索</Button>
       </div>
     </Modal>
     <Modal v-model="modal.detail" title="详情">
@@ -172,6 +172,9 @@
           search: false,
           detail: false
         },
+          loading: {
+              search: false
+          },
         urls: {
           searchUrl: '/user-userdetail/pager-cond',
           allUrl: '/user-userdetail/all',

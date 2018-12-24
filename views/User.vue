@@ -30,17 +30,17 @@
     </Row>
     <Modal v-model="modal.add" title="添加" @on-visible-change="changeModalVisibleResetForm('addForm', $event)">
       <Form ref="addForm" :model="form" :label-width="80" :rules="validateRules">
-        <FormItem label="支付密码" prop="payPassword">
-	<Input v-model="form.payPassword"/>
+        <FormItem label="手机号" prop="phone">
+	<Input v-model="form.phone"/>
 </FormItem>
-<FormItem label="人民币余额" prop="rmbBalance">
-	<InputNumber v-model="form.rmbBalance" style="width: 100%;"/>
+<FormItem label="用户邮箱" prop="email">
+	<Input v-model="form.email"/>
 </FormItem>
-<FormItem label="可用余额" prop="usableRmbBalance">
-	<InputNumber v-model="form.usableRmbBalance" style="width: 100%;"/>
+<FormItem label="登录密码" prop="password">
+	<Input v-model="form.password"/>
 </FormItem>
-<FormItem label="冻结余额" prop="frozenRmbBalance">
-	<InputNumber v-model="form.frozenRmbBalance" style="width: 100%;"/>
+<FormItem label="加密盐值" prop="salt">
+	<Input v-model="form.salt"/>
 </FormItem>
 
       </Form>
@@ -51,17 +51,17 @@
     </Modal>
     <Modal v-model="modal.edit" title="修改" @on-visible-change="changeModalVisibleResetForm('editForm', $event)">
       <Form ref="editForm" :model="form" :label-width="80" :rules="validateRules">
-        <FormItem label="支付密码" prop="payPassword">
-	<Input v-model="form.payPassword"/>
+        <FormItem label="手机号" prop="phone">
+	<Input v-model="form.phone"/>
 </FormItem>
-<FormItem label="人民币余额" prop="rmbBalance">
-	<InputNumber v-model="form.rmbBalance" style="width: 100%;"/>
+<FormItem label="用户邮箱" prop="email">
+	<Input v-model="form.email"/>
 </FormItem>
-<FormItem label="可用余额" prop="usableRmbBalance">
-	<InputNumber v-model="form.usableRmbBalance" style="width: 100%;"/>
+<FormItem label="登录密码" prop="password">
+	<Input v-model="form.password"/>
 </FormItem>
-<FormItem label="冻结余额" prop="frozenRmbBalance">
-	<InputNumber v-model="form.frozenRmbBalance" style="width: 100%;"/>
+<FormItem label="加密盐值" prop="salt">
+	<Input v-model="form.salt"/>
 </FormItem>
 
       </Form>
@@ -72,7 +72,7 @@
     </Modal>
     <Modal v-model="modal.search" title="高级搜索">
       <Form ref="searchForm" :model="searchForm" :label-width="80">
-        <FormItem label="钱包编号"><Row>
+        <FormItem label="用户编号"><Row>
 	<i-col span="11">
 	<FormItem prop="idMin">
 	<InputNumber v-model="searchForm.idMin" style="width: 100%;"/>
@@ -86,50 +86,17 @@
 </i-col>
 </Row>
 </FormItem>
-<FormItem label="支付密码" prop="payPassword">
-	<Input v-model="searchForm.payPassword"/>
+<FormItem label="手机号" prop="phone">
+	<Input v-model="searchForm.phone"/>
 </FormItem>
-<FormItem label="人民币余额"><Row>
-	<i-col span="11">
-	<FormItem prop="rmbBalanceMin">
-	<InputNumber v-model="searchForm.rmbBalanceMin" style="width: 100%;"/>
+<FormItem label="用户邮箱" prop="email">
+	<Input v-model="searchForm.email"/>
 </FormItem>
-</i-col>
-	<i-col span="2" style="text-align: center">-</i-col>
-	<i-col span="11">
-	<FormItem prop="rmbBalanceMax">
-	<InputNumber v-model="searchForm.rmbBalanceMax" style="width: 100%;"/>
+<FormItem label="登录密码" prop="password">
+	<Input v-model="searchForm.password"/>
 </FormItem>
-</i-col>
-</Row>
-</FormItem>
-<FormItem label="可用余额"><Row>
-	<i-col span="11">
-	<FormItem prop="usableRmbBalanceMin">
-	<InputNumber v-model="searchForm.usableRmbBalanceMin" style="width: 100%;"/>
-</FormItem>
-</i-col>
-	<i-col span="2" style="text-align: center">-</i-col>
-	<i-col span="11">
-	<FormItem prop="usableRmbBalanceMax">
-	<InputNumber v-model="searchForm.usableRmbBalanceMax" style="width: 100%;"/>
-</FormItem>
-</i-col>
-</Row>
-</FormItem>
-<FormItem label="冻结余额"><Row>
-	<i-col span="11">
-	<FormItem prop="frozenRmbBalanceMin">
-	<InputNumber v-model="searchForm.frozenRmbBalanceMin" style="width: 100%;"/>
-</FormItem>
-</i-col>
-	<i-col span="2" style="text-align: center">-</i-col>
-	<i-col span="11">
-	<FormItem prop="frozenRmbBalanceMax">
-	<InputNumber v-model="searchForm.frozenRmbBalanceMax" style="width: 100%;"/>
-</FormItem>
-</i-col>
-</Row>
+<FormItem label="加密盐值" prop="salt">
+	<Input v-model="searchForm.salt"/>
 </FormItem>
 <FormItem label="创建时间"><Row>
 	<i-col span="11">
@@ -182,11 +149,11 @@
       </div>
     </Modal>
     <Modal v-model="modal.detail" title="详情" @on-visible-change="changeModalVisibleResetForm('editForm', $event)">
-      <p>钱包编号: <span v-text="form.id"></span></p>
-<p>支付密码: <span v-text="form.payPassword"></span></p>
-<p>人民币余额: <span v-text="form.rmbBalance"></span></p>
-<p>可用余额: <span v-text="form.usableRmbBalance"></span></p>
-<p>冻结余额: <span v-text="form.frozenRmbBalance"></span></p>
+      <p>用户编号: <span v-text="form.id"></span></p>
+<p>手机号: <span v-text="form.phone"></span></p>
+<p>用户邮箱: <span v-text="form.email"></span></p>
+<p>登录密码: <span v-text="form.password"></span></p>
+<p>加密盐值: <span v-text="form.salt"></span></p>
 <p>创建时间: <span v-text="form.createTime"></span></p>
 <p>更新时间: <span v-text="form.updateTime"></span></p>
 <p>是否激活: <span v-text="form.isActive"></span></p>
@@ -199,7 +166,7 @@
   import * as utils from '@/api/utils'
 
   export default {
-    name: 'UserWallet',
+    name: 'User',
     data() {
       return {
         modal: {
@@ -214,35 +181,44 @@
               search: false
           },
         urls: {
-          addUrl: '/user-wallet/save',
-          batchAddUrl: '/user-wallet/batch-save',
-          editUrl: '/user-wallet/update',
-          batchEditUrl: '/user-wallet/batch-update',
-          searchUrl: '/user-wallet/pager-cond',
-          allUrl: '/user-wallet/all',
-          removeUrl: '/user-wallet/remove/',
-          batchRemoveUrl: '/user-wallet/batch-remove',
-          detailUrl: '/user-wallet/one/',
-          activeUrl: '/user-wallet/active',
-          batchActiveUrl: '/user-wallet/batch-active'
+          addUrl: '/user/save',
+          batchAddUrl: '/user/batch-save',
+          editUrl: '/user/update',
+          batchEditUrl: '/user/batch-update',
+          searchUrl: '/user/pager-cond',
+          allUrl: '/user/all',
+          removeUrl: '/user/remove/',
+          batchRemoveUrl: '/user/batch-remove',
+          detailUrl: '/user/one/',
+          activeUrl: '/user/active',
+          batchActiveUrl: '/user/batch-active'
         },
         page: {
           total: 0
         },
         form: {
           id: null,
-payPassword: null,
-rmbBalance: null,
-usableRmbBalance: null,
-frozenRmbBalance: null,
+phone: null,
+email: null,
+password: null,
+salt: null,
 createTime: null,
 updateTime: null,
 isActive: null,
 
         },
         validateRules: {
-          payPassword: [
+          phone: [
+{type: 'string', min: 1, max: 11, message: '必须1-11个字符', trigger: 'blur'}
+],
+email: [
 {type: 'string', min: 1, max: 100, message: '必须1-100个字符', trigger: 'blur'}
+],
+password: [
+{type: 'string', min: 1, max: 100, message: '必须1-100个字符', trigger: 'blur'}
+],
+salt: [
+{type: 'string', min: 1, max: 200, message: '必须1-200个字符', trigger: 'blur'}
 ],
 
         },
@@ -254,16 +230,10 @@ isActive: null,
           id: null,
 idMin: null, 
 idMax: null, 
-payPassword: null,
-rmbBalance: null,
-rmbBalanceMin: null, 
-rmbBalanceMax: null, 
-usableRmbBalance: null,
-usableRmbBalanceMin: null, 
-usableRmbBalanceMax: null, 
-frozenRmbBalance: null,
-frozenRmbBalanceMin: null, 
-frozenRmbBalanceMax: null, 
+phone: null,
+email: null,
+password: null,
+salt: null,
 createTime: null,
 createTimeMin: null, 
 createTimeMax: null, 
@@ -294,32 +264,32 @@ isActiveMax: null,
               }
             },
             {
-title: '钱包编号',
+title: '用户编号',
 key: 'id',
 width: 120,
 sortable: true
 },
 {
-title: '支付密码',
-key: 'payPassword',
+title: '手机号',
+key: 'phone',
 width: 120,
 sortable: true
 },
 {
-title: '人民币余额',
-key: 'rmbBalance',
+title: '用户邮箱',
+key: 'email',
 width: 120,
 sortable: true
 },
 {
-title: '可用余额',
-key: 'usableRmbBalance',
+title: '登录密码',
+key: 'password',
 width: 120,
 sortable: true
 },
 {
-title: '冻结余额',
-key: 'frozenRmbBalance',
+title: '加密盐值',
+key: 'salt',
 width: 120,
 sortable: true
 },
@@ -505,7 +475,7 @@ sortable: true
         utils.changePageSize(this, pageSize)
       },
       fitTable() {
-        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['id','payPassword','rmbBalance','usableRmbBalance','frozenRmbBalance','createTime','updateTime','isActive',])
+        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['id','phone','email','password','salt','createTime','updateTime','isActive',])
       }
     }
   }
