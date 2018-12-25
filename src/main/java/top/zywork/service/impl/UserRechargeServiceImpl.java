@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.zywork.dao.UserRechargeDAO;
 import top.zywork.dao.UserWalletDAO;
+import top.zywork.enums.FundsChangeTypeEnum;
 import top.zywork.service.UserRechargeService;
 
 /**
@@ -31,7 +32,7 @@ public class UserRechargeServiceImpl implements UserRechargeService {
 
     @Override
     public void rechargeByHuman(Long userId, Long amount) {
-        userRechargeDAO.saveRechargeHuman(userId, amount);
+        userRechargeDAO.saveRechargeHuman(userId, amount, FundsChangeTypeEnum.RECHARGE_HUMAN.getValue());
         updateWallet(userId, amount);
     }
 

@@ -30,7 +30,8 @@ public interface UserRechargeDAO {
      * 保存系统工作充值的记录
      * @param userId
      * @param amount
+     * @param rechargeType 充值类型
      */
-    void saveRechargeHuman(@Param("userId") Long userId, @Param("amount") Long amount);
+    void saveRechargeHuman(@Param("userId") Long userId, @Param("amount") Long amount, @Param("rechargeType") String rechargeType);
 
 }

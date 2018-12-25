@@ -10,7 +10,7 @@
     </insert>
 
     <insert id="saveRechargeHuman">
-        insert into t_funds_recharge(user_id, amount, recharge_type) values(#{userId}, #{amount}, '人工充值')
+        insert into t_funds_recharge(user_id, amount, recharge_type) values(#{userId}, #{amount}, #{rechargeType})
     </insert>
 
 </mapper>
