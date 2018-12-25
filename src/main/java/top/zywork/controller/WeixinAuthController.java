@@ -17,7 +17,7 @@ import top.zywork.security.JwtUser;
 import top.zywork.security.JwtUtils;
 import top.zywork.security.MyUserDetailsService;
 import top.zywork.service.DefaultRoleQueryService;
-import top.zywork.service.SysConfigQueryService;
+import top.zywork.service.SysConfigService;
 import top.zywork.service.UserRegService;
 import top.zywork.vo.ResponseStatusVO;
 import top.zywork.weixin.*;
@@ -56,7 +56,7 @@ public class WeixinAuthController {
 
     private DefaultRoleQueryService defaultRoleQueryService;
 
-    private SysConfigQueryService sysConfigQueryService;
+    private SysConfigService sysConfigService;
 
     /**
      * <p>从cookies中读取用户信息，如果没有用户信息，则需要微信授权登录，登录成功后，把用户信息cookie写出到客户端。</p>
@@ -72,7 +72,7 @@ public class WeixinAuthController {
         if (StringUtils.isEmpty(openid)) {
             if (StringUtils.isNotEmpty(code)) {
                 // 没有授权登录，则开始微信授权登录并写出cookie到客户端，返回jwt token
-                WeixinGzhConfig weixinGzhConfig = sysConfigQueryService.getByName(SysConfigEnum.WEIXIN_GZH_CONFIG.getValue(), WeixinGzhConfig.class);
+                WeixinGzhConfig weixinGzhConfig = sysConfigService.getByName(SysConfigEnum.WEIXIN_GZH_CONFIG.getValue(), WeixinGzhConfig.class);
                 GzhAuth gzhAuth = WeixinUtils.authGzh(weixinGzhConfig.getAppId(), weixinGzhConfig.getAppSecret(), code);
                 WeixinUser weixinUser = WeixinUtils.userInfo(gzhAuth);
                 if (weixinUser != null) {
@@ -110,7 +110,7 @@ public class WeixinAuthController {
      */
     @GetMapping("xcx")
     public void xcxAuth(HttpServletRequest request, String code) {
-        WeixinXcxConfig weixinXcxConfig = sysConfigQueryService.getByName(SysConfigEnum.WEIXIN_GZH_CONFIG.getValue(), WeixinXcxConfig.class);
+        WeixinXcxConfig weixinXcxConfig = sysConfigService.getByName(SysConfigEnum.WEIXIN_GZH_CONFIG.getValue(), WeixinXcxConfig.class);
         XcxAuth xcxAuth = WeixinUtils.authXcx(weixinXcxConfig.getAppId(), weixinXcxConfig.getAppSecret(), code);
         // TODO 判断用户是否已经保存，如未保存，则保存微信用户信息到数据库
     }
@@ -147,7 +147,7 @@ public class WeixinAuthController {
     }
 
     @Autowired
-    public void setSysConfigQueryService(SysConfigQueryService sysConfigQueryService) {
-        this.sysConfigQueryService = sysConfigQueryService;
+    public void setSysConfigService(SysConfigService sysConfigService) {
+        this.sysConfigService = sysConfigService;
     }
 }
