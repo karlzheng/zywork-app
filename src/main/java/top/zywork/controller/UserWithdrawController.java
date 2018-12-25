@@ -45,7 +45,7 @@ public class UserWithdrawController {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         JwtUser jwtUser = SecurityUtils.getJwtUser();
         if (jwtUser != null) {
-            if (amount != null) {
+            if (amount != null && StringUtils.isNotEmpty(payPassword) && bankcardId != null) {
                 Object obj = userWalletService.getById(jwtUser.getUserId());
                 if (obj != null) {
                     UserWalletDTO userWalletDTO = (UserWalletDTO) obj;
@@ -66,7 +66,7 @@ public class UserWithdrawController {
                     statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "此用户无钱包记录", null);
                 }
             } else {
-                statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "必须填写提现金额", null);
+                statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "必须填写提现金额、支付密码，并选择提现银行卡", null);
             }
         } else {
             statusVO.errorStatus(ResponseStatusEnum.AUTHENTICATION_ERROR.getCode(), ResponseStatusEnum.AUTHENTICATION_ERROR.getMessage(), null);
