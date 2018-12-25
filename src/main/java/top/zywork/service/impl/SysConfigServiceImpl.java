@@ -1,7 +1,9 @@
 package top.zywork.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import top.zywork.common.IOUtils;
 import top.zywork.dao.SysConfigDAO;
 import top.zywork.dos.SysConfigDO;
 import top.zywork.dto.SysConfigDTO;
@@ -13,7 +15,7 @@ import javax.annotation.PostConstruct;
 /**
  * SysConfigServiceImpl服务接口实现类<br/>
  *
- * 创建于2018-12-20<br/>
+ * 创建于2018-12-25<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
@@ -22,6 +24,17 @@ import javax.annotation.PostConstruct;
 public class SysConfigServiceImpl extends AbstractBaseService implements SysConfigService {
 
     private SysConfigDAO sysConfigDAO;
+
+    @Override
+    @Cacheable(value = "sys_config", key = "#name", unless="#result == null")
+    public <T> T getByName(String name, Class<T> tClass) {
+        T t = null;
+        SysConfigDO sysConfigDO = sysConfigDAO.getByName(name);
+        if (sysConfigDO != null) {
+            t = IOUtils.readJsonStrToObject(sysConfigDO.getValue(), tClass);
+        }
+        return t;
+    }
 
     @Autowired
     public void setSysConfigDAO(SysConfigDAO sysConfigDAO) {

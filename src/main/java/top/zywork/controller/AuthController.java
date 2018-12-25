@@ -22,7 +22,7 @@ import top.zywork.enums.*;
 import top.zywork.security.*;
 import top.zywork.security.mobile.SmsCodeRedisUtils;
 import top.zywork.service.DefaultRoleQueryService;
-import top.zywork.service.SysConfigQueryService;
+import top.zywork.service.SysConfigService;
 import top.zywork.service.UserRegService;
 import top.zywork.vo.ResponseStatusVO;
 
@@ -68,7 +68,7 @@ public class AuthController {
 
     private DefaultRoleQueryService defaultRoleQueryService;
 
-    private SysConfigQueryService sysConfigQueryService;
+    private SysConfigService sysConfigService;
 
     /**
      * 普通账号（手机号，邮箱），密码登录处理，可以配置是否开启验证码功能
@@ -159,7 +159,7 @@ public class AuthController {
                     // 是平台用户，准备发送手机验证码，此code用于发送短信
                     String code = RandomUtils.randomCode(RandomCodeEnum.NUMBER_CODE, 6);
                     try {
-                        AliyunSmsConfig aliyunSmsConfig = sysConfigQueryService.getByName(SysConfigEnum.ALIYUN_SMS_CONFIG.getValue(), AliyunSmsConfig.class);
+                        AliyunSmsConfig aliyunSmsConfig = sysConfigService.getByName(SysConfigEnum.ALIYUN_SMS_CONFIG.getValue(), AliyunSmsConfig.class);
                         SendSmsResponse smsResponse = AliyunSmsUtils.sendSms(aliyunSmsConfig, phone, "templateCode", "templateParam", "outId");
                         if (smsResponse.getCode() != null && smsResponse.getCode().equals("OK")) {
                             smsCodeRedisUtils.storeCode(SmsCodeRedisUtils.SMS_CODE_LOGIN_PREFIX, phone, code);
@@ -239,7 +239,7 @@ public class AuthController {
                     // 还不是平台用户，准备发送邮箱验证码，此code用于发送邮件
                     String code = RandomUtils.randomCode(RandomCodeEnum.NUMBER_CODE, 6);
                     try {
-                        AliyunMailConfig aliyunMailConfig = sysConfigQueryService.getByName(SysConfigEnum.ALIYUN_MAIL_CONFIG.getValue(), AliyunMailConfig.class);
+                        AliyunMailConfig aliyunMailConfig = sysConfigService.getByName(SysConfigEnum.ALIYUN_MAIL_CONFIG.getValue(), AliyunMailConfig.class);
                         SingleSendMailResponse singleSendMailResponse = AliyunMailUtils.sendEmail(aliyunMailConfig, "service@mail.zywork.top", "赣州智悦科技",  email, false, "注册验证码", code, "verifyRegCode");
                         verifyCodeRedisUtils.storeCode(VerifyCodeRedisUtils.CODE_REG_PREFIX, email, code);
                         statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "邮件发送成功，请查收邮件", verifyCodeExpiration);
@@ -318,7 +318,7 @@ public class AuthController {
                     // 还不是平台用户，准备发送手机验证码，此code用于发送短信
                     String code = RandomUtils.randomCode(RandomCodeEnum.NUMBER_CODE, 6);
                     try {
-                        AliyunSmsConfig aliyunSmsConfig = sysConfigQueryService.getByName(SysConfigEnum.ALIYUN_SMS_CONFIG.getValue(), AliyunSmsConfig.class);
+                        AliyunSmsConfig aliyunSmsConfig = sysConfigService.getByName(SysConfigEnum.ALIYUN_SMS_CONFIG.getValue(), AliyunSmsConfig.class);
                         SendSmsResponse smsResponse = AliyunSmsUtils.sendSms(aliyunSmsConfig, phone, "templateCode", "templateParam", "outId");
                         if (smsResponse.getCode() != null && smsResponse.getCode().equals("OK")) {
                             smsCodeRedisUtils.storeCode(SmsCodeRedisUtils.SMS_CODE_REG_PREFIX, phone, code);
@@ -370,7 +370,7 @@ public class AuthController {
     }
 
     @Autowired
-    public void setSysConfigQueryService(SysConfigQueryService sysConfigQueryService) {
-        this.sysConfigQueryService = sysConfigQueryService;
+    public void setSysConfigService(SysConfigService sysConfigService) {
+        this.sysConfigService = sysConfigService;
     }
 }

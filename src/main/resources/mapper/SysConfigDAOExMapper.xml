@@ -1,0 +1,11 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.zywork.dao.SysConfigDAO">
+
+    <select id="getByName" parameterType="string" resultType="sysConfigDO">
+        select * from t_sys_config where name = #{name}
+    </select>
+
+</mapper>

@@ -26,7 +26,7 @@ import top.zywork.security.MyUserDetailsService;
 import top.zywork.security.SecurityUtils;
 import top.zywork.security.VerifyCodeRedisUtils;
 import top.zywork.security.mobile.SmsCodeRedisUtils;
-import top.zywork.service.SysConfigQueryService;
+import top.zywork.service.SysConfigService;
 import top.zywork.service.UserPasswordService;
 import top.zywork.vo.ResponseStatusVO;
 
@@ -55,7 +55,7 @@ public class PasswordController {
 
     private MyUserDetailsService jwtUserDetailsService;
 
-    private SysConfigQueryService sysConfigQueryService;
+    private SysConfigService sysConfigService;
 
     private VerifyCodeRedisUtils verifyCodeRedisUtils;
 
@@ -341,7 +341,7 @@ public class PasswordController {
                     // 是注册用户，准备发送邮箱验证码，此code用于发送邮件
                     String code = RandomUtils.randomCode(RandomCodeEnum.NUMBER_CODE, 6);
                     try {
-                        AliyunMailConfig aliyunMailConfig = sysConfigQueryService.getByName(SysConfigEnum.ALIYUN_MAIL_CONFIG.getValue(), AliyunMailConfig.class);
+                        AliyunMailConfig aliyunMailConfig = sysConfigService.getByName(SysConfigEnum.ALIYUN_MAIL_CONFIG.getValue(), AliyunMailConfig.class);
                         SingleSendMailResponse singleSendMailResponse = AliyunMailUtils.sendEmail(aliyunMailConfig, "service@mail.zywork.top", "赣州智悦科技",  email, false, "注册验证码", code, "verifyRegCode");
                         verifyCodeRedisUtils.storeCode(prefix, email, code);
                         statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "邮件发送成功，请查收邮件", verifyCodeExpiration);
@@ -381,7 +381,7 @@ public class PasswordController {
                     // 是平台用户，准备发送手机验证码，此code用于发送短信
                     String code = RandomUtils.randomCode(RandomCodeEnum.NUMBER_CODE, 6);
                     try {
-                        AliyunSmsConfig aliyunSmsConfig = sysConfigQueryService.getByName(SysConfigEnum.ALIYUN_SMS_CONFIG.getValue(), AliyunSmsConfig.class);
+                        AliyunSmsConfig aliyunSmsConfig = sysConfigService.getByName(SysConfigEnum.ALIYUN_SMS_CONFIG.getValue(), AliyunSmsConfig.class);
                         SendSmsResponse smsResponse = AliyunSmsUtils.sendSms(aliyunSmsConfig, phone, "templateCode", "templateParam", "outId");
                         if (smsResponse.getCode() != null && smsResponse.getCode().equals("OK")) {
                             smsCodeRedisUtils.storeCode(prefix, phone, code);
@@ -413,8 +413,8 @@ public class PasswordController {
     }
 
     @Autowired
-    public void setSysConfigQueryService(SysConfigQueryService sysConfigQueryService) {
-        this.sysConfigQueryService = sysConfigQueryService;
+    public void setSysConfigService(SysConfigService sysConfigService) {
+        this.sysConfigService = sysConfigService;
     }
 
     @Autowired
