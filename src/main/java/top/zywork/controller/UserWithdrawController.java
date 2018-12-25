@@ -88,8 +88,12 @@ public class UserWithdrawController {
             UserWithdrawDO userWithdrawDO = userWithdrawService.getByWithdrawNo(withdrawNo);
             if (userWithdrawDO != null && userWithdrawDO.getWithdrawStatus().byteValue() == WithdrawStatusEnum.CHECKING.getValue()) {
                 if (userWithdrawDO.getUserId() == jwtUser.getUserId()) {
-                    userWithdrawService.cancelWithdraw(withdrawNo);
-                    statusVO.errorStatus(ResponseStatusEnum.OK.getCode(), "已取消提现", null);
+                    int updateRows = userWithdrawService.cancelWithdraw(withdrawNo, userWithdrawDO.getVersion() + 1);
+                    if (updateRows == 1) {
+                        statusVO.errorStatus(ResponseStatusEnum.OK.getCode(), "已取消提现", null);
+                    } else {
+                        statusVO.errorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "数据版本号有问题，在取消前数据已被更新", null);
+                    }
                 } else {
                     statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "提现单号不属于此用户", null);
                 }
@@ -120,8 +124,12 @@ public class UserWithdrawController {
                     || withdrawStatus == WithdrawStatusEnum.UNCHECKED.getValue().byteValue())) {
                 UserWithdrawDO userWithdrawDO = userWithdrawService.getByWithdrawNo(withdrawNo);
                 if (userWithdrawDO != null && userWithdrawDO.getWithdrawStatus().byteValue() == WithdrawStatusEnum.CHECKING.getValue()) {
-                    userWithdrawService.checkWithdraw(withdrawNo, withdrawStatus, description, jwtUser.getUserId());
-                    statusVO.errorStatus(ResponseStatusEnum.OK.getCode(), "审核成功", null);
+                    int updateRows = userWithdrawService.checkWithdraw(withdrawNo, withdrawStatus, description, jwtUser.getUserId(), userWithdrawDO.getVersion() + 1);
+                    if (updateRows == 1) {
+                        statusVO.errorStatus(ResponseStatusEnum.OK.getCode(), "审核成功", null);
+                    } else {
+                        statusVO.errorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "数据版本号有问题，在审核前数据已被更新", null);
+                    }
                 } else {
                     statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "提现单号不正确或提现申请不是审核中状态", null);
                 }
@@ -158,8 +166,12 @@ public class UserWithdrawController {
                 || withdrawStatus == WithdrawStatusEnum.FAILURE.getValue().byteValue())) {
             UserWithdrawDO userWithdrawDO = userWithdrawService.getByWithdrawNo(withdrawNo);
             if (userWithdrawDO != null && userWithdrawDO.getWithdrawStatus().byteValue() == WithdrawStatusEnum.CHECKED.getValue()) {
-                userWithdrawService.completeWithdraw(withdrawNo, withdrawStatus, userWithdrawDO.getUserId(), userWithdrawDO.getAmount());
-                statusVO.dataErrorStatus(ResponseStatusEnum.OK.getCode(), "已人工完成提现操作，提现" + WithdrawStatusEnum.findByValue(withdrawStatus.intValue()).getDes(), null);
+                int updateRows = userWithdrawService.completeWithdraw(withdrawNo, withdrawStatus, userWithdrawDO.getUserId(), userWithdrawDO.getAmount(), userWithdrawDO.getVersion() + 1);
+                if (updateRows == 1) {
+                    statusVO.dataErrorStatus(ResponseStatusEnum.OK.getCode(), "已人工完成提现操作，提现" + WithdrawStatusEnum.findByValue(withdrawStatus.intValue()).getDes(), null);
+                } else {
+                    statusVO.errorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "数据版本号有问题，在完成提现前数据已被更新", null);
+                }
             } else {
                 statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "提现单号不正确或提现申请不是已通过状态", null);
             }

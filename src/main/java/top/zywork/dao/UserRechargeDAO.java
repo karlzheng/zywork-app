@@ -33,11 +33,4 @@ public interface UserRechargeDAO {
      */
     void saveRechargeHuman(@Param("userId") Long userId, @Param("amount") Long amount);
 
-    /**
-     * 充值记录保存完毕后再更新钱包数据
-     * @param userId
-     * @param amount
-     */
-    void updateWallet(@Param("userId") Long userId, @Param("amount") Long amount);
-
 }

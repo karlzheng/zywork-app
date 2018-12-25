@@ -3,6 +3,7 @@ package top.zywork.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import top.zywork.dao.UserWalletDAO;
 import top.zywork.dao.UserWithdrawDAO;
 import top.zywork.dos.UserWithdrawDO;
 import top.zywork.dto.UserWalletDTO;
@@ -22,28 +23,40 @@ public class UserWithdrawServiceImpl implements UserWithdrawService {
 
     private UserWithdrawDAO userWithdrawDAO;
 
+    private UserWalletDAO userWalletDAO;
+
     @Override
     public void saveWithdraw(Long userId, String withdrawNo, Long amount, Long bankcardId) {
         userWithdrawDAO.saveWithdraw(userId, withdrawNo, amount, bankcardId);
     }
 
     @Override
-    public void checkWithdraw(String withdrawNo, Byte withdrawStatus, String description, Long checkedUserId) {
-        userWithdrawDAO.updateWithdrawCheck(withdrawNo, withdrawStatus, description, checkedUserId);
+    public int checkWithdraw(String withdrawNo, Byte withdrawStatus, String description, Long checkedUserId, Integer newVersion) {
+        return userWithdrawDAO.updateWithdrawCheck(withdrawNo, withdrawStatus, description, checkedUserId, newVersion);
     }
 
     @Override
-    public void cancelWithdraw(String withdrawNo) {
-        userWithdrawDAO.updateWithdraw(withdrawNo, WithdrawStatusEnum.CANCELED.getValue().byteValue());
+    public int cancelWithdraw(String withdrawNo, Integer newVersion) {
+        return userWithdrawDAO.updateWithdraw(withdrawNo, WithdrawStatusEnum.CANCELED.getValue().byteValue(), newVersion);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void completeWithdraw(String withdrawNo, Byte withdrawStatus, Long userId, Long amount) {
-        userWithdrawDAO.updateWithdraw(withdrawNo, withdrawStatus);
+    public int completeWithdraw(String withdrawNo, Byte withdrawStatus, Long userId, Long amount, Integer newVersion) {
+        int updateRows = userWithdrawDAO.updateWithdraw(withdrawNo, withdrawStatus, newVersion);
         if (withdrawStatus == WithdrawStatusEnum.SUCCESS.getValue().byteValue()) {
             // 如果提现成功，则更新钱包余额和可用余额
-            userWithdrawDAO.updateWallet(userId, amount);
+            Integer version = userWalletDAO.getVersionById(userId);
+            updateWallet(userId, -amount, version + 1);
+        }
+        return updateRows;
+    }
+
+    private void updateWallet(Long userId, Long amount, int newVersion) {
+        int updateRows = userWalletDAO.updateWallet(userId, amount, newVersion);
+        if (updateRows == 0) {
+            // 如果版本号有问题，此记录已经被更新过，则再次尝试更新
+            updateWallet(userId, amount, newVersion + 1);
         }
     }
 
@@ -70,4 +83,8 @@ public class UserWithdrawServiceImpl implements UserWithdrawService {
         this.userWithdrawDAO = userWithdrawDAO;
     }
 
+    @Autowired
+    public void setUserWalletDAO(UserWalletDAO userWalletDAO) {
+        this.userWalletDAO = userWalletDAO;
+    }
 }

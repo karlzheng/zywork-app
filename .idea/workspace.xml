@@ -2,50 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d55c7d3e-ec5e-4423-9c06-7026916396ba" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/889161b9-3991-472f-98c6-cd2b916acca0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/889161b9-3991-472f-98c6-cd2b916acca0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/mapper/UserWalletDAOExMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/controller/SysConfigController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/controller/SysConfigController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/controller/SysLogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/controller/SysLogController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/controller/UserBankcardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/controller/UserBankcardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/controller/UserWalletController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/controller/UserWalletController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/dos/SysConfigDO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/dos/SysConfigDO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/dos/SysLogDO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/dos/SysLogDO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/dos/UserBankcardDO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/dos/UserBankcardDO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/dos/UserDO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/dos/UserDO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/dos/UserUserDetailDO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/dos/UserWalletDO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/dos/UserWalletDO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/dto/SysConfigDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/dto/SysConfigDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/dto/SysLogDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/dto/SysLogDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/dto/UserBankcardDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/dto/UserBankcardDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/dto/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/dto/UserDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/dto/UserUserDetailDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/dto/UserUserDetailDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/dto/UserWalletDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/dto/UserWalletDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/query/SysConfigQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/query/SysConfigQuery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/query/SysLogQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/query/SysLogQuery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/query/UserBankcardQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/query/UserBankcardQuery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/query/UserQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/query/UserQuery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/query/UserUserDetailQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/query/UserUserDetailQuery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/query/UserWalletQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/query/UserWalletQuery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/vo/SysConfigVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/vo/SysConfigVO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/vo/SysLogVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/vo/SysLogVO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/vo/UserBankcardVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/vo/UserBankcardVO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/vo/UserUserDetailVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/vo/UserUserDetailVO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/vo/UserVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/vo/UserVO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/vo/UserWalletVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/vo/UserWalletVO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/SysLogDAOMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/SysLogDAOMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/UserBankcardDAOMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/UserBankcardDAOMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/UserDAOMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/UserDAOMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/UserUserDetailDAOMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/UserUserDetailDAOMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/UserWalletDAOMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/UserWalletDAOMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/SysConfig.vue" beforeDir="false" afterPath="$PROJECT_DIR$/views/SysConfig.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/SysLog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/views/SysLog.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/User.vue" beforeDir="false" afterPath="$PROJECT_DIR$/views/User.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/UserBankcard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/views/UserBankcard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/UserBankcardList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/views/UserBankcardList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/UserList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/views/UserList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/UserWallet.vue" beforeDir="false" afterPath="$PROJECT_DIR$/views/UserWallet.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/UserWalletList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/views/UserWalletList.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/controller/UserWithdrawController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/controller/UserWithdrawController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/dao/UserRechargeDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/dao/UserRechargeDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/dao/UserWalletDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/dao/UserWalletDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/dao/UserWithdrawDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/dao/UserWithdrawDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/dos/UserWithdrawDO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/dos/UserWithdrawDO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/service/UserWithdrawService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/service/UserWithdrawService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/service/impl/UserRechargeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/service/impl/UserRechargeServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/zywork/service/impl/UserWithdrawServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/zywork/service/impl/UserWithdrawServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/UserRechargeDAOMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/UserRechargeDAOMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/UserWithdrawDAOMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/UserWithdrawDAOMapper.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -89,20 +57,21 @@
     <session id="-2042825947">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
+          <entry key="project.closed" value="4" />
+          <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.16" value="1" />
           <entry key="project.open.time.19" value="1" />
           <entry key="project.open.time.6" value="1" />
           <entry key="project.open.time.7" value="1" />
           <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="5" />
+          <entry key="project.opened" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="0" value="3" />
-          <entry key="class" value="205" />
-          <entry key="java" value="792" />
+          <entry key="class" value="206" />
+          <entry key="java" value="823" />
           <entry key="jpg" value="3" />
           <entry key="log" value="1" />
           <entry key="md" value="9" />
@@ -110,22 +79,22 @@
           <entry key="sql" value="38" />
           <entry key="txt" value="1" />
           <entry key="vue" value="63" />
-          <entry key="xml" value="81" />
+          <entry key="xml" value="98" />
           <entry key="yml" value="45" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CLASS" value="205" />
+          <entry key="CLASS" value="206" />
           <entry key="Image" value="3" />
-          <entry key="JAVA" value="792" />
+          <entry key="JAVA" value="823" />
           <entry key="Markdown" value="9" />
           <entry key="PLAIN_TEXT" value="6" />
           <entry key="SQL" value="37" />
           <entry key="Scratch" value="1" />
           <entry key="UML" value="3" />
           <entry key="Vue.js" value="60" />
-          <entry key="XML" value="81" />
+          <entry key="XML" value="98" />
           <entry key="YAML" value="45" />
         </counts>
       </usages-collector>
@@ -133,23 +102,23 @@
         <counts>
           <entry key="class" value="1" />
           <entry key="dummy" value="65" />
-          <entry key="java" value="52287" />
+          <entry key="java" value="53561" />
           <entry key="md" value="244" />
           <entry key="sql" value="19" />
           <entry key="vue" value="155" />
-          <entry key="xml" value="4469" />
+          <entry key="xml" value="4613" />
           <entry key="yml" value="989" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CLASS" value="1" />
-          <entry key="JAVA" value="52287" />
+          <entry key="JAVA" value="53561" />
           <entry key="Markdown" value="244" />
           <entry key="PLAIN_TEXT" value="65" />
-          <entry key="SQL" value="108" />
+          <entry key="SQL" value="116" />
           <entry key="Vue.js" value="155" />
-          <entry key="XML" value="4380" />
+          <entry key="XML" value="4516" />
           <entry key="YAML" value="989" />
         </counts>
       </usages-collector>
@@ -157,86 +126,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/dto/UserUserDetailDTO.java">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/service/impl/UserWithdrawServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-13">
-              <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-              <folding>
-                <element signature="e#2329#2330#0" expanded="true" />
-                <element signature="e#2349#2350#0" expanded="true" />
-                <element signature="e#2388#2389#0" expanded="true" />
-                <element signature="e#2415#2416#0" expanded="true" />
-                <element signature="e#2448#2449#0" expanded="true" />
-                <element signature="e#2471#2472#0" expanded="true" />
-                <element signature="e#2518#2519#0" expanded="true" />
-                <element signature="e#2551#2552#0" expanded="true" />
-                <element signature="e#2584#2585#0" expanded="true" />
-                <element signature="e#2607#2608#0" expanded="true" />
-                <element signature="e#2654#2655#0" expanded="true" />
-                <element signature="e#2687#2688#0" expanded="true" />
-                <element signature="e#2723#2724#0" expanded="true" />
-                <element signature="e#2751#2752#0" expanded="true" />
-                <element signature="e#2806#2807#0" expanded="true" />
-                <element signature="e#2849#2850#0" expanded="true" />
-                <element signature="e#2891#2892#0" expanded="true" />
-                <element signature="e#2923#2924#0" expanded="true" />
-                <element signature="e#2988#2989#0" expanded="true" />
-                <element signature="e#3039#3040#0" expanded="true" />
-                <element signature="e#3081#3082#0" expanded="true" />
-                <element signature="e#3113#3114#0" expanded="true" />
-                <element signature="e#3178#3179#0" expanded="true" />
-                <element signature="e#3229#3230#0" expanded="true" />
-                <element signature="e#3267#3268#0" expanded="true" />
-                <element signature="e#3297#3298#0" expanded="true" />
-                <element signature="e#3356#3357#0" expanded="true" />
-                <element signature="e#3403#3404#0" expanded="true" />
-                <element signature="e#3443#3444#0" expanded="true" />
-                <element signature="e#3475#3476#0" expanded="true" />
-                <element signature="e#3538#3539#0" expanded="true" />
-                <element signature="e#3589#3590#0" expanded="true" />
-                <element signature="e#3627#3628#0" expanded="true" />
-                <element signature="e#3654#3655#0" expanded="true" />
-                <element signature="e#3710#3711#0" expanded="true" />
-                <element signature="e#3751#3752#0" expanded="true" />
-                <element signature="e#3787#3788#0" expanded="true" />
-                <element signature="e#3813#3814#0" expanded="true" />
-                <element signature="e#3866#3867#0" expanded="true" />
-                <element signature="e#3905#3906#0" expanded="true" />
-                <element signature="e#3947#3948#0" expanded="true" />
-                <element signature="e#3979#3980#0" expanded="true" />
-                <element signature="e#4044#4045#0" expanded="true" />
-                <element signature="e#4095#4096#0" expanded="true" />
-                <element signature="e#4135#4136#0" expanded="true" />
-                <element signature="e#4165#4166#0" expanded="true" />
-                <element signature="e#4226#4227#0" expanded="true" />
-                <element signature="e#4273#4274#0" expanded="true" />
-                <element signature="e#4319#4320#0" expanded="true" />
-                <element signature="e#4355#4356#0" expanded="true" />
-                <element signature="e#4527#4528#0" expanded="true" />
-                <element signature="e#4557#4558#0" expanded="true" />
-                <element signature="e#4618#4619#0" expanded="true" />
-                <element signature="e#4665#4666#0" expanded="true" />
-                <element signature="e#4711#4712#0" expanded="true" />
-                <element signature="e#4747#4748#0" expanded="true" />
-                <element signature="e#4922#4923#0" expanded="true" />
-                <element signature="e#4955#4956#0" expanded="true" />
-                <element signature="e#5022#5023#0" expanded="true" />
-                <element signature="e#5075#5076#0" expanded="true" />
-                <element signature="e#5117#5118#0" expanded="true" />
-                <element signature="e#5148#5149#0" expanded="true" />
-                <element signature="e#5212#5213#0" expanded="true" />
-                <element signature="e#5261#5262#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="108">
+              <caret line="55" selection-start-line="55" selection-end-line="55" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/dos/UserUserDetailDO.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/controller/UserWithdrawController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2595">
-              <caret line="238" lean-forward="true" selection-start-line="238" selection-end-line="238" />
+            <state relative-caret-position="153">
+              <caret line="168" selection-start-line="168" selection-end-line="168" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -281,9 +187,9 @@
       <find>UserDetailsService jwtUser</find>
       <find>userWalletDAO</find>
       <find>StringUtils</find>
-      <find>version</find>
       <find>没有需要更新的数据字段，或数据版本号不一致，请重新更新</find>
       <find>real_name</find>
+      <find>version</find>
     </findStrings>
     <replaceStrings>
       <replace>id</replace>
@@ -296,23 +202,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/top/zywork/controller/UserRechargeController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/top/zywork/service/UserRechargeService.java" />
-        <option value="$PROJECT_DIR$/documents/zywork_app_data_test.sql" />
-        <option value="$PROJECT_DIR$/src/main/resources/mapper/UserRechargeDAOMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/top/zywork/dao/UserRechargeDAO.java" />
-        <option value="$PROJECT_DIR$/src/main/java/top/zywork/dos/UserWithdrawDO.java" />
-        <option value="$PROJECT_DIR$/src/main/java/top/zywork/dao/UserWithdrawDAO.java" />
-        <option value="$PROJECT_DIR$/documents/zywork_app.sql" />
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/aspect/SysLogAspect.java" />
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/dao/UserBankcardDAO.java" />
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/service/UserBankcardService.java" />
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/service/impl/UserBankcardServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/UserBankcardDAOExMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/top/zywork/service/UserWithdrawService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/top/zywork/controller/UserWithdrawController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/top/zywork/service/impl/UserWithdrawServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/mapper/UserWithdrawDAOMapper.xml" />
         <option value="$PROJECT_DIR$/views/SysConfig.vue" />
         <option value="$PROJECT_DIR$/views/SysLog.vue" />
         <option value="$PROJECT_DIR$/views/User.vue" />
@@ -347,6 +241,18 @@
         <option value="$PROJECT_DIR$/src/test/java/top/zywork/service/SysConfigQueryServiceTest.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/SysConfigQueryDAOMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/java/top/zywork/dos/UserUserDetailDO.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/mapper/UserWalletDAOMapper.xml" />
+        <option value="$PROJECT_DIR$/src/main/resources/mapper/UserRechargeDAOMapper.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/top/zywork/dao/UserRechargeDAO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/top/zywork/service/impl/UserRechargeServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/top/zywork/dos/UserWithdrawDO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/top/zywork/controller/UserWithdrawController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/top/zywork/service/UserWithdrawService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/top/zywork/dao/UserWalletDAO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/top/zywork/dao/UserWithdrawDAO.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/mapper/UserWalletDAOExMapper.xml" />
+        <option value="$PROJECT_DIR$/src/main/resources/mapper/UserWithdrawDAOMapper.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/top/zywork/service/impl/UserWithdrawServiceImpl.java" />
       </list>
     </option>
   </component>
@@ -407,7 +313,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -448,7 +354,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="dos" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="zywork-app" type="b2602c69:ProjectViewProjectNode" />
@@ -457,13 +363,14 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="zywork" type="462c0819:PsiDirectoryNode" />
-              <item name="dto" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="impl" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -475,19 +382,16 @@
     <property name="RequestMappingsPanelWidth2" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545717856700" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545722581866" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/resources/mapper" />
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/views" />
-      <recent name="$PROJECT_DIR$/documents" />
-      <recent name="$PROJECT_DIR$/src/main/java/top/zywork/security/mobile" />
-      <recent name="$PROJECT_DIR$/src/main/java/top/zywork/security" />
+      <recent name="$PROJECT_DIR$" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="top.zywork.dao" />
@@ -496,9 +400,12 @@
       <recent name="top.zywork.service" />
       <recent name="top.zywork.enums" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/mapper" />
       <recent name="$PROJECT_DIR$/views" />
-      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/documents" />
+      <recent name="$PROJECT_DIR$/src/main/java/top/zywork/security/mobile" />
+      <recent name="$PROJECT_DIR$/src/main/java/top/zywork/security" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -655,7 +562,8 @@
       <workItem from="1544529283343" duration="94420000" />
       <workItem from="1545219428959" duration="10168000" />
       <workItem from="1545317029298" duration="82799000" />
-      <workItem from="1545653202973" duration="10922000" />
+      <workItem from="1545653202973" duration="11924000" />
+      <workItem from="1545718748095" duration="3802000" />
     </task>
     <servers />
   </component>
@@ -692,14 +600,48 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="361673000" />
+    <option name="totallyTimeSpent" value="366477000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="721" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Web" order="0" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.26979" />
+      <window_info content_ui="combo" id="Project" order="1" weight="0.27382874" />
+      <window_info id="Structure" order="2" weight="0.24959612" />
+      <window_info id="Capture Tool" order="3" />
+      <window_info id="Image Layers" order="4" />
+      <window_info id="Designer" order="5" />
+      <window_info id="UI Designer" order="6" />
+      <window_info id="Favorites" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Java Enterprise" order="0" />
+      <window_info anchor="bottom" id="Database Changes" order="1" />
+      <window_info anchor="bottom" id="Statistic" order="2" />
+      <window_info anchor="bottom" id="Message" order="3" />
+      <window_info anchor="bottom" id="Find" order="4" weight="0.32991204" />
+      <window_info anchor="bottom" id="Run" order="5" weight="0.7710652" />
+      <window_info active="true" anchor="bottom" id="Debug" order="6" visible="true" weight="0.47853735" />
+      <window_info anchor="bottom" id="Cvs" order="7" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="8" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="9" />
+      <window_info anchor="bottom" id="Spring" order="10" />
+      <window_info anchor="bottom" id="Terminal" order="11" />
+      <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" weight="0.3290938" />
+      <window_info anchor="bottom" id="Version Control" order="13" />
+      <window_info anchor="bottom" id="Messages" order="14" weight="0.3290938" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24959612" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Bean Validation" order="6" />
+      <window_info anchor="right" id="Database" order="7" weight="0.2003231" />
+      <window_info anchor="right" id="Palette&#9;" order="8" />
+      <window_info anchor="right" id="Maven Projects" order="9" weight="0.32956383" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="Web" order="0" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.27382874" />
       <window_info id="Structure" order="2" weight="0.24959612" />
       <window_info id="Capture Tool" order="3" />
       <window_info id="Image Layers" order="4" />
@@ -731,41 +673,6 @@
       <window_info anchor="right" id="Database" order="7" weight="0.2003231" />
       <window_info anchor="right" id="Palette&#9;" order="8" />
       <window_info anchor="right" id="Maven Projects" order="9" weight="0.32956383" />
-    </layout>
-    <layout-to-restore>
-      <window_info id="Web" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.26979" />
-      <window_info id="Structure" order="2" weight="0.24959612" />
-      <window_info id="Capture Tool" order="3" />
-      <window_info id="Image Layers" order="4" />
-      <window_info id="Designer" order="5" />
-      <window_info id="UI Designer" order="6" />
-      <window_info id="Favorites" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Java Enterprise" order="0" />
-      <window_info anchor="bottom" id="Database Changes" order="1" />
-      <window_info anchor="bottom" id="Statistic" order="2" />
-      <window_info anchor="bottom" id="Message" order="3" />
-      <window_info anchor="bottom" id="Find" order="4" weight="0.32991204" />
-      <window_info anchor="bottom" id="Run" order="5" weight="0.7710652" />
-      <window_info anchor="bottom" id="Debug" order="6" weight="0.47853735" />
-      <window_info anchor="bottom" id="Cvs" order="7" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="8" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="9" />
-      <window_info anchor="bottom" id="Spring" order="10" />
-      <window_info anchor="bottom" id="Terminal" order="11" />
-      <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" weight="0.3290938" />
-      <window_info anchor="bottom" id="Version Control" order="13" />
-      <window_info active="true" anchor="bottom" id="Messages" order="14" visible="true" weight="0.3290938" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24959612" />
-      <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info anchor="right" id="Bean Validation" order="6" />
-      <window_info anchor="right" id="Database" order="7" weight="0.2003231" />
-      <window_info anchor="right" id="Palette&#9;" order="8" />
-      <window_info anchor="right" id="Maven Projects" order="9" weight="0.32956383" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -775,6 +682,22 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/top/zywork/controller/UserWithdrawController.java</url>
+          <line>168</line>
+          <properties />
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/top/zywork/service/impl/UserWithdrawServiceImpl.java</url>
+          <line>55</line>
+          <properties />
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="SpringBootApplicationConfigurationType">
         <watch expression="expiration.before(new Date());" />
@@ -784,133 +707,10 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/dao/SysLogDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="17" column="17" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/dao/UserBankcardDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="17" column="45" selection-start-line="17" selection-start-column="45" selection-end-line="17" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/SysConfigDAOMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="516">
-          <caret line="155" column="24" lean-forward="true" selection-start-line="155" selection-start-column="24" selection-end-line="155" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/controller/TestController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/User.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="102" column="27" selection-start-line="102" selection-start-column="20" selection-end-line="102" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.1.3.RELEASE/spring-web-5.1.3.RELEASE.jar!/org/springframework/web/method/support/InvocableHandlerMethod.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="411">
-          <caret line="107" selection-start-line="107" selection-end-line="107" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/top/zywork/zywork-common/1.0.0/zywork-common-1.0.0.jar!/top/zywork/dao/BaseDAO.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="25" column="12" selection-start-line="25" selection-start-column="12" selection-end-line="25" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/dto/UserDTO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="101">
-          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/top/zywork/zywork-common/1.0.0/zywork-common-1.0.0.jar!/top/zywork/common/ReflectUtils.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="45" column="25" selection-start-line="45" selection-start-column="25" selection-end-line="45" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/top/zywork/zywork-common/1.0.0/zywork-common-1.0.0.jar!/top/zywork/common/BeanUtils.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="28" selection-start-line="28" selection-end-line="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/top/zywork/zywork-common/1.0.0/zywork-common-1.0.0.jar!/top/zywork/service/AbstractBaseService.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="61" selection-start-line="61" selection-end-line="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/UserDAOMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1620">
-          <caret line="193" column="17" selection-start-line="192" selection-start-column="12" selection-end-line="192" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/controller/UserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1008">
-          <caret line="116" column="13" selection-start-line="116" selection-start-column="13" selection-end-line="116" selection-end-column="13" />
-          <folding>
-            <element signature="e#8866#8867#0" expanded="true" />
-            <element signature="e#8912#8913#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/dao/UserDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="17" column="37" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/dos/UserDO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-873">
-          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/service/impl/UserServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="21" column="46" selection-start-line="21" selection-start-column="46" selection-end-line="21" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/service/UserService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/controller/SysLogController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1052">
-          <caret line="111" column="116" selection-start-line="111" selection-start-column="116" selection-end-line="111" selection-end-column="116" />
         </state>
       </provider>
     </entry>
@@ -943,13 +743,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/dos/SysConfigQueryDO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/dos/SysConfigQueryDO.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/dao/SysConfigDAO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="390">
@@ -964,20 +758,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/service/SysConfigQueryService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/service/impl/SysConfigQueryServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="23" selection-start-line="23" selection-end-line="23" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/service/SysConfigQueryService.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/service/impl/SysConfigQueryServiceImpl.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/service/impl/SysConfigServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="390">
@@ -1014,13 +796,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/controller/UserRoleController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-22">
-          <caret line="28" column="13" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/dao/UserRoleDAO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -1035,20 +810,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/controller/UserUserSocialController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-212">
-          <caret line="56" column="23" selection-start-line="56" selection-start-column="23" selection-end-line="56" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/dao/SysConfigQueryDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="21" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/dao/SysConfigQueryDAO.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/controller/PasswordController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
@@ -1061,13 +823,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/top/zywork/service/SysConfigQueryServiceTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="18" column="58" selection-start-line="18" selection-start-column="58" selection-end-line="18" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/top/zywork/service/SysConfigQueryServiceTest.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/service/impl/UserBankcardServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
@@ -1078,13 +834,7 @@
     <entry file="file://$PROJECT_DIR$/views/UserWallet.vue">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/SysConfigQueryDAOMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/SysConfigQueryDAOMapper.xml" />
     <entry file="file://$PROJECT_DIR$/src/main/resources/application.yml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1092,50 +842,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="7" column="282" selection-start-line="7" selection-start-column="273" selection-end-line="7" selection-end-column="282" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/controller/UserUserDetailController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="28" column="13" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/controller/UserBankcardController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1222">
-          <caret line="197" column="116" selection-start-line="197" selection-start-column="116" selection-end-line="197" selection-end-column="116" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/controller/UserRechargeController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="574">
-          <caret line="51" column="44" selection-start-line="51" selection-start-column="44" selection-end-line="51" selection-end-column="44" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/controller/UserWalletController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1156">
-          <caret line="111" column="116" selection-start-line="111" selection-start-column="116" selection-end-line="111" selection-end-column="116" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/controller/UserWithdrawController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1350">
-          <caret line="90" column="50" selection-start-line="90" selection-start-column="50" selection-end-line="90" selection-end-column="50" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1216,6 +922,188 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2595">
           <caret line="238" lean-forward="true" selection-start-line="238" selection-end-line="238" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/controller/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="341">
+          <caret line="116" column="13" selection-start-line="116" selection-start-column="13" selection-end-line="116" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/controller/UserBankcardController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="411">
+          <caret line="197" column="116" selection-start-line="197" selection-start-column="116" selection-end-line="197" selection-end-column="116" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/controller/UserRechargeController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="371">
+          <caret line="58" column="45" selection-start-line="58" selection-start-column="45" selection-end-line="58" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/controller/UserRoleController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-36">
+          <caret line="28" column="13" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/controller/UserUserDetailController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="28" column="13" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/controller/UserUserSocialController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="56" column="23" selection-start-line="56" selection-start-column="23" selection-end-line="56" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/controller/UserWalletController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="111" column="116" selection-start-line="111" selection-start-column="116" selection-end-line="111" selection-end-column="116" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/UserWalletDAOMapper.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/service/impl/UserRechargeServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="265">
+          <caret line="34" column="35" selection-start-line="34" selection-start-column="35" selection-end-line="34" selection-end-column="35" />
+          <folding>
+            <element signature="e#1355#1356#0" expanded="true" />
+            <element signature="e#1405#1406#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/dos/UserWithdrawDO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="552">
+          <caret line="55" column="8" selection-start-line="55" selection-start-column="8" selection-end-line="55" selection-end-column="31" />
+          <folding>
+            <element signature="e#1029#1030#0" expanded="true" />
+            <element signature="e#1059#1060#0" expanded="true" />
+            <element signature="e#1106#1107#0" expanded="true" />
+            <element signature="e#1144#1145#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/controller/SysLogController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="309">
+          <caret line="111" column="108" selection-start-line="111" selection-start-column="86" selection-end-line="111" selection-end-column="108" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/UserRegDAOMapper.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/service/UserWalletService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/service/UserRechargeService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="9" selection-start-line="28" selection-start-column="9" selection-end-line="28" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/service/UserWithdrawService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="479">
+          <caret line="49" column="24" selection-start-line="49" selection-start-column="24" selection-end-line="49" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/dao/UserRechargeDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="452">
+          <caret line="33" column="87" selection-start-line="33" selection-start-column="87" selection-end-line="33" selection-end-column="87" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/dao/UserWalletDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="24" selection-start-line="28" selection-start-column="24" selection-end-line="28" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/dao/UserWithdrawDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="44" column="127" selection-start-line="44" selection-start-column="127" selection-end-line="44" selection-end-column="127" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/UserRechargeDAOMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/UserWalletDAOExMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/UserWithdrawDAOMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="339">
+          <caret line="33" column="28" selection-start-line="33" selection-start-column="28" selection-end-line="33" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/5.1.3.RELEASE/spring-core-5.1.3.RELEASE.jar!/org/springframework/cglib/proxy/MethodProxy.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="116">
+          <caret line="105" selection-start-line="105" selection-end-line="105" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/controller/UserWithdrawController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="168" selection-start-line="168" selection-end-line="168" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/top/zywork/service/impl/UserWithdrawServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="55" selection-start-line="55" selection-end-line="55" />
         </state>
       </provider>
     </entry>

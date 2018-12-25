@@ -13,13 +13,15 @@ public class UserWithdrawDO {
     private Long userId;
     private Long amount;
     private Byte withdrawStatus;
+    private Integer version;
 
     public UserWithdrawDO() {}
 
-    public UserWithdrawDO(Long userId, Long amount, Byte withdrawStatus) {
+    public UserWithdrawDO(Long userId, Long amount, Byte withdrawStatus, Integer version) {
         this.userId = userId;
         this.amount = amount;
         this.withdrawStatus = withdrawStatus;
+        this.version = version;
     }
 
     public Long getUserId() {
@@ -44,5 +46,13 @@ public class UserWithdrawDO {
 
     public void setWithdrawStatus(Byte withdrawStatus) {
         this.withdrawStatus = withdrawStatus;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 }

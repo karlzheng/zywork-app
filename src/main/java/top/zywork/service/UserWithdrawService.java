@@ -28,14 +28,18 @@ public interface UserWithdrawService {
      * @param withdrawStatus 审核状态
      * @param description 审核描述
      * @param checkedUserId 审核人编号
+     * @param newVersion 更新的版本号
+     * @return 如果版本错误，已经被更新过，则不更新，返回0
      */
-    void checkWithdraw(String withdrawNo, Byte withdrawStatus, String description, Long checkedUserId);
+    int checkWithdraw(String withdrawNo, Byte withdrawStatus, String description, Long checkedUserId, Integer newVersion);
 
     /**
      *
      * @param withdrawNo
+     * @param newVersion 更新的版本号
+     * @return 如果版本错误，已经被更新过，则不更新，返回0
      */
-    void cancelWithdraw(String withdrawNo);
+    int cancelWithdraw(String withdrawNo, Integer newVersion);
 
     /**
      * 完成用户提现记录，如提现成功或提现失败
@@ -43,8 +47,10 @@ public interface UserWithdrawService {
      * @param withdrawStatus
      * @param userId
      * @param amount
+     * @param newVersion 更新的版本号
+     * @return 如果版本错误，已经被更新过，则不更新，返回0
      */
-    void completeWithdraw(String withdrawNo, Byte withdrawStatus, Long userId, Long amount);
+    int completeWithdraw(String withdrawNo, Byte withdrawStatus, Long userId, Long amount, Integer newVersion);
 
     /**
      * 获取所有未完成的即complete_time为null的提现总额

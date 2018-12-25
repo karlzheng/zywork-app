@@ -21,17 +21,19 @@
             </if>
             checked_user_id = #{checkedUserId},
             checked_time = CURRENT_TIMESTAMP,
+            version = version + 1,
             update_time = CURRENT_TIMESTAMP,
         </set>
-        where withdraw_no = #{withdrawNo} and
+        where withdraw_no = #{withdrawNo} and version + 1 <![CDATA[<=]]> #{newVersion}
     </update>
 
     <update id="updateWithdraw">
         update t_funds_withdraw set
         withdraw_status = #{withdrawStatus},
         complete_time = CURRENT_TIMESTAMP,
+        version = version + 1,
         update_time = CURRENT_TIMESTAMP
-        where withdraw_no = #{withdrawNo}
+        where withdraw_no = #{withdrawNo} and version + 1 <![CDATA[<=]]> #{newVersion}
     </update>
 
     <select id="getTotalUncompleteWithdraw" parameterType="long" resultType="long">
@@ -39,15 +41,7 @@
     </select>
 
     <select id="getByWithdrawNo" parameterType="string" resultType="userWithdrawDO">
-        select user_id, amount, withdraw_status from t_funds_withdraw where withdraw_no = #{withdrawNo}
+        select user_id, amount, withdraw_status, version from t_funds_withdraw where withdraw_no = #{withdrawNo}
     </select>
-
-    <update id="updateWallet">
-        update t_user_wallet set
-        rmb_balance = rmb_balance - #{amount},
-        usable_rmb_balance = usable_rmb_balance - #{amount},
-        update_time = CURRENT_TIMESTAMP
-        where id = #{userId}
-    </update>
 
 </mapper>

@@ -13,12 +13,4 @@
         insert into t_funds_recharge(user_id, amount, recharge_type) values(#{userId}, #{amount}, '人工充值')
     </insert>
 
-    <update id="updateWallet">
-        update t_user_wallet set
-        rmb_balance = rmb_balance + #{amount},
-        usable_rmb_balance = usable_rmb_balance + #{amount},
-        update_time = CURRENT_TIMESTAMP
-        where id = #{userId}
-    </update>
-
 </mapper>

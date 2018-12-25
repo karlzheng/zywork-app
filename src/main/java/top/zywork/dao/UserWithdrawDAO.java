@@ -29,15 +29,20 @@ public interface UserWithdrawDAO {
      * @param withdrawStatus 审核状态
      * @param description 审核描述
      * @param checkedUserId 审核人编号
+     * @param newVersion 更新的版本号
+     * @return 如果版本错误，已经被更新过，则不更新，返回0
      */
-    void updateWithdrawCheck(@Param("withdrawNo") String withdrawNo, @Param("withdrawStatus") Byte withdrawStatus, @Param("description") String description, @Param("checkedUserId") Long checkedUserId);
+    int updateWithdrawCheck(@Param("withdrawNo") String withdrawNo, @Param("withdrawStatus") Byte withdrawStatus,
+                             @Param("description") String description, @Param("checkedUserId") Long checkedUserId, @Param("newVersion") Integer newVersion);
 
     /**
      * 更新用户提现最终状态，如提现成功，提现失败
      * @param withdrawNo 用户提现单号
      * @param withdrawStatus 提现状态
+     * @param newVersion 更新的版本号
+     * @return 如果版本错误，已经被更新过，则不更新，返回0
      */
-    void updateWithdraw(@Param("withdrawNo") String withdrawNo, @Param("withdrawStatus") Byte withdrawStatus);
+    int updateWithdraw(@Param("withdrawNo") String withdrawNo, @Param("withdrawStatus") Byte withdrawStatus, @Param("newVersion") Integer newVersion);
 
     /**
      * 获取所有未完成的即complete_time为null的提现总额
@@ -52,12 +57,5 @@ public interface UserWithdrawDAO {
      * @return
      */
     UserWithdrawDO getByWithdrawNo(String withdrawNo);
-
-    /**
-     * 更新用户钱包余额和可用余额
-     * @param userId
-     * @param amount
-     */
-    void updateWallet(@Param("userId") Long userId, @Param("amount") Long amount);
 
 }
