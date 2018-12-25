@@ -69,7 +69,7 @@ public class UserWithdrawServiceImpl implements UserWithdrawService {
     private void saveAccountDetail(Long userId, Long amount, String fundsChangeType) {
         AccountDetailDO accountDetailDO = new AccountDetailDO();
         accountDetailDO.setUserId(userId);
-        accountDetailDO.setAmount(amount);
+        accountDetailDO.setAmount(-amount);
         accountDetailDO.setType((byte) 1);
         accountDetailDO.setSubType(fundsChangeType);
         accountDetailDAO.save(accountDetailDO);
