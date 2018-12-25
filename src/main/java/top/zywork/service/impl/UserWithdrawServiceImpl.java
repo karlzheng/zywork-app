@@ -3,10 +3,13 @@ package top.zywork.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import top.zywork.dao.AccountDetailDAO;
 import top.zywork.dao.UserWalletDAO;
 import top.zywork.dao.UserWithdrawDAO;
+import top.zywork.dos.AccountDetailDO;
 import top.zywork.dos.UserWithdrawDO;
 import top.zywork.dto.UserWalletDTO;
+import top.zywork.enums.FundsChangeTypeEnum;
 import top.zywork.enums.WithdrawStatusEnum;
 import top.zywork.service.UserWithdrawService;
 
@@ -24,6 +27,8 @@ public class UserWithdrawServiceImpl implements UserWithdrawService {
     private UserWithdrawDAO userWithdrawDAO;
 
     private UserWalletDAO userWalletDAO;
+
+    private AccountDetailDAO accountDetailDAO;
 
     @Override
     public void saveWithdraw(Long userId, String withdrawNo, Long amount, Long bankcardId) {
@@ -46,6 +51,7 @@ public class UserWithdrawServiceImpl implements UserWithdrawService {
         int updateRows = userWithdrawDAO.updateWithdraw(withdrawNo, withdrawStatus, newVersion);
         if (withdrawStatus == WithdrawStatusEnum.SUCCESS.getValue().byteValue()) {
             // 如果提现成功，则更新钱包余额和可用余额
+            saveAccountDetail(userId, amount, FundsChangeTypeEnum.WITHDRAW.getValue());
             Integer version = userWalletDAO.getVersionById(userId);
             updateWallet(userId, -amount, version + 1);
         }
@@ -58,6 +64,15 @@ public class UserWithdrawServiceImpl implements UserWithdrawService {
             // 如果版本号有问题，此记录已经被更新过，则再次尝试更新
             updateWallet(userId, amount, newVersion + 1);
         }
+    }
+
+    private void saveAccountDetail(Long userId, Long amount, String fundsChangeType) {
+        AccountDetailDO accountDetailDO = new AccountDetailDO();
+        accountDetailDO.setUserId(userId);
+        accountDetailDO.setAmount(amount);
+        accountDetailDO.setType((byte) 1);
+        accountDetailDO.setSubType(fundsChangeType);
+        accountDetailDAO.save(accountDetailDO);
     }
 
     @Override
@@ -86,5 +101,10 @@ public class UserWithdrawServiceImpl implements UserWithdrawService {
     @Autowired
     public void setUserWalletDAO(UserWalletDAO userWalletDAO) {
         this.userWalletDAO = userWalletDAO;
+    }
+
+    @Autowired
+    public void setAccountDetailDAO(AccountDetailDAO accountDetailDAO) {
+        this.accountDetailDAO = accountDetailDAO;
     }
 }

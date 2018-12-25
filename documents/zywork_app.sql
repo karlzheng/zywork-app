@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 25/12/2018 15:26:41
+ Date: 25/12/2018 23:25:46
 */
 
 SET NAMES utf8mb4;
@@ -25,7 +25,8 @@ CREATE TABLE `t_account_detail` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '账目编号',
   `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
   `amount` bigint(20) DEFAULT NULL COMMENT '金额',
-  `type` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '账目类型',
+  `type` tinyint(4) DEFAULT NULL COMMENT '收入或支出',
+  `sub_type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '收支类型',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
@@ -48,7 +49,7 @@ CREATE TABLE `t_funds_frezee` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='资金冻结与解冻记录表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户资金冻结与解冻记录表';
 
 -- ----------------------------
 -- Table structure for t_funds_recharge
@@ -67,7 +68,7 @@ CREATE TABLE `t_funds_recharge` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='资金充值记录表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户资金充值记录表';
 
 -- ----------------------------
 -- Table structure for t_funds_transfer
@@ -86,7 +87,7 @@ CREATE TABLE `t_funds_transfer` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='资金转入与转出记录表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户资金转入与转出记录表';
 
 -- ----------------------------
 -- Table structure for t_funds_withdraw
@@ -108,7 +109,7 @@ CREATE TABLE `t_funds_withdraw` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='资金提现记录表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户资金提现记录表';
 
 -- ----------------------------
 -- Table structure for t_module
