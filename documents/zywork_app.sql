@@ -11,11 +11,27 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 23/12/2018 21:08:46
+ Date: 25/12/2018 15:26:41
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for t_account_detail
+-- ----------------------------
+DROP TABLE IF EXISTS `t_account_detail`;
+CREATE TABLE `t_account_detail` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '账目编号',
+  `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
+  `amount` bigint(20) DEFAULT NULL COMMENT '金额',
+  `type` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '账目类型',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='账目明细表';
 
 -- ----------------------------
 -- Table structure for t_funds_frezee
@@ -27,6 +43,7 @@ CREATE TABLE `t_funds_frezee` (
   `amount` bigint(20) DEFAULT NULL COMMENT '金额',
   `frezee_type` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '类型',
   `frezee_description` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '描述',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
@@ -45,6 +62,7 @@ CREATE TABLE `t_funds_recharge` (
   `is_success` tinyint(4) DEFAULT '0' COMMENT '是否成功',
   `out_trade_no` varchar(64) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '商户订单号',
   `trade_no` varchar(64) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '支付系统订单号',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
@@ -63,6 +81,7 @@ CREATE TABLE `t_funds_transfer` (
   `to_user_id` bigint(20) DEFAULT NULL COMMENT 'TO',
   `transfer_type` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '类型',
   `transfer_description` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '描述',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
@@ -84,6 +103,7 @@ CREATE TABLE `t_funds_withdraw` (
   `checked_user_id` bigint(20) DEFAULT NULL COMMENT '审核人编号',
   `checked_time` datetime DEFAULT NULL COMMENT '审核时间',
   `complete_time` datetime DEFAULT NULL COMMENT '完成时间',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
@@ -98,6 +118,7 @@ CREATE TABLE `t_module` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '模块编号',
   `title` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '模块标题',
   `description` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '模块描述',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
@@ -110,10 +131,11 @@ CREATE TABLE `t_module` (
 DROP TABLE IF EXISTS `t_permission`;
 CREATE TABLE `t_permission` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '权限编号',
+  `module_id` bigint(20) NOT NULL COMMENT '所属模块',
   `title` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '权限标题',
   `permission` varchar(200) COLLATE utf8mb4_general_ci NOT NULL COMMENT '权限字符串',
   `description` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '权限描述',
-  `module_id` bigint(20) NOT NULL COMMENT '所属模块',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
@@ -131,6 +153,7 @@ CREATE TABLE `t_process` (
   `description` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '流程描述',
   `is_deploy` tinyint(4) DEFAULT '0' COMMENT '是否部署',
   `deploy_time` datetime DEFAULT NULL COMMENT '部署时间',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '上传时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
@@ -146,6 +169,7 @@ CREATE TABLE `t_role` (
   `title` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '角色标题',
   `description` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '角色描述',
   `is_default` tinyint(4) DEFAULT '0' COMMENT '是否默认角色',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
@@ -160,6 +184,7 @@ CREATE TABLE `t_role_permission` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `role_id` bigint(20) NOT NULL COMMENT '角色编号',
   `permission_id` bigint(20) NOT NULL COMMENT '权限编号',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
@@ -180,6 +205,7 @@ CREATE TABLE `t_scheduler` (
   `trigger_group` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '触发器组',
   `description` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '作业描述',
   `job_status` tinyint(4) DEFAULT NULL COMMENT '作业状态',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
@@ -196,6 +222,7 @@ CREATE TABLE `t_sys_config` (
   `value` varchar(5000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '配置内容(JSON)',
   `description` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '中文说明',
   `comment` varchar(5000) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '配置注释',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
@@ -224,6 +251,7 @@ CREATE TABLE `t_sys_log` (
   `has_exception` tinyint(4) DEFAULT '0' COMMENT '是否异常',
   `exception_msg` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '异常消息',
   `execute_ip` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'IP地址',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
@@ -240,6 +268,7 @@ CREATE TABLE `t_user` (
   `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '用户邮箱',
   `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '登录密码',
   `salt` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '加密盐值',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
@@ -257,11 +286,32 @@ CREATE TABLE `t_user_bankcard` (
   `bank_code` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '银行代码',
   `bank_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '银行名称',
   `bankcard_no` varchar(25) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '银行卡号',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT NULL COMMENT '是否激活',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户银行卡记录表';
+
+-- ----------------------------
+-- Table structure for t_user_certification
+-- ----------------------------
+DROP TABLE IF EXISTS `t_user_certification`;
+CREATE TABLE `t_user_certification` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '认证编号',
+  `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
+  `identity` varchar(18) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '身份证号',
+  `real_name` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '真实姓名',
+  `valid_date` date DEFAULT NULL COMMENT '身份证有效期',
+  `idcard_front` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '身份证正面',
+  `idcard_reverse` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '身份证反面',
+  `idcard_hand` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '手持身份证',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT NULL COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户实名认证表';
 
 -- ----------------------------
 -- Table structure for t_user_detail
@@ -271,8 +321,6 @@ CREATE TABLE `t_user_detail` (
   `id` bigint(20) NOT NULL COMMENT '用户编号',
   `nickname` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '昵称',
   `headicon` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '头像地址',
-  `identity` varchar(18) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '身份证号',
-  `real_name` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '真实姓名',
   `gender` tinyint(4) DEFAULT '0' COMMENT '性别',
   `birthday` date DEFAULT NULL COMMENT '生日',
   `age` int(11) DEFAULT NULL COMMENT '年龄',
@@ -283,6 +331,7 @@ CREATE TABLE `t_user_detail` (
   `alipay` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '支付宝账号',
   `alipay_qrcode` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '支付宝二维码',
   `share_code` varchar(36) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '分享码',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
@@ -297,6 +346,7 @@ CREATE TABLE `t_user_role` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
   `role_id` bigint(20) NOT NULL COMMENT '角色编号',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
@@ -314,6 +364,7 @@ CREATE TABLE `t_user_social` (
   `union_id` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '第三方登录OAuth unionid',
   `refresh_token` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '刷新Token',
   `social_type` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '第三方登录类型',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '第三方登录绑定时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
@@ -330,6 +381,7 @@ CREATE TABLE `t_user_wallet` (
   `rmb_balance` bigint(20) DEFAULT '0' COMMENT '人民币余额',
   `usable_rmb_balance` bigint(20) DEFAULT '0' COMMENT '可用余额',
   `frozen_rmb_balance` bigint(20) DEFAULT '0' COMMENT '冻结余额',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
