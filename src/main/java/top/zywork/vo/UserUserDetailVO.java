@@ -12,14 +12,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * UserUserDetailVO值对象类<br/>
  *
- * 创建于2018-12-21<br/>
+ * 创建于2018-12-25<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class UserUserDetailVO extends BaseVO {
 
-    private static final long serialVersionUID = -9223372034976424852L;
+    private static final long serialVersionUID = -9223372035486206567L;
 
     //t_user表的字段对应的属性
 	// 用户编号
@@ -40,12 +40,6 @@ public class UserUserDetailVO extends BaseVO {
 	// 头像地址
 	@Size(min = 0, max = 500, message = "必须小于500个字符")
 	private String userDetailHeadicon;
-	// 身份证号
-	@Size(min = 0, max = 18, message = "必须小于18个字符")
-	private String userDetailIdentity;
-	// 真实姓名
-	@Size(min = 0, max = 10, message = "必须小于10个字符")
-	private String userDetailRealName;
 	// 性别
 	private Byte userDetailGender;
 	// 生日
@@ -74,18 +68,18 @@ public class UserUserDetailVO extends BaseVO {
 	// 分享码
 	@Size(min = 0, max = 36, message = "必须小于36个字符")
 	private String userDetailShareCode;
+	// 版本号
+	private Integer userDetailVersion;
 	
     public UserUserDetailVO () {}
 
-    public UserUserDetailVO (Long userId, String userPhone, String userEmail, Date userCreateTime, String userDetailNickname, String userDetailHeadicon, String userDetailIdentity, String userDetailRealName, Byte userDetailGender, Date userDetailBirthday, Integer userDetailAge, String userDetailQq, String userDetailQqQrcode, String userDetailWechat, String userDetailWechatQrcode, String userDetailAlipay, String userDetailAlipayQrcode, String userDetailShareCode) {
+    public UserUserDetailVO (Long userId, String userPhone, String userEmail, Date userCreateTime, String userDetailNickname, String userDetailHeadicon, Byte userDetailGender, Date userDetailBirthday, Integer userDetailAge, String userDetailQq, String userDetailQqQrcode, String userDetailWechat, String userDetailWechatQrcode, String userDetailAlipay, String userDetailAlipayQrcode, String userDetailShareCode, Integer userDetailVersion) {
         this.userId = userId;
 		this.userPhone = userPhone;
 		this.userEmail = userEmail;
 		this.userCreateTime = userCreateTime;
 		this.userDetailNickname = userDetailNickname;
 		this.userDetailHeadicon = userDetailHeadicon;
-		this.userDetailIdentity = userDetailIdentity;
-		this.userDetailRealName = userDetailRealName;
 		this.userDetailGender = userDetailGender;
 		this.userDetailBirthday = userDetailBirthday;
 		this.userDetailAge = userDetailAge;
@@ -96,6 +90,7 @@ public class UserUserDetailVO extends BaseVO {
 		this.userDetailAlipay = userDetailAlipay;
 		this.userDetailAlipayQrcode = userDetailAlipayQrcode;
 		this.userDetailShareCode = userDetailShareCode;
+		this.userDetailVersion = userDetailVersion;
 		
     }
 
@@ -145,22 +140,6 @@ public class UserUserDetailVO extends BaseVO {
 
 	public void setUserDetailHeadicon(String userDetailHeadicon) {
 		this.userDetailHeadicon = userDetailHeadicon;
-	}
-
-	public String getUserDetailIdentity() {
-		return userDetailIdentity;
-	}
-
-	public void setUserDetailIdentity(String userDetailIdentity) {
-		this.userDetailIdentity = userDetailIdentity;
-	}
-
-	public String getUserDetailRealName() {
-		return userDetailRealName;
-	}
-
-	public void setUserDetailRealName(String userDetailRealName) {
-		this.userDetailRealName = userDetailRealName;
 	}
 
 	public Byte getUserDetailGender() {
@@ -243,6 +222,14 @@ public class UserUserDetailVO extends BaseVO {
 		this.userDetailShareCode = userDetailShareCode;
 	}
 
+	public Integer getUserDetailVersion() {
+		return userDetailVersion;
+	}
+
+	public void setUserDetailVersion(Integer userDetailVersion) {
+		this.userDetailVersion = userDetailVersion;
+	}
+
 	
     @Override
     public String toString() {
@@ -253,8 +240,6 @@ public class UserUserDetailVO extends BaseVO {
 				", userCreateTime = " + userCreateTime + 
 				", userDetailNickname = " + userDetailNickname + 
 				", userDetailHeadicon = " + userDetailHeadicon + 
-				", userDetailIdentity = " + userDetailIdentity + 
-				", userDetailRealName = " + userDetailRealName + 
 				", userDetailGender = " + userDetailGender + 
 				", userDetailBirthday = " + userDetailBirthday + 
 				", userDetailAge = " + userDetailAge + 
@@ -265,6 +250,7 @@ public class UserUserDetailVO extends BaseVO {
 				", userDetailAlipay = " + userDetailAlipay + 
 				", userDetailAlipayQrcode = " + userDetailAlipayQrcode + 
 				", userDetailShareCode = " + userDetailShareCode + 
+				", userDetailVersion = " + userDetailVersion + 
 				" }";
     }
 

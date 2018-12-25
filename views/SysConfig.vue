@@ -98,6 +98,20 @@
 <FormItem label="配置注释" prop="comment">
 	<Input v-model="searchForm.comment"/>
 </FormItem>
+<FormItem label="版本号"><Row>
+	<i-col span="11">
+	<FormItem prop="versionMin">
+	<InputNumber v-model="searchForm.versionMin" style="width: 100%;"/>
+</FormItem>
+</i-col>
+	<i-col span="2" style="text-align: center">-</i-col>
+	<i-col span="11">
+	<FormItem prop="versionMax">
+	<InputNumber v-model="searchForm.versionMax" style="width: 100%;"/>
+</FormItem>
+</i-col>
+</Row>
+</FormItem>
 <FormItem label="创建时间"><Row>
 	<i-col span="11">
 	<FormItem prop="createTimeMin">
@@ -154,6 +168,7 @@
 <p>配置内容(JSON): <span v-text="form.value"></span></p>
 <p>中文说明: <span v-text="form.description"></span></p>
 <p>配置注释: <span v-text="form.comment"></span></p>
+<p>版本号: <span v-text="form.version"></span></p>
 <p>创建时间: <span v-text="form.createTime"></span></p>
 <p>更新时间: <span v-text="form.updateTime"></span></p>
 <p>是否激活: <span v-text="form.isActive"></span></p>
@@ -175,11 +190,11 @@
           search: false,
           detail: false
         },
-          loading: {
-              add: false,
-              edit: false,
-              search: false
-          },
+        loading: {
+          add: false,
+          edit: false,
+          search: false
+        },
         urls: {
           addUrl: '/sys-config/save',
           batchAddUrl: '/sys-config/batch-save',
@@ -202,6 +217,7 @@ name: null,
 value: null,
 description: null,
 comment: null,
+version: null,
 createTime: null,
 updateTime: null,
 isActive: null,
@@ -234,6 +250,9 @@ name: null,
 value: null,
 description: null,
 comment: null,
+version: null,
+versionMin: null, 
+versionMax: null, 
 createTime: null,
 createTimeMin: null, 
 createTimeMax: null, 
@@ -290,6 +309,12 @@ sortable: true
 {
 title: '配置注释',
 key: 'comment',
+width: 120,
+sortable: true
+},
+{
+title: '版本号',
+key: 'version',
 width: 120,
 sortable: true
 },
@@ -475,7 +500,7 @@ sortable: true
         utils.changePageSize(this, pageSize)
       },
       fitTable() {
-        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['id','name','value','description','comment','createTime','updateTime','isActive',])
+        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['id','name','value','description','comment','version','createTime','updateTime','isActive',])
       }
     }
   }

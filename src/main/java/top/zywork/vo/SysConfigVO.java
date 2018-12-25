@@ -12,14 +12,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * SysConfigVO值对象类<br/>
  *
- * 创建于2018-12-20<br/>
+ * 创建于2018-12-25<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class SysConfigVO extends BaseVO {
 
-    private static final long serialVersionUID = -9223372035952780052L;
+    private static final long serialVersionUID = -9223372035949245858L;
 
     // 配置编号
 	private Long id;
@@ -35,6 +35,8 @@ public class SysConfigVO extends BaseVO {
 	// 配置注释
 	@Size(min = 0, max = 5000, message = "必须小于5000个字符")
 	private String comment;
+	// 版本号
+	private Integer version;
 	// 创建时间
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date createTime;
@@ -46,12 +48,13 @@ public class SysConfigVO extends BaseVO {
 	
     public SysConfigVO () {}
 
-    public SysConfigVO (Long id, String name, String value, String description, String comment, Date createTime, Date updateTime, Byte isActive) {
+    public SysConfigVO (Long id, String name, String value, String description, String comment, Integer version, Date createTime, Date updateTime, Byte isActive) {
         this.id = id;
 		this.name = name;
 		this.value = value;
 		this.description = description;
 		this.comment = comment;
+		this.version = version;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
 		this.isActive = isActive;
@@ -98,6 +101,14 @@ public class SysConfigVO extends BaseVO {
 		this.comment = comment;
 	}
 
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -131,6 +142,7 @@ public class SysConfigVO extends BaseVO {
 				", value = " + value + 
 				", description = " + description + 
 				", comment = " + comment + 
+				", version = " + version + 
 				", createTime = " + createTime + 
 				", updateTime = " + updateTime + 
 				", isActive = " + isActive + 

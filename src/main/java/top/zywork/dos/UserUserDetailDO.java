@@ -6,14 +6,14 @@ import java.util.Date;
 /**
  * UserUserDetailDO数据对象实体类<br/>
  *
- * 创建于2018-12-21<br/>
+ * 创建于2018-12-25<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class UserUserDetailDO extends BaseDO {
 
-	private static final long serialVersionUID = -9223372036400234002L;
+	private static final long serialVersionUID = -9223372036793895459L;
 
 	//t_user表的字段对应的属性
 	// 用户编号
@@ -29,10 +29,6 @@ public class UserUserDetailDO extends BaseDO {
 	private String userDetailNickname;
 	// 头像地址
 	private String userDetailHeadicon;
-	// 身份证号
-	private String userDetailIdentity;
-	// 真实姓名
-	private String userDetailRealName;
 	// 性别
 	private Byte userDetailGender;
 	// 生日
@@ -53,18 +49,18 @@ public class UserUserDetailDO extends BaseDO {
 	private String userDetailAlipayQrcode;
 	// 分享码
 	private String userDetailShareCode;
+	// 版本号
+	private Integer userDetailVersion;
 
 	public UserUserDetailDO () {}
 
-	public UserUserDetailDO (Long userId, String userPhone, String userEmail, Date userCreateTime, String userDetailNickname, String userDetailHeadicon, String userDetailIdentity, String userDetailRealName, Byte userDetailGender, Date userDetailBirthday, Integer userDetailAge, String userDetailQq, String userDetailQqQrcode, String userDetailWechat, String userDetailWechatQrcode, String userDetailAlipay, String userDetailAlipayQrcode, String userDetailShareCode) {
+	public UserUserDetailDO (Long userId, String userPhone, String userEmail, Date userCreateTime, String userDetailNickname, String userDetailHeadicon, Byte userDetailGender, Date userDetailBirthday, Integer userDetailAge, String userDetailQq, String userDetailQqQrcode, String userDetailWechat, String userDetailWechatQrcode, String userDetailAlipay, String userDetailAlipayQrcode, String userDetailShareCode, Integer userDetailVersion) {
 		this.userId = userId;
 		this.userPhone = userPhone;
 		this.userEmail = userEmail;
 		this.userCreateTime = userCreateTime;
 		this.userDetailNickname = userDetailNickname;
 		this.userDetailHeadicon = userDetailHeadicon;
-		this.userDetailIdentity = userDetailIdentity;
-		this.userDetailRealName = userDetailRealName;
 		this.userDetailGender = userDetailGender;
 		this.userDetailBirthday = userDetailBirthday;
 		this.userDetailAge = userDetailAge;
@@ -75,6 +71,7 @@ public class UserUserDetailDO extends BaseDO {
 		this.userDetailAlipay = userDetailAlipay;
 		this.userDetailAlipayQrcode = userDetailAlipayQrcode;
 		this.userDetailShareCode = userDetailShareCode;
+		this.userDetailVersion = userDetailVersion;
 
 	}
 
@@ -124,22 +121,6 @@ public class UserUserDetailDO extends BaseDO {
 
 	public void setUserDetailHeadicon(String userDetailHeadicon) {
 		this.userDetailHeadicon = userDetailHeadicon;
-	}
-
-	public String getUserDetailIdentity() {
-		return userDetailIdentity;
-	}
-
-	public void setUserDetailIdentity(String userDetailIdentity) {
-		this.userDetailIdentity = userDetailIdentity;
-	}
-
-	public String getUserDetailRealName() {
-		return userDetailRealName;
-	}
-
-	public void setUserDetailRealName(String userDetailRealName) {
-		this.userDetailRealName = userDetailRealName;
 	}
 
 	public Byte getUserDetailGender() {
@@ -222,6 +203,14 @@ public class UserUserDetailDO extends BaseDO {
 		this.userDetailShareCode = userDetailShareCode;
 	}
 
+	public Integer getUserDetailVersion() {
+		return userDetailVersion;
+	}
+
+	public void setUserDetailVersion(Integer userDetailVersion) {
+		this.userDetailVersion = userDetailVersion;
+	}
+
 
 	@Override
 	public String toString() {
@@ -232,8 +221,6 @@ public class UserUserDetailDO extends BaseDO {
 				", userCreateTime = " + userCreateTime +
 				", userDetailNickname = " + userDetailNickname +
 				", userDetailHeadicon = " + userDetailHeadicon +
-				", userDetailIdentity = " + userDetailIdentity +
-				", userDetailRealName = " + userDetailRealName +
 				", userDetailGender = " + userDetailGender +
 				", userDetailBirthday = " + userDetailBirthday +
 				", userDetailAge = " + userDetailAge +
@@ -244,6 +231,7 @@ public class UserUserDetailDO extends BaseDO {
 				", userDetailAlipay = " + userDetailAlipay +
 				", userDetailAlipayQrcode = " + userDetailAlipayQrcode +
 				", userDetailShareCode = " + userDetailShareCode +
+				", userDetailVersion = " + userDetailVersion +
 				" }";
 	}
 

@@ -58,12 +58,6 @@
 <FormItem label="头像地址" prop="userDetailHeadicon">
 	<Input v-model="searchForm.userDetailHeadicon"/>
 </FormItem>
-<FormItem label="身份证号" prop="userDetailIdentity">
-	<Input v-model="searchForm.userDetailIdentity"/>
-</FormItem>
-<FormItem label="真实姓名" prop="userDetailRealName">
-	<Input v-model="searchForm.userDetailRealName"/>
-</FormItem>
 <FormItem label="性别"><Row>
 	<i-col span="11">
 	<FormItem prop="userDetailGenderMin">
@@ -127,6 +121,20 @@
 <FormItem label="分享码" prop="userDetailShareCode">
 	<Input v-model="searchForm.userDetailShareCode"/>
 </FormItem>
+<FormItem label="版本号"><Row>
+	<i-col span="11">
+	<FormItem prop="userDetailVersionMin">
+	<InputNumber v-model="searchForm.userDetailVersionMin" style="width: 100%;"/>
+</FormItem>
+</i-col>
+	<i-col span="2" style="text-align: center">-</i-col>
+	<i-col span="11">
+	<FormItem prop="userDetailVersionMax">
+	<InputNumber v-model="searchForm.userDetailVersionMax" style="width: 100%;"/>
+</FormItem>
+</i-col>
+</Row>
+</FormItem>
 
       </Form>
       <div slot="footer">
@@ -142,8 +150,6 @@
 <p>创建时间: <span v-text="form.userCreateTime"></span></p>
 <p>昵称: <span v-text="form.userDetailNickname"></span></p>
 <p>头像地址: <span v-text="form.userDetailHeadicon"></span></p>
-<p>身份证号: <span v-text="form.userDetailIdentity"></span></p>
-<p>真实姓名: <span v-text="form.userDetailRealName"></span></p>
 <p>性别: <span v-text="form.userDetailGender"></span></p>
 <p>生日: <span v-text="form.userDetailBirthday"></span></p>
 <p>年龄: <span v-text="form.userDetailAge"></span></p>
@@ -154,6 +160,7 @@
 <p>支付宝账号: <span v-text="form.userDetailAlipay"></span></p>
 <p>支付宝二维码: <span v-text="form.userDetailAlipayQrcode"></span></p>
 <p>分享码: <span v-text="form.userDetailShareCode"></span></p>
+<p>版本号: <span v-text="form.userDetailVersion"></span></p>
 
     </Modal>
   </div>
@@ -172,9 +179,9 @@
           search: false,
           detail: false
         },
-          loading: {
-              search: false
-          },
+        loading: {
+          search: false
+        },
         urls: {
           searchUrl: '/user-userdetail/pager-cond',
           allUrl: '/user-userdetail/all',
@@ -191,8 +198,6 @@ userEmail: null,
 userCreateTime: null,
 userDetailNickname: null,
 userDetailHeadicon: null,
-userDetailIdentity: null,
-userDetailRealName: null,
 userDetailGender: null,
 userDetailBirthday: null,
 userDetailAge: null,
@@ -203,6 +208,7 @@ userDetailWechatQrcode: null,
 userDetailAlipay: null,
 userDetailAlipayQrcode: null,
 userDetailShareCode: null,
+userDetailVersion: null,
 
         },
         searchForm: {
@@ -220,8 +226,6 @@ userCreateTimeMin: null,
 userCreateTimeMax: null, 
 userDetailNickname: null,
 userDetailHeadicon: null,
-userDetailIdentity: null,
-userDetailRealName: null,
 userDetailGender: null,
 userDetailGenderMin: null, 
 userDetailGenderMax: null, 
@@ -238,6 +242,9 @@ userDetailWechatQrcode: null,
 userDetailAlipay: null,
 userDetailAlipayQrcode: null,
 userDetailShareCode: null,
+userDetailVersion: null,
+userDetailVersionMin: null, 
+userDetailVersionMax: null, 
 
         },
         table: {
@@ -291,18 +298,6 @@ sortable: true
 {
 title: '头像地址',
 key: 'userDetailHeadicon',
-width: 120,
-sortable: true
-},
-{
-title: '身份证号',
-key: 'userDetailIdentity',
-width: 120,
-sortable: true
-},
-{
-title: '真实姓名',
-key: 'userDetailRealName',
 width: 120,
 sortable: true
 },
@@ -363,6 +358,12 @@ sortable: true
 {
 title: '分享码',
 key: 'userDetailShareCode',
+width: 120,
+sortable: true
+},
+{
+title: '版本号',
+key: 'userDetailVersion',
 width: 120,
 sortable: true
 },
@@ -446,7 +447,7 @@ sortable: true
         utils.changePageSize(this, pageSize)
       },
       fitTable() {
-        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['userId','userPhone','userEmail','userCreateTime','userDetailNickname','userDetailHeadicon','userDetailIdentity','userDetailRealName','userDetailGender','userDetailBirthday','userDetailAge','userDetailQq','userDetailQqQrcode','userDetailWechat','userDetailWechatQrcode','userDetailAlipay','userDetailAlipayQrcode','userDetailShareCode',])
+        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['userId','userPhone','userEmail','userCreateTime','userDetailNickname','userDetailHeadicon','userDetailGender','userDetailBirthday','userDetailAge','userDetailQq','userDetailQqQrcode','userDetailWechat','userDetailWechatQrcode','userDetailAlipay','userDetailAlipayQrcode','userDetailShareCode','userDetailVersion',])
       }
     }
   }

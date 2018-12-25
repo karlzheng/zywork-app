@@ -8,14 +8,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * UserQuery查询对象类<br/>
  *
- * 创建于2018-12-24<br/>
+ * 创建于2018-12-25<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class UserQuery extends PageQuery {
 
-    private static final long serialVersionUID = -9223372034739472988L;
+    private static final long serialVersionUID = -9223372035178905652L;
 
     // 用户编号
 	private Long id;
@@ -31,6 +31,12 @@ public class UserQuery extends PageQuery {
 	private String password;
 	// 加密盐值
 	private String salt;
+	// 版本号
+	private Integer version;
+	// 版本号（最小值）
+	private Integer versionMin;
+	// 版本号（最大值）
+	private Integer versionMax;
 	// 创建时间
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date createTime;
@@ -58,7 +64,7 @@ public class UserQuery extends PageQuery {
 	
     public UserQuery () {}
 
-    public UserQuery (Long id, Long idMin, Long idMax, String phone, String email, String password, String salt, Date createTime, Date createTimeMin, Date createTimeMax, Date updateTime, Date updateTimeMin, Date updateTimeMax, Byte isActive, Byte isActiveMin, Byte isActiveMax) {
+    public UserQuery (Long id, Long idMin, Long idMax, String phone, String email, String password, String salt, Integer version, Integer versionMin, Integer versionMax, Date createTime, Date createTimeMin, Date createTimeMax, Date updateTime, Date updateTimeMin, Date updateTimeMax, Byte isActive, Byte isActiveMin, Byte isActiveMax) {
         this.id = id;
 		this.idMin = idMin;
 		this.idMax = idMax;
@@ -66,6 +72,9 @@ public class UserQuery extends PageQuery {
 		this.email = email;
 		this.password = password;
 		this.salt = salt;
+		this.version = version;
+		this.versionMin = versionMin;
+		this.versionMax = versionMax;
 		this.createTime = createTime;
 		this.createTimeMin = createTimeMin;
 		this.createTimeMax = createTimeMax;
@@ -132,6 +141,30 @@ public class UserQuery extends PageQuery {
 
 	public void setSalt(String salt) {
 		this.salt = salt;
+	}
+
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+
+	public Integer getVersionMin() {
+		return versionMin;
+	}
+
+	public void setVersionMin(Integer versionMin) {
+		this.versionMin = versionMin;
+	}
+
+	public Integer getVersionMax() {
+		return versionMax;
+	}
+
+	public void setVersionMax(Integer versionMax) {
+		this.versionMax = versionMax;
 	}
 
 	public Date getCreateTime() {
@@ -217,6 +250,9 @@ public class UserQuery extends PageQuery {
 				", email = " + email + 
 				", password = " + password + 
 				", salt = " + salt + 
+				", version = " + version + 
+				", versionMin = " + versionMin + 
+				", versionMax = " + versionMax + 
 				", createTime = " + createTime + 
 				", createTimeMin = " + createTimeMin + 
 				", createTimeMax = " + createTimeMax + 

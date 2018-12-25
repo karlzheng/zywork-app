@@ -19,7 +19,7 @@
     </Row>
     <Modal v-model="modal.search" title="高级搜索">
       <Form ref="searchForm" :model="searchForm" :label-width="80">
-        <FormItem label="银行卡编号"><Row>
+        <FormItem label="日志编号"><Row>
 	<i-col span="11">
 	<FormItem prop="idMin">
 	<InputNumber v-model="searchForm.idMin" style="width: 100%;"/>
@@ -47,17 +47,94 @@
 </i-col>
 </Row>
 </FormItem>
-<FormItem label="持卡人姓名" prop="accountName">
-	<Input v-model="searchForm.accountName"/>
+<FormItem label="用户账号" prop="userAccount">
+	<Input v-model="searchForm.userAccount"/>
 </FormItem>
-<FormItem label="银行代码" prop="bankCode">
-	<Input v-model="searchForm.bankCode"/>
+<FormItem label="执行说明" prop="description">
+	<Input v-model="searchForm.description"/>
 </FormItem>
-<FormItem label="银行名称" prop="bankName">
-	<Input v-model="searchForm.bankName"/>
+<FormItem label="User-Agent" prop="userAgent">
+	<Input v-model="searchForm.userAgent"/>
 </FormItem>
-<FormItem label="银行卡号" prop="bankcardNo">
-	<Input v-model="searchForm.bankcardNo"/>
+<FormItem label="请求URL" prop="requestUrl">
+	<Input v-model="searchForm.requestUrl"/>
+</FormItem>
+<FormItem label="请求方式" prop="requestMethod">
+	<Input v-model="searchForm.requestMethod"/>
+</FormItem>
+<FormItem label="请求参数" prop="requestParams">
+	<Input v-model="searchForm.requestParams"/>
+</FormItem>
+<FormItem label="响应编码"><Row>
+	<i-col span="11">
+	<FormItem prop="responseCodeMin">
+	<InputNumber v-model="searchForm.responseCodeMin" style="width: 100%;"/>
+</FormItem>
+</i-col>
+	<i-col span="2" style="text-align: center">-</i-col>
+	<i-col span="11">
+	<FormItem prop="responseCodeMax">
+	<InputNumber v-model="searchForm.responseCodeMax" style="width: 100%;"/>
+</FormItem>
+</i-col>
+</Row>
+</FormItem>
+<FormItem label="响应消息" prop="responseMsg">
+	<Input v-model="searchForm.responseMsg"/>
+</FormItem>
+<FormItem label="完整类名" prop="executeClass">
+	<Input v-model="searchForm.executeClass"/>
+</FormItem>
+<FormItem label="方法名称" prop="executeMethod">
+	<Input v-model="searchForm.executeMethod"/>
+</FormItem>
+<FormItem label="开始执行时间"><Row>
+	<i-col span="11">
+	<FormItem prop="executeTimeMin">
+	<DatePicker @on-change="searchForm.executeTimeMin=$event" :value="searchForm.executeTimeMin" type="datetime" format="yyyy-MM-dd HH:mm:ss" style="width: 100%;"></DatePicker>
+</FormItem>
+</i-col>
+	<i-col span="2" style="text-align: center">-</i-col>
+	<i-col span="11">
+	<FormItem prop="executeTimeMax">
+	<DatePicker @on-change="searchForm.executeTimeMax=$event" :value="searchForm.executeTimeMax" type="datetime" format="yyyy-MM-dd HH:mm:ss" style="width: 100%;"></DatePicker>
+</FormItem>
+</i-col>
+</Row>
+</FormItem>
+<FormItem label="执行耗时(ms)"><Row>
+	<i-col span="11">
+	<FormItem prop="executeCostTimeMin">
+	<InputNumber v-model="searchForm.executeCostTimeMin" style="width: 100%;"/>
+</FormItem>
+</i-col>
+	<i-col span="2" style="text-align: center">-</i-col>
+	<i-col span="11">
+	<FormItem prop="executeCostTimeMax">
+	<InputNumber v-model="searchForm.executeCostTimeMax" style="width: 100%;"/>
+</FormItem>
+</i-col>
+</Row>
+</FormItem>
+<FormItem label="是否异常"><Row>
+	<i-col span="11">
+	<FormItem prop="hasExceptionMin">
+	<InputNumber v-model="searchForm.hasExceptionMin" style="width: 100%;"/>
+</FormItem>
+</i-col>
+	<i-col span="2" style="text-align: center">-</i-col>
+	<i-col span="11">
+	<FormItem prop="hasExceptionMax">
+	<InputNumber v-model="searchForm.hasExceptionMax" style="width: 100%;"/>
+</FormItem>
+</i-col>
+</Row>
+</FormItem>
+<FormItem label="异常消息" prop="exceptionMsg">
+	<Input v-model="searchForm.exceptionMsg"/>
+</FormItem>
+<FormItem label="IP地址" prop="executeIp">
+	<Input v-model="searchForm.executeIp"/>
 </FormItem>
 <FormItem label="版本号"><Row>
 	<i-col span="11">
@@ -124,12 +201,23 @@
       </div>
     </Modal>
     <Modal v-model="modal.detail" title="详情">
-      <p>银行卡编号: <span v-text="form.id"></span></p>
+      <p>日志编号: <span v-text="form.id"></span></p>
 <p>用户编号: <span v-text="form.userId"></span></p>
-<p>持卡人姓名: <span v-text="form.accountName"></span></p>
-<p>银行代码: <span v-text="form.bankCode"></span></p>
-<p>银行名称: <span v-text="form.bankName"></span></p>
-<p>银行卡号: <span v-text="form.bankcardNo"></span></p>
+<p>用户账号: <span v-text="form.userAccount"></span></p>
+<p>执行说明: <span v-text="form.description"></span></p>
+<p>User-Agent: <span v-text="form.userAgent"></span></p>
+<p>请求URL: <span v-text="form.requestUrl"></span></p>
+<p>请求方式: <span v-text="form.requestMethod"></span></p>
+<p>请求参数: <span v-text="form.requestParams"></span></p>
+<p>响应编码: <span v-text="form.responseCode"></span></p>
+<p>响应消息: <span v-text="form.responseMsg"></span></p>
+<p>完整类名: <span v-text="form.executeClass"></span></p>
+<p>方法名称: <span v-text="form.executeMethod"></span></p>
+<p>开始执行时间: <span v-text="form.executeTime"></span></p>
+<p>执行耗时(ms): <span v-text="form.executeCostTime"></span></p>
+<p>是否异常: <span v-text="form.hasException"></span></p>
+<p>异常消息: <span v-text="form.exceptionMsg"></span></p>
+<p>IP地址: <span v-text="form.executeIp"></span></p>
 <p>版本号: <span v-text="form.version"></span></p>
 <p>创建时间: <span v-text="form.createTime"></span></p>
 <p>更新时间: <span v-text="form.updateTime"></span></p>
@@ -143,7 +231,7 @@
   import * as utils from '@/api/utils'
 
   export default {
-    name: 'UserBankcardList',
+    name: 'SysLogList',
     data() {
       return {
         modal: {
@@ -153,10 +241,10 @@
           detail: false
         },
         urls: {
-          searchUrl: '/user-bankcard/pager-cond',
-          allUrl: '/user-bankcard/all',
-          detailUrl: '/user-bankcard/one/',
-          multiUrl: '/user-bankcard/multi/'
+          searchUrl: '/sys-log/pager-cond',
+          allUrl: '/sys-log/all',
+          detailUrl: '/sys-log/one/',
+          multiUrl: '/sys-log/multi/'
         },
         page: {
           total: 0
@@ -164,10 +252,21 @@
         form: {
           id: null,
 userId: null,
-accountName: null,
-bankCode: null,
-bankName: null,
-bankcardNo: null,
+userAccount: null,
+description: null,
+userAgent: null,
+requestUrl: null,
+requestMethod: null,
+requestParams: null,
+responseCode: null,
+responseMsg: null,
+executeClass: null,
+executeMethod: null,
+executeTime: null,
+executeCostTime: null,
+hasException: null,
+exceptionMsg: null,
+executeIp: null,
 version: null,
 createTime: null,
 updateTime: null,
@@ -185,10 +284,29 @@ idMax: null,
 userId: null,
 userIdMin: null, 
 userIdMax: null, 
-accountName: null,
-bankCode: null,
-bankName: null,
-bankcardNo: null,
+userAccount: null,
+description: null,
+userAgent: null,
+requestUrl: null,
+requestMethod: null,
+requestParams: null,
+responseCode: null,
+responseCodeMin: null, 
+responseCodeMax: null, 
+responseMsg: null,
+executeClass: null,
+executeMethod: null,
+executeTime: null,
+executeTimeMin: null, 
+executeTimeMax: null, 
+executeCostTime: null,
+executeCostTimeMin: null, 
+executeCostTimeMax: null, 
+hasException: null,
+hasExceptionMin: null, 
+hasExceptionMax: null, 
+exceptionMsg: null,
+executeIp: null,
 version: null,
 versionMin: null, 
 versionMax: null, 
@@ -222,7 +340,7 @@ isActiveMax: null,
               }
             },
             {
-title: '银行卡编号',
+title: '日志编号',
 key: 'id',
 width: 120,
 sortable: true
@@ -234,26 +352,92 @@ width: 120,
 sortable: true
 },
 {
-title: '持卡人姓名',
-key: 'accountName',
+title: '用户账号',
+key: 'userAccount',
 width: 120,
 sortable: true
 },
 {
-title: '银行代码',
-key: 'bankCode',
+title: '执行说明',
+key: 'description',
 width: 120,
 sortable: true
 },
 {
-title: '银行名称',
-key: 'bankName',
+title: 'User-Agent',
+key: 'userAgent',
 width: 120,
 sortable: true
 },
 {
-title: '银行卡号',
-key: 'bankcardNo',
+title: '请求URL',
+key: 'requestUrl',
+width: 120,
+sortable: true
+},
+{
+title: '请求方式',
+key: 'requestMethod',
+width: 120,
+sortable: true
+},
+{
+title: '请求参数',
+key: 'requestParams',
+width: 120,
+sortable: true
+},
+{
+title: '响应编码',
+key: 'responseCode',
+width: 120,
+sortable: true
+},
+{
+title: '响应消息',
+key: 'responseMsg',
+width: 120,
+sortable: true
+},
+{
+title: '完整类名',
+key: 'executeClass',
+width: 120,
+sortable: true
+},
+{
+title: '方法名称',
+key: 'executeMethod',
+width: 120,
+sortable: true
+},
+{
+title: '开始执行时间',
+key: 'executeTime',
+width: 120,
+sortable: true
+},
+{
+title: '执行耗时(ms)',
+key: 'executeCostTime',
+width: 120,
+sortable: true
+},
+{
+title: '是否异常',
+key: 'hasException',
+width: 120,
+sortable: true
+},
+{
+title: '异常消息',
+key: 'exceptionMsg',
+width: 120,
+sortable: true
+},
+{
+title: 'IP地址',
+key: 'executeIp',
 width: 120,
 sortable: true
 },
@@ -361,7 +545,7 @@ sortable: true
         utils.changePageSize(this, pageSize)
       },
       fitTable() {
-        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['id','userId','accountName','bankCode','bankName','bankcardNo','version','createTime','updateTime','isActive',])
+        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['id','userId','userAccount','description','userAgent','requestUrl','requestMethod','requestParams','responseCode','responseMsg','executeClass','executeMethod','executeTime','executeCostTime','hasException','exceptionMsg','executeIp','version','createTime','updateTime','isActive',])
       },
       confirmSelection() {
         // 确认选择的逻辑

@@ -8,14 +8,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * UserWalletQuery查询对象类<br/>
  *
- * 创建于2018-12-23<br/>
+ * 创建于2018-12-25<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class UserWalletQuery extends PageQuery {
 
-    private static final long serialVersionUID = -9223372035829688979L;
+    private static final long serialVersionUID = -9223372036661100030L;
 
     // 钱包编号
 	private Long id;
@@ -43,6 +43,12 @@ public class UserWalletQuery extends PageQuery {
 	private Long frozenRmbBalanceMin;
 	// 冻结余额（最大值）
 	private Long frozenRmbBalanceMax;
+	// 版本号
+	private Integer version;
+	// 版本号（最小值）
+	private Integer versionMin;
+	// 版本号（最大值）
+	private Integer versionMax;
 	// 创建时间
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date createTime;
@@ -70,7 +76,7 @@ public class UserWalletQuery extends PageQuery {
 	
     public UserWalletQuery () {}
 
-    public UserWalletQuery (Long id, Long idMin, Long idMax, String payPassword, Long rmbBalance, Long rmbBalanceMin, Long rmbBalanceMax, Long usableRmbBalance, Long usableRmbBalanceMin, Long usableRmbBalanceMax, Long frozenRmbBalance, Long frozenRmbBalanceMin, Long frozenRmbBalanceMax, Date createTime, Date createTimeMin, Date createTimeMax, Date updateTime, Date updateTimeMin, Date updateTimeMax, Byte isActive, Byte isActiveMin, Byte isActiveMax) {
+    public UserWalletQuery (Long id, Long idMin, Long idMax, String payPassword, Long rmbBalance, Long rmbBalanceMin, Long rmbBalanceMax, Long usableRmbBalance, Long usableRmbBalanceMin, Long usableRmbBalanceMax, Long frozenRmbBalance, Long frozenRmbBalanceMin, Long frozenRmbBalanceMax, Integer version, Integer versionMin, Integer versionMax, Date createTime, Date createTimeMin, Date createTimeMax, Date updateTime, Date updateTimeMin, Date updateTimeMax, Byte isActive, Byte isActiveMin, Byte isActiveMax) {
         this.id = id;
 		this.idMin = idMin;
 		this.idMax = idMax;
@@ -84,6 +90,9 @@ public class UserWalletQuery extends PageQuery {
 		this.frozenRmbBalance = frozenRmbBalance;
 		this.frozenRmbBalanceMin = frozenRmbBalanceMin;
 		this.frozenRmbBalanceMax = frozenRmbBalanceMax;
+		this.version = version;
+		this.versionMin = versionMin;
+		this.versionMax = versionMax;
 		this.createTime = createTime;
 		this.createTimeMin = createTimeMin;
 		this.createTimeMax = createTimeMax;
@@ -200,6 +209,30 @@ public class UserWalletQuery extends PageQuery {
 		this.frozenRmbBalanceMax = frozenRmbBalanceMax;
 	}
 
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+
+	public Integer getVersionMin() {
+		return versionMin;
+	}
+
+	public void setVersionMin(Integer versionMin) {
+		this.versionMin = versionMin;
+	}
+
+	public Integer getVersionMax() {
+		return versionMax;
+	}
+
+	public void setVersionMax(Integer versionMax) {
+		this.versionMax = versionMax;
+	}
+
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -289,6 +322,9 @@ public class UserWalletQuery extends PageQuery {
 				", frozenRmbBalance = " + frozenRmbBalance + 
 				", frozenRmbBalanceMin = " + frozenRmbBalanceMin + 
 				", frozenRmbBalanceMax = " + frozenRmbBalanceMax + 
+				", version = " + version + 
+				", versionMin = " + versionMin + 
+				", versionMax = " + versionMax + 
 				", createTime = " + createTime + 
 				", createTimeMin = " + createTimeMin + 
 				", createTimeMax = " + createTimeMax + 

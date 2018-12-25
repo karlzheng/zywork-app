@@ -12,14 +12,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * SysLogVO值对象类<br/>
  *
- * 创建于2018-12-18<br/>
+ * 创建于2018-12-25<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class SysLogVO extends BaseVO {
 
-    private static final long serialVersionUID = -9223372036126894487L;
+    private static final long serialVersionUID = -9223372036223858545L;
 
     // 日志编号
 	private Long id;
@@ -67,6 +67,8 @@ public class SysLogVO extends BaseVO {
 	// IP地址
 	@Size(min = 0, max = 100, message = "必须小于100个字符")
 	private String executeIp;
+	// 版本号
+	private Integer version;
 	// 创建时间
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date createTime;
@@ -78,7 +80,7 @@ public class SysLogVO extends BaseVO {
 	
     public SysLogVO () {}
 
-    public SysLogVO (Long id, Long userId, String userAccount, String description, String userAgent, String requestUrl, String requestMethod, String requestParams, Integer responseCode, String responseMsg, String executeClass, String executeMethod, Date executeTime, Long executeCostTime, Byte hasException, String exceptionMsg, String executeIp, Date createTime, Date updateTime, Byte isActive) {
+    public SysLogVO (Long id, Long userId, String userAccount, String description, String userAgent, String requestUrl, String requestMethod, String requestParams, Integer responseCode, String responseMsg, String executeClass, String executeMethod, Date executeTime, Long executeCostTime, Byte hasException, String exceptionMsg, String executeIp, Integer version, Date createTime, Date updateTime, Byte isActive) {
         this.id = id;
 		this.userId = userId;
 		this.userAccount = userAccount;
@@ -96,6 +98,7 @@ public class SysLogVO extends BaseVO {
 		this.hasException = hasException;
 		this.exceptionMsg = exceptionMsg;
 		this.executeIp = executeIp;
+		this.version = version;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
 		this.isActive = isActive;
@@ -238,6 +241,14 @@ public class SysLogVO extends BaseVO {
 		this.executeIp = executeIp;
 	}
 
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -283,6 +294,7 @@ public class SysLogVO extends BaseVO {
 				", hasException = " + hasException + 
 				", exceptionMsg = " + exceptionMsg + 
 				", executeIp = " + executeIp + 
+				", version = " + version + 
 				", createTime = " + createTime + 
 				", updateTime = " + updateTime + 
 				", isActive = " + isActive + 

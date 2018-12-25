@@ -6,14 +6,14 @@ import java.util.Date;
 /**
  * SysLogDTO数据传输对象类<br/>
  *
- * 创建于2018-12-18<br/>
+ * 创建于2018-12-25<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class SysLogDTO extends BaseDTO {
 
-    private static final long serialVersionUID = -9223372035100621136L;
+    private static final long serialVersionUID = -9223372035775137279L;
 
     // 日志编号
 	private Long id;
@@ -49,6 +49,8 @@ public class SysLogDTO extends BaseDTO {
 	private String exceptionMsg;
 	// IP地址
 	private String executeIp;
+	// 版本号
+	private Integer version;
 	// 创建时间
 	private Date createTime;
 	// 更新时间
@@ -58,7 +60,7 @@ public class SysLogDTO extends BaseDTO {
 	
     public SysLogDTO () {}
 
-    public SysLogDTO (Long id, Long userId, String userAccount, String description, String userAgent, String requestUrl, String requestMethod, String requestParams, Integer responseCode, String responseMsg, String executeClass, String executeMethod, Date executeTime, Long executeCostTime, Byte hasException, String exceptionMsg, String executeIp, Date createTime, Date updateTime, Byte isActive) {
+    public SysLogDTO (Long id, Long userId, String userAccount, String description, String userAgent, String requestUrl, String requestMethod, String requestParams, Integer responseCode, String responseMsg, String executeClass, String executeMethod, Date executeTime, Long executeCostTime, Byte hasException, String exceptionMsg, String executeIp, Integer version, Date createTime, Date updateTime, Byte isActive) {
         this.id = id;
 		this.userId = userId;
 		this.userAccount = userAccount;
@@ -76,6 +78,7 @@ public class SysLogDTO extends BaseDTO {
 		this.hasException = hasException;
 		this.exceptionMsg = exceptionMsg;
 		this.executeIp = executeIp;
+		this.version = version;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
 		this.isActive = isActive;
@@ -218,6 +221,14 @@ public class SysLogDTO extends BaseDTO {
 		this.executeIp = executeIp;
 	}
 
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -263,6 +274,7 @@ public class SysLogDTO extends BaseDTO {
 				", hasException = " + hasException + 
 				", exceptionMsg = " + exceptionMsg + 
 				", executeIp = " + executeIp + 
+				", version = " + version + 
 				", createTime = " + createTime + 
 				", updateTime = " + updateTime + 
 				", isActive = " + isActive + 

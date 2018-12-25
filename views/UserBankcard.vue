@@ -118,6 +118,20 @@
 <FormItem label="银行卡号" prop="bankcardNo">
 	<Input v-model="searchForm.bankcardNo"/>
 </FormItem>
+<FormItem label="版本号"><Row>
+	<i-col span="11">
+	<FormItem prop="versionMin">
+	<InputNumber v-model="searchForm.versionMin" style="width: 100%;"/>
+</FormItem>
+</i-col>
+	<i-col span="2" style="text-align: center">-</i-col>
+	<i-col span="11">
+	<FormItem prop="versionMax">
+	<InputNumber v-model="searchForm.versionMax" style="width: 100%;"/>
+</FormItem>
+</i-col>
+</Row>
+</FormItem>
 <FormItem label="创建时间"><Row>
 	<i-col span="11">
 	<FormItem prop="createTimeMin">
@@ -175,6 +189,7 @@
 <p>银行代码: <span v-text="form.bankCode"></span></p>
 <p>银行名称: <span v-text="form.bankName"></span></p>
 <p>银行卡号: <span v-text="form.bankcardNo"></span></p>
+<p>版本号: <span v-text="form.version"></span></p>
 <p>创建时间: <span v-text="form.createTime"></span></p>
 <p>更新时间: <span v-text="form.updateTime"></span></p>
 <p>是否激活: <span v-text="form.isActive"></span></p>
@@ -196,11 +211,11 @@
           search: false,
           detail: false
         },
-          loading: {
-              add: false,
-              edit: false,
-              search: false
-          },
+        loading: {
+          add: false,
+          edit: false,
+          search: false
+        },
         urls: {
           addUrl: '/user-bankcard/save',
           batchAddUrl: '/user-bankcard/batch-save',
@@ -224,6 +239,7 @@ accountName: null,
 bankCode: null,
 bankName: null,
 bankcardNo: null,
+version: null,
 createTime: null,
 updateTime: null,
 isActive: null,
@@ -259,6 +275,9 @@ accountName: null,
 bankCode: null,
 bankName: null,
 bankcardNo: null,
+version: null,
+versionMin: null, 
+versionMax: null, 
 createTime: null,
 createTimeMin: null, 
 createTimeMax: null, 
@@ -321,6 +340,12 @@ sortable: true
 {
 title: '银行卡号',
 key: 'bankcardNo',
+width: 120,
+sortable: true
+},
+{
+title: '版本号',
+key: 'version',
 width: 120,
 sortable: true
 },
@@ -506,7 +531,7 @@ sortable: true
         utils.changePageSize(this, pageSize)
       },
       fitTable() {
-        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['id','userId','accountName','bankCode','bankName','bankcardNo','createTime','updateTime','isActive',])
+        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['id','userId','accountName','bankCode','bankName','bankcardNo','version','createTime','updateTime','isActive',])
       }
     }
   }

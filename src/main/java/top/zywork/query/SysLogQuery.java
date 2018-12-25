@@ -8,14 +8,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * SysLogQuery查询对象类<br/>
  *
- * 创建于2018-12-18<br/>
+ * 创建于2018-12-25<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class SysLogQuery extends PageQuery {
 
-    private static final long serialVersionUID = -9223372034753474023L;
+    private static final long serialVersionUID = -9223372035974256552L;
 
     // 日志编号
 	private Long id;
@@ -78,6 +78,12 @@ public class SysLogQuery extends PageQuery {
 	private String exceptionMsg;
 	// IP地址
 	private String executeIp;
+	// 版本号
+	private Integer version;
+	// 版本号（最小值）
+	private Integer versionMin;
+	// 版本号（最大值）
+	private Integer versionMax;
 	// 创建时间
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date createTime;
@@ -105,7 +111,7 @@ public class SysLogQuery extends PageQuery {
 	
     public SysLogQuery () {}
 
-    public SysLogQuery (Long id, Long idMin, Long idMax, Long userId, Long userIdMin, Long userIdMax, String userAccount, String description, String userAgent, String requestUrl, String requestMethod, String requestParams, Integer responseCode, Integer responseCodeMin, Integer responseCodeMax, String responseMsg, String executeClass, String executeMethod, Date executeTime, Date executeTimeMin, Date executeTimeMax, Long executeCostTime, Long executeCostTimeMin, Long executeCostTimeMax, Byte hasException, Byte hasExceptionMin, Byte hasExceptionMax, String exceptionMsg, String executeIp, Date createTime, Date createTimeMin, Date createTimeMax, Date updateTime, Date updateTimeMin, Date updateTimeMax, Byte isActive, Byte isActiveMin, Byte isActiveMax) {
+    public SysLogQuery (Long id, Long idMin, Long idMax, Long userId, Long userIdMin, Long userIdMax, String userAccount, String description, String userAgent, String requestUrl, String requestMethod, String requestParams, Integer responseCode, Integer responseCodeMin, Integer responseCodeMax, String responseMsg, String executeClass, String executeMethod, Date executeTime, Date executeTimeMin, Date executeTimeMax, Long executeCostTime, Long executeCostTimeMin, Long executeCostTimeMax, Byte hasException, Byte hasExceptionMin, Byte hasExceptionMax, String exceptionMsg, String executeIp, Integer version, Integer versionMin, Integer versionMax, Date createTime, Date createTimeMin, Date createTimeMax, Date updateTime, Date updateTimeMin, Date updateTimeMax, Byte isActive, Byte isActiveMin, Byte isActiveMax) {
         this.id = id;
 		this.idMin = idMin;
 		this.idMax = idMax;
@@ -135,6 +141,9 @@ public class SysLogQuery extends PageQuery {
 		this.hasExceptionMax = hasExceptionMax;
 		this.exceptionMsg = exceptionMsg;
 		this.executeIp = executeIp;
+		this.version = version;
+		this.versionMin = versionMin;
+		this.versionMax = versionMax;
 		this.createTime = createTime;
 		this.createTimeMin = createTimeMin;
 		this.createTimeMax = createTimeMax;
@@ -379,6 +388,30 @@ public class SysLogQuery extends PageQuery {
 		this.executeIp = executeIp;
 	}
 
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+
+	public Integer getVersionMin() {
+		return versionMin;
+	}
+
+	public void setVersionMin(Integer versionMin) {
+		this.versionMin = versionMin;
+	}
+
+	public Integer getVersionMax() {
+		return versionMax;
+	}
+
+	public void setVersionMax(Integer versionMax) {
+		this.versionMax = versionMax;
+	}
+
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -484,6 +517,9 @@ public class SysLogQuery extends PageQuery {
 				", hasExceptionMax = " + hasExceptionMax + 
 				", exceptionMsg = " + exceptionMsg + 
 				", executeIp = " + executeIp + 
+				", version = " + version + 
+				", versionMin = " + versionMin + 
+				", versionMax = " + versionMax + 
 				", createTime = " + createTime + 
 				", createTimeMin = " + createTimeMin + 
 				", createTimeMax = " + createTimeMax + 

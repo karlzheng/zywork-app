@@ -12,14 +12,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * UserWalletVO值对象类<br/>
  *
- * 创建于2018-12-23<br/>
+ * 创建于2018-12-25<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class UserWalletVO extends BaseVO {
 
-    private static final long serialVersionUID = -9223372035470891826L;
+    private static final long serialVersionUID = -9223372035363664156L;
 
     // 钱包编号
 	private Long id;
@@ -32,6 +32,8 @@ public class UserWalletVO extends BaseVO {
 	private Long usableRmbBalance;
 	// 冻结余额
 	private Long frozenRmbBalance;
+	// 版本号
+	private Integer version;
 	// 创建时间
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date createTime;
@@ -43,12 +45,13 @@ public class UserWalletVO extends BaseVO {
 	
     public UserWalletVO () {}
 
-    public UserWalletVO (Long id, String payPassword, Long rmbBalance, Long usableRmbBalance, Long frozenRmbBalance, Date createTime, Date updateTime, Byte isActive) {
+    public UserWalletVO (Long id, String payPassword, Long rmbBalance, Long usableRmbBalance, Long frozenRmbBalance, Integer version, Date createTime, Date updateTime, Byte isActive) {
         this.id = id;
 		this.payPassword = payPassword;
 		this.rmbBalance = rmbBalance;
 		this.usableRmbBalance = usableRmbBalance;
 		this.frozenRmbBalance = frozenRmbBalance;
+		this.version = version;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
 		this.isActive = isActive;
@@ -95,6 +98,14 @@ public class UserWalletVO extends BaseVO {
 		this.frozenRmbBalance = frozenRmbBalance;
 	}
 
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -128,6 +139,7 @@ public class UserWalletVO extends BaseVO {
 				", rmbBalance = " + rmbBalance + 
 				", usableRmbBalance = " + usableRmbBalance + 
 				", frozenRmbBalance = " + frozenRmbBalance + 
+				", version = " + version + 
 				", createTime = " + createTime + 
 				", updateTime = " + updateTime + 
 				", isActive = " + isActive + 

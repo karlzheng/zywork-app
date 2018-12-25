@@ -19,7 +19,7 @@
     </Row>
     <Modal v-model="modal.search" title="高级搜索">
       <Form ref="searchForm" :model="searchForm" :label-width="80">
-        <FormItem label="银行卡编号"><Row>
+        <FormItem label="配置编号"><Row>
 	<i-col span="11">
 	<FormItem prop="idMin">
 	<InputNumber v-model="searchForm.idMin" style="width: 100%;"/>
@@ -33,31 +33,17 @@
 </i-col>
 </Row>
 </FormItem>
-<FormItem label="用户编号"><Row>
-	<i-col span="11">
-	<FormItem prop="userIdMin">
-	<InputNumber v-model="searchForm.userIdMin" style="width: 100%;"/>
+<FormItem label="配置名称" prop="name">
+	<Input v-model="searchForm.name"/>
 </FormItem>
-</i-col>
-	<i-col span="2" style="text-align: center">-</i-col>
-	<i-col span="11">
-	<FormItem prop="userIdMax">
-	<InputNumber v-model="searchForm.userIdMax" style="width: 100%;"/>
+<FormItem label="配置内容(JSON)" prop="value">
+	<Input v-model="searchForm.value"/>
 </FormItem>
-</i-col>
-</Row>
+<FormItem label="中文说明" prop="description">
+	<Input v-model="searchForm.description"/>
 </FormItem>
-<FormItem label="持卡人姓名" prop="accountName">
-	<Input v-model="searchForm.accountName"/>
-</FormItem>
-<FormItem label="银行代码" prop="bankCode">
-	<Input v-model="searchForm.bankCode"/>
-</FormItem>
-<FormItem label="银行名称" prop="bankName">
-	<Input v-model="searchForm.bankName"/>
-</FormItem>
-<FormItem label="银行卡号" prop="bankcardNo">
-	<Input v-model="searchForm.bankcardNo"/>
+<FormItem label="配置注释" prop="comment">
+	<Input v-model="searchForm.comment"/>
 </FormItem>
 <FormItem label="版本号"><Row>
 	<i-col span="11">
@@ -124,12 +110,11 @@
       </div>
     </Modal>
     <Modal v-model="modal.detail" title="详情">
-      <p>银行卡编号: <span v-text="form.id"></span></p>
-<p>用户编号: <span v-text="form.userId"></span></p>
-<p>持卡人姓名: <span v-text="form.accountName"></span></p>
-<p>银行代码: <span v-text="form.bankCode"></span></p>
-<p>银行名称: <span v-text="form.bankName"></span></p>
-<p>银行卡号: <span v-text="form.bankcardNo"></span></p>
+      <p>配置编号: <span v-text="form.id"></span></p>
+<p>配置名称: <span v-text="form.name"></span></p>
+<p>配置内容(JSON): <span v-text="form.value"></span></p>
+<p>中文说明: <span v-text="form.description"></span></p>
+<p>配置注释: <span v-text="form.comment"></span></p>
 <p>版本号: <span v-text="form.version"></span></p>
 <p>创建时间: <span v-text="form.createTime"></span></p>
 <p>更新时间: <span v-text="form.updateTime"></span></p>
@@ -143,7 +128,7 @@
   import * as utils from '@/api/utils'
 
   export default {
-    name: 'UserBankcardList',
+    name: 'SysConfigList',
     data() {
       return {
         modal: {
@@ -153,21 +138,20 @@
           detail: false
         },
         urls: {
-          searchUrl: '/user-bankcard/pager-cond',
-          allUrl: '/user-bankcard/all',
-          detailUrl: '/user-bankcard/one/',
-          multiUrl: '/user-bankcard/multi/'
+          searchUrl: '/sys-config/pager-cond',
+          allUrl: '/sys-config/all',
+          detailUrl: '/sys-config/one/',
+          multiUrl: '/sys-config/multi/'
         },
         page: {
           total: 0
         },
         form: {
           id: null,
-userId: null,
-accountName: null,
-bankCode: null,
-bankName: null,
-bankcardNo: null,
+name: null,
+value: null,
+description: null,
+comment: null,
 version: null,
 createTime: null,
 updateTime: null,
@@ -182,13 +166,10 @@ isActive: null,
           id: null,
 idMin: null, 
 idMax: null, 
-userId: null,
-userIdMin: null, 
-userIdMax: null, 
-accountName: null,
-bankCode: null,
-bankName: null,
-bankcardNo: null,
+name: null,
+value: null,
+description: null,
+comment: null,
 version: null,
 versionMin: null, 
 versionMax: null, 
@@ -222,38 +203,32 @@ isActiveMax: null,
               }
             },
             {
-title: '银行卡编号',
+title: '配置编号',
 key: 'id',
 width: 120,
 sortable: true
 },
 {
-title: '用户编号',
-key: 'userId',
+title: '配置名称',
+key: 'name',
 width: 120,
 sortable: true
 },
 {
-title: '持卡人姓名',
-key: 'accountName',
+title: '配置内容(JSON)',
+key: 'value',
 width: 120,
 sortable: true
 },
 {
-title: '银行代码',
-key: 'bankCode',
+title: '中文说明',
+key: 'description',
 width: 120,
 sortable: true
 },
 {
-title: '银行名称',
-key: 'bankName',
-width: 120,
-sortable: true
-},
-{
-title: '银行卡号',
-key: 'bankcardNo',
+title: '配置注释',
+key: 'comment',
 width: 120,
 sortable: true
 },
@@ -361,7 +336,7 @@ sortable: true
         utils.changePageSize(this, pageSize)
       },
       fitTable() {
-        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['id','userId','accountName','bankCode','bankName','bankcardNo','version','createTime','updateTime','isActive',])
+        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['id','name','value','description','comment','version','createTime','updateTime','isActive',])
       },
       confirmSelection() {
         // 确认选择的逻辑

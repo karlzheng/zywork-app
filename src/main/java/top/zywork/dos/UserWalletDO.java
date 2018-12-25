@@ -6,14 +6,14 @@ import java.util.Date;
 /**
  * UserWalletDO数据对象实体类<br/>
  *
- * 创建于2018-12-23<br/>
+ * 创建于2018-12-25<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class UserWalletDO extends BaseDO {
 
-    private static final long serialVersionUID = -9223372036625541162L;
+    private static final long serialVersionUID = -9223372034771161833L;
 
     // 钱包编号
 	private Long id;
@@ -25,6 +25,8 @@ public class UserWalletDO extends BaseDO {
 	private Long usableRmbBalance;
 	// 冻结余额
 	private Long frozenRmbBalance;
+	// 版本号
+	private Integer version;
 	// 创建时间
 	private Date createTime;
 	// 更新时间
@@ -34,12 +36,13 @@ public class UserWalletDO extends BaseDO {
 	
     public UserWalletDO () {}
 
-    public UserWalletDO (Long id, String payPassword, Long rmbBalance, Long usableRmbBalance, Long frozenRmbBalance, Date createTime, Date updateTime, Byte isActive) {
+    public UserWalletDO (Long id, String payPassword, Long rmbBalance, Long usableRmbBalance, Long frozenRmbBalance, Integer version, Date createTime, Date updateTime, Byte isActive) {
         this.id = id;
 		this.payPassword = payPassword;
 		this.rmbBalance = rmbBalance;
 		this.usableRmbBalance = usableRmbBalance;
 		this.frozenRmbBalance = frozenRmbBalance;
+		this.version = version;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
 		this.isActive = isActive;
@@ -86,6 +89,14 @@ public class UserWalletDO extends BaseDO {
 		this.frozenRmbBalance = frozenRmbBalance;
 	}
 
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -119,6 +130,7 @@ public class UserWalletDO extends BaseDO {
 				", rmbBalance = " + rmbBalance + 
 				", usableRmbBalance = " + usableRmbBalance + 
 				", frozenRmbBalance = " + frozenRmbBalance + 
+				", version = " + version + 
 				", createTime = " + createTime + 
 				", updateTime = " + updateTime + 
 				", isActive = " + isActive + 

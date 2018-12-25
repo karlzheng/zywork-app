@@ -6,14 +6,14 @@ import java.util.Date;
 /**
  * UserBankcardDO数据对象实体类<br/>
  *
- * 创建于2018-12-24<br/>
+ * 创建于2018-12-25<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class UserBankcardDO extends BaseDO {
 
-    private static final long serialVersionUID = -9223372035751585101L;
+    private static final long serialVersionUID = -9223372036183938697L;
 
     // 银行卡编号
 	private Long id;
@@ -27,6 +27,8 @@ public class UserBankcardDO extends BaseDO {
 	private String bankName;
 	// 银行卡号
 	private String bankcardNo;
+	// 版本号
+	private Integer version;
 	// 创建时间
 	private Date createTime;
 	// 更新时间
@@ -36,13 +38,14 @@ public class UserBankcardDO extends BaseDO {
 	
     public UserBankcardDO () {}
 
-    public UserBankcardDO (Long id, Long userId, String accountName, String bankCode, String bankName, String bankcardNo, Date createTime, Date updateTime, Byte isActive) {
+    public UserBankcardDO (Long id, Long userId, String accountName, String bankCode, String bankName, String bankcardNo, Integer version, Date createTime, Date updateTime, Byte isActive) {
         this.id = id;
 		this.userId = userId;
 		this.accountName = accountName;
 		this.bankCode = bankCode;
 		this.bankName = bankName;
 		this.bankcardNo = bankcardNo;
+		this.version = version;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
 		this.isActive = isActive;
@@ -97,6 +100,14 @@ public class UserBankcardDO extends BaseDO {
 		this.bankcardNo = bankcardNo;
 	}
 
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -131,6 +142,7 @@ public class UserBankcardDO extends BaseDO {
 				", bankCode = " + bankCode + 
 				", bankName = " + bankName + 
 				", bankcardNo = " + bankcardNo + 
+				", version = " + version + 
 				", createTime = " + createTime + 
 				", updateTime = " + updateTime + 
 				", isActive = " + isActive + 

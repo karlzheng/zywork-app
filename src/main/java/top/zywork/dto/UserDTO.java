@@ -6,14 +6,14 @@ import java.util.Date;
 /**
  * UserDTO数据传输对象类<br/>
  *
- * 创建于2018-12-24<br/>
+ * 创建于2018-12-25<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class UserDTO extends BaseDTO {
 
-    private static final long serialVersionUID = -9223372035851663344L;
+    private static final long serialVersionUID = -9223372034921205042L;
 
     // 用户编号
 	private Long id;
@@ -25,6 +25,8 @@ public class UserDTO extends BaseDTO {
 	private String password;
 	// 加密盐值
 	private String salt;
+	// 版本号
+	private Integer version;
 	// 创建时间
 	private Date createTime;
 	// 更新时间
@@ -34,12 +36,13 @@ public class UserDTO extends BaseDTO {
 	
     public UserDTO () {}
 
-    public UserDTO (Long id, String phone, String email, String password, String salt, Date createTime, Date updateTime, Byte isActive) {
+    public UserDTO (Long id, String phone, String email, String password, String salt, Integer version, Date createTime, Date updateTime, Byte isActive) {
         this.id = id;
 		this.phone = phone;
 		this.email = email;
 		this.password = password;
 		this.salt = salt;
+		this.version = version;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
 		this.isActive = isActive;
@@ -86,6 +89,14 @@ public class UserDTO extends BaseDTO {
 		this.salt = salt;
 	}
 
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -119,6 +130,7 @@ public class UserDTO extends BaseDTO {
 				", email = " + email + 
 				", password = " + password + 
 				", salt = " + salt + 
+				", version = " + version + 
 				", createTime = " + createTime + 
 				", updateTime = " + updateTime + 
 				", isActive = " + isActive + 

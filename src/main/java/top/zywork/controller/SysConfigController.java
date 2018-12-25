@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * SysConfigController控制器类<br/>
  *
- * 创建于2018-12-20<br/>
+ * 创建于2018-12-25<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
@@ -105,8 +105,12 @@ public class SysConfigController extends BaseController {
             statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), BindingResultUtils.errorString(bindingResult), null);
         } else {
             try {
-                sysConfigService.update(BeanUtils.copy(sysConfigVO, SysConfigDTO.class));
-                statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "更新成功", null);
+                int updateRows = sysConfigService.update(BeanUtils.copy(sysConfigVO, SysConfigDTO.class));
+                if (updateRows == 1) {
+                    statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "更新成功", null);
+                } else {
+                    statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "数据版本号有问题，在此更新前数据已被更新", null);
+                }
             } catch (ServiceException e) {
                 logger.error("更新失败：{}", e.getMessage());
                 statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "更新失败", null);

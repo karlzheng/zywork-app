@@ -105,8 +105,12 @@ public class UserWalletController extends BaseController {
             statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), BindingResultUtils.errorString(bindingResult), null);
         } else {
             try {
-                userWalletService.update(BeanUtils.copy(userWalletVO, UserWalletDTO.class));
-                statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "更新成功", null);
+                int updateRows = userWalletService.update(BeanUtils.copy(userWalletVO, UserWalletDTO.class));
+                if (updateRows == 1) {
+                    statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "更新成功", null);
+                } else {
+                    statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "数据版本号有问题，在此更新前数据已被更新", null);
+                }
             } catch (ServiceException e) {
                 logger.error("更新失败：{}", e.getMessage());
                 statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "更新失败", null);

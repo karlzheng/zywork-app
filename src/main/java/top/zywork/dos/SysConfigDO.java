@@ -6,14 +6,14 @@ import java.util.Date;
 /**
  * SysConfigDO数据对象实体类<br/>
  *
- * 创建于2018-12-20<br/>
+ * 创建于2018-12-25<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class SysConfigDO extends BaseDO {
 
-    private static final long serialVersionUID = -9223372036827396109L;
+    private static final long serialVersionUID = -9223372035654182709L;
 
     // 配置编号
 	private Long id;
@@ -25,6 +25,8 @@ public class SysConfigDO extends BaseDO {
 	private String description;
 	// 配置注释
 	private String comment;
+	// 版本号
+	private Integer version;
 	// 创建时间
 	private Date createTime;
 	// 更新时间
@@ -34,12 +36,13 @@ public class SysConfigDO extends BaseDO {
 	
     public SysConfigDO () {}
 
-    public SysConfigDO (Long id, String name, String value, String description, String comment, Date createTime, Date updateTime, Byte isActive) {
+    public SysConfigDO (Long id, String name, String value, String description, String comment, Integer version, Date createTime, Date updateTime, Byte isActive) {
         this.id = id;
 		this.name = name;
 		this.value = value;
 		this.description = description;
 		this.comment = comment;
+		this.version = version;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
 		this.isActive = isActive;
@@ -86,6 +89,14 @@ public class SysConfigDO extends BaseDO {
 		this.comment = comment;
 	}
 
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -119,6 +130,7 @@ public class SysConfigDO extends BaseDO {
 				", value = " + value + 
 				", description = " + description + 
 				", comment = " + comment + 
+				", version = " + version + 
 				", createTime = " + createTime + 
 				", updateTime = " + updateTime + 
 				", isActive = " + isActive + 

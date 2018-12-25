@@ -25,6 +25,9 @@
 			<if test="bankcardNo != null">
 				bankcard_no,
 			</if>
+			<if test="version != null">
+				version,
+			</if>
 			<if test="createTime != null">
 				create_time,
 			</if>
@@ -51,6 +54,9 @@
 			</if>
 			<if test="bankcardNo != null">
 				#{bankcardNo},
+			</if>
+			<if test="version != null">
+				#{version},
 			</if>
 			<if test="createTime != null">
 				#{createTime},
@@ -87,6 +93,9 @@
 			<if test="item.bankcardNo != null">
 				bankcard_no,
 			</if>
+			<if test="item.version != null">
+				version,
+			</if>
 			<if test="item.createTime != null">
 				create_time,
 			</if>
@@ -113,6 +122,9 @@
 			</if>
 			<if test="item.bankcardNo != null">
 				#{item.bankcardNo},
+			</if>
+			<if test="item.version != null">
+				#{item.version},
 			</if>
 			<if test="item.createTime != null">
 				#{item.createTime},
@@ -157,6 +169,9 @@
 			<if test="bankcardNo != null">
 				bankcard_no = #{bankcardNo},
 			</if>
+			<if test="version != null">
+				version = #{version},
+			</if>
 			<if test="createTime != null">
 				create_time = #{createTime},
 			</if>
@@ -168,7 +183,7 @@
 			</if>
 			update_time = CURRENT_TIMESTAMP,
         </set>
-        where id = #{id}
+        where id = #{id} and version + 1 <![CDATA[<=]]> #{version}
     </update>
 
     <update id="updateBatch" parameterType="java.util.List">
@@ -190,6 +205,9 @@
 			<if test="item.bankcardNo != null">
 				bankcard_no = #{item.bankcardNo},
 			</if>
+			<if test="item.version != null">
+				version = #{item.version},
+			</if>
 			<if test="item.createTime != null">
 				create_time = #{item.createTime},
 			</if>
@@ -200,13 +218,16 @@
 				is_active = #{item.isActive},
 			</if>
 			update_time = CURRENT_TIMESTAMP,
+                <if test="item.version == null">
+                    version = version + 1,
+                </if>
             </set>
             where id = #{item.id}
         </foreach>
     </update>
 
     <sql id="select_columns">
-        id as id, user_id as userId, account_name as accountName, bank_code as bankCode, bank_name as bankName, bankcard_no as bankcardNo, create_time as createTime, update_time as updateTime, is_active as isActive
+        id as id, user_id as userId, account_name as accountName, bank_code as bankCode, bank_name as bankName, bankcard_no as bankcardNo, version as version, create_time as createTime, update_time as updateTime, is_active as isActive
     </sql>
 
     <sql id="query_where_clause">
@@ -245,6 +266,18 @@
 		</if>
 		<if test="query != null and query.bankcardNo != null and query.bankcardNo != ''">
 			and bankcard_no like concat('%', #{query.bankcardNo}, '%')
+		</if>
+		<if test="query != null and query.version != null">
+			and version = #{query.version}
+		</if>
+		<if test="query != null and query.versionMin != null and query.versionMax == null">
+			and version <![CDATA[ >= ]]> #{query.versionMin}
+		</if>
+		<if test="query != null and query.versionMin == null and query.versionMax != null">
+			and version <![CDATA[ <= ]]> #{query.versionMax}
+		</if>
+		<if test="query != null and query.versionMin != null and query.versionMax != null">
+			and version <![CDATA[ >= ]]> #{query.versionMin} and version <![CDATA[ <= ]]> #{query.versionMax}
 		</if>
 		<if test="query != null and query.createTime != null">
 			and create_time = #{query.createTime}
@@ -289,6 +322,10 @@
         select
         <include refid="select_columns"/>
         from t_user_bankcard where id = #{id}
+    </select>
+
+    <select id="getVersionById" parameterType="long" resultType="integer">
+        select version from t_user_bankcard where id = #{id}
     </select>
 
     <select id="listAll" resultType="userBankcardDO">

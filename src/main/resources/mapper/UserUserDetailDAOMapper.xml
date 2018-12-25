@@ -5,7 +5,7 @@
 <mapper namespace="top.zywork.dao.UserUserDetailDAO">
 
     <sql id="select_columns">
-        t_user.id as userId, t_user.phone as userPhone, t_user.email as userEmail, t_user.create_time as userCreateTime, t_user_detail.nickname as userDetailNickname, t_user_detail.headicon as userDetailHeadicon, t_user_detail.identity as userDetailIdentity, t_user_detail.real_name as userDetailRealName, t_user_detail.gender as userDetailGender, t_user_detail.birthday as userDetailBirthday, t_user_detail.age as userDetailAge, t_user_detail.qq as userDetailQq, t_user_detail.qq_qrcode as userDetailQqQrcode, t_user_detail.wechat as userDetailWechat, t_user_detail.wechat_qrcode as userDetailWechatQrcode, t_user_detail.alipay as userDetailAlipay, t_user_detail.alipay_qrcode as userDetailAlipayQrcode, t_user_detail.share_code as userDetailShareCode
+        t_user.id as userId, t_user.phone as userPhone, t_user.email as userEmail, t_user.create_time as userCreateTime, t_user_detail.nickname as userDetailNickname, t_user_detail.headicon as userDetailHeadicon, t_user_detail.gender as userDetailGender, t_user_detail.birthday as userDetailBirthday, t_user_detail.age as userDetailAge, t_user_detail.qq as userDetailQq, t_user_detail.qq_qrcode as userDetailQqQrcode, t_user_detail.wechat as userDetailWechat, t_user_detail.wechat_qrcode as userDetailWechatQrcode, t_user_detail.alipay as userDetailAlipay, t_user_detail.alipay_qrcode as userDetailAlipayQrcode, t_user_detail.share_code as userDetailShareCode, t_user_detail.version as userDetailVersion
     </sql>
 
     <sql id="query_where_clause">
@@ -44,12 +44,6 @@
 		</if>
 		<if test="query != null and query.userDetailHeadicon != null and query.userDetailHeadicon != ''">
 			and t_user_detail.headicon like concat('%', #{query.userDetailHeadicon}, '%')
-		</if>
-		<if test="query != null and query.userDetailIdentity != null and query.userDetailIdentity != ''">
-			and t_user_detail.identity like concat('%', #{query.userDetailIdentity}, '%')
-		</if>
-		<if test="query != null and query.userDetailRealName != null and query.userDetailRealName != ''">
-			and t_user_detail.real_name like concat('%', #{query.userDetailRealName}, '%')
 		</if>
 		<if test="query != null and query.userDetailGender != null">
 			and t_user_detail.gender = #{query.userDetailGender}
@@ -107,6 +101,18 @@
 		</if>
 		<if test="query != null and query.userDetailShareCode != null and query.userDetailShareCode != ''">
 			and t_user_detail.share_code like concat('%', #{query.userDetailShareCode}, '%')
+		</if>
+		<if test="query != null and query.userDetailVersion != null">
+			and t_user_detail.version = #{query.userDetailVersion}
+		</if>
+		<if test="query != null and query.userDetailVersionMin != null and query.userDetailVersionMax == null">
+			and t_user_detail.version <![CDATA[ >= ]]> #{query.userDetailVersionMin}
+		</if>
+		<if test="query != null and query.userDetailVersionMin == null and query.userDetailVersionMax != null">
+			and t_user_detail.version <![CDATA[ <= ]]> #{query.userDetailVersionMax}
+		</if>
+		<if test="query != null and query.userDetailVersionMin != null and query.userDetailVersionMax != null">
+			and t_user_detail.version <![CDATA[ >= ]]> #{query.userDetailVersionMin} and t_user_detail.version <![CDATA[ <= ]]> #{query.userDetailVersionMax}
 		</if>
 		
         and

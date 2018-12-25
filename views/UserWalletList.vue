@@ -78,6 +78,20 @@
 </i-col>
 </Row>
 </FormItem>
+<FormItem label="版本号"><Row>
+	<i-col span="11">
+	<FormItem prop="versionMin">
+	<InputNumber v-model="searchForm.versionMin" style="width: 100%;"/>
+</FormItem>
+</i-col>
+	<i-col span="2" style="text-align: center">-</i-col>
+	<i-col span="11">
+	<FormItem prop="versionMax">
+	<InputNumber v-model="searchForm.versionMax" style="width: 100%;"/>
+</FormItem>
+</i-col>
+</Row>
+</FormItem>
 <FormItem label="创建时间"><Row>
 	<i-col span="11">
 	<FormItem prop="createTimeMin">
@@ -125,7 +139,7 @@
       <div slot="footer">
         <Button type="text" size="large" @click="resetForm('searchForm')">清空</Button>
         <Button type="text" size="large" @click="cancelModal('search')">取消</Button>
-        <Button type="primary" size="large" @click="searchOkModal('search')" :loading="loading.search">搜索</Button>
+        <Button type="primary" size="large" @click="searchOkModal('search')">确定</Button>
       </div>
     </Modal>
     <Modal v-model="modal.detail" title="详情">
@@ -134,6 +148,7 @@
 <p>人民币余额: <span v-text="form.rmbBalance"></span></p>
 <p>可用余额: <span v-text="form.usableRmbBalance"></span></p>
 <p>冻结余额: <span v-text="form.frozenRmbBalance"></span></p>
+<p>版本号: <span v-text="form.version"></span></p>
 <p>创建时间: <span v-text="form.createTime"></span></p>
 <p>更新时间: <span v-text="form.updateTime"></span></p>
 <p>是否激活: <span v-text="form.isActive"></span></p>
@@ -155,9 +170,6 @@
           search: false,
           detail: false
         },
-          loading: {
-              search: false
-          },
         urls: {
           searchUrl: '/user-wallet/pager-cond',
           allUrl: '/user-wallet/all',
@@ -173,6 +185,7 @@ payPassword: null,
 rmbBalance: null,
 usableRmbBalance: null,
 frozenRmbBalance: null,
+version: null,
 createTime: null,
 updateTime: null,
 isActive: null,
@@ -196,6 +209,9 @@ usableRmbBalanceMax: null,
 frozenRmbBalance: null,
 frozenRmbBalanceMin: null, 
 frozenRmbBalanceMax: null, 
+version: null,
+versionMin: null, 
+versionMax: null, 
 createTime: null,
 createTimeMin: null, 
 createTimeMax: null, 
@@ -252,6 +268,12 @@ sortable: true
 {
 title: '冻结余额',
 key: 'frozenRmbBalance',
+width: 120,
+sortable: true
+},
+{
+title: '版本号',
+key: 'version',
 width: 120,
 sortable: true
 },
@@ -353,7 +375,7 @@ sortable: true
         utils.changePageSize(this, pageSize)
       },
       fitTable() {
-        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['id','payPassword','rmbBalance','usableRmbBalance','frozenRmbBalance','createTime','updateTime','isActive',])
+        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['id','payPassword','rmbBalance','usableRmbBalance','frozenRmbBalance','version','createTime','updateTime','isActive',])
       },
       confirmSelection() {
         // 确认选择的逻辑

@@ -8,14 +8,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * UserUserDetailQuery查询对象类<br/>
  *
- * 创建于2018-12-21<br/>
+ * 创建于2018-12-25<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class UserUserDetailQuery extends PageQuery {
 
-    private static final long serialVersionUID = -9223372036068598148L;
+    private static final long serialVersionUID = -9223372035733422730L;
 
     //t_user表的字段对应的属性
 	// 用户编号
@@ -42,10 +42,6 @@ public class UserUserDetailQuery extends PageQuery {
 	private String userDetailNickname;
 	// 头像地址
 	private String userDetailHeadicon;
-	// 身份证号
-	private String userDetailIdentity;
-	// 真实姓名
-	private String userDetailRealName;
 	// 性别
 	private Byte userDetailGender;
 	// 性别（最小值）
@@ -81,10 +77,16 @@ public class UserUserDetailQuery extends PageQuery {
 	private String userDetailAlipayQrcode;
 	// 分享码
 	private String userDetailShareCode;
+	// 版本号
+	private Integer userDetailVersion;
+	// 版本号（最小值）
+	private Integer userDetailVersionMin;
+	// 版本号（最大值）
+	private Integer userDetailVersionMax;
 	
     public UserUserDetailQuery () {}
 
-    public UserUserDetailQuery (Long userId, Long userIdMin, Long userIdMax, String userPhone, String userEmail, Date userCreateTime, Date userCreateTimeMin, Date userCreateTimeMax, String userDetailNickname, String userDetailHeadicon, String userDetailIdentity, String userDetailRealName, Byte userDetailGender, Byte userDetailGenderMin, Byte userDetailGenderMax, Date userDetailBirthday, Date userDetailBirthdayMin, Date userDetailBirthdayMax, Integer userDetailAge, Integer userDetailAgeMin, Integer userDetailAgeMax, String userDetailQq, String userDetailQqQrcode, String userDetailWechat, String userDetailWechatQrcode, String userDetailAlipay, String userDetailAlipayQrcode, String userDetailShareCode) {
+    public UserUserDetailQuery (Long userId, Long userIdMin, Long userIdMax, String userPhone, String userEmail, Date userCreateTime, Date userCreateTimeMin, Date userCreateTimeMax, String userDetailNickname, String userDetailHeadicon, Byte userDetailGender, Byte userDetailGenderMin, Byte userDetailGenderMax, Date userDetailBirthday, Date userDetailBirthdayMin, Date userDetailBirthdayMax, Integer userDetailAge, Integer userDetailAgeMin, Integer userDetailAgeMax, String userDetailQq, String userDetailQqQrcode, String userDetailWechat, String userDetailWechatQrcode, String userDetailAlipay, String userDetailAlipayQrcode, String userDetailShareCode, Integer userDetailVersion, Integer userDetailVersionMin, Integer userDetailVersionMax) {
         this.userId = userId;
 		this.userIdMin = userIdMin;
 		this.userIdMax = userIdMax;
@@ -95,8 +97,6 @@ public class UserUserDetailQuery extends PageQuery {
 		this.userCreateTimeMax = userCreateTimeMax;
 		this.userDetailNickname = userDetailNickname;
 		this.userDetailHeadicon = userDetailHeadicon;
-		this.userDetailIdentity = userDetailIdentity;
-		this.userDetailRealName = userDetailRealName;
 		this.userDetailGender = userDetailGender;
 		this.userDetailGenderMin = userDetailGenderMin;
 		this.userDetailGenderMax = userDetailGenderMax;
@@ -113,6 +113,9 @@ public class UserUserDetailQuery extends PageQuery {
 		this.userDetailAlipay = userDetailAlipay;
 		this.userDetailAlipayQrcode = userDetailAlipayQrcode;
 		this.userDetailShareCode = userDetailShareCode;
+		this.userDetailVersion = userDetailVersion;
+		this.userDetailVersionMin = userDetailVersionMin;
+		this.userDetailVersionMax = userDetailVersionMax;
 		
     }
 
@@ -194,22 +197,6 @@ public class UserUserDetailQuery extends PageQuery {
 
 	public void setUserDetailHeadicon(String userDetailHeadicon) {
 		this.userDetailHeadicon = userDetailHeadicon;
-	}
-
-	public String getUserDetailIdentity() {
-		return userDetailIdentity;
-	}
-
-	public void setUserDetailIdentity(String userDetailIdentity) {
-		this.userDetailIdentity = userDetailIdentity;
-	}
-
-	public String getUserDetailRealName() {
-		return userDetailRealName;
-	}
-
-	public void setUserDetailRealName(String userDetailRealName) {
-		this.userDetailRealName = userDetailRealName;
 	}
 
 	public Byte getUserDetailGender() {
@@ -340,6 +327,30 @@ public class UserUserDetailQuery extends PageQuery {
 		this.userDetailShareCode = userDetailShareCode;
 	}
 
+	public Integer getUserDetailVersion() {
+		return userDetailVersion;
+	}
+
+	public void setUserDetailVersion(Integer userDetailVersion) {
+		this.userDetailVersion = userDetailVersion;
+	}
+
+	public Integer getUserDetailVersionMin() {
+		return userDetailVersionMin;
+	}
+
+	public void setUserDetailVersionMin(Integer userDetailVersionMin) {
+		this.userDetailVersionMin = userDetailVersionMin;
+	}
+
+	public Integer getUserDetailVersionMax() {
+		return userDetailVersionMax;
+	}
+
+	public void setUserDetailVersionMax(Integer userDetailVersionMax) {
+		this.userDetailVersionMax = userDetailVersionMax;
+	}
+
 	
     @Override
     public String toString() {
@@ -354,8 +365,6 @@ public class UserUserDetailQuery extends PageQuery {
 				", userCreateTimeMax = " + userCreateTimeMax + 
 				", userDetailNickname = " + userDetailNickname + 
 				", userDetailHeadicon = " + userDetailHeadicon + 
-				", userDetailIdentity = " + userDetailIdentity + 
-				", userDetailRealName = " + userDetailRealName + 
 				", userDetailGender = " + userDetailGender + 
 				", userDetailGenderMin = " + userDetailGenderMin + 
 				", userDetailGenderMax = " + userDetailGenderMax + 
@@ -372,6 +381,9 @@ public class UserUserDetailQuery extends PageQuery {
 				", userDetailAlipay = " + userDetailAlipay + 
 				", userDetailAlipayQrcode = " + userDetailAlipayQrcode + 
 				", userDetailShareCode = " + userDetailShareCode + 
+				", userDetailVersion = " + userDetailVersion + 
+				", userDetailVersionMin = " + userDetailVersionMin + 
+				", userDetailVersionMax = " + userDetailVersionMax + 
 				" }";
     }
 

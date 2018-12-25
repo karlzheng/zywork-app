@@ -12,14 +12,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * UserBankcardVO值对象类<br/>
  *
- * 创建于2018-12-24<br/>
+ * 创建于2018-12-25<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class UserBankcardVO extends BaseVO {
 
-    private static final long serialVersionUID = -9223372034826419996L;
+    private static final long serialVersionUID = -9223372035824324503L;
 
     // 银行卡编号
 	private Long id;
@@ -37,6 +37,8 @@ public class UserBankcardVO extends BaseVO {
 	// 银行卡号
 	@Size(min = 0, max = 25, message = "必须小于25个字符")
 	private String bankcardNo;
+	// 版本号
+	private Integer version;
 	// 创建时间
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date createTime;
@@ -48,13 +50,14 @@ public class UserBankcardVO extends BaseVO {
 	
     public UserBankcardVO () {}
 
-    public UserBankcardVO (Long id, Long userId, String accountName, String bankCode, String bankName, String bankcardNo, Date createTime, Date updateTime, Byte isActive) {
+    public UserBankcardVO (Long id, Long userId, String accountName, String bankCode, String bankName, String bankcardNo, Integer version, Date createTime, Date updateTime, Byte isActive) {
         this.id = id;
 		this.userId = userId;
 		this.accountName = accountName;
 		this.bankCode = bankCode;
 		this.bankName = bankName;
 		this.bankcardNo = bankcardNo;
+		this.version = version;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
 		this.isActive = isActive;
@@ -109,6 +112,14 @@ public class UserBankcardVO extends BaseVO {
 		this.bankcardNo = bankcardNo;
 	}
 
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -143,6 +154,7 @@ public class UserBankcardVO extends BaseVO {
 				", bankCode = " + bankCode + 
 				", bankName = " + bankName + 
 				", bankcardNo = " + bankcardNo + 
+				", version = " + version + 
 				", createTime = " + createTime + 
 				", updateTime = " + updateTime + 
 				", isActive = " + isActive + 
