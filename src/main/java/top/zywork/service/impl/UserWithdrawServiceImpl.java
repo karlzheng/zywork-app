@@ -49,7 +49,7 @@ public class UserWithdrawServiceImpl implements UserWithdrawService {
     @Transactional(rollbackFor = Exception.class)
     public int completeWithdraw(String withdrawNo, Byte withdrawStatus, Long userId, Long amount, Integer newVersion) {
         int updateRows = userWithdrawDAO.updateWithdraw(withdrawNo, withdrawStatus, newVersion);
-        if (withdrawStatus == WithdrawStatusEnum.SUCCESS.getValue().byteValue()) {
+        if (updateRows == 1 && withdrawStatus == WithdrawStatusEnum.SUCCESS.getValue().byteValue()) {
             // 如果提现成功，则更新钱包余额和可用余额
             saveAccountDetail(userId, amount, FundsChangeTypeEnum.WITHDRAW.getValue());
             Integer version = userWalletDAO.getVersionById(userId);

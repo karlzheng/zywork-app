@@ -92,7 +92,7 @@ public class UserWithdrawController {
                     if (updateRows == 1) {
                         statusVO.errorStatus(ResponseStatusEnum.OK.getCode(), "已取消提现", null);
                     } else {
-                        statusVO.errorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "数据版本号有问题，在取消前数据已被更新", null);
+                        statusVO.errorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "数据版本号有问题，在取消前提现记录已被更新", null);
                     }
                 } else {
                     statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "提现单号不属于此用户", null);
@@ -128,7 +128,7 @@ public class UserWithdrawController {
                     if (updateRows == 1) {
                         statusVO.errorStatus(ResponseStatusEnum.OK.getCode(), "审核成功", null);
                     } else {
-                        statusVO.errorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "数据版本号有问题，在审核前数据已被更新", null);
+                        statusVO.errorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "数据版本号有问题，在审核前提现记录已被更新", null);
                     }
                 } else {
                     statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "提现单号不正确或提现申请不是审核中状态", null);
@@ -170,7 +170,7 @@ public class UserWithdrawController {
                 if (updateRows == 1) {
                     statusVO.dataErrorStatus(ResponseStatusEnum.OK.getCode(), "已人工完成提现操作，提现" + WithdrawStatusEnum.findByValue(withdrawStatus.intValue()).getDes(), null);
                 } else {
-                    statusVO.errorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "数据版本号有问题，在完成提现前数据已被更新", null);
+                    statusVO.errorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "数据版本号有问题，在完成提现前提现记录已被更新", null);
                 }
             } else {
                 statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "提现单号不正确或提现申请不是已通过状态", null);
