@@ -21,7 +21,7 @@ public interface UserWithdrawDAO {
      * @param amount
      * @param bankcardId
      */
-    void saveWithdraw(@Param("userId") Long userId, @Param("withdrawNo") String withdrawNo, @Param("amount") Long amount, @Param("bankcardId") Long bankcardId);
+    int saveWithdraw(@Param("userId") Long userId, @Param("withdrawNo") String withdrawNo, @Param("amount") Long amount, @Param("bankcardId") Long bankcardId);
 
     /**
      * 更新用户提现，如审核未通过，需要提交未通过说明

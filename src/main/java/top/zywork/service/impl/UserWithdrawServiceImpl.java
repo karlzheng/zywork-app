@@ -31,8 +31,8 @@ public class UserWithdrawServiceImpl implements UserWithdrawService {
     private AccountDetailDAO accountDetailDAO;
 
     @Override
-    public void saveWithdraw(Long userId, String withdrawNo, Long amount, Long bankcardId) {
-        userWithdrawDAO.saveWithdraw(userId, withdrawNo, amount, bankcardId);
+    public int saveWithdraw(Long userId, String withdrawNo, Long amount, Long bankcardId) {
+        return userWithdrawDAO.saveWithdraw(userId, withdrawNo, amount, bankcardId);
     }
 
     @Override
@@ -52,18 +52,9 @@ public class UserWithdrawServiceImpl implements UserWithdrawService {
         if (updateRows == 1 && withdrawStatus == WithdrawStatusEnum.SUCCESS.getValue().byteValue()) {
             // 如果提现成功，则更新钱包余额和可用余额
             saveAccountDetail(userId, amount, FundsChangeTypeEnum.WITHDRAW.getValue());
-            Integer version = userWalletDAO.getVersionById(userId);
-            updateWallet(userId, -amount, version + 1);
+            userWalletDAO.updateWalletWithdraw(userId, amount);
         }
         return updateRows;
-    }
-
-    private void updateWallet(Long userId, Long amount, int newVersion) {
-        int updateRows = userWalletDAO.updateWallet(userId, amount, newVersion);
-        if (updateRows == 0) {
-            // 如果版本号有问题，此记录已经被更新过，则再次尝试更新
-            updateWallet(userId, amount, newVersion + 1);
-        }
     }
 
     private void saveAccountDetail(Long userId, Long amount, String fundsChangeType) {

@@ -43,7 +43,7 @@ public class UserRechargeServiceImpl implements UserRechargeService {
 
     private void updateWallet(Long userId, Long amount) {
         Integer version = userWalletDAO.getVersionById(userId);
-        int updateRows = userWalletDAO.updateWallet(userId, amount, version + 1);
+        int updateRows = userWalletDAO.updateWalletRecharge(userId, amount, version + 1);
         if (updateRows == 0) {
             // 如果版本号有问题，此记录已经被更新过，则再次尝试更新
             updateWallet(userId, amount);

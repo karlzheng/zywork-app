@@ -20,7 +20,7 @@ public interface UserWithdrawService {
      * @param amount
      * @param bankcardId
      */
-    void saveWithdraw(Long userId, String withdrawNo, Long amount, Long bankcardId);
+    int saveWithdraw(Long userId, String withdrawNo, Long amount, Long bankcardId);
 
     /**
      * 审核用户提现，审核后人工完成提现

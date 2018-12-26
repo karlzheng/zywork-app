@@ -50,14 +50,15 @@ public class UserWithdrawController {
                 if (obj != null) {
                     UserWalletDTO userWalletDTO = (UserWalletDTO) obj;
                     if (new BCryptPasswordEncoder().matches(payPassword, userWalletDTO.getPayPassword())) {
-                        long availableWithdraw = userWithdrawService.getAvailableWithdraw(userWalletDTO);
-                        if (availableWithdraw < amount) {
-                            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "提现金额必须小于等于可提现余额", availableWithdraw);
-                        } else if (amount <= 0) {
-                            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "提现金额必须大于0", null);
+                        if (amount > 0) {
+                            int saveRows = userWithdrawService.saveWithdraw(jwtUser.getUserId(), UUIDUtils.simpleUuid(), amount, bankcardId);
+                            if (saveRows == 1) {
+                                statusVO.dataErrorStatus(ResponseStatusEnum.OK.getCode(), "提现申请提交成功", null);
+                            } else {
+                                statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "提现金额必须小于等于可提现余额", null);
+                            }
                         } else {
-                            userWithdrawService.saveWithdraw(jwtUser.getUserId(), UUIDUtils.simpleUuid(), amount, bankcardId);
-                            statusVO.dataErrorStatus(ResponseStatusEnum.OK.getCode(), "提现申请提交成功", null);
+                            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "提现金额必须大于0", null);
                         }
                     } else {
                         statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "支付密码错误", null);

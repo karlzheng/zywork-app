@@ -5,7 +5,15 @@
 <mapper namespace="top.zywork.dao.UserWithdrawDAO">
 
     <insert id="saveWithdraw">
-        insert into t_funds_withdraw(user_id, withdraw_no, amount, bankcard_id, withdraw_status) values(#{userId}, #{withdrawNo}, #{amount}, #{bankcardId}, 0)
+        <!-- 只有当可用余额大于等于提现金额加所有未完成的提现金额时才可申请提现 -->
+        insert into t_funds_withdraw(user_id, withdraw_no, amount, bankcard_id, withdraw_status)
+        select #{userId}, #{withdrawNo}, #{amount}, #{bankcardId}, 0 from dual
+        where exists(
+				select t_user_wallet.usable_rmb_balance as usableRmbBalance,
+				(select ifnull(sum(t_funds_withdraw.amount), 0)
+				from t_funds_withdraw where t_funds_withdraw.user_id = #{userId} and t_funds_withdraw.complete_time is null) as withdrawAmount
+				from t_user_wallet where t_user_wallet.id = #{userId}
+				having usableRmbBalance - withdrawAmount >= #{amount})
     </insert>
 
     <update id="updateWithdrawCheck">

@@ -23,10 +23,17 @@ public interface UserWalletDAO extends BaseDAO {
     Long countByCondition(@Param("query") Object queryObj);
 
     /**
-     * 更新用户钱包余额和可用余额
+     * 充值时更新用户钱包余额和可用余额
      * @param userId
      * @param amount
      * @param newVersion
      */
-    int updateWallet(@Param("userId") Long userId, @Param("amount") Long amount, @Param("newVersion") Integer newVersion);
+    int updateWalletRecharge(@Param("userId") Long userId, @Param("amount") Long amount, @Param("newVersion") Integer newVersion);
+
+    /**
+     * 提现时更新用户钱包余额和可用余额
+     * @param userId
+     * @param amount
+     */
+    int updateWalletWithdraw(@Param("userId") Long userId, @Param("amount") Long amount);
 }
