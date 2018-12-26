@@ -45,11 +45,11 @@ public interface UserWithdrawDAO {
     int updateWithdraw(@Param("withdrawNo") String withdrawNo, @Param("withdrawStatus") Byte withdrawStatus, @Param("newVersion") Integer newVersion);
 
     /**
-     * 获取所有未完成的即complete_time为null的提现总额
+     * 获取可提现的金额
      * @param userId
      * @return
      */
-    Long getTotalUncompleteWithdraw(Long userId);
+    Long getAvailableWithdraw(Long userId);
 
     /**
      * 获取提现记录信息，包含用户编号和提现金额

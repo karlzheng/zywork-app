@@ -1,7 +1,6 @@
 package top.zywork.service;
 
 import top.zywork.dos.UserWithdrawDO;
-import top.zywork.dto.UserWalletDTO;
 
 /**
  * 用户提现Service接口<br/>
@@ -53,13 +52,6 @@ public interface UserWithdrawService {
     int completeWithdraw(String withdrawNo, Byte withdrawStatus, Long userId, Long amount, Integer newVersion);
 
     /**
-     * 获取所有未完成的即complete_time为null的提现总额
-     * @param userId
-     * @return
-     */
-    long getTotalUncompleteWithdraw(Long userId);
-
-    /**
      * 获取提现记录信息，包含用户编号和提现金额
      * @param withdrawNo
      * @return
@@ -68,8 +60,8 @@ public interface UserWithdrawService {
 
     /**
      * 获取可提现金额
-     * @param userWalletDTO
+     * @param userId
      * @return
      */
-    long getAvailableWithdraw(UserWalletDTO userWalletDTO);
+    long getAvailableWithdraw(Long userId);
 }

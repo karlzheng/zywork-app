@@ -44,8 +44,11 @@
         where withdraw_no = #{withdrawNo} and version + 1 <![CDATA[<=]]> #{newVersion}
     </update>
 
-    <select id="getTotalUncompleteWithdraw" parameterType="long" resultType="long">
-        select sum(amount) from t_funds_withdraw where id = #{userId} and complete_time is null
+    <select id="getAvailableWithdraw" parameterType="long" resultType="long">
+        select t_user_wallet.usable_rmb_balance -
+        (select ifnull(sum(t_funds_withdraw.amount), 0) from t_funds_withdraw where t_funds_withdraw.user_id = #{userId} and t_funds_withdraw.complete_time is null)
+		as availabeWithdraw
+	    from t_user_wallet where t_user_wallet.id = #{userId}
     </select>
 
     <select id="getByWithdrawNo" parameterType="string" resultType="userWithdrawDO">

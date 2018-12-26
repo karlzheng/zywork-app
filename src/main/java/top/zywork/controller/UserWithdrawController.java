@@ -37,6 +37,8 @@ public class UserWithdrawController {
     /**
      * 提交提现申请
      * @param amount
+     * @param bankcardId
+     * @param payPassword
      * @return
      */
     @PostMapping("submit")
@@ -69,6 +71,24 @@ public class UserWithdrawController {
             } else {
                 statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "必须填写提现金额、支付密码，并选择提现银行卡", null);
             }
+        } else {
+            statusVO.errorStatus(ResponseStatusEnum.AUTHENTICATION_ERROR.getCode(), ResponseStatusEnum.AUTHENTICATION_ERROR.getMessage(), null);
+        }
+        return statusVO;
+    }
+
+    /**
+     * 获取可提现金额
+     * @param
+     * @return
+     */
+    @PostMapping("available")
+    public ResponseStatusVO getAvailableWithdraw() {
+        ResponseStatusVO statusVO = new ResponseStatusVO();
+        JwtUser jwtUser = SecurityUtils.getJwtUser();
+        if (jwtUser != null) {
+            Long availableWithdraw = userWithdrawService.getAvailableWithdraw(jwtUser.getUserId());
+            statusVO.dataErrorStatus(ResponseStatusEnum.OK.getCode(), "获取可提现金额", availableWithdraw);
         } else {
             statusVO.errorStatus(ResponseStatusEnum.AUTHENTICATION_ERROR.getCode(), ResponseStatusEnum.AUTHENTICATION_ERROR.getMessage(), null);
         }

@@ -8,7 +8,6 @@ import top.zywork.dao.UserWalletDAO;
 import top.zywork.dao.UserWithdrawDAO;
 import top.zywork.dos.AccountDetailDO;
 import top.zywork.dos.UserWithdrawDO;
-import top.zywork.dto.UserWalletDTO;
 import top.zywork.enums.FundsChangeTypeEnum;
 import top.zywork.enums.WithdrawStatusEnum;
 import top.zywork.service.UserWithdrawService;
@@ -67,16 +66,8 @@ public class UserWithdrawServiceImpl implements UserWithdrawService {
     }
 
     @Override
-    public long getTotalUncompleteWithdraw(Long userId) {
-        Long totalUncomplete = userWithdrawDAO.getTotalUncompleteWithdraw(userId);
-        return totalUncomplete == null ? 0 : totalUncomplete;
-    }
-
-    @Override
-    public long getAvailableWithdraw(UserWalletDTO userWalletDTO) {
-        Long totalUncomplete = userWithdrawDAO.getTotalUncompleteWithdraw(userWalletDTO.getId());
-        return userWalletDTO.getUsableRmbBalance() - (totalUncomplete == null ? 0 : totalUncomplete);
-
+    public long getAvailableWithdraw(Long userId) {
+        return userWithdrawDAO.getAvailableWithdraw(userId);
     }
 
     @Override
