@@ -1,0 +1,101 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.zywork.dao.DistributionDAO">
+
+    <select id="listAllTop" resultType="distributionUserDO">
+        select * from
+        (
+        select t_user.id as userId, t_user.phone as phone, t_user_hierarchy.create_time as createTime
+        from t_user, t_user_hierarchy
+        where t_user.id = t_user_hierarchy.user_id
+        group by t_user.id, t_user.phone, t_user_hierarchy.create_time
+        having(count(t_user_hierarchy.user_id) = 1)
+        ) limit #{query.beginIndex}, #{query.pageSize}
+    </select>
+
+    <select id="countAllTop" resultType="long">
+        select count(t_user.id)
+        from t_user, t_user_hierarchy
+        where t_user.id = t_user_hierarchy.user_id
+        group by t_user.id, t_user.phone, t_user_hierarchy.create_time
+        having(count(t_user_hierarchy.user_id) = 1)
+    </select>
+
+    <select id="listAboveUsers" resultType="distributionUserDO">
+        select t_user.id as userId, t_user.phone as phone, uh.create_time as createTime, #{distributionLevel} - uh.user_level + 1 as level from t_user,
+        (
+	      select t_user_hierarchy.ancestor_id, t_user_hierarchy.user_level, t_user_hierarchy.create_time from t_user, t_user_hierarchy
+	      where t_user.id = t_user_hierarchy.ancestor_id
+	      and t_user_hierarchy.user_id = #{userId}
+	      and (
+            t_user_hierarchy.user_level in
+            <foreach item="level" collection="levels" separator="," open="(" close=")">
+              #{distributionLevel} - #{level} + 1
+            </foreach>
+          )
+        ) as uh
+        where t_user.id = uh.ancestor_id
+        order by uh.user_level desc limit #{query.beginIndex}, #{query.pageSize}
+    </select>
+
+    <select id="countAboveUsers" resultType="long">
+        select count(t_user.id) from t_user,
+        (
+        select t_user_hierarchy.ancestor_id, t_user_hierarchy.user_level, t_user_hierarchy.create_time from t_user, t_user_hierarchy
+        where t_user.id = t_user_hierarchy.ancestor_id
+        and t_user_hierarchy.user_id = #{userId}
+        and (
+        t_user_hierarchy.user_level in
+        <foreach item="level" collection="levels" separator="," open="(" close=")">
+            #{distributionLevel} - #{level} + 1
+        </foreach>
+        )
+        ) as uh
+        where t_user.id = uh.ancestor_id
+    </select>
+
+    <select id="listBelowUsers" resultType="distributionUserDO">
+        select t_user.id as userId, t_user.phone as phone, uh.create_time as createTime, uh.user_level as level from t_user,
+        (
+	      select t_user_hierarchy.user_id, t_user_hierarchy.user_level, t_user_hierarchy.create_time from t_user, t_user_hierarchy
+	      where t_user.id = t_user_hierarchy.ancestor_id
+	      and t_user.id = #{userId}
+	      and (
+	        t_user_hierarchy.user_level in
+            <foreach item="level" collection="levels" separator="," open="(" close=")">
+                #{level}
+            </foreach>
+	      )
+        ) as uh
+        where t_user.id = uh.user_id
+        order by uh.user_level limit #{query.beginIndex}, #{query.pageSize}
+    </select>
+
+    <select id="countBelowUsers" resultType="long">
+        select count(t_user.id) from t_user,
+        (
+        select t_user_hierarchy.user_id, t_user_hierarchy.user_level, t_user_hierarchy.create_time from t_user, t_user_hierarchy
+        where t_user.id = t_user_hierarchy.ancestor_id
+        and t_user.id = #{userId}
+        and (
+        t_user_hierarchy.user_level in
+        <foreach item="level" collection="levels" separator="," open="(" close=")">
+            #{level}
+        </foreach>
+        )
+        ) as uh
+        where t_user.id = uh.user_id
+    </select>
+
+    <select id="listUserPathsByUserId" resultType="distributionUserPathDO">
+        select t_user_path.id as id, t_user_path.user_path as userPath, t_user_path.create_time as createTime
+        from t_user_path where t_user_path.user_path like concat('%', #{userId}, '%') limit #{query.beginIndex}, #{query.pageSize}
+    </select>
+
+    <select id="countUserPathsByUserId" resultType="long">
+        select count(t_user_path.id) from t_user_path where t_user_path.user_path like concat('%', #{userId}, '%')
+    </select>
+
+</mapper>
