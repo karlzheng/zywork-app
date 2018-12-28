@@ -14,7 +14,8 @@ public enum SysConfigEnum {
     ALIYUN_MAIL_CONFIG("aliyun_mail_config"),
     WEIXIN_GZH_CONFIG("weixin_gzh_config"),
     WEIXIN_XCX_CONFIG("weixin_xcx_config"),
-    WX_PAY_CONFIG("wx_pay_config");
+    WX_PAY_CONFIG("wx_pay_config"),
+    DEFAULT_DISTRIBUTION_CONFIG("default_distribution_config");
 
     private String value;
 
