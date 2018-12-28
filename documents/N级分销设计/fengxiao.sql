@@ -39,9 +39,9 @@ CREATE TABLE `t_user` (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user_hierarchy`;
 CREATE TABLE `t_user_hierarchy` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '关系编号',
-  `ancestor_id` int(11) DEFAULT NULL COMMENT '祖先编号',
-  `user_id` int(11) DEFAULT NULL COMMENT '用户编号',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '关系编号',
+  `ancestor_id` bigint(20) DEFAULT NULL COMMENT '祖先编号',
+  `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
   `user_level` int(11) DEFAULT NULL COMMENT '用户级别',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -68,10 +68,12 @@ CREATE TABLE `t_user_path` (
 -- ----------------------------
 -- Procedure structure for invite_user
 -- ----------------------------
-CREATE DEFINER=`root`@`localhost` PROCEDURE `invite_user`(in pid int, in uid int)
+DROP PROCEDURE IF EXISTS `invite_user`;
+delimiter ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `invite_user`(in pid bigint, in uid bigint)
 BEGIN
     -- 如果uid等于pid，表示某个用户自己成为顶级经销商
-	declare ancestorId int;
+	declare ancestorId bigint;
 	declare num int default 0;
 	declare userLevel int default 2;
 	declare currentTime datetime default CURRENT_TIMESTAMP;
@@ -109,6 +111,8 @@ BEGIN
 	else
 		commit;
   end if;
-END
+END;
+;;
+delimiter ;
 
 SET FOREIGN_KEY_CHECKS = 1;

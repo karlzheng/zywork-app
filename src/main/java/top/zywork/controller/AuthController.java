@@ -186,11 +186,12 @@ public class AuthController {
      * @param password
      * @param confirmPassword
      * @param regCode
+     * @param shareCode
      * @return
      */
     @PostMapping("reg")
     @SysLog(description = "用户邮箱注册", requestParams = false)
-    public ResponseStatusVO reg(String email, String password, String confirmPassword, String regCode) {
+    public ResponseStatusVO reg(String email, String password, String confirmPassword, String regCode, String shareCode) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         if (StringUtils.isNotEmpty(email) && RegexUtils.match(RegexUtils.REGEX_EMAIL, email)) {
             JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(email);
@@ -199,8 +200,19 @@ public class AuthController {
                     if (StringUtils.isNotEmpty(confirmPassword) && password.trim().equals(confirmPassword.trim())) {
                         if (verifyCodeRedisUtils.existsCode(VerifyCodeRedisUtils.CODE_REG_PREFIX, email)
                                 && verifyCodeRedisUtils.getCode(VerifyCodeRedisUtils.CODE_REG_PREFIX, email).equals(regCode)) {
-                            userRegService.saveUser(email, password, defaultRoleQueryService.getDefaultRole());
-                            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "注册成功", null);
+                            // 标记是否为邀请注册
+                            boolean isInvited = false;
+                            Long inviteUserId = null;
+                            if (StringUtils.isNotEmpty(shareCode)) {
+                                isInvited = true;
+                                inviteUserId = userRegService.getUserIdByShareCode(shareCode);
+                            }
+                            if (isInvited && inviteUserId == null) {
+                                statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "邀请码不正确", null);
+                            } else {
+                                userRegService.saveUser(email, password, defaultRoleQueryService.getDefaultRole(), inviteUserId);
+                                statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "注册成功", null);
+                            }
                         } else {
                             statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "邮箱验证码不正确", null);
                         }
@@ -269,7 +281,7 @@ public class AuthController {
      */
     @PostMapping("reg-mobile")
     @SysLog(description = "用户手机注册", requestParams = false)
-    public ResponseStatusVO regMobile(String phone, String password, String confirmPassword, String regCode) {
+    public ResponseStatusVO regMobile(String phone, String password, String confirmPassword, String regCode, String shareCode) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         if (StringUtils.isNotEmpty(phone) && RegexUtils.match(RegexUtils.REGEX_PHONE, phone)) {
             JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(phone);
@@ -278,8 +290,19 @@ public class AuthController {
                     if (StringUtils.isNotEmpty(confirmPassword) && password.trim().equals(confirmPassword.trim())) {
                         if (verifyCodeRedisUtils.existsCode(VerifyCodeRedisUtils.CODE_REG_PREFIX, phone)
                                 && verifyCodeRedisUtils.getCode(VerifyCodeRedisUtils.CODE_REG_PREFIX, phone).equals(regCode)) {
-                            userRegService.saveUserMobile(phone, password, defaultRoleQueryService.getDefaultRole());
-                            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "注册成功", null);
+                            // 标记是否为邀请注册
+                            boolean isInvited = false;
+                            Long inviteUserId = null;
+                            if (StringUtils.isNotEmpty(shareCode)) {
+                                isInvited = true;
+                                inviteUserId = userRegService.getUserIdByShareCode(shareCode);
+                            }
+                            if (isInvited && inviteUserId == null) {
+                                statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "邀请码不正确", null);
+                            } else {
+                                userRegService.saveUserMobile(phone, password, defaultRoleQueryService.getDefaultRole(), inviteUserId);
+                                statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "注册成功", null);
+                            }
                         } else {
                             statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "手机验证码不正确", null);
                         }

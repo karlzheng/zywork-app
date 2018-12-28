@@ -18,17 +18,17 @@ public class UserRegServiceTest {
 
     @Test
     public void testSaveUser() {
-        userRegService.saveUser("wgssmart@126.com", "123456", defaultRoleQueryService.getDefaultRole());
+        userRegService.saveUser("wgssmart@126.com", "123456", defaultRoleQueryService.getDefaultRole(), null);
     }
 
     @Test
     public void testSaveUserMobile() {
-        userRegService.saveUserMobile("18888888899", "123456", defaultRoleQueryService.getDefaultRole());
+        userRegService.saveUserMobile("18888888899", "123456", defaultRoleQueryService.getDefaultRole(), null);
     }
 
     @Test
     public void testSaveGzhUser() {
-        userRegService.saveGzhUser("openid_wechat", "123456", "wgssmarter@126.com", "headicon", (byte) 0, defaultRoleQueryService.getDefaultRole());
+        userRegService.saveGzhUser("openid_wechat", "123456", "wgssmarter@126.com", "headicon", (byte) 0, defaultRoleQueryService.getDefaultRole(), null);
     }
 
 }

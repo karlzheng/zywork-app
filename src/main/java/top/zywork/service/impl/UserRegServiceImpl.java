@@ -6,6 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.zywork.common.RandomUtils;
+import top.zywork.dao.UserInviteDAO;
 import top.zywork.dao.UserRegDAO;
 import top.zywork.dao.UserRoleRegDAO;
 import top.zywork.dos.UserRegDO;
@@ -31,8 +32,10 @@ public class UserRegServiceImpl implements UserRegService {
 
     private UserRoleRegDAO userRoleRegDAO;
 
+    private UserInviteDAO userInviteDAO;
+
     @Override
-    public void saveUser(String email, String password, Long roleId) {
+    public void saveUser(String email, String password, Long roleId, Long inviteUserId) {
         UserRegDO userRegDO = new UserRegDO();
         userRegDO.setEmail(email);
         userRegDO.setPassword(new BCryptPasswordEncoder().encode(password));
@@ -42,10 +45,13 @@ public class UserRegServiceImpl implements UserRegService {
         if (roleId != null) {
             userRoleRegDAO.saveUserRole(userRegDO.getId(), roleId);
         }
+        if (inviteUserId != null) {
+            userInviteDAO.saveUserHierarchy(inviteUserId, userRegDO.getId());
+        }
     }
 
     @Override
-    public void saveUserMobile(String phone, String password, Long roleId) {
+    public void saveUserMobile(String phone, String password, Long roleId, Long inviteUserId) {
         UserRegDO userRegDO = new UserRegDO();
         userRegDO.setPhone(phone);
         userRegDO.setPassword(new BCryptPasswordEncoder().encode(password));
@@ -55,10 +61,13 @@ public class UserRegServiceImpl implements UserRegService {
         if (roleId != null) {
             userRoleRegDAO.saveUserRole(userRegDO.getId(), roleId);
         }
+        if (inviteUserId != null) {
+            userInviteDAO.saveUserHierarchy(inviteUserId, userRegDO.getId());
+        }
     }
 
     @Override
-    public void saveGzhUser(String openid, String password, String nickname, String headicon, byte gender, Long roleId) {
+    public void saveGzhUser(String openid, String password, String nickname, String headicon, byte gender, Long roleId, Long inviteUserId) {
         UserRegDO userRegDO = new UserRegDO();
         // userRegDO.setPassword(new BCryptPasswordEncoder().encode(password));
         userRegDAO.saveGzhUser(userRegDO);
@@ -68,6 +77,9 @@ public class UserRegServiceImpl implements UserRegService {
         if (roleId != null) {
             userRoleRegDAO.saveUserRole(userRegDO.getId(), roleId);
         }
+        if (inviteUserId != null) {
+            userInviteDAO.saveUserHierarchy(inviteUserId, userRegDO.getId());
+        }
     }
 
     /**
@@ -75,13 +87,23 @@ public class UserRegServiceImpl implements UserRegService {
      */
     private String generateShareCode() {
         String shareCode = RandomUtils.randomCode(RandomCodeEnum.MIX_CODE, shareCodeLength);
-        if (userRegDAO.countShareCode(shareCode) == 0) {
+        if (userRegDAO.getUserIdByShareCode(shareCode) == null) {
             // 如果分享码不存在，则返回生成的分享码
             return shareCode;
         } else {
             // 如果分享码已存在，则继续生成分享码
             return generateShareCode();
         }
+    }
+
+    /**
+     * 根据分享码获取用户id
+     * @param shareCode
+     * @return
+     */
+    @Override
+    public Long getUserIdByShareCode(String shareCode) {
+        return userRegDAO.getUserIdByShareCode(shareCode);
     }
 
     @Autowired
@@ -92,5 +114,10 @@ public class UserRegServiceImpl implements UserRegService {
     @Autowired
     public void setUserRoleRegDAO(UserRoleRegDAO userRoleRegDAO) {
         this.userRoleRegDAO = userRoleRegDAO;
+    }
+
+    @Autowired
+    public void setUserInviteDAO(UserInviteDAO userInviteDAO) {
+        this.userInviteDAO = userInviteDAO;
     }
 }

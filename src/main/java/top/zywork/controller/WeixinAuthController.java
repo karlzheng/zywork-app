@@ -66,7 +66,7 @@ public class WeixinAuthController {
      */
     @GetMapping("gzh")
     @SysLog(description = "微信公众号登录", requestParams = false)
-    public ResponseStatusVO gzhAuth(HttpServletRequest request, HttpServletResponse response,  String code) {
+    public ResponseStatusVO gzhAuth(HttpServletRequest request, HttpServletResponse response,  String code, String shareCode) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         String openid = WebUtils.getCookieValue(request, gzhCookieName);
         if (StringUtils.isEmpty(openid)) {
@@ -79,10 +79,20 @@ public class WeixinAuthController {
                     // 判断用户是否已经保存，如未保存，则保存微信用户信息到数据库
                     JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(weixinUser.getOpenid());
                     if (StringUtils.isEmpty(jwtUser.getUsername())) {
-                        userRegService.saveGzhUser(weixinUser.getOpenid(), null,
-                                weixinUser.getNickname(), weixinUser.getHeadimgurl(), Byte.valueOf(weixinUser.getSex()), defaultRoleQueryService.getDefaultRole());
-                        // 重新根据openid获取JwtUser，生成jwt token并返回客户端
-                        jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(weixinUser.getOpenid());
+                        // 标记是否为邀请注册
+                        boolean isInvited = false;
+                        Long inviteUserId = null;
+                        if (StringUtils.isNotEmpty(shareCode)) {
+                            isInvited = true;
+                            inviteUserId = userRegService.getUserIdByShareCode(shareCode);
+                        }
+                        if (isInvited && inviteUserId == null) {
+                            userRegService.saveGzhUser(weixinUser.getOpenid(), null, weixinUser.getNickname(),
+                                    weixinUser.getHeadimgurl(), Byte.valueOf(weixinUser.getSex()),
+                                    defaultRoleQueryService.getDefaultRole(), inviteUserId);
+                            // 重新根据openid获取JwtUser，生成jwt token并返回客户端
+                            jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(weixinUser.getOpenid());
+                        }
                     }
                     // 写出用户cookie到客户端
                     writeCookie(response, gzhCookieName, weixinUser.getOpenid());

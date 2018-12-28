@@ -17,8 +17,10 @@ public interface UserRegService {
      * 3、钱包信息
      * @param email
      * @param password
+     * @param roleId
+     * @param inviteUserId
      */
-    void saveUser(String email, String password, Long roleId);
+    void saveUser(String email, String password, Long roleId, Long inviteUserId);
 
     /**
      * 保存手机注册用户信息
@@ -27,8 +29,10 @@ public interface UserRegService {
      * 3、钱包信息
      * @param phone
      * @param password
+     * @param roleId
+     * @param inviteUserId
      */
-    void saveUserMobile(String phone, String password, Long roleId);
+    void saveUserMobile(String phone, String password, Long roleId, Long inviteUserId);
 
     /**
      * 保存微信公众号登录用户信息
@@ -40,7 +44,16 @@ public interface UserRegService {
      * @param nickname
      * @param headicon
      * @param gender
+     * @param roleId
+     * @param inviteUserId
      */
-    void saveGzhUser(String openid, String password, String nickname, String headicon, byte gender, Long roleId);
+    void saveGzhUser(String openid, String password, String nickname, String headicon, byte gender, Long roleId, Long inviteUserId);
+
+    /**
+     * 根据分享码获取用户id
+     * @param shareCode
+     * @return
+     */
+    Long getUserIdByShareCode(String shareCode);
 
 }

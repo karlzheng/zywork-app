@@ -60,11 +60,11 @@ public interface UserRegDAO {
     void saveShareCode(@Param("userId") Long userId, @Param("shareCode") String shareCode);
 
     /**
-     * 根据指定的shareCode统计数量
+     * 根据分享码获取用户id
      * @param shareCode
-     * @return 返回0或1，0表示shareCode不存在，1表示shareCode已存在
+     * @return
      */
-    int countShareCode(String shareCode);
+    Long getUserIdByShareCode(String shareCode);
 
     /**
      * 注册用户时，需要在用户钱包表中插入一条对应的记录
