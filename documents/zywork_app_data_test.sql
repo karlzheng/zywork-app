@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 28/12/2018 13:54:28
+ Date: 02/01/2019 10:47:39
 */
 
 SET NAMES utf8mb4;
@@ -163,6 +163,22 @@ CREATE TABLE `t_module` (
 BEGIN;
 INSERT INTO `t_module` VALUES (1, '测试模块', NULL, 1, '2018-12-07 19:42:13', NULL, 0);
 COMMIT;
+
+-- ----------------------------
+-- Table structure for t_notice
+-- ----------------------------
+DROP TABLE IF EXISTS `t_notice`;
+CREATE TABLE `t_notice` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '公告编号',
+  `title` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '公告标题',
+  `summary` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '公告摘要',
+  `content` varchar(5000) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '公告内容',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统公告表';
 
 -- ----------------------------
 -- Table structure for t_permission
