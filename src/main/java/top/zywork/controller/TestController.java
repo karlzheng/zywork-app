@@ -43,12 +43,13 @@ public class TestController {
     @PostMapping("upload")
     public ResponseStatusVO upload(MultipartFile file) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
-        // String result = UploadUtils.uploadImg(file, UploadTypeEnum.IMAGE.getAllowedExts(), UploadTypeEnum.IMAGE.getMaxSize(), "/Users/Wangzhenyu/Desktop", "uploads/image", new float[]{0.8f, 0.5f});
-        String result = UploadUtils.uploadImg(file, UploadTypeEnum.IMAGE.getAllowedExts(), UploadTypeEnum.IMAGE.getMaxSize(), "/Users/Wangzhenyu/Desktop", "uploads/image", new int[][]{{200, 100}, {400, 260}});
-        if (result == null) {
-            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "图片上传成功", null);
+        if (file != null) {
+//            statusVO = UploadUtils.uploadImg(file, UploadTypeEnum.IMAGE.getAllowedExts(), UploadTypeEnum.IMAGE.getMaxSize(),
+//                "/Users/Wangzhenyu/Desktop", "uploads/image", new float[]{0.8f, 0.5f});
+            statusVO = UploadUtils.uploadImg(file, UploadTypeEnum.IMAGE.getAllowedExts(), UploadTypeEnum.IMAGE.getMaxSize(),
+                    "/Users/Wangzhenyu/Desktop", "uploads/image", new int[][]{{200, 100}, {400, 260}});
         } else {
-            statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), result, null);
+            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "未上传文件", null);
         }
         return statusVO;
     }
