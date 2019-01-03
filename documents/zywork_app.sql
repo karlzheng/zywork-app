@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 02/01/2019 10:47:29
+ Date: 03/01/2019 20:13:35
 */
 
 SET NAMES utf8mb4;
@@ -228,6 +228,27 @@ CREATE TABLE `t_scheduler` (
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='作业调度表';
+
+-- ----------------------------
+-- Table structure for t_shipping_address
+-- ----------------------------
+DROP TABLE IF EXISTS `t_shipping_address`;
+CREATE TABLE `t_shipping_address` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '地址编号',
+  `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
+  `real_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '收货人',
+  `phone` varchar(11) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '手机号',
+  `province` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '省',
+  `city` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '市',
+  `district` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '区/县',
+  `address` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '详细地址',
+  `is_default` tinyint(4) DEFAULT '0' COMMENT '是否默认',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户收货地址表';
 
 -- ----------------------------
 -- Table structure for t_sys_config
