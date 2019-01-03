@@ -58,7 +58,7 @@ public class ShippingAddressController extends BaseController {
         return statusVO;
     }
 
-    @PostMapping("save")
+    @PostMapping("admin/save")
     public ResponseStatusVO save(@RequestBody @Validated ShippingAddressVO shippingAddressVO, BindingResult bindingResult) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         if (bindingResult.hasErrors()) {
@@ -75,7 +75,7 @@ public class ShippingAddressController extends BaseController {
         return statusVO;
     }
 
-    @PostMapping("batch-save")
+    @PostMapping("admin/batch-save")
     public ResponseStatusVO saveBatch(@RequestBody @Validated List<ShippingAddressVO> shippingAddressVOList, BindingResult bindingResult) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         if (bindingResult.hasErrors()) {
@@ -92,7 +92,7 @@ public class ShippingAddressController extends BaseController {
         return statusVO;
     }
 
-    @GetMapping("remove/{id}")
+    @GetMapping("admin/remove/{id}")
     public ResponseStatusVO removeById(@PathVariable("id") Long id) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
@@ -126,7 +126,7 @@ public class ShippingAddressController extends BaseController {
         return statusVO;
     }
 
-    @PostMapping("batch-remove")
+    @PostMapping("admin/batch-remove")
     public ResponseStatusVO removeByIds(@RequestBody String[] ids) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
@@ -139,7 +139,7 @@ public class ShippingAddressController extends BaseController {
         return statusVO;
     }
 
-    @PostMapping("update")
+    @PostMapping("admin/update")
     public ResponseStatusVO update(@RequestBody @Validated ShippingAddressVO shippingAddressVO, BindingResult bindingResult) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         if (bindingResult.hasErrors()) {
@@ -198,7 +198,7 @@ public class ShippingAddressController extends BaseController {
         return statusVO;
     }
 
-    @PostMapping("batch-update")
+    @PostMapping("admin/batch-update")
     public ResponseStatusVO updateBatch(@RequestBody @Validated List<ShippingAddressVO> shippingAddressVOList, BindingResult bindingResult) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         if (bindingResult.hasErrors()) {
@@ -215,7 +215,7 @@ public class ShippingAddressController extends BaseController {
         return statusVO;
     }
 
-    @PostMapping("active")
+    @PostMapping("admin/active")
     public ResponseStatusVO active(@RequestBody ShippingAddressVO shippingAddressVO) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
@@ -228,7 +228,7 @@ public class ShippingAddressController extends BaseController {
         return statusVO;
     }
 
-    @PostMapping("batch-active")
+    @PostMapping("admin/batch-active")
     public ResponseStatusVO activeBatch(@RequestBody @Validated List<ShippingAddressVO> shippingAddressVOList) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
@@ -241,7 +241,7 @@ public class ShippingAddressController extends BaseController {
         return statusVO;
     }
 
-    @GetMapping("one/{id}")
+    @GetMapping("admin/one/{id}")
     public ResponseStatusVO getById(@PathVariable("id") Long id) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         ShippingAddressVO shippingAddressVO = new ShippingAddressVO();
@@ -258,7 +258,7 @@ public class ShippingAddressController extends BaseController {
         return statusVO;
     }
 
-    @GetMapping("all")
+    @GetMapping("admin/all")
     public ResponseStatusVO listAll() {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
@@ -273,7 +273,7 @@ public class ShippingAddressController extends BaseController {
         return statusVO;
     }
 
-    @PostMapping("pager-cond")
+    @PostMapping("admin/pager-cond")
     public ResponseStatusVO listPageByCondition(@RequestBody ShippingAddressQuery shippingAddressQuery) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         try {

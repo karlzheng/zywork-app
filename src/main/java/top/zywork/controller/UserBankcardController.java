@@ -44,7 +44,7 @@ public class UserBankcardController extends BaseController {
      * @param bankcardNo
      * @return
      */
-    @PostMapping("bind")
+    @PostMapping("user/bind")
     @SysLog(description = "绑定银行卡")
     public ResponseStatusVO bindBankcard(String accountName, String bankcardNo) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
@@ -84,7 +84,7 @@ public class UserBankcardController extends BaseController {
      * @param bankcardNo
      * @return
      */
-    @PostMapping("unbind")
+    @PostMapping("user/unbind")
     @SysLog(description = "解除绑定银行卡")
     public ResponseStatusVO unbindBankcard(String bankcardNo) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
@@ -112,7 +112,7 @@ public class UserBankcardController extends BaseController {
      * @param bankcardNo
      * @return
      */
-    @PostMapping("info")
+    @PostMapping("user/info")
     public ResponseStatusVO bankcardInfo(String bankcardNo) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         if (BankCardUtils.checkBankCard(bankcardNo)) {
@@ -124,7 +124,7 @@ public class UserBankcardController extends BaseController {
         return statusVO;
     }
 
-    @PostMapping("save")
+    @PostMapping("admin/save")
     public ResponseStatusVO save(@RequestBody @Validated UserBankcardVO userBankcardVO, BindingResult bindingResult) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         if (bindingResult.hasErrors()) {
@@ -141,7 +141,7 @@ public class UserBankcardController extends BaseController {
         return statusVO;
     }
 
-    @PostMapping("batch-save")
+    @PostMapping("admin/batch-save")
     public ResponseStatusVO saveBatch(@RequestBody @Validated List<UserBankcardVO> userBankcardVOList, BindingResult bindingResult) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         if (bindingResult.hasErrors()) {
@@ -158,7 +158,7 @@ public class UserBankcardController extends BaseController {
         return statusVO;
     }
 
-    @GetMapping("remove/{id}")
+    @GetMapping("admin/remove/{id}")
     public ResponseStatusVO removeById(@PathVariable("id") Long id) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
@@ -171,7 +171,7 @@ public class UserBankcardController extends BaseController {
         return statusVO;
     }
 
-    @PostMapping("batch-remove")
+    @PostMapping("admin/batch-remove")
     public ResponseStatusVO removeByIds(@RequestBody String[] ids) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
@@ -184,7 +184,7 @@ public class UserBankcardController extends BaseController {
         return statusVO;
     }
 
-    @PostMapping("update")
+    @PostMapping("admin/update")
     public ResponseStatusVO update(@RequestBody @Validated UserBankcardVO userBankcardVO, BindingResult bindingResult) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         if (bindingResult.hasErrors()) {
@@ -205,7 +205,7 @@ public class UserBankcardController extends BaseController {
         return statusVO;
     }
 
-    @PostMapping("batch-update")
+    @PostMapping("admin/batch-update")
     public ResponseStatusVO updateBatch(@RequestBody @Validated List<UserBankcardVO> userBankcardVOList, BindingResult bindingResult) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         if (bindingResult.hasErrors()) {
@@ -222,7 +222,7 @@ public class UserBankcardController extends BaseController {
         return statusVO;
     }
 
-    @PostMapping("active")
+    @PostMapping("admin/active")
     public ResponseStatusVO active(@RequestBody UserBankcardVO userBankcardVO) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
@@ -235,7 +235,7 @@ public class UserBankcardController extends BaseController {
         return statusVO;
     }
 
-    @PostMapping("batch-active")
+    @PostMapping("admin/batch-active")
     public ResponseStatusVO activeBatch(@RequestBody @Validated List<UserBankcardVO> userBankcardVOList) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
@@ -248,7 +248,7 @@ public class UserBankcardController extends BaseController {
         return statusVO;
     }
 
-    @GetMapping("one/{id}")
+    @GetMapping("admin/one/{id}")
     public ResponseStatusVO getById(@PathVariable("id") Long id) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         UserBankcardVO userBankcardVO = new UserBankcardVO();
@@ -265,7 +265,7 @@ public class UserBankcardController extends BaseController {
         return statusVO;
     }
 
-    @GetMapping("all")
+    @GetMapping("admin/all")
     public ResponseStatusVO listAll() {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
@@ -280,7 +280,7 @@ public class UserBankcardController extends BaseController {
         return statusVO;
     }
 
-    @PostMapping("pager-cond")
+    @PostMapping("admin/pager-cond")
     public ResponseStatusVO listPageByCondition(@RequestBody UserBankcardQuery userBankcardQuery) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         try {

@@ -32,7 +32,7 @@ public class UserRoleController extends BaseController {
 
     private UserRoleService userRoleService;
 
-    @GetMapping("multi/{id}")
+    @GetMapping("admin/multi/{id}")
     public ResponseStatusVO listById(@PathVariable("id") Long id) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
@@ -51,7 +51,7 @@ public class UserRoleController extends BaseController {
      * 查询登录用户自己的所有角色
      * @return
      */
-    @GetMapping("list")
+    @GetMapping("user/list")
     public ResponseStatusVO listUserRoles() {
         JwtUser jwtUser = SecurityUtils.getJwtUser();
         ResponseStatusVO statusVO = new ResponseStatusVO();
@@ -63,7 +63,7 @@ public class UserRoleController extends BaseController {
         }
     }
 
-    @GetMapping("all")
+    @GetMapping("admin/all")
     public ResponseStatusVO listAll() {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
@@ -78,7 +78,7 @@ public class UserRoleController extends BaseController {
         return statusVO;
     }
 
-    @PostMapping("pager-cond")
+    @PostMapping("admin/pager-cond")
     public ResponseStatusVO listPageByCondition(@RequestBody UserRoleQuery userRoleQuery) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         try {

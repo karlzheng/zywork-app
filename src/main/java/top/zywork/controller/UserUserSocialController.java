@@ -35,7 +35,7 @@ public class UserUserSocialController extends BaseController {
 
     private UserUserSocialService userUserSocialService;
 
-    @GetMapping("multi/{id}")
+    @GetMapping("admin/multi/{id}")
     public ResponseStatusVO listById(@PathVariable("id") Long id) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
@@ -54,7 +54,7 @@ public class UserUserSocialController extends BaseController {
      * 查询登录用户自己的所有第三方登录信息
      * @return
      */
-    @GetMapping("list")
+    @GetMapping("user/list")
     public ResponseStatusVO listUserSocial() {
         JwtUser jwtUser = SecurityUtils.getJwtUser();
         ResponseStatusVO statusVO = new ResponseStatusVO();
@@ -66,7 +66,7 @@ public class UserUserSocialController extends BaseController {
         }
     }
 
-    @GetMapping("all")
+    @GetMapping("admin/all")
     public ResponseStatusVO listAll() {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
@@ -81,7 +81,7 @@ public class UserUserSocialController extends BaseController {
         return statusVO;
     }
 
-    @PostMapping("pager-cond")
+    @PostMapping("admin/pager-cond")
     public ResponseStatusVO listPageByCondition(@RequestBody UserUserSocialQuery userUserSocialQuery) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         try {

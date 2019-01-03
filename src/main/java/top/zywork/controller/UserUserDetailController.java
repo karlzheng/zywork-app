@@ -32,7 +32,7 @@ public class UserUserDetailController extends BaseController {
 
     private UserUserDetailService userUserDetailService;
 
-    @GetMapping("multi/{id}")
+    @GetMapping("admin/multi/{id}")
     public ResponseStatusVO listById(@PathVariable("id") Long id) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
@@ -51,7 +51,7 @@ public class UserUserDetailController extends BaseController {
      * 查询登录用户自己的信息
      * @return
      */
-    @GetMapping("get")
+    @GetMapping("user/get")
     public ResponseStatusVO getUserDetail() {
         JwtUser jwtUser = SecurityUtils.getJwtUser();
         ResponseStatusVO statusVO = new ResponseStatusVO();
@@ -63,7 +63,7 @@ public class UserUserDetailController extends BaseController {
         }
     }
 
-    @GetMapping("all")
+    @GetMapping("admin/all")
     public ResponseStatusVO listAll() {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
@@ -78,7 +78,7 @@ public class UserUserDetailController extends BaseController {
         return statusVO;
     }
 
-    @PostMapping("pager-cond")
+    @PostMapping("admin/pager-cond")
     public ResponseStatusVO listPageByCondition(@RequestBody UserUserDetailQuery userUserDetailQuery) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
