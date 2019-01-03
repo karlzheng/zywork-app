@@ -288,6 +288,24 @@ public class ShippingAddressController extends BaseController {
         return statusVO;
     }
 
+    /**
+     * 根据条件查询用户的收货地址
+     * @param shippingAddressQuery
+     * @return
+     */
+    @PostMapping("user/pager-cond")
+    public ResponseStatusVO userListPageByCondition(@RequestBody ShippingAddressQuery shippingAddressQuery) {
+        ResponseStatusVO statusVO = new ResponseStatusVO();
+        JwtUser jwtUser = SecurityUtils.getJwtUser();
+        if (jwtUser != null) {
+            shippingAddressQuery.setUserId(jwtUser.getUserId());
+            return listPageByCondition(shippingAddressQuery);
+        } else {
+            statusVO.okStatus(ResponseStatusEnum.AUTHENTICATION_ERROR.getCode(), ResponseStatusEnum.AUTHENTICATION_ERROR.getMessage(), null);
+        }
+        return statusVO;
+    }
+
     private boolean hasShippingAddress(Long addressId, Long userId) {
         ShippingAddressQuery shippingAddressQuery = new ShippingAddressQuery();
         shippingAddressQuery.setId(addressId);
