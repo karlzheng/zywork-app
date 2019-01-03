@@ -22,4 +22,11 @@ public interface ShippingAddressDAO extends BaseDAO {
 
     @Override
     Long countByCondition(@Param("query") Object queryObj);
+
+    /**
+     * 根据用户编号把默认的用户收货地址设置为非默认的
+     * @param userId
+     * @return
+     */
+    int updateNoDefault(Long userId);
 }

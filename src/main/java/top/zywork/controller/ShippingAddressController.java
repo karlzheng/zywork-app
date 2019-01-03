@@ -115,16 +115,10 @@ public class ShippingAddressController extends BaseController {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         JwtUser jwtUser = SecurityUtils.getJwtUser();
         if (jwtUser != null) {
-            ShippingAddressQuery shippingAddressQuery = new ShippingAddressQuery();
-            shippingAddressQuery.setPageNo(1);
-            shippingAddressQuery.setPageSize(1);
-            shippingAddressQuery.setId(id);
-            shippingAddressQuery.setUserId(jwtUser.getUserId());
-            PagerDTO pagerDTO = shippingAddressService.listPageByCondition(shippingAddressQuery);
-            if (pagerDTO.getTotal() == 1) {
+            if (hasShippingAddress(id, jwtUser.getUserId())) {
                 return removeById(id);
             } else {
-                statusVO.okStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "不存在的用户地址", null);
+                statusVO.okStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "不存在的用户地址编号", null);
             }
         } else {
             statusVO.okStatus(ResponseStatusEnum.AUTHENTICATION_ERROR.getCode(), ResponseStatusEnum.AUTHENTICATION_ERROR.getMessage(), null);
@@ -163,6 +157,44 @@ public class ShippingAddressController extends BaseController {
                 statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "更新失败", null);
             }
         }
+        return statusVO;
+    }
+
+    /**
+     * 用户更新收货地址
+     * @param shippingAddressVO
+     * @param bindingResult
+     * @return
+     */
+    @PostMapping("user/update")
+    public ResponseStatusVO userUpdate(@RequestBody @Validated ShippingAddressVO shippingAddressVO, BindingResult bindingResult) {
+        ResponseStatusVO statusVO = new ResponseStatusVO();
+        if (bindingResult.hasErrors()) {
+            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), BindingResultUtils.errorString(bindingResult), null);
+        } else {
+            JwtUser jwtUser = SecurityUtils.getJwtUser();
+            if (jwtUser != null) {
+                if (hasShippingAddress(shippingAddressVO.getId(), jwtUser.getUserId())) {
+                    try {
+                        int updateRows = shippingAddressService.updateAddress(BeanUtils.copy(shippingAddressVO, ShippingAddressDTO.class));
+                        if (updateRows == 1) {
+                            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "更新成功", null);
+                        } else {
+                            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "数据版本号有问题，在此更新前数据已被更新", null);
+                        }
+                    } catch (ServiceException e) {
+                        logger.error("更新失败：{}", e.getMessage());
+                        statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "更新失败", null);
+                    }
+                } else {
+                    statusVO.okStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "不正确的用户地址编号", null);
+                }
+            } else {
+                statusVO.okStatus(ResponseStatusEnum.AUTHENTICATION_ERROR.getCode(), ResponseStatusEnum.AUTHENTICATION_ERROR.getMessage(), null);
+            }
+
+        }
+
         return statusVO;
     }
 
@@ -254,6 +286,13 @@ public class ShippingAddressController extends BaseController {
             statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "查询失败", null);
         }
         return statusVO;
+    }
+
+    private boolean hasShippingAddress(Long addressId, Long userId) {
+        ShippingAddressQuery shippingAddressQuery = new ShippingAddressQuery();
+        shippingAddressQuery.setId(addressId);
+        shippingAddressQuery.setUserId(userId);
+        return shippingAddressService.countByCondition(shippingAddressQuery) > 0;
     }
 
     @Autowired
