@@ -2,10 +2,12 @@ package top.zywork.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import top.zywork.annotation.SysLog;
+import top.zywork.common.UploadUtils;
 import top.zywork.enums.ResponseStatusEnum;
+import top.zywork.enums.UploadTypeEnum;
 import top.zywork.security.JwtUser;
 import top.zywork.security.SecurityUtils;
 import top.zywork.vo.ResponseStatusVO;
@@ -36,6 +38,19 @@ public class TestController {
     @SysLog(description = "用户删除")
     public ResponseStatusVO remove(@PathVariable("id") String id) {
         return new ResponseStatusVO(ResponseStatusEnum.OK.getCode(), ResponseStatusEnum.OK.getMessage(), null);
+    }
+
+    @PostMapping("upload")
+    public ResponseStatusVO upload(MultipartFile file) {
+        ResponseStatusVO statusVO = new ResponseStatusVO();
+        // String result = UploadUtils.uploadImg(file, UploadTypeEnum.IMAGE.getAllowedExts(), UploadTypeEnum.IMAGE.getMaxSize(), "/Users/Wangzhenyu/Desktop", "uploads/image", new float[]{0.8f, 0.5f});
+        String result = UploadUtils.uploadImg(file, UploadTypeEnum.IMAGE.getAllowedExts(), UploadTypeEnum.IMAGE.getMaxSize(), "/Users/Wangzhenyu/Desktop", "uploads/image", new int[][]{{200, 100}, {400, 260}});
+        if (result == null) {
+            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "图片上传成功", null);
+        } else {
+            statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), result, null);
+        }
+        return statusVO;
     }
 
 }
