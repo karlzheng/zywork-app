@@ -153,10 +153,10 @@
           detail: false
         },
         urls: {
-          searchUrl: '/user-bankcard/pager-cond',
-          allUrl: '/user-bankcard/all',
-          detailUrl: '/user-bankcard/one/',
-          multiUrl: '/user-bankcard/multi/'
+          searchUrl: '/user-bankcard/admin/pager-cond',
+          allUrl: '/user-bankcard/admin/all',
+          detailUrl: '/user-bankcard/admin/one/',
+          multiUrl: '/user-bankcard/admin/multi/'
         },
         page: {
           total: 0

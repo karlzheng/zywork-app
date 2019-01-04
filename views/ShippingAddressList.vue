@@ -176,10 +176,10 @@
           detail: false
         },
         urls: {
-          searchUrl: '/shipping-address/pager-cond',
-          allUrl: '/shipping-address/all',
-          detailUrl: '/shipping-address/one/',
-          multiUrl: '/shipping-address/multi/'
+          searchUrl: '/shipping-address/admin/pager-cond',
+          allUrl: '/shipping-address/admin/all',
+          detailUrl: '/shipping-address/admin/one/',
+          multiUrl: '/shipping-address/admin/multi/'
         },
         page: {
           total: 0

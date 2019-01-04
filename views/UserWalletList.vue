@@ -171,10 +171,10 @@
           detail: false
         },
         urls: {
-          searchUrl: '/user-wallet/pager-cond',
-          allUrl: '/user-wallet/all',
-          detailUrl: '/user-wallet/one/',
-          multiUrl: '/user-wallet/multi/'
+          searchUrl: '/user-wallet/admin/pager-cond',
+          allUrl: '/user-wallet/admin/all',
+          detailUrl: '/user-wallet/admin/one/',
+          multiUrl: '/user-wallet/admin/multi/'
         },
         page: {
           total: 0

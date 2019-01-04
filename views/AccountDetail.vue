@@ -229,17 +229,17 @@
           search: false
         },
         urls: {
-          addUrl: '/accoundetail/save',
-          batchAddUrl: '/accoundetail/batch-save',
-          editUrl: '/accoundetail/update',
-          batchEditUrl: '/accoundetail/batch-update',
-          searchUrl: '/accoundetail/pager-cond',
-          allUrl: '/accoundetail/all',
-          removeUrl: '/accoundetail/remove/',
-          batchRemoveUrl: '/accoundetail/batch-remove',
-          detailUrl: '/accoundetail/one/',
-          activeUrl: '/accoundetail/active',
-          batchActiveUrl: '/accoundetail/batch-active'
+          addUrl: '/accoundetail/admin/save',
+          batchAddUrl: '/accoundetail/admin/batch-save',
+          editUrl: '/accoundetail/admin/update',
+          batchEditUrl: '/accoundetail/admin/batch-update',
+          searchUrl: '/accoundetail/admin/pager-cond',
+          allUrl: '/accoundetail/admin/all',
+          removeUrl: '/accoundetail/admin/remove/',
+          batchRemoveUrl: '/accoundetail/admin/batch-remove',
+          detailUrl: '/accoundetail/admin/one/',
+          activeUrl: '/accoundetail/admin/active',
+          batchActiveUrl: '/accoundetail/admin/batch-active'
         },
         page: {
           total: 0

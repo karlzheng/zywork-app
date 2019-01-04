@@ -186,17 +186,17 @@
           search: false
         },
         urls: {
-          addUrl: '/notice/save',
-          batchAddUrl: '/notice/batch-save',
-          editUrl: '/notice/update',
-          batchEditUrl: '/notice/batch-update',
-          searchUrl: '/notice/pager-cond',
-          allUrl: '/notice/all',
-          removeUrl: '/notice/remove/',
-          batchRemoveUrl: '/notice/batch-remove',
-          detailUrl: '/notice/one/',
-          activeUrl: '/notice/active',
-          batchActiveUrl: '/notice/batch-active'
+          addUrl: '/notice/admin/save',
+          batchAddUrl: '/notice/admin/batch-save',
+          editUrl: '/notice/admin/update',
+          batchEditUrl: '/notice/admin/batch-update',
+          searchUrl: '/notice/admin/pager-cond',
+          allUrl: '/notice/admin/all',
+          removeUrl: '/notice/admin/remove/',
+          batchRemoveUrl: '/notice/admin/batch-remove',
+          detailUrl: '/notice/admin/one/',
+          activeUrl: '/notice/admin/active',
+          batchActiveUrl: '/notice/admin/batch-active'
         },
         page: {
           total: 0

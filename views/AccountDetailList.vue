@@ -171,10 +171,10 @@
           detail: false
         },
         urls: {
-          searchUrl: '/accoundetail/pager-cond',
-          allUrl: '/accoundetail/all',
-          detailUrl: '/accoundetail/one/',
-          multiUrl: '/accoundetail/multi/'
+          searchUrl: '/accoundetail/admin/pager-cond',
+          allUrl: '/accoundetail/admin/all',
+          detailUrl: '/accoundetail/admin/one/',
+          multiUrl: '/accoundetail/admin/multi/'
         },
         page: {
           total: 0

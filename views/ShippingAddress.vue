@@ -258,17 +258,17 @@
           search: false
         },
         urls: {
-          addUrl: '/shipping-address/save',
-          batchAddUrl: '/shipping-address/batch-save',
-          editUrl: '/shipping-address/update',
-          batchEditUrl: '/shipping-address/batch-update',
-          searchUrl: '/shipping-address/pager-cond',
-          allUrl: '/shipping-address/all',
-          removeUrl: '/shipping-address/remove/',
-          batchRemoveUrl: '/shipping-address/batch-remove',
-          detailUrl: '/shipping-address/one/',
-          activeUrl: '/shipping-address/active',
-          batchActiveUrl: '/shipping-address/batch-active'
+          addUrl: '/shipping-address/admin/save',
+          batchAddUrl: '/shipping-address/admin/batch-save',
+          editUrl: '/shipping-address/admin/update',
+          batchEditUrl: '/shipping-address/admin/batch-update',
+          searchUrl: '/shipping-address/admin/pager-cond',
+          allUrl: '/shipping-address/admin/all',
+          removeUrl: '/shipping-address/admin/remove/',
+          batchRemoveUrl: '/shipping-address/admin/batch-remove',
+          detailUrl: '/shipping-address/admin/one/',
+          activeUrl: '/shipping-address/admin/active',
+          batchActiveUrl: '/shipping-address/admin/batch-active'
         },
         page: {
           total: 0

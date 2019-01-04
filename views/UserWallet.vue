@@ -229,17 +229,17 @@
           search: false
         },
         urls: {
-          addUrl: '/user-wallet/save',
-          batchAddUrl: '/user-wallet/batch-save',
-          editUrl: '/user-wallet/update',
-          batchEditUrl: '/user-wallet/batch-update',
-          searchUrl: '/user-wallet/pager-cond',
-          allUrl: '/user-wallet/all',
-          removeUrl: '/user-wallet/remove/',
-          batchRemoveUrl: '/user-wallet/batch-remove',
-          detailUrl: '/user-wallet/one/',
-          activeUrl: '/user-wallet/active',
-          batchActiveUrl: '/user-wallet/batch-active'
+          addUrl: '/user-wallet/admin/save',
+          batchAddUrl: '/user-wallet/admin/batch-save',
+          editUrl: '/user-wallet/admin/update',
+          batchEditUrl: '/user-wallet/admin/batch-update',
+          searchUrl: '/user-wallet/admin/pager-cond',
+          allUrl: '/user-wallet/admin/all',
+          removeUrl: '/user-wallet/admin/remove/',
+          batchRemoveUrl: '/user-wallet/admin/batch-remove',
+          detailUrl: '/user-wallet/admin/one/',
+          activeUrl: '/user-wallet/admin/active',
+          batchActiveUrl: '/user-wallet/admin/batch-active'
         },
         page: {
           total: 0

@@ -183,10 +183,10 @@
           search: false
         },
         urls: {
-          searchUrl: '/user-userdetail/pager-cond',
-          allUrl: '/user-userdetail/all',
-          detailUrl: '/user-userdetail/one/',
-          multiUrl: '/user-userdetail/multi/'
+          searchUrl: '/user-userdetail/admin/pager-cond',
+          allUrl: '/user-userdetail/admin/all',
+          detailUrl: '/user-userdetail/admin/one/',
+          multiUrl: '/user-userdetail/admin/multi/'
         },
         page: {
           total: 0

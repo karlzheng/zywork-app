@@ -217,17 +217,17 @@
           search: false
         },
         urls: {
-          addUrl: '/user-bankcard/save',
-          batchAddUrl: '/user-bankcard/batch-save',
-          editUrl: '/user-bankcard/update',
-          batchEditUrl: '/user-bankcard/batch-update',
-          searchUrl: '/user-bankcard/pager-cond',
-          allUrl: '/user-bankcard/all',
-          removeUrl: '/user-bankcard/remove/',
-          batchRemoveUrl: '/user-bankcard/batch-remove',
-          detailUrl: '/user-bankcard/one/',
-          activeUrl: '/user-bankcard/active',
-          batchActiveUrl: '/user-bankcard/batch-active'
+          addUrl: '/user-bankcard/admin/save',
+          batchAddUrl: '/user-bankcard/admin/batch-save',
+          editUrl: '/user-bankcard/admin/update',
+          batchEditUrl: '/user-bankcard/admin/batch-update',
+          searchUrl: '/user-bankcard/admin/pager-cond',
+          allUrl: '/user-bankcard/admin/all',
+          removeUrl: '/user-bankcard/admin/remove/',
+          batchRemoveUrl: '/user-bankcard/admin/batch-remove',
+          detailUrl: '/user-bankcard/admin/one/',
+          activeUrl: '/user-bankcard/admin/active',
+          batchActiveUrl: '/user-bankcard/admin/batch-active'
         },
         page: {
           total: 0

@@ -207,17 +207,17 @@
           search: false
         },
         urls: {
-          addUrl: '/permission/save',
-          batchAddUrl: '/permission/batch-save',
-          editUrl: '/permission/update',
-          batchEditUrl: '/permission/batch-update',
-          searchUrl: '/permission/pager-cond',
-          allUrl: '/permission/all',
-          removeUrl: '/permission/remove/',
-          batchRemoveUrl: '/permission/batch-remove',
-          detailUrl: '/permission/one/',
-          activeUrl: '/permission/active',
-          batchActiveUrl: '/permission/batch-active'
+          addUrl: '/permission/admin/save',
+          batchAddUrl: '/permission/admin/batch-save',
+          editUrl: '/permission/admin/update',
+          batchEditUrl: '/permission/admin/batch-update',
+          searchUrl: '/permission/admin/pager-cond',
+          allUrl: '/permission/admin/all',
+          removeUrl: '/permission/admin/remove/',
+          batchRemoveUrl: '/permission/admin/batch-remove',
+          detailUrl: '/permission/admin/one/',
+          activeUrl: '/permission/admin/active',
+          batchActiveUrl: '/permission/admin/batch-active'
         },
         page: {
           total: 0

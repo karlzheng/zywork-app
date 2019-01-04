@@ -103,10 +103,10 @@
               search: false
           },
         urls: {
-          searchUrl: '/user-usersocial/pager-cond',
-          allUrl: '/user-usersocial/all',
-          detailUrl: '/user-usersocial/one/',
-          multiUrl: '/user-usersocial/multi/'
+          searchUrl: '/user-usersocial/admin/pager-cond',
+          allUrl: '/user-usersocial/admin/all',
+          detailUrl: '/user-usersocial/admin/one/',
+          multiUrl: '/user-usersocial/admin/multi/'
         },
         page: {
           total: 0

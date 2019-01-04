@@ -149,10 +149,10 @@
           detail: false
         },
         urls: {
-          searchUrl: '/permission/pager-cond',
-          allUrl: '/permission/all',
-          detailUrl: '/permission/one/',
-          multiUrl: '/permission/multi/'
+          searchUrl: '/permission/admin/pager-cond',
+          allUrl: '/permission/admin/all',
+          detailUrl: '/permission/admin/one/',
+          multiUrl: '/permission/admin/multi/'
         },
         page: {
           total: 0

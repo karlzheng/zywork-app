@@ -95,10 +95,10 @@
               search: false
           },
         urls: {
-          searchUrl: '/user-role/pager-cond',
-          allUrl: '/user-role/all',
-          detailUrl: '/user-role/one/',
-          multiUrl: '/user-role/multi/'
+          searchUrl: '/user-role/admin/pager-cond',
+          allUrl: '/user-role/admin/all',
+          detailUrl: '/user-role/admin/one/',
+          multiUrl: '/user-role/admin/multi/'
         },
         page: {
           total: 0

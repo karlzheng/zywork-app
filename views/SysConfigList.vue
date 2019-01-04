@@ -138,10 +138,10 @@
           detail: false
         },
         urls: {
-          searchUrl: '/sys-config/pager-cond',
-          allUrl: '/sys-config/all',
-          detailUrl: '/sys-config/one/',
-          multiUrl: '/sys-config/multi/'
+          searchUrl: '/sys-config/admin/pager-cond',
+          allUrl: '/sys-config/admin/all',
+          detailUrl: '/sys-config/admin/one/',
+          multiUrl: '/sys-config/admin/multi/'
         },
         page: {
           total: 0

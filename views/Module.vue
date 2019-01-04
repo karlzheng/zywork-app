@@ -176,17 +176,17 @@
           search: false
         },
         urls: {
-          addUrl: '/module/save',
-          batchAddUrl: '/module/batch-save',
-          editUrl: '/module/update',
-          batchEditUrl: '/module/batch-update',
-          searchUrl: '/module/pager-cond',
-          allUrl: '/module/all',
-          removeUrl: '/module/remove/',
-          batchRemoveUrl: '/module/batch-remove',
-          detailUrl: '/module/one/',
-          activeUrl: '/module/active',
-          batchActiveUrl: '/module/batch-active'
+          addUrl: '/module/admin/save',
+          batchAddUrl: '/module/admin/batch-save',
+          editUrl: '/module/admin/update',
+          batchEditUrl: '/module/admin/batch-update',
+          searchUrl: '/module/admin/pager-cond',
+          allUrl: '/module/admin/all',
+          removeUrl: '/module/admin/remove/',
+          batchRemoveUrl: '/module/admin/batch-remove',
+          detailUrl: '/module/admin/one/',
+          activeUrl: '/module/admin/active',
+          batchActiveUrl: '/module/admin/batch-active'
         },
         page: {
           total: 0

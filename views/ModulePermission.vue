@@ -159,10 +159,10 @@
           search: false
         },
         urls: {
-          searchUrl: '/module-permission/pager-cond',
-          allUrl: '/module-permission/all',
-          detailUrl: '/module-permission/one/',
-          multiUrl: '/module-permission/multi/'
+          searchUrl: '/module-permission/admin/pager-cond',
+          allUrl: '/module-permission/admin/all',
+          detailUrl: '/module-permission/admin/one/',
+          multiUrl: '/module-permission/admin/multi/'
         },
         page: {
           total: 0

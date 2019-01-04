@@ -91,10 +91,10 @@
           search: false
         },
         urls: {
-          searchUrl: '/role-permission/pager-cond',
-          allUrl: '/role-permission/all',
-          detailUrl: '/role-permission/one/',
-          multiUrl: '/role-permission/multi/'
+          searchUrl: '/role-permission/admin/pager-cond',
+          allUrl: '/role-permission/admin/all',
+          detailUrl: '/role-permission/admin/one/',
+          multiUrl: '/role-permission/admin/multi/'
         },
         page: {
           total: 0

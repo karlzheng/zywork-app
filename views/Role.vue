@@ -197,17 +197,17 @@
           search: false
         },
         urls: {
-          addUrl: '/role/save',
-          batchAddUrl: '/role/batch-save',
-          editUrl: '/role/update',
-          batchEditUrl: '/role/batch-update',
-          searchUrl: '/role/pager-cond',
-          allUrl: '/role/all',
-          removeUrl: '/role/remove/',
-          batchRemoveUrl: '/role/batch-remove',
-          detailUrl: '/role/one/',
-          activeUrl: '/role/active',
-          batchActiveUrl: '/role/batch-active'
+          addUrl: '/role/admin/save',
+          batchAddUrl: '/role/admin/batch-save',
+          editUrl: '/role/admin/update',
+          batchEditUrl: '/role/admin/batch-update',
+          searchUrl: '/role/admin/pager-cond',
+          allUrl: '/role/admin/all',
+          removeUrl: '/role/admin/remove/',
+          batchRemoveUrl: '/role/admin/batch-remove',
+          detailUrl: '/role/admin/one/',
+          activeUrl: '/role/admin/active',
+          batchActiveUrl: '/role/admin/batch-active'
         },
         page: {
           total: 0

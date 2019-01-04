@@ -196,17 +196,17 @@
           search: false
         },
         urls: {
-          addUrl: '/sys-config/save',
-          batchAddUrl: '/sys-config/batch-save',
-          editUrl: '/sys-config/update',
-          batchEditUrl: '/sys-config/batch-update',
-          searchUrl: '/sys-config/pager-cond',
-          allUrl: '/sys-config/all',
-          removeUrl: '/sys-config/remove/',
-          batchRemoveUrl: '/sys-config/batch-remove',
-          detailUrl: '/sys-config/one/',
-          activeUrl: '/sys-config/active',
-          batchActiveUrl: '/sys-config/batch-active'
+          addUrl: '/sys-config/admin/save',
+          batchAddUrl: '/sys-config/admin/batch-save',
+          editUrl: '/sys-config/admin/update',
+          batchEditUrl: '/sys-config/admin/batch-update',
+          searchUrl: '/sys-config/admin/pager-cond',
+          allUrl: '/sys-config/admin/all',
+          removeUrl: '/sys-config/admin/remove/',
+          batchRemoveUrl: '/sys-config/admin/batch-remove',
+          detailUrl: '/sys-config/admin/one/',
+          activeUrl: '/sys-config/admin/active',
+          batchActiveUrl: '/sys-config/admin/batch-active'
         },
         page: {
           total: 0

@@ -145,10 +145,10 @@
           detail: false
         },
         urls: {
-          searchUrl: '/role/pager-cond',
-          allUrl: '/role/all',
-          detailUrl: '/role/one/',
-          multiUrl: '/role/multi/'
+          searchUrl: '/role/admin/pager-cond',
+          allUrl: '/role/admin/all',
+          detailUrl: '/role/admin/one/',
+          multiUrl: '/role/admin/multi/'
         },
         page: {
           total: 0

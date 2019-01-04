@@ -130,10 +130,10 @@
           detail: false
         },
         urls: {
-          searchUrl: '/module/pager-cond',
-          allUrl: '/module/all',
-          detailUrl: '/module/one/',
-          multiUrl: '/module/multi/'
+          searchUrl: '/module/admin/pager-cond',
+          allUrl: '/module/admin/all',
+          detailUrl: '/module/admin/one/',
+          multiUrl: '/module/admin/multi/'
         },
         page: {
           total: 0

@@ -196,17 +196,17 @@
           search: false
         },
         urls: {
-          addUrl: '/user/save',
-          batchAddUrl: '/user/batch-save',
-          editUrl: '/user/update',
-          batchEditUrl: '/user/batch-update',
-          searchUrl: '/user/pager-cond',
-          allUrl: '/user/all',
-          removeUrl: '/user/remove/',
-          batchRemoveUrl: '/user/batch-remove',
-          detailUrl: '/user/one/',
-          activeUrl: '/user/active',
-          batchActiveUrl: '/user/batch-active'
+          addUrl: '/user/admin/save',
+          batchAddUrl: '/user/admin/batch-save',
+          editUrl: '/user/admin/update',
+          batchEditUrl: '/user/admin/batch-update',
+          searchUrl: '/user/admin/pager-cond',
+          allUrl: '/user/admin/all',
+          removeUrl: '/user/admin/remove/',
+          batchRemoveUrl: '/user/admin/batch-remove',
+          detailUrl: '/user/admin/one/',
+          activeUrl: '/user/admin/active',
+          batchActiveUrl: '/user/admin/batch-active'
         },
         page: {
           total: 0

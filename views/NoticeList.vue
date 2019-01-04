@@ -134,10 +134,10 @@
           detail: false
         },
         urls: {
-          searchUrl: '/notice/pager-cond',
-          allUrl: '/notice/all',
-          detailUrl: '/notice/one/',
-          multiUrl: '/notice/multi/'
+          searchUrl: '/notice/admin/pager-cond',
+          allUrl: '/notice/admin/all',
+          detailUrl: '/notice/admin/one/',
+          multiUrl: '/notice/admin/multi/'
         },
         page: {
           total: 0

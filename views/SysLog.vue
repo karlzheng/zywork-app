@@ -371,17 +371,17 @@
           search: false
         },
         urls: {
-          addUrl: '/sys-log/save',
-          batchAddUrl: '/sys-log/batch-save',
-          editUrl: '/sys-log/update',
-          batchEditUrl: '/sys-log/batch-update',
-          searchUrl: '/sys-log/pager-cond',
-          allUrl: '/sys-log/all',
-          removeUrl: '/sys-log/remove/',
-          batchRemoveUrl: '/sys-log/batch-remove',
-          detailUrl: '/sys-log/one/',
-          activeUrl: '/sys-log/active',
-          batchActiveUrl: '/sys-log/batch-active'
+          addUrl: '/sys-log/admin/save',
+          batchAddUrl: '/sys-log/admin/batch-save',
+          editUrl: '/sys-log/admin/update',
+          batchEditUrl: '/sys-log/admin/batch-update',
+          searchUrl: '/sys-log/admin/pager-cond',
+          allUrl: '/sys-log/admin/all',
+          removeUrl: '/sys-log/admin/remove/',
+          batchRemoveUrl: '/sys-log/admin/batch-remove',
+          detailUrl: '/sys-log/admin/one/',
+          activeUrl: '/sys-log/admin/active',
+          batchActiveUrl: '/sys-log/admin/batch-active'
         },
         page: {
           total: 0

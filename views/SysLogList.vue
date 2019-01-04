@@ -241,10 +241,10 @@
           detail: false
         },
         urls: {
-          searchUrl: '/sys-log/pager-cond',
-          allUrl: '/sys-log/all',
-          detailUrl: '/sys-log/one/',
-          multiUrl: '/sys-log/multi/'
+          searchUrl: '/sys-log/admin/pager-cond',
+          allUrl: '/sys-log/admin/all',
+          detailUrl: '/sys-log/admin/one/',
+          multiUrl: '/sys-log/admin/multi/'
         },
         page: {
           total: 0
