@@ -1,0 +1,32 @@
+[
+    {
+        "moduleTitle": "测试模块",
+        "permissions": [
+            {
+                "title": "测试添加",
+                "permission": "/test/add",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_user",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "测试修改",
+                "permission": "/test/edit",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_user",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "测试删除",
+                "permission": "/test/remove/*",
+                "roles": [
+                    "sys_user"
+                ]
+            }
+        ]
+    }
+]

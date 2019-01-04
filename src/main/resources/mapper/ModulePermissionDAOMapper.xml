@@ -1,0 +1,144 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.zywork.dao.ModulePermissionDAO">
+
+    <sql id="select_columns">
+        t_module.title as moduleTitle, t_module.description as moduleDescription, t_permission.id as permissionId, t_permission.module_id as permissionModuleId, t_permission.title as permissionTitle, t_permission.permission as permissionPermission, t_permission.description as permissionDescription, t_permission.version as permissionVersion, t_permission.create_time as permissionCreateTime, t_permission.update_time as permissionUpdateTime, t_permission.is_active as permissionIsActive
+    </sql>
+
+    <sql id="query_where_clause">
+        <if test="query != null and query.moduleTitle != null and query.moduleTitle != ''">
+			and t_module.title like concat('%', #{query.moduleTitle}, '%')
+		</if>
+		<if test="query != null and query.moduleDescription != null and query.moduleDescription != ''">
+			and t_module.description like concat('%', #{query.moduleDescription}, '%')
+		</if>
+		<if test="query != null and query.permissionId != null">
+			and t_permission.id = #{query.permissionId}
+		</if>
+		<if test="query != null and query.permissionIdMin != null and query.permissionIdMax == null">
+			and t_permission.id <![CDATA[ >= ]]> #{query.permissionIdMin}
+		</if>
+		<if test="query != null and query.permissionIdMin == null and query.permissionIdMax != null">
+			and t_permission.id <![CDATA[ <= ]]> #{query.permissionIdMax}
+		</if>
+		<if test="query != null and query.permissionIdMin != null and query.permissionIdMax != null">
+			and t_permission.id <![CDATA[ >= ]]> #{query.permissionIdMin} and t_permission.id <![CDATA[ <= ]]> #{query.permissionIdMax}
+		</if>
+		<if test="query != null and query.permissionModuleId != null">
+			and t_permission.module_id = #{query.permissionModuleId}
+		</if>
+		<if test="query != null and query.permissionModuleIdMin != null and query.permissionModuleIdMax == null">
+			and t_permission.module_id <![CDATA[ >= ]]> #{query.permissionModuleIdMin}
+		</if>
+		<if test="query != null and query.permissionModuleIdMin == null and query.permissionModuleIdMax != null">
+			and t_permission.module_id <![CDATA[ <= ]]> #{query.permissionModuleIdMax}
+		</if>
+		<if test="query != null and query.permissionModuleIdMin != null and query.permissionModuleIdMax != null">
+			and t_permission.module_id <![CDATA[ >= ]]> #{query.permissionModuleIdMin} and t_permission.module_id <![CDATA[ <= ]]> #{query.permissionModuleIdMax}
+		</if>
+		<if test="query != null and query.permissionTitle != null and query.permissionTitle != ''">
+			and t_permission.title like concat('%', #{query.permissionTitle}, '%')
+		</if>
+		<if test="query != null and query.permissionPermission != null and query.permissionPermission != ''">
+			and t_permission.permission like concat('%', #{query.permissionPermission}, '%')
+		</if>
+		<if test="query != null and query.permissionDescription != null and query.permissionDescription != ''">
+			and t_permission.description like concat('%', #{query.permissionDescription}, '%')
+		</if>
+		<if test="query != null and query.permissionVersion != null">
+			and t_permission.version = #{query.permissionVersion}
+		</if>
+		<if test="query != null and query.permissionVersionMin != null and query.permissionVersionMax == null">
+			and t_permission.version <![CDATA[ >= ]]> #{query.permissionVersionMin}
+		</if>
+		<if test="query != null and query.permissionVersionMin == null and query.permissionVersionMax != null">
+			and t_permission.version <![CDATA[ <= ]]> #{query.permissionVersionMax}
+		</if>
+		<if test="query != null and query.permissionVersionMin != null and query.permissionVersionMax != null">
+			and t_permission.version <![CDATA[ >= ]]> #{query.permissionVersionMin} and t_permission.version <![CDATA[ <= ]]> #{query.permissionVersionMax}
+		</if>
+		<if test="query != null and query.permissionCreateTime != null">
+			and t_permission.create_time = #{query.permissionCreateTime}
+		</if>
+		<if test="query != null and query.permissionCreateTimeMin != null and query.permissionCreateTimeMax == null">
+			and t_permission.create_time <![CDATA[ >= ]]> #{query.permissionCreateTimeMin}
+		</if>
+		<if test="query != null and query.permissionCreateTimeMin == null and query.permissionCreateTimeMax != null">
+			and t_permission.create_time <![CDATA[ <= ]]> #{query.permissionCreateTimeMax}
+		</if>
+		<if test="query != null and query.permissionCreateTimeMin != null and query.permissionCreateTimeMax != null">
+			and t_permission.create_time <![CDATA[ >= ]]> #{query.permissionCreateTimeMin} and t_permission.create_time <![CDATA[ <= ]]> #{query.permissionCreateTimeMax}
+		</if>
+		<if test="query != null and query.permissionUpdateTime != null">
+			and t_permission.update_time = #{query.permissionUpdateTime}
+		</if>
+		<if test="query != null and query.permissionUpdateTimeMin != null and query.permissionUpdateTimeMax == null">
+			and t_permission.update_time <![CDATA[ >= ]]> #{query.permissionUpdateTimeMin}
+		</if>
+		<if test="query != null and query.permissionUpdateTimeMin == null and query.permissionUpdateTimeMax != null">
+			and t_permission.update_time <![CDATA[ <= ]]> #{query.permissionUpdateTimeMax}
+		</if>
+		<if test="query != null and query.permissionUpdateTimeMin != null and query.permissionUpdateTimeMax != null">
+			and t_permission.update_time <![CDATA[ >= ]]> #{query.permissionUpdateTimeMin} and t_permission.update_time <![CDATA[ <= ]]> #{query.permissionUpdateTimeMax}
+		</if>
+		<if test="query != null and query.permissionIsActive != null">
+			and t_permission.is_active = #{query.permissionIsActive}
+		</if>
+		<if test="query != null and query.permissionIsActiveMin != null and query.permissionIsActiveMax == null">
+			and t_permission.is_active <![CDATA[ >= ]]> #{query.permissionIsActiveMin}
+		</if>
+		<if test="query != null and query.permissionIsActiveMin == null and query.permissionIsActiveMax != null">
+			and t_permission.is_active <![CDATA[ <= ]]> #{query.permissionIsActiveMax}
+		</if>
+		<if test="query != null and query.permissionIsActiveMin != null and query.permissionIsActiveMax != null">
+			and t_permission.is_active <![CDATA[ >= ]]> #{query.permissionIsActiveMin} and t_permission.is_active <![CDATA[ <= ]]> #{query.permissionIsActiveMax}
+		</if>
+		
+        and
+        t_module.id = t_permission.module_id
+    </sql>
+
+    <select id="listById" parameterType="long" resultType="modulePermissionDO">
+        select
+        <include refid="select_columns"/>
+        from t_module, t_permission where t_module.id = #{id} and
+        t_module.id = t_permission.module_id
+    </select>
+
+    <select id="listAll" resultType="modulePermissionDO">
+        select
+        <include refid="select_columns"/>
+        from t_module, t_permission
+        where
+        t_module.id = t_permission.module_id
+        order by t_module.update_time desc, t_module.create_time desc
+    </select>
+
+    <select id="listPageByCondition" resultType="modulePermissionDO">
+        select
+        <include refid="select_columns"/>
+        from t_module, t_permission
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+        order by
+        <if test="query.sortColumn != null and query.sortColumn != ''">
+            ${query.sortColumn} ${query.sortOrder}
+        </if>
+        <if test="query.sortColumn == null or query.sortColumn == ''">
+            t_module.update_time desc, t_module.create_time desc
+        </if>
+        limit #{query.beginIndex}, #{query.pageSize}
+    </select>
+
+    <select id="countByCondition" resultType="long">
+        select count(*) from t_module, t_permission
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+    </select>
+
+</mapper>
