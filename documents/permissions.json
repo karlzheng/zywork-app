@@ -34,7 +34,7 @@
         "permissions": [
             {
                 "title": "管理员模块管理",
-                "permission": "/module/admin/*",
+                "permission": "/module/admin/**",
                 "roles": [
                     "super_sys_admin",
                     "sys_admin"
@@ -47,7 +47,7 @@
         "permissions": [
             {
                 "title": "管理员权限管理",
-                "permission": "/permission/admin/*",
+                "permission": "/permission/admin/**",
                 "roles": [
                     "super_sys_admin",
                     "sys_admin"
@@ -60,7 +60,7 @@
         "permissions": [
             {
                 "title": "管理员角色管理",
-                "permission": "/role/admin/*",
+                "permission": "/role/admin/**",
                 "roles": [
                     "super_sys_admin",
                     "sys_admin"
@@ -73,7 +73,7 @@
         "permissions": [
             {
                 "title": "管理员查询模块权限",
-                "permission": "/module-permission/admin/*",
+                "permission": "/module-permission/admin/**",
                 "roles": [
                     "super_sys_admin",
                     "sys_admin"
@@ -86,7 +86,7 @@
         "permissions": [
             {
                 "title": "管理员角色权限管理",
-                "permission": "/role-permission/admin/*",
+                "permission": "/role-permission/admin/**",
                 "roles": [
                     "super_sys_admin",
                     "sys_admin"
@@ -112,7 +112,7 @@
         "permissions": [
             {
                 "title": "管理员系统配置管理",
-                "permission": "/sys-config/admin/*",
+                "permission": "/sys-config/admin/**",
                 "roles": [
                     "super_sys_admin",
                     "sys_admin"
@@ -125,7 +125,7 @@
         "permissions": [
             {
                 "title": "管理员系统日志管理",
-                "permission": "/sys-log/admin/*",
+                "permission": "/sys-log/admin/**",
                 "roles": [
                     "super_sys_admin",
                     "sys_admin"
@@ -138,7 +138,7 @@
         "permissions": [
             {
                 "title": "管理员用户管理",
-                "permission": "/user/admin/*",
+                "permission": "/user/admin/**",
                 "roles": [
                     "super_sys_admin",
                     "sys_admin"
@@ -151,7 +151,7 @@
         "permissions": [
             {
                 "title": "管理员用户角色管理",
-                "permission": "/user-role/admin/*",
+                "permission": "/user-role/admin/**",
                 "roles": [
                     "super_sys_admin",
                     "sys_admin"
@@ -164,7 +164,7 @@
         "permissions": [
             {
                 "title": "管理员用户详情管理",
-                "permission": "/user-userdetail/admin/*",
+                "permission": "/user-userdetail/admin/**",
                 "roles": [
                     "super_sys_admin",
                     "sys_admin"
@@ -177,7 +177,7 @@
         "permissions": [
             {
                 "title": "管理员用户第三方登录管理",
-                "permission": "/user-usersocial/admin/*",
+                "permission": "/user-usersocial/admin/**",
                 "roles": [
                     "super_sys_admin",
                     "sys_admin"
@@ -190,7 +190,7 @@
         "permissions": [
             {
                 "title": "管理员用户钱包管理",
-                "permission": "/user-wallet/admin/*",
+                "permission": "/user-wallet/admin/**",
                 "roles": [
                     "super_sys_admin",
                     "sys_admin"
@@ -203,7 +203,7 @@
         "permissions": [
             {
                 "title": "管理员用户银行卡管理",
-                "permission": "/user-bankcard/admin/*",
+                "permission": "/user-bankcard/admin/**",
                 "roles": [
                     "super_sys_admin",
                     "sys_admin"
@@ -229,7 +229,7 @@
         "permissions": [
             {
                 "title": "管理员用户收货地址管理",
-                "permission": "/shipping-address/admin/*",
+                "permission": "/shipping-address/admin/**",
                 "roles": [
                     "super_sys_admin",
                     "sys_admin"
@@ -242,7 +242,7 @@
         "permissions": [
             {
                 "title": "管理员分销查询",
-                "permission": "/distribution/admin/*",
+                "permission": "/distribution/admin/**",
                 "roles": [
                     "super_sys_admin",
                     "sys_admin"
@@ -255,7 +255,7 @@
         "permissions": [
             {
                 "title": "管理员公告管理",
-                "permission": "/notice/admin/*",
+                "permission": "/notice/admin/**",
                 "roles": [
                     "super_sys_admin",
                     "sys_admin"

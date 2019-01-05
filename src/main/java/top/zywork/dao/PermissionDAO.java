@@ -27,4 +27,12 @@ public interface PermissionDAO extends BaseDAO {
      * 删除所有权限
      */
     void removeAll();
+
+    /**
+     * 根据用户编号获取用户所有权限
+     * @param userId
+     * @return
+     */
+    List<Object> listByUserId(Long userId);
+
 }
