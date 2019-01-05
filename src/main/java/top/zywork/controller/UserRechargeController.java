@@ -45,7 +45,7 @@ public class UserRechargeController {
      * @param amount 充值金额
      * @return
      */
-    @PostMapping("human")
+    @PostMapping("admin/human")
     @SysLog(description = "系统人工充值")
     public ResponseStatusVO rechargeByHuman(Long userId, Long amount) {
         ResponseStatusVO statusVO = new ResponseStatusVO();

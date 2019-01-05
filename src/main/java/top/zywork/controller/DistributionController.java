@@ -44,7 +44,7 @@ public class DistributionController {
      * 查询顶级分销商
      * @return
      */
-    @GetMapping("all-top")
+    @GetMapping("admin/all-top")
     public ResponseStatusVO listAllTop() {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         PagerDTO pagerDTO = distributionService.listAllTop();
@@ -81,7 +81,7 @@ public class DistributionController {
      * @param pageSize
      * @return
      */
-    @PostMapping("above")
+    @PostMapping("admin/above")
     public ResponseStatusVO listAboveUsers(Long userId, Long[] levels, Integer pageNo, Integer pageSize) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         DefaultDistributionConfig defaultDistributionConfig = sysConfigService.getByName(SysConfigEnum.DEFAULT_DISTRIBUTION_CONFIG.getValue(), DefaultDistributionConfig.class);
@@ -119,7 +119,7 @@ public class DistributionController {
      * @param pageSize
      * @return
      */
-    @PostMapping("below")
+    @PostMapping("admin/below")
     public ResponseStatusVO listBelowUsers(Long userId, Long[] levels, Integer pageNo, Integer pageSize) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         DefaultDistributionConfig defaultDistributionConfig = sysConfigService.getByName(SysConfigEnum.DEFAULT_DISTRIBUTION_CONFIG.getValue(), DefaultDistributionConfig.class);
@@ -155,7 +155,7 @@ public class DistributionController {
      * @param pageSize
      * @return
      */
-    @PostMapping("user-path")
+    @PostMapping("admin/user-path")
     public ResponseStatusVO listUserPaths(Long userId, Integer pageNo, Integer pageSize) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         PagerDTO pagerDTO = distributionService.listUserPathsByUserId(userId, PageQueryUtils.getPageQuery(pageNo, pageSize));

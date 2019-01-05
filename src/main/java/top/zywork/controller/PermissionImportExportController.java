@@ -13,6 +13,7 @@ import top.zywork.annotation.SysLog;
 import top.zywork.common.IOUtils;
 import top.zywork.enums.ContentTypeEnum;
 import top.zywork.enums.ResponseStatusEnum;
+import top.zywork.security.RolePermissionRedisUtils;
 import top.zywork.service.PermissionImportExportService;
 import top.zywork.service.RoleService;
 import top.zywork.vo.PermissionImportExportVO;
@@ -41,6 +42,8 @@ public class PermissionImportExportController {
     private RoleService roleService;
 
     private PermissionImportExportService permissionImportExportService;
+
+    private RolePermissionRedisUtils rolePermissionRedisUtils;
 
     @PostMapping("import-role")
     @SysLog(description = "导入角色", requestParams = false)
@@ -74,6 +77,7 @@ public class PermissionImportExportController {
             try {
                 List<PermissionImportExportVO> permissionImportExportVOList = IOUtils.readJsonInputStreamToList(file.getInputStream(), PermissionImportExportVO.class);
                 permissionImportExportService.importPermissions(permissionImportExportVOList);
+                rolePermissionRedisUtils.del();
                 statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "成功导入权限配置信息", null);
             } catch (IOException e) {
                 logger.error("read json from input stream error: {}", e.getMessage());
@@ -108,5 +112,10 @@ public class PermissionImportExportController {
     @Autowired
     public void setPermissionImportExportService(PermissionImportExportService permissionImportExportService) {
         this.permissionImportExportService = permissionImportExportService;
+    }
+
+    @Autowired
+    public void setRolePermissionRedisUtils(RolePermissionRedisUtils rolePermissionRedisUtils) {
+        this.rolePermissionRedisUtils = rolePermissionRedisUtils;
     }
 }
