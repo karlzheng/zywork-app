@@ -7,7 +7,7 @@
 	<select id="listByUserId" parameterType="long" resultType="modulePermissionDO">
         select distinct t_module.title as moduleTitle,
         t_permission.id as permissionId, t_permission.title as permissionTitle,
-        t_permission.permission as permissionPermission
+        t_permission.permission as permissionPermission, t_permission.module_id as permissionModuleId
         from t_user, t_user_role, t_role_permission, t_permission, t_module
         where t_user.id = #{userId} and t_user.id = t_user_role.user_id
         and t_user_role.role_id = t_role_permission.role_id
