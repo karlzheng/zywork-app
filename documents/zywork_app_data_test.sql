@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 03/01/2019 20:13:23
+ Date: 06/01/2019 13:33:36
 */
 
 SET NAMES utf8mb4;
@@ -155,13 +155,33 @@ CREATE TABLE `t_module` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统模块表';
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统模块表';
 
 -- ----------------------------
 -- Records of t_module
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_module` VALUES (1, '测试模块', NULL, 1, '2018-12-07 19:42:13', NULL, 0);
+INSERT INTO `t_module` VALUES (79, '测试模块', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_module` VALUES (80, '模块管理', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_module` VALUES (81, '权限管理', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_module` VALUES (82, '角色管理', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_module` VALUES (83, '模块权限查询', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_module` VALUES (84, '角色权限管理', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_module` VALUES (85, '角色权限导入导出管理', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_module` VALUES (86, '系统配置管理', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_module` VALUES (87, '系统日志管理', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_module` VALUES (88, '用户管理', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_module` VALUES (89, '用户角色管理', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_module` VALUES (90, '用户详情管理', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_module` VALUES (91, '用户第三方登录管理', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_module` VALUES (92, '用户钱包管理', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_module` VALUES (93, '用户银行卡管理', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_module` VALUES (94, '充值管理', NULL, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_module` VALUES (95, '提现管理', NULL, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_module` VALUES (96, '用户收货地址管理', NULL, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_module` VALUES (97, '用户账目详情管理', NULL, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_module` VALUES (98, '分销查询', NULL, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_module` VALUES (99, '公告管理', NULL, 1, '2019-01-06 13:24:25', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -195,15 +215,43 @@ CREATE TABLE `t_permission` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统权限表';
 
 -- ----------------------------
 -- Records of t_permission
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_permission` VALUES (1, 1, '测试添加', '/test/add', NULL, 1, '2018-12-07 19:42:21', NULL, 0);
-INSERT INTO `t_permission` VALUES (2, 1, '测试修改', '/test/edit', NULL, 1, '2018-12-07 19:42:53', NULL, 0);
-INSERT INTO `t_permission` VALUES (3, 1, '测试删除', '/test/remove/*', NULL, 1, '2018-12-07 19:43:18', NULL, 0);
+INSERT INTO `t_permission` VALUES (91, 79, '测试添加', '/test/add', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_permission` VALUES (92, 79, '测试修改', '/test/edit', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_permission` VALUES (93, 79, '测试删除', '/test/remove/*', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_permission` VALUES (94, 79, '测试文件上传', '/test/upload', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_permission` VALUES (95, 80, '后台-模块管理', '/module/admin/**', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_permission` VALUES (96, 81, '后台-权限管理', '/permission/admin/**', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_permission` VALUES (97, 82, '后台-角色管理', '/role/admin/**', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_permission` VALUES (98, 83, '后台-模块权限查询', '/module-permission/admin/**', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_permission` VALUES (99, 83, '用户-模块权限查询', '/module-permission/user/**', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_permission` VALUES (100, 84, '后台-角色权限管理', '/role-permission/admin/**', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_permission` VALUES (101, 85, '后台-导入导出角色权限', '/permission-import-export/*', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_permission` VALUES (102, 86, '后台-系统配置管理', '/sys-config/admin/**', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_permission` VALUES (103, 87, '后台-系统日志管理', '/sys-log/admin/**', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_permission` VALUES (104, 88, '后台-用户管理', '/user/admin/**', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_permission` VALUES (105, 89, '后台-用户角色查询', '/user-role/admin/**', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_permission` VALUES (106, 89, '用户-用户角色查询', '/user-role/user/**', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_permission` VALUES (107, 90, '后台-用户详情查询', '/user-userdetail/admin/**', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_permission` VALUES (108, 90, '用户-用户详情查询', '/user-userdetail/user/**', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_permission` VALUES (109, 91, '后台-用户第三方登录管理', '/user-usersocial/admin/**', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_permission` VALUES (110, 92, '后台-用户钱包管理', '/user-wallet/admin/**', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_permission` VALUES (111, 93, '后台-用户银行卡管理', '/user-bankcard/admin/**', NULL, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_permission` VALUES (112, 93, '用户-用户银行卡管理', '/user-bankcard/user/**', NULL, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_permission` VALUES (113, 94, '后台-系统人工充值', '/user-recharge/admin/human', NULL, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_permission` VALUES (114, 95, '后台-提现管理', '/withdraw/admin/**', NULL, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_permission` VALUES (115, 95, '用户-提现管理', '/withdraw/user/*', NULL, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_permission` VALUES (116, 96, '后台-用户收货地址管理', '/shipping-address/admin/**', NULL, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_permission` VALUES (117, 96, '用户-用户收货地址管理', '/shipping-address/user/**', NULL, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_permission` VALUES (118, 97, '后台-用户账目详情管理', '/accoundetail/admin/**', NULL, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_permission` VALUES (119, 98, '后台-分销查询', '/distribution/admin/**', NULL, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_permission` VALUES (120, 98, '用户-分销查询', '/distribution/user/**', NULL, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_permission` VALUES (121, 99, '后台-公告管理', '/notice/admin/**', NULL, 1, '2019-01-06 13:24:25', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -238,7 +286,7 @@ CREATE TABLE `t_role` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统角色表';
 
 -- ----------------------------
 -- Records of t_role
@@ -246,7 +294,7 @@ CREATE TABLE `t_role` (
 BEGIN;
 INSERT INTO `t_role` VALUES (1, 'super_sys_admin', '超级系统管理员', 0, 1, '2018-12-07 19:09:45', NULL, 0);
 INSERT INTO `t_role` VALUES (2, 'sys_admin', '系统管理员', 0, 1, '2018-12-07 19:09:59', NULL, 0);
-INSERT INTO `t_role` VALUES (3, 'normal_user', '普通用户', 1, 1, '2018-12-07 19:10:21', NULL, 0);
+INSERT INTO `t_role` VALUES (3, 'sys_user', '系统用户', 1, 1, '2018-12-07 19:10:21', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -262,19 +310,83 @@ CREATE TABLE `t_role_permission` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='角色权限关联表';
+) ENGINE=InnoDB AUTO_INCREMENT=262 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='角色权限关联表';
 
 -- ----------------------------
 -- Records of t_role_permission
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_role_permission` VALUES (1, 1, 1, 1, '2018-12-07 19:43:40', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (2, 1, 2, 1, '2018-12-07 19:43:46', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (4, 3, 1, 1, '2018-12-07 19:44:09', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (5, 3, 2, 1, '2018-12-07 19:44:28', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (6, 2, 1, 1, '2018-12-07 19:49:09', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (7, 2, 2, 1, '2018-12-07 19:49:15', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (10, 3, 3, 1, '2018-12-13 20:49:30', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (191, 1, 91, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (192, 3, 91, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (193, 2, 91, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (194, 1, 92, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (195, 3, 92, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (196, 2, 92, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (197, 3, 93, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (198, 1, 94, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (199, 2, 94, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (200, 3, 94, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (201, 1, 95, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (202, 2, 95, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (203, 1, 96, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (204, 2, 96, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (205, 1, 97, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (206, 2, 97, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (207, 1, 98, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (208, 2, 98, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (209, 1, 99, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (210, 2, 99, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (211, 3, 99, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (212, 1, 100, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (213, 2, 100, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (214, 1, 101, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (215, 2, 101, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (216, 1, 102, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (217, 2, 102, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (218, 1, 103, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (219, 2, 103, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (220, 1, 104, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (221, 2, 104, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (222, 1, 105, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (223, 2, 105, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (224, 1, 106, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (225, 2, 106, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (226, 3, 106, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (227, 1, 107, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (228, 2, 107, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (229, 1, 108, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (230, 2, 108, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (231, 3, 108, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (232, 1, 109, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (233, 2, 109, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (234, 1, 110, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (235, 2, 110, 1, '2019-01-06 13:24:24', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (236, 1, 111, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (237, 2, 111, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (238, 1, 112, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (239, 2, 112, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (240, 3, 112, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (241, 1, 113, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (242, 2, 113, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (243, 1, 114, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (244, 2, 114, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (245, 1, 115, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (246, 2, 115, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (247, 3, 115, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (248, 1, 116, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (249, 2, 116, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (250, 1, 117, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (251, 2, 117, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (252, 3, 117, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (253, 1, 118, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (254, 2, 118, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (255, 1, 119, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (256, 2, 119, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (257, 1, 120, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (258, 2, 120, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (259, 3, 120, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (260, 1, 121, 1, '2019-01-06 13:24:25', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (261, 2, 121, 1, '2019-01-06 13:24:25', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -323,7 +435,7 @@ CREATE TABLE `t_shipping_address` (
 -- Records of t_shipping_address
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_shipping_address` VALUES (1, 31, '王振宇', '18888888888', '江西省', '赣州市', '章贡区', '**路', 0, 1, '2019-01-03 19:49:26', NULL, 0);
+INSERT INTO `t_shipping_address` VALUES (1, 31, '王振宇', '18888888888', '江西省', '赣州市', '章贡区', '**路', 1, 3, '2019-01-03 19:49:26', '2019-01-03 21:29:50', 0);
 COMMIT;
 
 -- ----------------------------
@@ -382,7 +494,7 @@ CREATE TABLE `t_sys_log` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=186 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统操作日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=198 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统操作日志表';
 
 -- ----------------------------
 -- Records of t_sys_log
@@ -573,6 +685,18 @@ INSERT INTO `t_sys_log` VALUES (182, NULL, NULL, '用户手机注册', 'Mozilla/
 INSERT INTO `t_sys_log` VALUES (183, NULL, NULL, '用户手机注册', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/auth/reg-mobile', 'POST', NULL, NULL, NULL, 'top.zywork.controller.AuthController', 'regMobile', '2018-12-28 11:53:29', 6267, 1, NULL, '0:0:0:0:0:0:0:1', 1, '2018-12-28 11:53:29', NULL, 0);
 INSERT INTO `t_sys_log` VALUES (184, NULL, NULL, '用户手机注册', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/auth/reg-mobile', 'POST', NULL, NULL, NULL, 'top.zywork.controller.AuthController', 'regMobile', '2018-12-28 11:53:39', 6087, 1, NULL, '0:0:0:0:0:0:0:1', 1, '2018-12-28 11:53:38', NULL, 0);
 INSERT INTO `t_sys_log` VALUES (185, NULL, NULL, '用户手机注册', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/auth/reg-mobile', 'POST', NULL, 1001, '注册成功', 'top.zywork.controller.AuthController', 'regMobile', '2018-12-28 12:00:37', 337, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2018-12-28 12:00:36', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (186, NULL, NULL, '导入角色', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/permission-import-export/import-role', 'POST', NULL, NULL, NULL, 'top.zywork.controller.PermissionImportExportController', 'importRoles', '2019-01-04 11:21:47', 121, 1, 'syntax error, expect {, actual [, pos 0, fastjson-version 1.2.51', '0:0:0:0:0:0:0:1', 1, '2019-01-04 11:21:47', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (187, NULL, NULL, '导入角色', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/permission-import-export/import-role', 'POST', NULL, 1001, '成功导入角色信息', 'top.zywork.controller.PermissionImportExportController', 'importRoles', '2019-01-04 11:31:49', 240, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-04 11:31:48', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (188, NULL, NULL, '导出权限', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/permission-import-export/export-permission', 'GET', NULL, 0, '', 'top.zywork.controller.PermissionImportExportController', 'exportPermissions', '2019-01-04 14:50:02', 137, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-04 14:50:02', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (189, NULL, NULL, '导入权限', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/permission-import-export/import-permission', 'POST', NULL, 1001, '成功导入权限配置信息', 'top.zywork.controller.PermissionImportExportController', 'importPermissions', '2019-01-04 14:52:44', 130, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-04 14:52:44', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (190, NULL, NULL, '导出权限配置', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/permission-import-export/export-permission', 'GET', NULL, 0, '', 'top.zywork.controller.PermissionImportExportController', 'exportPermissions', '2019-01-04 15:17:49', 192, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-04 15:17:48', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (191, NULL, NULL, '导出权限配置', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/permission-import-export/export-permission', 'GET', NULL, 0, '', 'top.zywork.controller.PermissionImportExportController', 'exportPermissions', '2019-01-04 15:48:28', 68, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-04 15:48:27', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (192, NULL, NULL, '导出权限配置', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/permission-import-export/export-permission', 'GET', NULL, 0, '', 'top.zywork.controller.PermissionImportExportController', 'exportPermissions', '2019-01-05 11:17:35', 251, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-05 11:17:35', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (193, NULL, NULL, '导入权限配置', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/permission-import-export/import-permission', 'POST', NULL, 1001, '成功导入权限配置信息', 'top.zywork.controller.PermissionImportExportController', 'importPermissions', '2019-01-05 11:18:01', 1024, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-05 11:18:00', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (194, NULL, NULL, '导入权限配置', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/permission-import-export/import-permission', 'POST', NULL, 1001, '成功导入权限配置信息', 'top.zywork.controller.PermissionImportExportController', 'importPermissions', '2019-01-05 11:18:10', 274, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-05 11:18:09', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (195, NULL, NULL, '导入权限配置', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/permission-import-export/import-permission', 'POST', NULL, 1001, '成功导入权限配置信息', 'top.zywork.controller.PermissionImportExportController', 'importPermissions', '2019-01-05 11:23:49', 589, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-05 11:23:48', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (196, 31, '13672297775', '导入权限配置', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/permission-import-export/import-permission', 'POST', NULL, 1001, '成功导入权限配置信息', 'top.zywork.controller.PermissionImportExportController', 'importPermissions', '2019-01-05 18:44:09', 749, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-05 18:44:08', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (197, 31, '13672297775', '导入权限配置', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/permission-import-export/import-permission', 'POST', NULL, 1001, '成功导入权限配置信息', 'top.zywork.controller.PermissionImportExportController', 'importPermissions', '2019-01-06 13:24:25', 715, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-06 13:24:25', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -750,7 +874,7 @@ CREATE TABLE `t_user_role` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户角色表';
 
 -- ----------------------------
 -- Records of t_user_role
@@ -764,6 +888,7 @@ INSERT INTO `t_user_role` VALUES (5, 24, 3, 1, '2018-12-18 12:30:28', NULL, 0);
 INSERT INTO `t_user_role` VALUES (6, 26, 3, 1, '2018-12-21 19:45:04', NULL, 0);
 INSERT INTO `t_user_role` VALUES (7, 31, 3, 1, '2018-12-22 15:46:43', NULL, 0);
 INSERT INTO `t_user_role` VALUES (8, 36, 3, 1, '2018-12-28 12:00:36', NULL, 0);
+INSERT INTO `t_user_role` VALUES (9, 31, 1, 1, '2019-01-06 13:32:46', NULL, 0);
 COMMIT;
 
 -- ----------------------------

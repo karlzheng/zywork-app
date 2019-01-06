@@ -29,7 +29,7 @@
             },
             {
                 "title": "测试文件上传",
-                "permission": "/test/upload/*",
+                "permission": "/test/upload",
                 "roles": [
                     "super_sys_admin",
                     "sys_admin",
@@ -78,7 +78,7 @@
         ]
     },
     {
-        "moduleTitle": "模块权限查询",
+        "moduleTitle": "模块权限查询模块",
         "permissions": [
             {
                 "title": "后台-模块权限查询",
