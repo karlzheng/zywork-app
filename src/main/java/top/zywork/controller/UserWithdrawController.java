@@ -41,7 +41,7 @@ public class UserWithdrawController {
      * @param payPassword
      * @return
      */
-    @PostMapping("submit")
+    @PostMapping("user/submit")
     @SysLog(description = "提交提现申请")
     public ResponseStatusVO submitWithdraw(Long amount, Long bankcardId, String payPassword) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
@@ -82,7 +82,7 @@ public class UserWithdrawController {
      * @param
      * @return
      */
-    @PostMapping("available")
+    @PostMapping("user/available")
     public ResponseStatusVO getAvailableWithdraw() {
         ResponseStatusVO statusVO = new ResponseStatusVO();
         JwtUser jwtUser = SecurityUtils.getJwtUser();
@@ -100,7 +100,7 @@ public class UserWithdrawController {
      * @param withdrawNo
      * @return
      */
-    @PostMapping("cancel")
+    @PostMapping("user/cancel")
     @SysLog(description = "取消提现申请")
     public ResponseStatusVO cancelWithdraw(String withdrawNo) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
@@ -134,7 +134,7 @@ public class UserWithdrawController {
      * @param description
      * @return
      */
-    @PostMapping("check")
+    @PostMapping("admin/check")
     @SysLog(description = "提现申请审核")
     public ResponseStatusVO checkWithdraw(String withdrawNo, Byte withdrawStatus, String description) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
@@ -178,7 +178,7 @@ public class UserWithdrawController {
      * @param withdrawStatus
      * @return
      */
-    @PostMapping("confirm-human")
+    @PostMapping("admin/confirm-human")
     @SysLog(description = "人工完成提现操作")
     public ResponseStatusVO confirmWithdrawHuman(String withdrawNo, Byte withdrawStatus) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
