@@ -4,16 +4,16 @@
 
 <mapper namespace="top.zywork.dao.UserWalletDAO">
 
-	<update id="updateWalletRecharge">
+    <update id="updateWalletIn">
         update t_user_wallet set
         rmb_balance = rmb_balance + #{amount},
         usable_rmb_balance = usable_rmb_balance + #{amount},
         version = version + 1,
         update_time = CURRENT_TIMESTAMP
-        where id = #{userId} and version + 1 <![CDATA[<=]]> #{newVersion}
+        where id = #{userId}
     </update>
 
-    <update id="updateWalletWithdraw">
+    <update id="updateWalletOut">
         update t_user_wallet set
         rmb_balance = rmb_balance - #{amount},
         usable_rmb_balance = usable_rmb_balance - #{amount},

@@ -51,7 +51,7 @@ public class UserWithdrawServiceImpl implements UserWithdrawService {
         if (updateRows == 1 && withdrawStatus == WithdrawStatusEnum.SUCCESS.getValue().byteValue()) {
             // 如果提现成功，则更新钱包余额和可用余额
             saveAccountDetail(userId, amount, FundsChangeTypeEnum.WITHDRAW.getValue());
-            userWalletDAO.updateWalletWithdraw(userId, amount);
+            userWalletDAO.updateWalletOut(userId, amount);
         }
         return updateRows;
     }

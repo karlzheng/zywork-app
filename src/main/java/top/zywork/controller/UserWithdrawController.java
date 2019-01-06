@@ -48,11 +48,11 @@ public class UserWithdrawController {
         JwtUser jwtUser = SecurityUtils.getJwtUser();
         if (jwtUser != null) {
             if (amount != null && StringUtils.isNotEmpty(payPassword) && bankcardId != null) {
-                Object obj = userWalletService.getById(jwtUser.getUserId());
-                if (obj != null) {
-                    UserWalletDTO userWalletDTO = (UserWalletDTO) obj;
-                    if (new BCryptPasswordEncoder().matches(payPassword, userWalletDTO.getPayPassword())) {
-                        if (amount > 0) {
+                if (amount > 0) {
+                    Object obj = userWalletService.getById(jwtUser.getUserId());
+                    if (obj != null) {
+                        UserWalletDTO userWalletDTO = (UserWalletDTO) obj;
+                        if (new BCryptPasswordEncoder().matches(payPassword, userWalletDTO.getPayPassword())) {
                             int saveRows = userWithdrawService.saveWithdraw(jwtUser.getUserId(), UUIDUtils.simpleUuid(), amount, bankcardId);
                             if (saveRows == 1) {
                                 statusVO.dataErrorStatus(ResponseStatusEnum.OK.getCode(), "提现申请提交成功", null);
@@ -60,13 +60,13 @@ public class UserWithdrawController {
                                 statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "提现金额必须小于等于可提现余额", null);
                             }
                         } else {
-                            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "提现金额必须大于0", null);
+                            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "支付密码错误", null);
                         }
                     } else {
-                        statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "支付密码错误", null);
+                        statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "此用户无钱包记录", null);
                     }
                 } else {
-                    statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "此用户无钱包记录", null);
+                    statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "提现金额必须大于0", null);
                 }
             } else {
                 statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "必须填写提现金额、支付密码，并选择提现银行卡", null);
@@ -78,7 +78,7 @@ public class UserWithdrawController {
     }
 
     /**
-     * 获取可提现金额
+     * 获取可提现或转账的金额
      * @param
      * @return
      */
@@ -88,7 +88,7 @@ public class UserWithdrawController {
         JwtUser jwtUser = SecurityUtils.getJwtUser();
         if (jwtUser != null) {
             Long availableWithdraw = userWithdrawService.getAvailableWithdraw(jwtUser.getUserId());
-            statusVO.dataErrorStatus(ResponseStatusEnum.OK.getCode(), "获取可提现金额", availableWithdraw);
+            statusVO.dataErrorStatus(ResponseStatusEnum.OK.getCode(), "获取可提现或可转账金额", availableWithdraw);
         } else {
             statusVO.errorStatus(ResponseStatusEnum.AUTHENTICATION_ERROR.getCode(), ResponseStatusEnum.AUTHENTICATION_ERROR.getMessage(), null);
         }
