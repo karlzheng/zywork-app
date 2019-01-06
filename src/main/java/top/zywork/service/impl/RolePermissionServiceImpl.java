@@ -32,7 +32,7 @@ public class RolePermissionServiceImpl extends AbstractBaseService implements Ro
     public int saveBatch(List<Object> dataTransferObjList) {
         try {
             if (dataTransferObjList != null && dataTransferObjList.size() > 0) {
-                rolePermissionDAO.removeById(((RolePermissionDO) dataTransferObjList.get(0)).getRoleId());
+                rolePermissionDAO.removeById(((RolePermissionDTO) dataTransferObjList.get(0)).getRoleId());
                 return rolePermissionDAO.saveBatch(BeanUtils.copyList(dataTransferObjList, RolePermissionDTO.class));
             }
             return 0;
@@ -40,7 +40,6 @@ public class RolePermissionServiceImpl extends AbstractBaseService implements Ro
             throw ExceptionUtils.serviceException(e);
         }
     }
-
 
     @Autowired
     public void setRolePermissionDAO(RolePermissionDAO rolePermissionDAO) {
