@@ -19,6 +19,12 @@
 			<if test="content != null">
 				content,
 			</if>
+			<if test="endTime != null">
+				end_time,
+			</if>
+			<if test="stickStatus != null">
+				stick_status,
+			</if>
 			<if test="version != null">
 				version,
 			</if>
@@ -42,6 +48,12 @@
 			</if>
 			<if test="content != null">
 				#{content},
+			</if>
+			<if test="endTime != null">
+				#{endTime},
+			</if>
+			<if test="stickStatus != null">
+				#{stickStatus},
 			</if>
 			<if test="version != null">
 				#{version},
@@ -75,6 +87,12 @@
 			<if test="item.content != null">
 				content,
 			</if>
+			<if test="item.endTime != null">
+				end_time,
+			</if>
+			<if test="item.stickStatus != null">
+				stick_status,
+			</if>
 			<if test="item.version != null">
 				version,
 			</if>
@@ -98,6 +116,12 @@
 			</if>
 			<if test="item.content != null">
 				#{item.content},
+			</if>
+			<if test="item.endTime != null">
+				#{item.endTime},
+			</if>
+			<if test="item.stickStatus != null">
+				#{item.stickStatus},
 			</if>
 			<if test="item.version != null">
 				#{item.version},
@@ -139,6 +163,12 @@
 			<if test="content != null">
 				content = #{content},
 			</if>
+			<if test="endTime != null">
+				end_time = #{endTime},
+			</if>
+			<if test="stickStatus != null">
+				stick_status = #{stickStatus},
+			</if>
 			<if test="version != null">
 				version = #{version},
 			</if>
@@ -169,6 +199,12 @@
 			<if test="item.content != null">
 				content = #{item.content},
 			</if>
+			<if test="item.endTime != null">
+				end_time = #{item.endTime},
+			</if>
+			<if test="item.stickStatus != null">
+				stick_status = #{item.stickStatus},
+			</if>
 			<if test="item.version != null">
 				version = #{item.version},
 			</if>
@@ -191,7 +227,7 @@
     </update>
 
     <sql id="select_columns">
-        id as id, title as title, summary as summary, content as content, version as version, create_time as createTime, update_time as updateTime, is_active as isActive
+        id as id, title as title, summary as summary, content as content, end_time as endTime, stick_status as stickStatus, version as version, create_time as createTime, update_time as updateTime, is_active as isActive
     </sql>
 
     <sql id="query_where_clause">
@@ -215,6 +251,30 @@
 		</if>
 		<if test="query != null and query.content != null and query.content != ''">
 			and content like concat('%', #{query.content}, '%')
+		</if>
+		<if test="query != null and query.endTime != null">
+			and end_time = #{query.endTime}
+		</if>
+		<if test="query != null and query.endTimeMin != null and query.endTimeMax == null">
+			and end_time <![CDATA[ >= ]]> #{query.endTimeMin}
+		</if>
+		<if test="query != null and query.endTimeMin == null and query.endTimeMax != null">
+			and end_time <![CDATA[ <= ]]> #{query.endTimeMax}
+		</if>
+		<if test="query != null and query.endTimeMin != null and query.endTimeMax != null">
+			and end_time <![CDATA[ >= ]]> #{query.endTimeMin} and end_time <![CDATA[ <= ]]> #{query.endTimeMax}
+		</if>
+		<if test="query != null and query.stickStatus != null">
+			and stick_status = #{query.stickStatus}
+		</if>
+		<if test="query != null and query.stickStatusMin != null and query.stickStatusMax == null">
+			and stick_status <![CDATA[ >= ]]> #{query.stickStatusMin}
+		</if>
+		<if test="query != null and query.stickStatusMin == null and query.stickStatusMax != null">
+			and stick_status <![CDATA[ <= ]]> #{query.stickStatusMax}
+		</if>
+		<if test="query != null and query.stickStatusMin != null and query.stickStatusMax != null">
+			and stick_status <![CDATA[ >= ]]> #{query.stickStatusMin} and stick_status <![CDATA[ <= ]]> #{query.stickStatusMax}
 		</if>
 		<if test="query != null and query.version != null">
 			and version = #{query.version}

@@ -8,14 +8,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * NoticeQuery查询对象类<br/>
  *
- * 创建于2019-01-02<br/>
+ * 创建于2019-01-07<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class NoticeQuery extends PageQuery {
 
-    private static final long serialVersionUID = -9223372036833576360L;
+    private static final long serialVersionUID = -9223372035115222650L;
 
     // 公告编号
 	private Long id;
@@ -29,6 +29,21 @@ public class NoticeQuery extends PageQuery {
 	private String summary;
 	// 公告内容
 	private String content;
+	// 截止时间
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	private Date endTime;
+	// 截止时间（最小值）
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	private Date endTimeMin;
+	// 截止时间（最大值）
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	private Date endTimeMax;
+	// 置顶状态
+	private Byte stickStatus;
+	// 置顶状态（最小值）
+	private Byte stickStatusMin;
+	// 置顶状态（最大值）
+	private Byte stickStatusMax;
 	// 版本号
 	private Integer version;
 	// 版本号（最小值）
@@ -62,13 +77,19 @@ public class NoticeQuery extends PageQuery {
 	
     public NoticeQuery () {}
 
-    public NoticeQuery (Long id, Long idMin, Long idMax, String title, String summary, String content, Integer version, Integer versionMin, Integer versionMax, Date createTime, Date createTimeMin, Date createTimeMax, Date updateTime, Date updateTimeMin, Date updateTimeMax, Byte isActive, Byte isActiveMin, Byte isActiveMax) {
+    public NoticeQuery (Long id, Long idMin, Long idMax, String title, String summary, String content, Date endTime, Date endTimeMin, Date endTimeMax, Byte stickStatus, Byte stickStatusMin, Byte stickStatusMax, Integer version, Integer versionMin, Integer versionMax, Date createTime, Date createTimeMin, Date createTimeMax, Date updateTime, Date updateTimeMin, Date updateTimeMax, Byte isActive, Byte isActiveMin, Byte isActiveMax) {
         this.id = id;
 		this.idMin = idMin;
 		this.idMax = idMax;
 		this.title = title;
 		this.summary = summary;
 		this.content = content;
+		this.endTime = endTime;
+		this.endTimeMin = endTimeMin;
+		this.endTimeMax = endTimeMax;
+		this.stickStatus = stickStatus;
+		this.stickStatusMin = stickStatusMin;
+		this.stickStatusMax = stickStatusMax;
 		this.version = version;
 		this.versionMin = versionMin;
 		this.versionMax = versionMax;
@@ -130,6 +151,54 @@ public class NoticeQuery extends PageQuery {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
+	public Date getEndTimeMin() {
+		return endTimeMin;
+	}
+
+	public void setEndTimeMin(Date endTimeMin) {
+		this.endTimeMin = endTimeMin;
+	}
+
+	public Date getEndTimeMax() {
+		return endTimeMax;
+	}
+
+	public void setEndTimeMax(Date endTimeMax) {
+		this.endTimeMax = endTimeMax;
+	}
+
+	public Byte getStickStatus() {
+		return stickStatus;
+	}
+
+	public void setStickStatus(Byte stickStatus) {
+		this.stickStatus = stickStatus;
+	}
+
+	public Byte getStickStatusMin() {
+		return stickStatusMin;
+	}
+
+	public void setStickStatusMin(Byte stickStatusMin) {
+		this.stickStatusMin = stickStatusMin;
+	}
+
+	public Byte getStickStatusMax() {
+		return stickStatusMax;
+	}
+
+	public void setStickStatusMax(Byte stickStatusMax) {
+		this.stickStatusMax = stickStatusMax;
 	}
 
 	public Integer getVersion() {
@@ -238,6 +307,12 @@ public class NoticeQuery extends PageQuery {
 				", title = " + title + 
 				", summary = " + summary + 
 				", content = " + content + 
+				", endTime = " + endTime + 
+				", endTimeMin = " + endTimeMin + 
+				", endTimeMax = " + endTimeMax + 
+				", stickStatus = " + stickStatus + 
+				", stickStatusMin = " + stickStatusMin + 
+				", stickStatusMax = " + stickStatusMax + 
 				", version = " + version + 
 				", versionMin = " + versionMin + 
 				", versionMax = " + versionMax + 

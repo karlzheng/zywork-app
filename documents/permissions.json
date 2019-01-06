@@ -292,6 +292,20 @@
         ]
     },
     {
+        "moduleTitle": "转账管理",
+        "permissions": [
+            {
+                "title": "用户-转账操作",
+                "permission": "/transfer/user/*",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin",
+                    "sys_user"
+                ]
+            }
+        ]
+    },
+    {
         "moduleTitle": "用户收货地址管理",
         "permissions": [
             {
@@ -357,6 +371,15 @@
                 "roles": [
                     "super_sys_admin",
                     "sys_admin"
+                ]
+            },
+            {
+                "title": "用户-公告查询",
+                "permission": "/notice/user/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin",
+                    "sys_user"
                 ]
             }
         ]

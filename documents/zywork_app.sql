@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 03/01/2019 20:13:35
+ Date: 07/01/2019 00:17:48
 */
 
 SET NAMES utf8mb4;
@@ -135,8 +135,10 @@ CREATE TABLE `t_notice` (
   `title` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '公告标题',
   `summary` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '公告摘要',
   `content` varchar(5000) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '公告内容',
+  `end_time` datetime DEFAULT NULL COMMENT '截止时间',
+  `stick_status` tinyint(4) DEFAULT '0' COMMENT '置顶状态',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)

@@ -3,22 +3,21 @@ package top.zywork.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import top.zywork.common.BeanUtils;
 import top.zywork.common.BindingResultUtils;
 import top.zywork.common.StringUtils;
-import top.zywork.dto.PagerDTO;
 import top.zywork.dto.NoticeDTO;
+import top.zywork.dto.PagerDTO;
 import top.zywork.enums.ResponseStatusEnum;
 import top.zywork.exception.ServiceException;
 import top.zywork.query.NoticeQuery;
 import top.zywork.service.NoticeService;
-import top.zywork.vo.ResponseStatusVO;
-import top.zywork.vo.PagerVO;
 import top.zywork.vo.NoticeVO;
+import top.zywork.vo.PagerVO;
+import top.zywork.vo.ResponseStatusVO;
 
 import java.util.List;
 
@@ -207,6 +206,16 @@ public class NoticeController extends BaseController {
             statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "查询失败", null);
         }
         return statusVO;
+    }
+
+    /**
+     * 用户获取公告，可指定按照stickStatus排序，并指定endTime大于等于今日日期的公告才返回
+     * @param noticeQuery
+     * @return
+     */
+    @PostMapping("user/pager-cond")
+    public ResponseStatusVO userListPageByCondition(@RequestBody NoticeQuery noticeQuery) {
+        return listPageByCondition(noticeQuery);
     }
 
     @Autowired

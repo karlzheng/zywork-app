@@ -6,14 +6,14 @@ import java.util.Date;
 /**
  * NoticeDO数据对象实体类<br/>
  *
- * 创建于2019-01-02<br/>
+ * 创建于2019-01-07<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class NoticeDO extends BaseDO {
 
-    private static final long serialVersionUID = -9223372036526163675L;
+    private static final long serialVersionUID = -9223372034905841365L;
 
     // 公告编号
 	private Long id;
@@ -23,6 +23,10 @@ public class NoticeDO extends BaseDO {
 	private String summary;
 	// 公告内容
 	private String content;
+	// 截止时间
+	private Date endTime;
+	// 置顶状态
+	private Byte stickStatus;
 	// 版本号
 	private Integer version;
 	// 创建时间
@@ -34,11 +38,13 @@ public class NoticeDO extends BaseDO {
 	
     public NoticeDO () {}
 
-    public NoticeDO (Long id, String title, String summary, String content, Integer version, Date createTime, Date updateTime, Byte isActive) {
+    public NoticeDO (Long id, String title, String summary, String content, Date endTime, Byte stickStatus, Integer version, Date createTime, Date updateTime, Byte isActive) {
         this.id = id;
 		this.title = title;
 		this.summary = summary;
 		this.content = content;
+		this.endTime = endTime;
+		this.stickStatus = stickStatus;
 		this.version = version;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
@@ -76,6 +82,22 @@ public class NoticeDO extends BaseDO {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
+	public Byte getStickStatus() {
+		return stickStatus;
+	}
+
+	public void setStickStatus(Byte stickStatus) {
+		this.stickStatus = stickStatus;
 	}
 
 	public Integer getVersion() {
@@ -118,6 +140,8 @@ public class NoticeDO extends BaseDO {
 				", title = " + title + 
 				", summary = " + summary + 
 				", content = " + content + 
+				", endTime = " + endTime + 
+				", stickStatus = " + stickStatus + 
 				", version = " + version + 
 				", createTime = " + createTime + 
 				", updateTime = " + updateTime + 
