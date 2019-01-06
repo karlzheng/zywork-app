@@ -1,5 +1,7 @@
 package top.zywork.service;
 
+import top.zywork.dto.PagerDTO;
+
 /**
  * ModulePermissionService服务接口<br/>
  *
@@ -9,4 +11,12 @@ package top.zywork.service;
  * @version 1.0
  */
 public interface ModulePermissionService extends BaseService {
+
+    /**
+     * 根据用户编号获取用户所有模块权限
+     * @param userId
+     * @return
+     */
+    PagerDTO listByUserId(Long userId);
+
 }

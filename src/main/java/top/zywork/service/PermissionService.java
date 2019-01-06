@@ -12,11 +12,4 @@ import top.zywork.dto.PagerDTO;
  */
 public interface PermissionService extends BaseService {
 
-    /**
-     * 根据用户编号获取用户所有权限
-     * @param userId
-     * @return
-     */
-    PagerDTO listByUserId(Long userId);
-
 }

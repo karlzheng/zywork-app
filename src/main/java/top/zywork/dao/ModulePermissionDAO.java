@@ -22,4 +22,11 @@ public interface ModulePermissionDAO extends BaseDAO {
 
     @Override
     Long countByCondition(@Param("query") Object queryObj);
+
+    /**
+     * 根据用户编号获取用户所有模块权限
+     * @param userId
+     * @return
+     */
+    List<Object> listByUserId(Long userId);
 }

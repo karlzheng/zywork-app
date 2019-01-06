@@ -2,13 +2,19 @@ package top.zywork.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import top.zywork.common.BeanUtils;
+import top.zywork.common.ExceptionUtils;
 import top.zywork.dao.ModulePermissionDAO;
 import top.zywork.dos.ModulePermissionDO;
 import top.zywork.dto.ModulePermissionDTO;
+import top.zywork.dto.PagerDTO;
+import top.zywork.dto.PermissionDTO;
 import top.zywork.service.AbstractBaseService;
 import top.zywork.service.ModulePermissionService;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * ModulePermissionServiceImpl服务接口实现类<br/>
@@ -22,6 +28,24 @@ import javax.annotation.PostConstruct;
 public class ModulePermissionServiceImpl extends AbstractBaseService implements ModulePermissionService {
 
     private ModulePermissionDAO modulePermissionDAO;
+
+    @Override
+    @SuppressWarnings({"unchecked"})
+    public PagerDTO listByUserId(Long userId) {
+        PagerDTO pagerDTO = new PagerDTO();
+        try {
+            List<Object> modulePermissionDOList = modulePermissionDAO.listByUserId(userId);
+            List<Object> modulePermissionDTOList = new ArrayList<>();
+            if (modulePermissionDOList != null && modulePermissionDOList.size() > 0) {
+                modulePermissionDTOList = BeanUtils.copyList(modulePermissionDOList, ModulePermissionDTO.class);
+            }
+            pagerDTO.setRows(modulePermissionDTOList);
+            pagerDTO.setTotal((long)(modulePermissionDTOList.size()));
+            return pagerDTO;
+        } catch (RuntimeException e) {
+            throw ExceptionUtils.serviceException(e);
+        }
+    }
 
     @Autowired
     public void setModulePermissionDAO(ModulePermissionDAO modulePermissionDAO) {

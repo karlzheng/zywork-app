@@ -10,7 +10,10 @@ import top.zywork.dto.PagerDTO;
 import top.zywork.enums.ResponseStatusEnum;
 import top.zywork.exception.ServiceException;
 import top.zywork.query.ModulePermissionQuery;
+import top.zywork.security.JwtUser;
+import top.zywork.security.SecurityUtils;
 import top.zywork.service.ModulePermissionService;
+import top.zywork.vo.PermissionVO;
 import top.zywork.vo.ResponseStatusVO;
 import top.zywork.vo.PagerVO;
 import top.zywork.vo.ModulePermissionVO;
@@ -42,6 +45,30 @@ public class ModulePermissionController extends BaseController {
         } catch (ServiceException e) {
             logger.error("返回单个对象JSON数据失败：{}", e.getMessage());
             statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "查询失败", null);
+        }
+        return statusVO;
+    }
+
+    /**
+     * 获取用户的所有权限
+     * @return
+     */
+    @GetMapping("user/all")
+    public ResponseStatusVO userListAll() {
+        ResponseStatusVO statusVO = new ResponseStatusVO();
+        JwtUser jwtUser = SecurityUtils.getJwtUser();
+        if (jwtUser != null) {
+            try {
+                PagerDTO pagerDTO = modulePermissionService.listByUserId(jwtUser.getUserId());
+                PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
+                pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), ModulePermissionVO.class));
+                statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "查询成功", pagerVO);
+            } catch (ServiceException e) {
+                logger.error("返回所有对象JSON数据失败：{}", e.getMessage());
+                statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "查询失败", null);
+            }
+        } else {
+            statusVO.okStatus(ResponseStatusEnum.AUTHENTICATION_ERROR.getCode(), ResponseStatusEnum.AUTHENTICATION_ERROR.getMessage(), null);
         }
         return statusVO;
     }

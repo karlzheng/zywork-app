@@ -1,0 +1,18 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.zywork.dao.ModulePermissionDAO">
+
+	<select id="listByUserId" parameterType="long" resultType="modulePermissionDO">
+        select distinct t_module.title as moduleTitle,
+        t_permission.id as permissionId, t_permission.title as permissionTitle,
+        t_permission.permission as permissionPermission
+        from t_user, t_user_role, t_role_permission, t_permission, t_module
+        where t_user.id = #{userId} and t_user.id = t_user_role.user_id
+        and t_user_role.role_id = t_role_permission.role_id
+        and t_role_permission.permission_id = t_permission.id
+        and t_permission.module_id = t_module.id
+    </select>
+
+</mapper>

@@ -196,30 +196,6 @@ public class PermissionController extends BaseController {
         return statusVO;
     }
 
-    /**
-     * 获取用户的所有权限
-     * @return
-     */
-    @GetMapping("user/all")
-    public ResponseStatusVO userListAll() {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
-        JwtUser jwtUser = SecurityUtils.getJwtUser();
-        if (jwtUser != null) {
-            try {
-                PagerDTO pagerDTO = permissionService.listByUserId(jwtUser.getUserId());
-                PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
-                pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), PermissionVO.class));
-                statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "查询成功", pagerVO);
-            } catch (ServiceException e) {
-                logger.error("返回所有对象JSON数据失败：{}", e.getMessage());
-                statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "查询失败", null);
-            }
-        } else {
-            statusVO.okStatus(ResponseStatusEnum.AUTHENTICATION_ERROR.getCode(), ResponseStatusEnum.AUTHENTICATION_ERROR.getMessage(), null);
-        }
-        return statusVO;
-    }
-
     @PostMapping("admin/pager-cond")
     public ResponseStatusVO listPageByCondition(@RequestBody PermissionQuery permissionQuery) {
         ResponseStatusVO statusVO = new ResponseStatusVO();
