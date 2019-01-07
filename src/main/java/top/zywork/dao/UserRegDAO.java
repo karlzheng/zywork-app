@@ -28,29 +28,62 @@ public interface UserRegDAO {
     void saveUserMobile(UserRegDO userRegDO);
 
     /**
-     * 公众号登录时保存用户基础信息
+     * 公众号、小程序登录时保存用户基础信息
      * @param userRegDO
      */
-    void saveGzhUser(UserRegDO userRegDO);
+    void saveWeixinUser(UserRegDO userRegDO);
 
     /**
-     * 公众号登录时保存用户详情
+     * 公众号、小程序登录时保存用户详情
      * @param userId
      * @param nickname
      * @param headicon
      * @param gender
      * @param shareCode
      */
-    void saveGzhUserDetail(@Param("userId") Long userId, @Param("nickname") String nickname,
+    void saveWeixinUserDetail(@Param("userId") Long userId, @Param("nickname") String nickname,
                            @Param("headicon") String headicon, @Param("gender") byte gender,
                            @Param("shareCode") String shareCode);
 
     /**
-     * 公众号登录时保存用户社交登录信息，如openid
+     * 公众号、小程序登录时保存用户社交登录信息，如openid
      * @param userId
      * @param openid
+     * @param unionId
      */
-    void saveGzhUserSocial(@Param("userId") Long userId, @Param("openid") String openid);
+    void saveWeixinUserSocial(@Param("userId") Long userId, @Param("openid") String openid, @Param("unionId") String unionId,
+                              @Param("accessToken")String accessToken, @Param("sessionKey") String sessionKey, @Param("socialType") String socialType);
+
+    /**
+     * 更新公众号，小程序用户信息
+     * @param openid
+     * @param nickname
+     * @param headicon
+     * @param gender
+     */
+    void updateWeixinUserDetail(@Param("openid") String openid, @Param("nickname") String nickname, @Param("headicon") String headicon, @Param("gender") byte gender);
+
+    /**
+     * 更新第三方登录的access token 或 session key
+     * @param openid
+     * @param accessToken
+     * @param sessionKey
+     */
+    void updateWeixinUserSocial(@Param("openid") String openid, @Param("accessToken") String accessToken, @Param("sessionKey") String sessionKey);
+
+    /**
+     * 根据openid获取session_key
+     * @param openid
+     * @return
+     */
+    String getSessionKeyByOpenid(String openid);
+
+    /**
+     * 根据openid及手机号更新用户手机号
+     * @param openid
+     * @param phone
+     */
+    void updateUserPhone(@Param("openid") String openid, @Param("phone") String phone);
 
     /**
      * 用户注册时保存分享码

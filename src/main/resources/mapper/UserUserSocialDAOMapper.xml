@@ -5,7 +5,7 @@
 <mapper namespace="top.zywork.dao.UserUserSocialDAO">
 
     <sql id="select_columns">
-        t_user.id as userId, t_user.phone as userPhone, t_user.email as userEmail, t_user_social.openid as userSocialOpenid, t_user_social.union_id as userSocialUnionId, t_user_social.refresh_token as userSocialRefreshToken, t_user_social.social_type as userSocialSocialType, t_user_social.create_time as userSocialCreateTime
+        t_user.id as userId, t_user.phone as userPhone, t_user.email as userEmail, t_user_social.id as userSocialId, t_user_social.openid as userSocialOpenid, t_user_social.union_id as userSocialUnionId, t_user_social.access_token as userSocialAccessToken, t_user_social.session_key as userSocialSessionKey, t_user_social.refresh_token as userSocialRefreshToken, t_user_social.social_type as userSocialSocialType, t_user_social.version as userSocialVersion, t_user_social.create_time as userSocialCreateTime, t_user_social.update_time as userSocialUpdateTime
     </sql>
 
     <sql id="query_where_clause">
@@ -27,17 +27,47 @@
 		<if test="query != null and query.userEmail != null and query.userEmail != ''">
 			and t_user.email like concat('%', #{query.userEmail}, '%')
 		</if>
+		<if test="query != null and query.userSocialId != null">
+			and t_user_social.id = #{query.userSocialId}
+		</if>
+		<if test="query != null and query.userSocialIdMin != null and query.userSocialIdMax == null">
+			and t_user_social.id <![CDATA[ >= ]]> #{query.userSocialIdMin}
+		</if>
+		<if test="query != null and query.userSocialIdMin == null and query.userSocialIdMax != null">
+			and t_user_social.id <![CDATA[ <= ]]> #{query.userSocialIdMax}
+		</if>
+		<if test="query != null and query.userSocialIdMin != null and query.userSocialIdMax != null">
+			and t_user_social.id <![CDATA[ >= ]]> #{query.userSocialIdMin} and t_user_social.id <![CDATA[ <= ]]> #{query.userSocialIdMax}
+		</if>
 		<if test="query != null and query.userSocialOpenid != null and query.userSocialOpenid != ''">
 			and t_user_social.openid like concat('%', #{query.userSocialOpenid}, '%')
 		</if>
 		<if test="query != null and query.userSocialUnionId != null and query.userSocialUnionId != ''">
 			and t_user_social.union_id like concat('%', #{query.userSocialUnionId}, '%')
 		</if>
+		<if test="query != null and query.userSocialAccessToken != null and query.userSocialAccessToken != ''">
+			and t_user_social.access_token like concat('%', #{query.userSocialAccessToken}, '%')
+		</if>
+		<if test="query != null and query.userSocialSessionKey != null and query.userSocialSessionKey != ''">
+			and t_user_social.session_key like concat('%', #{query.userSocialSessionKey}, '%')
+		</if>
 		<if test="query != null and query.userSocialRefreshToken != null and query.userSocialRefreshToken != ''">
 			and t_user_social.refresh_token like concat('%', #{query.userSocialRefreshToken}, '%')
 		</if>
 		<if test="query != null and query.userSocialSocialType != null and query.userSocialSocialType != ''">
 			and t_user_social.social_type like concat('%', #{query.userSocialSocialType}, '%')
+		</if>
+		<if test="query != null and query.userSocialVersion != null">
+			and t_user_social.version = #{query.userSocialVersion}
+		</if>
+		<if test="query != null and query.userSocialVersionMin != null and query.userSocialVersionMax == null">
+			and t_user_social.version <![CDATA[ >= ]]> #{query.userSocialVersionMin}
+		</if>
+		<if test="query != null and query.userSocialVersionMin == null and query.userSocialVersionMax != null">
+			and t_user_social.version <![CDATA[ <= ]]> #{query.userSocialVersionMax}
+		</if>
+		<if test="query != null and query.userSocialVersionMin != null and query.userSocialVersionMax != null">
+			and t_user_social.version <![CDATA[ >= ]]> #{query.userSocialVersionMin} and t_user_social.version <![CDATA[ <= ]]> #{query.userSocialVersionMax}
 		</if>
 		<if test="query != null and query.userSocialCreateTime != null">
 			and t_user_social.create_time = #{query.userSocialCreateTime}
@@ -50,6 +80,18 @@
 		</if>
 		<if test="query != null and query.userSocialCreateTimeMin != null and query.userSocialCreateTimeMax != null">
 			and t_user_social.create_time <![CDATA[ >= ]]> #{query.userSocialCreateTimeMin} and t_user_social.create_time <![CDATA[ <= ]]> #{query.userSocialCreateTimeMax}
+		</if>
+		<if test="query != null and query.userSocialUpdateTime != null">
+			and t_user_social.update_time = #{query.userSocialUpdateTime}
+		</if>
+		<if test="query != null and query.userSocialUpdateTimeMin != null and query.userSocialUpdateTimeMax == null">
+			and t_user_social.update_time <![CDATA[ >= ]]> #{query.userSocialUpdateTimeMin}
+		</if>
+		<if test="query != null and query.userSocialUpdateTimeMin == null and query.userSocialUpdateTimeMax != null">
+			and t_user_social.update_time <![CDATA[ <= ]]> #{query.userSocialUpdateTimeMax}
+		</if>
+		<if test="query != null and query.userSocialUpdateTimeMin != null and query.userSocialUpdateTimeMax != null">
+			and t_user_social.update_time <![CDATA[ >= ]]> #{query.userSocialUpdateTimeMin} and t_user_social.update_time <![CDATA[ <= ]]> #{query.userSocialUpdateTimeMax}
 		</if>
 		
         and

@@ -67,19 +67,40 @@ public class UserRegServiceImpl implements UserRegService {
     }
 
     @Override
-    public void saveGzhUser(String openid, String password, String nickname, String headicon, byte gender, Long roleId, Long inviteUserId) {
+    public void saveWeixinUser(String openid, String unionId, String accessToken, String sessionKey, String socialType, String password,
+                               String nickname, String headicon, Byte gender, Long roleId, Long inviteUserId) {
         UserRegDO userRegDO = new UserRegDO();
         // userRegDO.setPassword(new BCryptPasswordEncoder().encode(password));
-        userRegDAO.saveGzhUser(userRegDO);
-        userRegDAO.saveGzhUserDetail(userRegDO.getId(), nickname, headicon, gender, generateShareCode());
+        userRegDAO.saveWeixinUser(userRegDO);
+        userRegDAO.saveWeixinUserDetail(userRegDO.getId(), nickname, headicon, gender, generateShareCode());
         userRegDAO.saveUserWallet(userRegDO.getId());
-        userRegDAO.saveGzhUserSocial(userRegDO.getId(), openid);
+        userRegDAO.saveWeixinUserSocial(userRegDO.getId(), unionId, accessToken, sessionKey, openid, socialType);
         if (roleId != null) {
             userRoleRegDAO.saveUserRole(userRegDO.getId(), roleId);
         }
         if (inviteUserId != null) {
             userInviteDAO.saveUserHierarchy(inviteUserId, userRegDO.getId());
         }
+    }
+
+    @Override
+    public void updateWeixinUserDetail(String openid, String nickname, String headicon, byte gender) {
+        userRegDAO.updateWeixinUserDetail(openid, nickname, headicon, gender);
+    }
+
+    @Override
+    public void updateWeixinUserSocial(String openid, String accessToken, String sessionKey) {
+        userRegDAO.updateWeixinUserSocial(openid, accessToken, sessionKey);
+    }
+
+    @Override
+    public String getSessionKeyByOpenid(String openid) {
+        return userRegDAO.getSessionKeyByOpenid(openid);
+    }
+
+    @Override
+    public void updateUserPhone(String openid, String phone) {
+        userRegDAO.updateUserPhone(openid, phone);
     }
 
     /**

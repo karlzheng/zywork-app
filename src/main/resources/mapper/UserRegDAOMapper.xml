@@ -18,20 +18,47 @@
         insert into t_user(phone, password) values (#{phone}, #{password})
     </insert>
 
-    <insert id="saveGzhUser" parameterType="UserRegDO">
+    <insert id="saveWeixinUser" parameterType="UserRegDO">
         <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
             SELECT LAST_INSERT_ID()
         </selectKey>
         insert into t_user(password) values (#{password})
     </insert>
 
-    <insert id="saveGzhUserDetail">
+    <insert id="saveWeixinUserDetail">
         insert into t_user_detail(id, nickname, headicon, gender, share_code) values (#{userId}, #{nickname}, #{headicon}, #{gender}, #{shareCode})
     </insert>
 
-    <insert id="saveGzhUserSocial">
-        insert into t_user_social(user_id, openid, social_type) values (#{userId}, #{openid}, '微信')
+    <insert id="saveWeixinUserSocial">
+        insert into t_user_social(user_id, openid, union_id, access_token, session_key, social_type)
+        values (#{userId}, #{openid}, #{unionId}, #{accessToken}, #{sessionKey}, #{socialType})
     </insert>
+
+    <update id="updateWeixinUserDetail">
+        update t_user_detail set nickname = #{nickname}, headicon = #{headicon}, gender = #{gender}
+        where id = (select user_id from t_user_social where openid = #{openid})
+    </update>
+
+    <update id="updateWeixinUserSocial">
+        update t_user_detail
+        <set>
+            <if test="accessToken != null and accessToken != ''" >
+                access_token = #{accessToken},
+            </if>
+            <if test="sessionKey != null and sessionKey != ''" >
+                session_key = #{sessionKey},
+            </if>
+        </set>
+        where id = (select user_id from t_user_social where openid = #{openid})
+    </update>
+
+    <select id="getSessionKeyByOpenid" parameterType="string" resultType="string">
+        select session_key from t_user_social where openid = #{openid}
+    </select>
+
+    <update id="updateUserPhone">
+
+    </update>
 
     <insert id="saveShareCode">
         insert into t_user_detail(id, share_code) values (#{userId}, #{shareCode})

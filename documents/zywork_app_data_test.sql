@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 07/01/2019 00:17:33
+ Date: 07/01/2019 18:39:58
 */
 
 SET NAMES utf8mb4;
@@ -151,6 +151,23 @@ INSERT INTO `t_funds_withdraw` VALUES (8, 31, 'b84bdc6156554a27a57229faa361d6a4'
 INSERT INTO `t_funds_withdraw` VALUES (12, 31, '2a5e0e09c3084e6ebee0dd36a6f3acc7', 100, 1, 0, NULL, NULL, NULL, NULL, 1, '2018-12-26 17:36:15', NULL, 0);
 INSERT INTO `t_funds_withdraw` VALUES (13, 31, 'ef011bfb3ee94b6bb978f8fee2023177', 50, 1, 4, NULL, 31, '2018-12-26 17:39:26', '2018-12-26 17:39:45', 3, '2018-12-26 17:38:45', '2018-12-26 17:39:45', 0);
 COMMIT;
+
+-- ----------------------------
+-- Table structure for t_message
+-- ----------------------------
+DROP TABLE IF EXISTS `t_message`;
+CREATE TABLE `t_message` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '消息编号',
+  `title` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '消息标题',
+  `summary` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '消息摘要',
+  `content` varchar(5000) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '消息内容',
+  `message_type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '消息类型',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Table structure for t_module
@@ -869,6 +886,22 @@ INSERT INTO `t_user_hierarchy` VALUES (3, 36, 36, 1, 1, '2018-12-28 12:00:36', N
 COMMIT;
 
 -- ----------------------------
+-- Table structure for t_user_message
+-- ----------------------------
+DROP TABLE IF EXISTS `t_user_message`;
+CREATE TABLE `t_user_message` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '消息发送编号',
+  `message_id` bigint(20) DEFAULT NULL COMMENT '消息编号',
+  `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
+  `is_read` tinyint(4) DEFAULT '0' COMMENT '是否已读',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- ----------------------------
 -- Table structure for t_user_path
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user_path`;
@@ -928,8 +961,10 @@ DROP TABLE IF EXISTS `t_user_social`;
 CREATE TABLE `t_user_social` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '第三方登录编号',
   `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
-  `openid` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '第三方登录OAuth openid',
-  `union_id` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '第三方登录OAuth unionid',
+  `openid` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'openid',
+  `union_id` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'unionid',
+  `access_token` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'AccessToken',
+  `session_key` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'SessionKey',
   `refresh_token` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '刷新Token',
   `social_type` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '第三方登录类型',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
@@ -943,11 +978,11 @@ CREATE TABLE `t_user_social` (
 -- Records of t_user_social
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_user_social` VALUES (1, 1, '12345678', NULL, NULL, '微信', 1, '2018-12-07 18:54:34', NULL, 0);
-INSERT INTO `t_user_social` VALUES (2, 19, 'openid', NULL, NULL, '微信', 1, '2018-12-12 17:34:51', NULL, 0);
-INSERT INTO `t_user_social` VALUES (3, 20, 'openid', NULL, NULL, '微信', 1, '2018-12-12 17:36:19', NULL, 0);
-INSERT INTO `t_user_social` VALUES (4, 21, 'openid', NULL, NULL, '微信', 1, '2018-12-12 17:37:09', NULL, 0);
-INSERT INTO `t_user_social` VALUES (5, 24, 'openid_wechat', NULL, NULL, '微信', 1, '2018-12-18 12:30:28', NULL, 0);
+INSERT INTO `t_user_social` VALUES (1, 1, '12345678', NULL, NULL, NULL, NULL, '微信公众号', 1, '2018-12-07 18:54:34', NULL, 0);
+INSERT INTO `t_user_social` VALUES (2, 19, 'openid', NULL, NULL, NULL, NULL, '微信公众号', 1, '2018-12-12 17:34:51', NULL, 0);
+INSERT INTO `t_user_social` VALUES (3, 20, 'openid', NULL, NULL, NULL, NULL, '微信公众号', 1, '2018-12-12 17:36:19', NULL, 0);
+INSERT INTO `t_user_social` VALUES (4, 21, 'openid', NULL, NULL, NULL, NULL, '微信公众号', 1, '2018-12-12 17:37:09', NULL, 0);
+INSERT INTO `t_user_social` VALUES (5, 24, 'openid_wechat', NULL, NULL, NULL, NULL, '微信公众号', 1, '2018-12-18 12:30:28', NULL, 0);
 COMMIT;
 
 -- ----------------------------

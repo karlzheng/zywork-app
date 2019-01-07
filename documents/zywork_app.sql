@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 07/01/2019 00:17:48
+ Date: 07/01/2019 18:39:46
 */
 
 SET NAMES utf8mb4;
@@ -110,6 +110,23 @@ CREATE TABLE `t_funds_withdraw` (
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户资金提现记录表';
+
+-- ----------------------------
+-- Table structure for t_message
+-- ----------------------------
+DROP TABLE IF EXISTS `t_message`;
+CREATE TABLE `t_message` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '消息编号',
+  `title` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '消息标题',
+  `summary` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '消息摘要',
+  `content` varchar(5000) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '消息内容',
+  `message_type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '消息类型',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Table structure for t_module
@@ -395,6 +412,22 @@ CREATE TABLE `t_user_hierarchy` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户关系表';
 
 -- ----------------------------
+-- Table structure for t_user_message
+-- ----------------------------
+DROP TABLE IF EXISTS `t_user_message`;
+CREATE TABLE `t_user_message` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '消息发送编号',
+  `message_id` bigint(20) DEFAULT NULL COMMENT '消息编号',
+  `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
+  `is_read` tinyint(4) DEFAULT '0' COMMENT '是否已读',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- ----------------------------
 -- Table structure for t_user_path
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user_path`;
@@ -431,8 +464,10 @@ DROP TABLE IF EXISTS `t_user_social`;
 CREATE TABLE `t_user_social` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '第三方登录编号',
   `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
-  `openid` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '第三方登录OAuth openid',
-  `union_id` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '第三方登录OAuth unionid',
+  `openid` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'openid',
+  `union_id` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'unionid',
+  `access_token` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'AccessToken',
+  `session_key` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'SessionKey',
   `refresh_token` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '刷新Token',
   `social_type` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '第三方登录类型',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
