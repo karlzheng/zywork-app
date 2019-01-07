@@ -31,16 +31,16 @@
     <Modal v-model="modal.add" title="添加" @on-visible-change="changeModalVisibleResetForm('addForm', $event)">
       <Form ref="addForm" :model="form" :label-width="80" :rules="validateRules">
         <FormItem label="支付密码" prop="payPassword">
-	<Input v-model="form.payPassword"/>
+	<Input v-model="form.payPassword" placeholder="请输入支付密码"/>
 </FormItem>
 <FormItem label="人民币余额" prop="rmbBalance">
-	<InputNumber v-model="form.rmbBalance" style="width: 100%;"/>
+	<InputNumber v-model="form.rmbBalance" placeholder="请输入人民币余额" style="width: 100%;"/>
 </FormItem>
 <FormItem label="可用余额" prop="usableRmbBalance">
-	<InputNumber v-model="form.usableRmbBalance" style="width: 100%;"/>
+	<InputNumber v-model="form.usableRmbBalance" placeholder="请输入可用余额" style="width: 100%;"/>
 </FormItem>
 <FormItem label="冻结余额" prop="frozenRmbBalance">
-	<InputNumber v-model="form.frozenRmbBalance" style="width: 100%;"/>
+	<InputNumber v-model="form.frozenRmbBalance" placeholder="请输入冻结余额" style="width: 100%;"/>
 </FormItem>
 
       </Form>
@@ -52,16 +52,16 @@
     <Modal v-model="modal.edit" title="修改" @on-visible-change="changeModalVisibleResetForm('editForm', $event)">
       <Form ref="editForm" :model="form" :label-width="80" :rules="validateRules">
         <FormItem label="支付密码" prop="payPassword">
-	<Input v-model="form.payPassword"/>
+	<Input v-model="form.payPassword" placeholder="请输入支付密码"/>
 </FormItem>
 <FormItem label="人民币余额" prop="rmbBalance">
-	<InputNumber v-model="form.rmbBalance" style="width: 100%;"/>
+	<InputNumber v-model="form.rmbBalance" placeholder="请输入人民币余额" style="width: 100%;"/>
 </FormItem>
 <FormItem label="可用余额" prop="usableRmbBalance">
-	<InputNumber v-model="form.usableRmbBalance" style="width: 100%;"/>
+	<InputNumber v-model="form.usableRmbBalance" placeholder="请输入可用余额" style="width: 100%;"/>
 </FormItem>
 <FormItem label="冻结余额" prop="frozenRmbBalance">
-	<InputNumber v-model="form.frozenRmbBalance" style="width: 100%;"/>
+	<InputNumber v-model="form.frozenRmbBalance" placeholder="请输入冻结余额" style="width: 100%;"/>
 </FormItem>
 
       </Form>
@@ -75,30 +75,30 @@
         <FormItem label="钱包编号"><Row>
 	<i-col span="11">
 	<FormItem prop="idMin">
-	<InputNumber v-model="searchForm.idMin" style="width: 100%;"/>
+	<InputNumber v-model="searchForm.idMin" placeholder="请输入开始钱包编号" style="width: 100%;"/>
 </FormItem>
 </i-col>
 	<i-col span="2" style="text-align: center">-</i-col>
 	<i-col span="11">
 	<FormItem prop="idMax">
-	<InputNumber v-model="searchForm.idMax" style="width: 100%;"/>
+	<InputNumber v-model="searchForm.idMax" placeholder="请输入结束钱包编号" style="width: 100%;"/>
 </FormItem>
 </i-col>
 </Row>
 </FormItem>
 <FormItem label="支付密码" prop="payPassword">
-	<Input v-model="searchForm.payPassword"/>
+	<Input v-model="searchForm.payPassword" placeholder="请输入支付密码"/>
 </FormItem>
 <FormItem label="人民币余额"><Row>
 	<i-col span="11">
 	<FormItem prop="rmbBalanceMin">
-	<InputNumber v-model="searchForm.rmbBalanceMin" style="width: 100%;"/>
+	<InputNumber v-model="searchForm.rmbBalanceMin" placeholder="请输入开始人民币余额" style="width: 100%;"/>
 </FormItem>
 </i-col>
 	<i-col span="2" style="text-align: center">-</i-col>
 	<i-col span="11">
 	<FormItem prop="rmbBalanceMax">
-	<InputNumber v-model="searchForm.rmbBalanceMax" style="width: 100%;"/>
+	<InputNumber v-model="searchForm.rmbBalanceMax" placeholder="请输入结束人民币余额" style="width: 100%;"/>
 </FormItem>
 </i-col>
 </Row>
@@ -106,13 +106,13 @@
 <FormItem label="可用余额"><Row>
 	<i-col span="11">
 	<FormItem prop="usableRmbBalanceMin">
-	<InputNumber v-model="searchForm.usableRmbBalanceMin" style="width: 100%;"/>
+	<InputNumber v-model="searchForm.usableRmbBalanceMin" placeholder="请输入开始可用余额" style="width: 100%;"/>
 </FormItem>
 </i-col>
 	<i-col span="2" style="text-align: center">-</i-col>
 	<i-col span="11">
 	<FormItem prop="usableRmbBalanceMax">
-	<InputNumber v-model="searchForm.usableRmbBalanceMax" style="width: 100%;"/>
+	<InputNumber v-model="searchForm.usableRmbBalanceMax" placeholder="请输入结束可用余额" style="width: 100%;"/>
 </FormItem>
 </i-col>
 </Row>
@@ -120,13 +120,13 @@
 <FormItem label="冻结余额"><Row>
 	<i-col span="11">
 	<FormItem prop="frozenRmbBalanceMin">
-	<InputNumber v-model="searchForm.frozenRmbBalanceMin" style="width: 100%;"/>
+	<InputNumber v-model="searchForm.frozenRmbBalanceMin" placeholder="请输入开始冻结余额" style="width: 100%;"/>
 </FormItem>
 </i-col>
 	<i-col span="2" style="text-align: center">-</i-col>
 	<i-col span="11">
 	<FormItem prop="frozenRmbBalanceMax">
-	<InputNumber v-model="searchForm.frozenRmbBalanceMax" style="width: 100%;"/>
+	<InputNumber v-model="searchForm.frozenRmbBalanceMax" placeholder="请输入结束冻结余额" style="width: 100%;"/>
 </FormItem>
 </i-col>
 </Row>
@@ -134,13 +134,13 @@
 <FormItem label="版本号"><Row>
 	<i-col span="11">
 	<FormItem prop="versionMin">
-	<InputNumber v-model="searchForm.versionMin" style="width: 100%;"/>
+	<InputNumber v-model="searchForm.versionMin" placeholder="请输入开始版本号" style="width: 100%;"/>
 </FormItem>
 </i-col>
 	<i-col span="2" style="text-align: center">-</i-col>
 	<i-col span="11">
 	<FormItem prop="versionMax">
-	<InputNumber v-model="searchForm.versionMax" style="width: 100%;"/>
+	<InputNumber v-model="searchForm.versionMax" placeholder="请输入结束版本号" style="width: 100%;"/>
 </FormItem>
 </i-col>
 </Row>
@@ -148,13 +148,13 @@
 <FormItem label="创建时间"><Row>
 	<i-col span="11">
 	<FormItem prop="createTimeMin">
-	<DatePicker @on-change="searchForm.createTimeMin=$event" :value="searchForm.createTimeMin" type="datetime" format="yyyy-MM-dd HH:mm:ss" style="width: 100%;"></DatePicker>
+	<DatePicker @on-change="searchForm.createTimeMin=$event" :value="searchForm.createTimeMin" placeholder="请输入开始创建时间" type="datetime" format="yyyy-MM-dd HH:mm:ss" style="width: 100%;"></DatePicker>
 </FormItem>
 </i-col>
 	<i-col span="2" style="text-align: center">-</i-col>
 	<i-col span="11">
 	<FormItem prop="createTimeMax">
-	<DatePicker @on-change="searchForm.createTimeMax=$event" :value="searchForm.createTimeMax" type="datetime" format="yyyy-MM-dd HH:mm:ss" style="width: 100%;"></DatePicker>
+	<DatePicker @on-change="searchForm.createTimeMax=$event" :value="searchForm.createTimeMax" placeholder="请输入结束创建时间" type="datetime" format="yyyy-MM-dd HH:mm:ss" style="width: 100%;"></DatePicker>
 </FormItem>
 </i-col>
 </Row>
@@ -162,13 +162,13 @@
 <FormItem label="更新时间"><Row>
 	<i-col span="11">
 	<FormItem prop="updateTimeMin">
-	<DatePicker @on-change="searchForm.updateTimeMin=$event" :value="searchForm.updateTimeMin" type="datetime" format="yyyy-MM-dd HH:mm:ss" style="width: 100%;"></DatePicker>
+	<DatePicker @on-change="searchForm.updateTimeMin=$event" :value="searchForm.updateTimeMin" placeholder="请输入开始更新时间" type="datetime" format="yyyy-MM-dd HH:mm:ss" style="width: 100%;"></DatePicker>
 </FormItem>
 </i-col>
 	<i-col span="2" style="text-align: center">-</i-col>
 	<i-col span="11">
 	<FormItem prop="updateTimeMax">
-	<DatePicker @on-change="searchForm.updateTimeMax=$event" :value="searchForm.updateTimeMax" type="datetime" format="yyyy-MM-dd HH:mm:ss" style="width: 100%;"></DatePicker>
+	<DatePicker @on-change="searchForm.updateTimeMax=$event" :value="searchForm.updateTimeMax" placeholder="请输入结束更新时间" type="datetime" format="yyyy-MM-dd HH:mm:ss" style="width: 100%;"></DatePicker>
 </FormItem>
 </i-col>
 </Row>
@@ -176,13 +176,13 @@
 <FormItem label="是否激活"><Row>
 	<i-col span="11">
 	<FormItem prop="isActiveMin">
-	<InputNumber v-model="searchForm.isActiveMin" style="width: 100%;"/>
+	<InputNumber v-model="searchForm.isActiveMin" placeholder="请输入开始是否激活" style="width: 100%;"/>
 </FormItem>
 </i-col>
 	<i-col span="2" style="text-align: center">-</i-col>
 	<i-col span="11">
 	<FormItem prop="isActiveMax">
-	<InputNumber v-model="searchForm.isActiveMax" style="width: 100%;"/>
+	<InputNumber v-model="searchForm.isActiveMax" placeholder="请输入结束是否激活" style="width: 100%;"/>
 </FormItem>
 </i-col>
 </Row>
