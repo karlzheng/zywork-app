@@ -57,7 +57,7 @@
     </select>
 
     <update id="updateUserPhone">
-
+        update t_user set phone = #{phone} where id = (select user_id from t_user_social where openid = #{openid})
     </update>
 
     <insert id="saveShareCode">

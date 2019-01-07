@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import top.zywork.enums.SocialTypeEnum;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -28,7 +29,8 @@ public class UserRegServiceTest {
 
     @Test
     public void testSaveGzhUser() {
-        userRegService.saveGzhUser("openid_wechat", "123456", "wgssmarter@126.com", "headicon", (byte) 0, defaultRoleQueryService.getDefaultRole(), null);
+        userRegService.saveWeixinUser("openid_wechat", "123456", "access_token", "session_key",
+                SocialTypeEnum.WEIXIN_XCX.getValue(), "", "nickname", "headicon", (byte) 0, defaultRoleQueryService.getDefaultRole(), null);
     }
 
 }

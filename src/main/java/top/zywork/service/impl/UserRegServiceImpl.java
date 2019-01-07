@@ -74,7 +74,7 @@ public class UserRegServiceImpl implements UserRegService {
         userRegDAO.saveWeixinUser(userRegDO);
         userRegDAO.saveWeixinUserDetail(userRegDO.getId(), nickname, headicon, gender, generateShareCode());
         userRegDAO.saveUserWallet(userRegDO.getId());
-        userRegDAO.saveWeixinUserSocial(userRegDO.getId(), unionId, accessToken, sessionKey, openid, socialType);
+        userRegDAO.saveWeixinUserSocial(userRegDO.getId(), openid, unionId, accessToken, sessionKey, socialType);
         if (roleId != null) {
             userRoleRegDAO.saveUserRole(userRegDO.getId(), roleId);
         }

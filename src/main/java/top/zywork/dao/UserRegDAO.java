@@ -52,7 +52,7 @@ public interface UserRegDAO {
      * @param unionId
      */
     void saveWeixinUserSocial(@Param("userId") Long userId, @Param("openid") String openid, @Param("unionId") String unionId,
-                              @Param("accessToken")String accessToken, @Param("sessionKey") String sessionKey, @Param("socialType") String socialType);
+                              @Param("accessToken") String accessToken, @Param("sessionKey") String sessionKey, @Param("socialType") String socialType);
 
     /**
      * 更新公众号，小程序用户信息
