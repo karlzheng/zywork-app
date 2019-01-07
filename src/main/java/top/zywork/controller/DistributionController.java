@@ -11,7 +11,6 @@ import top.zywork.common.BeanUtils;
 import top.zywork.common.PageQueryUtils;
 import top.zywork.dos.DefaultDistributionConfig;
 import top.zywork.dto.PagerDTO;
-import top.zywork.enums.ResponseStatusEnum;
 import top.zywork.enums.SysConfigEnum;
 import top.zywork.security.JwtUser;
 import top.zywork.security.SecurityUtils;
@@ -42,20 +41,20 @@ public class DistributionController {
 
     /**
      * 查询顶级分销商
+     *
      * @return
      */
     @GetMapping("admin/all-top")
     public ResponseStatusVO listAllTop() {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         PagerDTO pagerDTO = distributionService.listAllTop();
         PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
         pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), DistributionUserVO.class));
-        statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "查询成功", pagerVO);
-        return statusVO;
+        return ResponseStatusVO.ok("查询成功", pagerVO);
     }
 
     /**
      * 分页查询指定用户上面的几级经销商
+     *
      * @param levels
      * @param pageNo
      * @param pageSize
@@ -63,18 +62,16 @@ public class DistributionController {
      */
     @PostMapping("user/above")
     public ResponseStatusVO listAboveUsers(Long[] levels, Integer pageNo, Integer pageSize) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         JwtUser jwtUser = SecurityUtils.getJwtUser();
-        if (jwtUser != null) {
-            return listAboveUsers(jwtUser.getUserId(), levels, pageNo, pageSize);
-        } else {
-            statusVO.okStatus(ResponseStatusEnum.AUTHENTICATION_ERROR.getCode(), ResponseStatusEnum.AUTHENTICATION_ERROR.getMessage(), null);
+        if (jwtUser == null) {
+            return ResponseStatusVO.authenticationError();
         }
-        return statusVO;
+        return listAboveUsers(jwtUser.getUserId(), levels, pageNo, pageSize);
     }
 
     /**
      * 分页查询指定用户上面的几级经销商
+     *
      * @param userId
      * @param levels
      * @param pageNo
@@ -83,17 +80,16 @@ public class DistributionController {
      */
     @PostMapping("admin/above")
     public ResponseStatusVO listAboveUsers(Long userId, Long[] levels, Integer pageNo, Integer pageSize) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         DefaultDistributionConfig defaultDistributionConfig = sysConfigService.getByName(SysConfigEnum.DEFAULT_DISTRIBUTION_CONFIG.getValue(), DefaultDistributionConfig.class);
         PagerDTO pagerDTO = distributionService.listAboveUsers(userId, defaultDistributionConfig.getDistributionLevel(), levels, PageQueryUtils.getPageQuery(pageNo, pageSize));
         PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
         pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), DistributionUserVO.class));
-        statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "查询成功", pagerVO);
-        return statusVO;
+        return ResponseStatusVO.ok("查询成功", pagerVO);
     }
 
     /**
      * 分页查询指定用户下面的几级经销商
+     *
      * @param levels
      * @param pageNo
      * @param pageSize
@@ -101,18 +97,16 @@ public class DistributionController {
      */
     @PostMapping("user/below")
     public ResponseStatusVO listBelowUsers(Long[] levels, Integer pageNo, Integer pageSize) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         JwtUser jwtUser = SecurityUtils.getJwtUser();
-        if (jwtUser != null) {
-            return listBelowUsers(jwtUser.getUserId(), levels, pageNo, pageSize);
-        } else {
-            statusVO.okStatus(ResponseStatusEnum.AUTHENTICATION_ERROR.getCode(), ResponseStatusEnum.AUTHENTICATION_ERROR.getMessage(), null);
+        if (jwtUser == null) {
+            return ResponseStatusVO.authenticationError();
         }
-        return statusVO;
+        return listBelowUsers(jwtUser.getUserId(), levels, pageNo, pageSize);
     }
 
     /**
      * 分页查询指定用户下面的几级经销商
+     *
      * @param userId
      * @param levels
      * @param pageNo
@@ -121,35 +115,32 @@ public class DistributionController {
      */
     @PostMapping("admin/below")
     public ResponseStatusVO listBelowUsers(Long userId, Long[] levels, Integer pageNo, Integer pageSize) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         DefaultDistributionConfig defaultDistributionConfig = sysConfigService.getByName(SysConfigEnum.DEFAULT_DISTRIBUTION_CONFIG.getValue(), DefaultDistributionConfig.class);
         PagerDTO pagerDTO = distributionService.listBelowUsers(userId, defaultDistributionConfig.getDistributionLevel(), levels, PageQueryUtils.getPageQuery(pageNo, pageSize));
         PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
         pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), DistributionUserVO.class));
-        statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "查询成功", pagerVO);
-        return statusVO;
+        return ResponseStatusVO.ok("查询成功", pagerVO);
     }
 
     /**
      * 获取用户路径
+     *
      * @param pageNo
      * @param pageSize
      * @return
      */
     @PostMapping("user/user-path")
     public ResponseStatusVO listUserPaths(Integer pageNo, Integer pageSize) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         JwtUser jwtUser = SecurityUtils.getJwtUser();
-        if (jwtUser != null) {
-            return listUserPaths(jwtUser.getUserId(), pageNo, pageSize);
-        } else {
-            statusVO.okStatus(ResponseStatusEnum.AUTHENTICATION_ERROR.getCode(), ResponseStatusEnum.AUTHENTICATION_ERROR.getMessage(), null);
+        if (jwtUser == null) {
+            return ResponseStatusVO.authenticationError();
         }
-        return statusVO;
+        return listUserPaths(jwtUser.getUserId(), pageNo, pageSize);
     }
 
     /**
      * 获取用户路径
+     *
      * @param userId
      * @param pageNo
      * @param pageSize
@@ -157,12 +148,10 @@ public class DistributionController {
      */
     @PostMapping("admin/user-path")
     public ResponseStatusVO listUserPaths(Long userId, Integer pageNo, Integer pageSize) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         PagerDTO pagerDTO = distributionService.listUserPathsByUserId(userId, PageQueryUtils.getPageQuery(pageNo, pageSize));
         PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
         pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), DistributionUserPathVO.class));
-        statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "查询成功", pagerVO);
-        return statusVO;
+        return ResponseStatusVO.ok("查询成功", pagerVO);
     }
 
     @Autowired

@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 import top.zywork.common.BeanUtils;
 import top.zywork.dto.PagerDTO;
-import top.zywork.enums.ResponseStatusEnum;
 import top.zywork.exception.ServiceException;
 import top.zywork.query.UserUserSocialQuery;
 import top.zywork.security.JwtUser;
@@ -37,17 +36,15 @@ public class UserUserSocialController extends BaseController {
 
     @GetMapping("admin/multi/{id}")
     public ResponseStatusVO listById(@PathVariable("id") Long id) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
             PagerDTO pagerDTO = userUserSocialService.listById(id);
             PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
             pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), UserUserSocialVO.class));
-            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "查询成功", pagerVO);
+            return ResponseStatusVO.ok("查询成功", pagerVO);
         } catch (ServiceException e) {
             logger.error("返回单个对象JSON数据失败：{}", e.getMessage());
-            statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "查询失败", null);
+            return ResponseStatusVO.error("查询失败", null);
         }
-        return statusVO;
     }
 
     /**
@@ -57,10 +54,8 @@ public class UserUserSocialController extends BaseController {
     @GetMapping("user/list")
     public ResponseStatusVO listUserSocial() {
         JwtUser jwtUser = SecurityUtils.getJwtUser();
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         if (jwtUser == null) {
-            statusVO.errorStatus(ResponseStatusEnum.AUTHENTICATION_ERROR.getCode(), ResponseStatusEnum.AUTHENTICATION_ERROR.getMessage(), null);
-            return statusVO;
+            return ResponseStatusVO.authenticationError();
         } else {
             return listById(jwtUser.getUserId());
         }
@@ -68,32 +63,28 @@ public class UserUserSocialController extends BaseController {
 
     @GetMapping("admin/all")
     public ResponseStatusVO listAll() {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
             PagerDTO pagerDTO = userUserSocialService.listAll();
             PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
             pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), UserUserSocialVO.class));
-            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "查询成功", pagerVO);
+            return ResponseStatusVO.ok("查询成功", pagerVO);
         } catch (ServiceException e) {
             logger.error("返回所有对象JSON数据失败：{}", e.getMessage());
-            statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "查询失败", null);
+            return ResponseStatusVO.error("查询失败", null);
         }
-        return statusVO;
     }
 
     @PostMapping("admin/pager-cond")
     public ResponseStatusVO listPageByCondition(@RequestBody UserUserSocialQuery userUserSocialQuery) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
             PagerDTO pagerDTO = userUserSocialService.listPageByCondition(userUserSocialQuery);
             PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
             pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), UserUserSocialVO.class));
-            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "查询成功", pagerVO);
+            return ResponseStatusVO.ok("查询成功", pagerVO);
         } catch (ServiceException e) {
             logger.error("返回指定条件的分页对象JSON数据失败：{}", e.getMessage());
-            statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "查询失败", null);
+            return ResponseStatusVO.error("查询失败", null);
         }
-        return statusVO;
     }
 
     @Autowired

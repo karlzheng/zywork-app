@@ -21,7 +21,7 @@ public class TestController {
     @PostMapping("add")
     @SysLog(description = "用户添加")
     public ResponseStatusVO add() {
-        return new ResponseStatusVO(ResponseStatusEnum.OK.getCode(), ResponseStatusEnum.OK.getMessage(), null);
+        return ResponseStatusVO.ok(ResponseStatusEnum.OK.getCode(), ResponseStatusEnum.OK.getMessage(), null);
     }
 
     @PostMapping("edit")
@@ -31,27 +31,25 @@ public class TestController {
         if (jwtUser != null) {
             logger.info("userId: {}, userName: {}", jwtUser.getUserId(), jwtUser.getUsername());
         }
-        return new ResponseStatusVO(ResponseStatusEnum.OK.getCode(), ResponseStatusEnum.OK.getMessage(), null);
+        return ResponseStatusVO.ok(ResponseStatusEnum.OK.getCode(), ResponseStatusEnum.OK.getMessage(), null);
     }
 
     @GetMapping("remove/{id}")
     @SysLog(description = "用户删除")
     public ResponseStatusVO remove(@PathVariable("id") String id) {
-        return new ResponseStatusVO(ResponseStatusEnum.OK.getCode(), ResponseStatusEnum.OK.getMessage(), null);
+        return ResponseStatusVO.ok(ResponseStatusEnum.OK.getCode(), ResponseStatusEnum.OK.getMessage(), null);
     }
 
     @PostMapping("upload")
     public ResponseStatusVO upload(MultipartFile file) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
-        if (file != null) {
-//            statusVO = UploadUtils.uploadImg(file, UploadTypeEnum.IMAGE.getAllowedExts(), UploadTypeEnum.IMAGE.getMaxSize(),
-//                "/Users/Wangzhenyu/Desktop", "uploads/image", new float[]{0.8f, 0.5f});
-            statusVO = UploadUtils.uploadImg(file, UploadTypeEnum.IMAGE.getAllowedExts(), UploadTypeEnum.IMAGE.getMaxSize(),
-                    "/Users/Wangzhenyu/Desktop", "uploads/image", new int[][]{{200, 100}, {400, 260}});
-        } else {
-            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "未上传文件", null);
+        if (file == null) {
+            return ResponseStatusVO.dataError("未上传文件", null);
         }
-        return statusVO;
+//        return UploadUtils.uploadImg(file, UploadTypeEnum.IMAGE.getAllowedExts(), UploadTypeEnum.IMAGE.getMaxSize(),
+//                "/Users/Wangzhenyu/Desktop", "uploads/image", new float[]{0.8f, 0.5f});
+        return UploadUtils.uploadImg(file, UploadTypeEnum.IMAGE.getAllowedExts(), UploadTypeEnum.IMAGE.getMaxSize(),
+                "/Users/Wangzhenyu/Desktop", "uploads/image", new int[][]{{200, 100}, {400, 260}});
+
     }
 
 }

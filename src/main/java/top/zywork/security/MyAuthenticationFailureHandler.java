@@ -39,7 +39,6 @@ public class MyAuthenticationFailureHandler extends SimpleUrlAuthenticationFailu
                                         AuthenticationException exception) throws IOException, ServletException {
         logger.info("用户认证失败");
         response.setContentType(ContentTypeEnum.JSON.getValue());
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         String msg = ResponseStatusEnum.AUTHENTICATION_FAILURE.getMessage();
         if (exception instanceof DisabledException) {
             msg = "用户未启用";
@@ -52,7 +51,6 @@ public class MyAuthenticationFailureHandler extends SimpleUrlAuthenticationFailu
         } else if (exception instanceof SmsCodeErrorException) {
             msg = exception.getMessage();
         }
-        statusVO.errorStatus(ResponseStatusEnum.AUTHENTICATION_FAILURE.getCode(), msg, null);
-        response.getWriter().write(JSON.toJSONString(statusVO));
+        response.getWriter().write(JSON.toJSONString(ResponseStatusVO.error(ResponseStatusEnum.AUTHENTICATION_FAILURE.getCode(), msg, null)));
     }
 }

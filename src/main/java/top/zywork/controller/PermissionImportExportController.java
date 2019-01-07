@@ -12,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 import top.zywork.annotation.SysLog;
 import top.zywork.common.IOUtils;
 import top.zywork.enums.ContentTypeEnum;
-import top.zywork.enums.ResponseStatusEnum;
 import top.zywork.security.RolePermissionRedisUtils;
 import top.zywork.service.PermissionImportExportService;
 import top.zywork.service.RoleService;
@@ -49,44 +48,40 @@ public class PermissionImportExportController {
     @SysLog(description = "导入角色", requestParams = false)
     @SuppressWarnings({"unchecked"})
     public ResponseStatusVO importRoles(MultipartFile file) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
-        if (file != null) {
-            try {
-                List roleVOList = IOUtils.readJsonInputStreamToList(file.getInputStream(), RoleVO.class);
-                if (roleVOList.size() > 0) {
-                    roleService.saveBatch(roleVOList);
-                    statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "成功导入角色信息", null);
-                } else {
-                    statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "JSON文件内没有角色信息", null);
-                }
-            } catch (IOException e) {
-                logger.error("read json from input stream error: {}", e.getMessage());
-                statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "JSON文件错误", null);
-            }
-        } else {
-            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "未上传文件", null);
+        if (file == null) {
+            return ResponseStatusVO.dataError("未上传文件", null);
         }
-        return statusVO;
+        try {
+            List roleVOList = IOUtils.readJsonInputStreamToList(file.getInputStream(), RoleVO.class);
+            if (roleVOList.size() == 0) {
+                return ResponseStatusVO.dataError("JSON文件内没有角色信息", null);
+            }
+            roleService.saveBatch(roleVOList);
+            return ResponseStatusVO.ok("成功导入角色信息", null);
+        } catch (IOException e) {
+            logger.error("read json from input stream error: {}", e.getMessage());
+            return ResponseStatusVO.dataError("JSON文件错误", null);
+        }
     }
 
     @PostMapping("import-permission")
     @SysLog(description = "导入权限配置", requestParams = false)
     public ResponseStatusVO importPermissions(MultipartFile file) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
-        if (file != null) {
-            try {
-                List<PermissionImportExportVO> permissionImportExportVOList = IOUtils.readJsonInputStreamToList(file.getInputStream(), PermissionImportExportVO.class);
-                permissionImportExportService.importPermissions(permissionImportExportVOList);
-                rolePermissionRedisUtils.del();
-                statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "成功导入权限配置信息", null);
-            } catch (IOException e) {
-                logger.error("read json from input stream error: {}", e.getMessage());
-                statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "JSON文件错误", null);
-            }
-        } else {
-            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "未上传文件", null);
+        if (file == null) {
+            return ResponseStatusVO.dataError("未上传文件", null);
         }
-        return statusVO;
+        try {
+            List<PermissionImportExportVO> permissionImportExportVOList = IOUtils.readJsonInputStreamToList(file.getInputStream(), PermissionImportExportVO.class);
+            if (permissionImportExportVOList.size() == 0) {
+                return ResponseStatusVO.dataError("JSON文件内没有角色权限信息", null);
+            }
+            permissionImportExportService.importPermissions(permissionImportExportVOList);
+            rolePermissionRedisUtils.del();
+            return ResponseStatusVO.ok("成功导入权限配置信息", null);
+        } catch (IOException e) {
+            logger.error("read json from input stream error: {}", e.getMessage());
+            return ResponseStatusVO.dataError("JSON文件错误", null);
+        }
     }
 
     @GetMapping("export-permission")

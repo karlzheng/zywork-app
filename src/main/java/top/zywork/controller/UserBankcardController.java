@@ -10,7 +10,6 @@ import top.zywork.annotation.SysLog;
 import top.zywork.common.*;
 import top.zywork.dto.PagerDTO;
 import top.zywork.dto.UserBankcardDTO;
-import top.zywork.enums.ResponseStatusEnum;
 import top.zywork.exception.ServiceException;
 import top.zywork.query.UserBankcardQuery;
 import top.zywork.security.JwtUser;
@@ -40,6 +39,7 @@ public class UserBankcardController extends BaseController {
 
     /**
      * 绑定银行卡
+     *
      * @param accountName
      * @param bankcardNo
      * @return
@@ -47,252 +47,214 @@ public class UserBankcardController extends BaseController {
     @PostMapping("user/bind")
     @SysLog(description = "绑定银行卡")
     public ResponseStatusVO bindBankcard(String accountName, String bankcardNo) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         JwtUser jwtUser = SecurityUtils.getJwtUser();
-        if (jwtUser != null) {
-            if (org.apache.commons.lang.StringUtils.isNotEmpty(accountName) && BankCardUtils.checkBankCard(bankcardNo)) {
-                String cardInfoJson = BankCardAliapiUtils.getBankCardInfoJson(bankcardNo);
-                String bankName = BankCardAliapiUtils.getBankNameByCardInfo(cardInfoJson);
-                if (bankName != null) {
-                    UserBankcardDTO userBankcardDTO = userBankcardService.getByCardNo(bankcardNo);
-                    if (userBankcardDTO == null) {
-                        userBankcardDTO = new UserBankcardDTO();
-                        userBankcardDTO.setUserId(jwtUser.getUserId());
-                        userBankcardDTO.setAccountName(accountName);
-                        userBankcardDTO.setBankcardNo(bankcardNo);
-                        userBankcardDTO.setBankName(bankName);
-                        userBankcardDTO.setBankCode(BankCardAliapiUtils.getBankCodeByCardInfo(cardInfoJson));
-                        userBankcardService.save(userBankcardDTO);
-                        statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "已绑定银行卡", null);
-                    } else {
-                        statusVO.okStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "不能再次绑定已绑定的银行卡", null);
-                    }
-                } else {
-                    statusVO.okStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "无法获取银行卡基本信息", null);
-                }
-            } else {
-                statusVO.okStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "填写正确的姓名和银行卡号", null);
-            }
-        } else {
-            statusVO.okStatus(ResponseStatusEnum.AUTHENTICATION_ERROR.getCode(), ResponseStatusEnum.AUTHENTICATION_ERROR.getMessage(), null);
+        if (jwtUser == null) {
+            return ResponseStatusVO.authenticationError();
         }
-        return statusVO;
+        if (org.apache.commons.lang.StringUtils.isEmpty(accountName) || !BankCardUtils.checkBankCard(bankcardNo)) {
+            return ResponseStatusVO.dataError("错误的姓名和银行卡号", null);
+        }
+        String cardInfoJson = BankCardAliapiUtils.getBankCardInfoJson(bankcardNo);
+        String bankName = BankCardAliapiUtils.getBankNameByCardInfo(cardInfoJson);
+        if (bankName == null) {
+            return ResponseStatusVO.dataError("无法获取银行卡基本信息", null);
+        }
+        UserBankcardDTO userBankcardDTO = userBankcardService.getByCardNo(bankcardNo);
+        if (userBankcardDTO != null) {
+            return ResponseStatusVO.dataError("不能再次绑定已绑定的银行卡", null);
+        }
+        userBankcardDTO = new UserBankcardDTO();
+        userBankcardDTO.setUserId(jwtUser.getUserId());
+        userBankcardDTO.setAccountName(accountName);
+        userBankcardDTO.setBankcardNo(bankcardNo);
+        userBankcardDTO.setBankName(bankName);
+        userBankcardDTO.setBankCode(BankCardAliapiUtils.getBankCodeByCardInfo(cardInfoJson));
+        userBankcardService.save(userBankcardDTO);
+        return ResponseStatusVO.ok("已绑定银行卡", null);
     }
 
     /**
      * 解除绑定银行卡
+     *
      * @param bankcardNo
      * @return
      */
     @PostMapping("user/unbind")
     @SysLog(description = "解除绑定银行卡")
     public ResponseStatusVO unbindBankcard(String bankcardNo) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         JwtUser jwtUser = SecurityUtils.getJwtUser();
-        if (jwtUser != null) {
-            UserBankcardDTO userBankcardDTO = userBankcardService.getByCardNo(bankcardNo);
-            if (userBankcardDTO != null) {
-                if (userBankcardDTO.getUserId() == jwtUser.getUserId()) {
-                    userBankcardService.removeById(userBankcardDTO.getId());
-                    statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "已解除绑定银行卡", null);
-                } else {
-                    statusVO.okStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "银行卡不属于此用户", null);
-                }
-            } else {
-                statusVO.okStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "不存在的银行卡", null);
-            }
-        } else {
-            statusVO.okStatus(ResponseStatusEnum.AUTHENTICATION_ERROR.getCode(), ResponseStatusEnum.AUTHENTICATION_ERROR.getMessage(), null);
+        if (jwtUser == null) {
+            return ResponseStatusVO.authenticationError();
         }
-        return statusVO;
+        UserBankcardDTO userBankcardDTO = userBankcardService.getByCardNo(bankcardNo);
+        if (userBankcardDTO == null) {
+            return ResponseStatusVO.dataError("不存在的银行卡", null);
+        }
+        if (userBankcardDTO.getUserId() != jwtUser.getUserId()) {
+            return ResponseStatusVO.dataError("银行卡不属于此用户", null);
+        }
+        userBankcardService.removeById(userBankcardDTO.getId());
+        return ResponseStatusVO.ok("已解除绑定银行卡", null);
     }
 
     /**
      * 获取银行卡对应的银行名称
+     *
      * @param bankcardNo
      * @return
      */
     @PostMapping("user/info")
     public ResponseStatusVO bankcardInfo(String bankcardNo) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
-        if (BankCardUtils.checkBankCard(bankcardNo)) {
-            String bankName = BankCardAliapiUtils.getBankNameByCardInfo(BankCardAliapiUtils.getBankCardInfoJson(bankcardNo));
-            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "获取银行名称", bankName);
-        } else {
-            statusVO.okStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "错误的银行卡号", null);
+        if (!BankCardUtils.checkBankCard(bankcardNo)) {
+            return ResponseStatusVO.dataError("错误的银行卡号", null);
         }
-        return statusVO;
+        String bankName = BankCardAliapiUtils.getBankNameByCardInfo(BankCardAliapiUtils.getBankCardInfoJson(bankcardNo));
+        return ResponseStatusVO.ok("获取银行名称", bankName);
     }
 
     @PostMapping("admin/save")
     public ResponseStatusVO save(@RequestBody @Validated UserBankcardVO userBankcardVO, BindingResult bindingResult) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         if (bindingResult.hasErrors()) {
-            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), BindingResultUtils.errorString(bindingResult), null);
-        } else {
-            try {
-                userBankcardService.save(BeanUtils.copy(userBankcardVO, UserBankcardDTO.class));
-                statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "添加成功", null);
-            } catch (ServiceException e) {
-                logger.error("添加失败：{}", e.getMessage());
-                statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "添加失败", null);
-            }
+            return ResponseStatusVO.dataError(BindingResultUtils.errorString(bindingResult), null);
         }
-        return statusVO;
+        try {
+            userBankcardService.save(BeanUtils.copy(userBankcardVO, UserBankcardDTO.class));
+            return ResponseStatusVO.ok("添加成功", null);
+        } catch (ServiceException e) {
+            logger.error("添加失败：{}", e.getMessage());
+            return ResponseStatusVO.error("添加失败", null);
+        }
     }
 
     @PostMapping("admin/batch-save")
     public ResponseStatusVO saveBatch(@RequestBody @Validated List<UserBankcardVO> userBankcardVOList, BindingResult bindingResult) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         if (bindingResult.hasErrors()) {
-            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), BindingResultUtils.errorString(bindingResult), null);
-        } else {
-            try {
-                userBankcardService.saveBatch(BeanUtils.copyListObj(userBankcardVOList, UserBankcardDTO.class));
-                statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "批量添加成功", null);
-            } catch (ServiceException e) {
-                logger.error("添加失败：{}", e.getMessage());
-                statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "批量添加失败", null);
-            }
+            return ResponseStatusVO.dataError(BindingResultUtils.errorString(bindingResult), null);
         }
-        return statusVO;
+        try {
+            userBankcardService.saveBatch(BeanUtils.copyListObj(userBankcardVOList, UserBankcardDTO.class));
+            return ResponseStatusVO.ok("批量添加成功", null);
+        } catch (ServiceException e) {
+            logger.error("添加失败：{}", e.getMessage());
+            return ResponseStatusVO.error("批量添加失败", null);
+        }
     }
 
     @GetMapping("admin/remove/{id}")
     public ResponseStatusVO removeById(@PathVariable("id") Long id) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
             userBankcardService.removeById(id);
-            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "删除成功", null);
+            return ResponseStatusVO.ok("删除成功", null);
         } catch (ServiceException e) {
             logger.error("删除失败：{}", e.getMessage());
-            statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "删除失败", null);
+            return ResponseStatusVO.error("删除失败", null);
         }
-        return statusVO;
     }
 
     @PostMapping("admin/batch-remove")
     public ResponseStatusVO removeByIds(@RequestBody String[] ids) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
             userBankcardService.removeByIds(StringUtils.strArrayToLongArray(ids));
-            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "批量删除成功", null);
+            return ResponseStatusVO.ok("批量删除成功", null);
         } catch (ServiceException e) {
             logger.error("批量删除失败：{}", e.getMessage());
-            statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "批量删除失败", null);
+            return ResponseStatusVO.error("批量删除失败", null);
         }
-        return statusVO;
     }
 
     @PostMapping("admin/update")
     public ResponseStatusVO update(@RequestBody @Validated UserBankcardVO userBankcardVO, BindingResult bindingResult) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         if (bindingResult.hasErrors()) {
-            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), BindingResultUtils.errorString(bindingResult), null);
-        } else {
-            try {
-                int updateRows = userBankcardService.update(BeanUtils.copy(userBankcardVO, UserBankcardDTO.class));
-                if (updateRows == 1) {
-                    statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "更新成功", null);
-                } else {
-                    statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "数据版本号有问题，在此更新前数据已被更新", null);
-                }
-            } catch (ServiceException e) {
-                logger.error("更新失败：{}", e.getMessage());
-                statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "更新失败", null);
-            }
+            return ResponseStatusVO.dataError(BindingResultUtils.errorString(bindingResult), null);
         }
-        return statusVO;
+        try {
+            int updateRows = userBankcardService.update(BeanUtils.copy(userBankcardVO, UserBankcardDTO.class));
+            if (updateRows == 1) {
+                return ResponseStatusVO.ok("更新成功", null);
+            } else {
+                return ResponseStatusVO.dataError("数据版本号有问题，在此更新前数据已被更新", null);
+            }
+        } catch (ServiceException e) {
+            logger.error("更新失败：{}", e.getMessage());
+            return ResponseStatusVO.error("更新失败", null);
+        }
     }
 
     @PostMapping("admin/batch-update")
     public ResponseStatusVO updateBatch(@RequestBody @Validated List<UserBankcardVO> userBankcardVOList, BindingResult bindingResult) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         if (bindingResult.hasErrors()) {
-            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), BindingResultUtils.errorString(bindingResult), null);
-        } else {
-            try {
-                userBankcardService.updateBatch(BeanUtils.copyListObj(userBankcardVOList, UserBankcardDTO.class));
-                statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "批量更新成功", null);
-            } catch (ServiceException e) {
-                logger.error("批量更新失败：{}", e.getMessage());
-                statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "批量更新失败", null);
-            }
+            return ResponseStatusVO.dataError(BindingResultUtils.errorString(bindingResult), null);
         }
-        return statusVO;
+        try {
+            userBankcardService.updateBatch(BeanUtils.copyListObj(userBankcardVOList, UserBankcardDTO.class));
+            return ResponseStatusVO.ok("批量更新成功", null);
+        } catch (ServiceException e) {
+            logger.error("批量更新失败：{}", e.getMessage());
+            return ResponseStatusVO.error("批量更新失败", null);
+        }
     }
 
     @PostMapping("admin/active")
     public ResponseStatusVO active(@RequestBody UserBankcardVO userBankcardVO) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
             userBankcardService.update(BeanUtils.copy(userBankcardVO, UserBankcardDTO.class));
-            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "激活或冻结成功", null);
+            return ResponseStatusVO.ok("激活或冻结成功", null);
         } catch (ServiceException e) {
             logger.error("激活或冻结失败：{}", e.getMessage());
-            statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "激活或冻结失败", null);
+            return ResponseStatusVO.error("激活或冻结失败", null);
         }
-        return statusVO;
     }
 
     @PostMapping("admin/batch-active")
     public ResponseStatusVO activeBatch(@RequestBody @Validated List<UserBankcardVO> userBankcardVOList) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
             userBankcardService.updateBatch(BeanUtils.copyListObj(userBankcardVOList, UserBankcardDTO.class));
-            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "批量激活或冻结成功", null);
+            return ResponseStatusVO.ok("批量激活或冻结成功", null);
         } catch (ServiceException e) {
             logger.error("批量激活或冻结失败：{}", e.getMessage());
-            statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "批量激活或冻结失败", null);
+            return ResponseStatusVO.error("批量激活或冻结失败", null);
         }
-        return statusVO;
     }
 
     @GetMapping("admin/one/{id}")
     public ResponseStatusVO getById(@PathVariable("id") Long id) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         UserBankcardVO userBankcardVO = new UserBankcardVO();
         try {
             Object obj = userBankcardService.getById(id);
             if (obj != null) {
                 userBankcardVO = BeanUtils.copy(obj, UserBankcardVO.class);
             }
-            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "查询成功", userBankcardVO);
+            return ResponseStatusVO.ok("查询成功", userBankcardVO);
         } catch (ServiceException e) {
             logger.error("返回单个对象JSON数据失败：{}", e.getMessage());
-            statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "查询失败", null);
+            return ResponseStatusVO.error("查询失败", null);
         }
-        return statusVO;
     }
 
     @GetMapping("admin/all")
     public ResponseStatusVO listAll() {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
             PagerDTO pagerDTO = userBankcardService.listAll();
             PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
             pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), UserBankcardVO.class));
-            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "查询成功", pagerVO);
+            return ResponseStatusVO.ok("查询成功", pagerVO);
         } catch (ServiceException e) {
             logger.error("返回所有对象JSON数据失败：{}", e.getMessage());
-            statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "查询失败", null);
+            return ResponseStatusVO.error("查询失败", null);
         }
-        return statusVO;
     }
 
     @PostMapping("admin/pager-cond")
     public ResponseStatusVO listPageByCondition(@RequestBody UserBankcardQuery userBankcardQuery) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
             PagerDTO pagerDTO = userBankcardService.listPageByCondition(userBankcardQuery);
             PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
             pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), UserBankcardVO.class));
-            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "查询成功", pagerVO);
+            return ResponseStatusVO.ok("查询成功", pagerVO);
         } catch (ServiceException e) {
             logger.error("返回指定条件的分页对象JSON数据失败：{}", e.getMessage());
-            statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "查询失败", null);
+            return ResponseStatusVO.error("查询失败", null);
         }
-        return statusVO;
     }
 
     @Autowired

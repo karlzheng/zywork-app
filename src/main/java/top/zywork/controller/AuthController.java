@@ -18,7 +18,10 @@ import top.zywork.ali.AliyunSmsConfig;
 import top.zywork.ali.AliyunSmsUtils;
 import top.zywork.annotation.SysLog;
 import top.zywork.common.*;
-import top.zywork.enums.*;
+import top.zywork.enums.ContentTypeEnum;
+import top.zywork.enums.MIMETypeEnum;
+import top.zywork.enums.RandomCodeEnum;
+import top.zywork.enums.SysConfigEnum;
 import top.zywork.security.*;
 import top.zywork.security.mobile.SmsCodeRedisUtils;
 import top.zywork.service.DefaultRoleQueryService;
@@ -72,54 +75,55 @@ public class AuthController {
 
     /**
      * 普通账号（手机号，邮箱），密码登录处理，可以配置是否开启验证码功能
+     *
      * @param username
      * @param password
      * @param verifyCode
      */
     @PostMapping("login")
     @SysLog(description = "用户账号密码登录", requestParams = false)
-    public void login(String username, String password, String verifyCode) {}
+    public void login(String username, String password, String verifyCode) {
+    }
 
     /**
      * 手机验证码登录处理
+     *
      * @param phone
      * @param smsCode
      */
     @PostMapping("mobile")
     @SysLog(description = "手机验证码登录")
-    public void mobile(String phone, String smsCode) {}
+    public void mobile(String phone, String smsCode) {
+    }
 
     /**
      * 未认证处理
+     *
      * @return
      */
     @GetMapping("require")
     public ResponseStatusVO require() {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
-        statusVO.errorStatus(ResponseStatusEnum.AUTHENTICATION_ERROR.getCode(),
-                ResponseStatusEnum.AUTHENTICATION_ERROR.getMessage(), null);
-        return statusVO;
+        return ResponseStatusVO.authenticationError();
     }
 
     /**
      * 退出登录处理，只有登录过的用户才需要退出
+     *
      * @return
      */
     @GetMapping("logout")
     public ResponseStatusVO logout() {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         JwtUser jwtUser = SecurityUtils.getJwtUser();
-        if (jwtUser != null) {
-            jwtTokenRedisUtils.removeToken(jwtUser.getUserId() + "");
-            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "已安全退出", null);
-        } else {
-            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "未登录，无需退出", null);
+        if (jwtUser == null) {
+            return ResponseStatusVO.ok("未登录，无需退出", null);
         }
-        return statusVO;
+        jwtTokenRedisUtils.removeToken(jwtUser.getUserId() + "");
+        return ResponseStatusVO.ok("已安全退出", null);
     }
 
     /**
      * 生成验证码图片，把验证码保存到redis中，有效期参考application配置文件
+     *
      * @param response
      */
     @GetMapping("verify-code")
@@ -142,46 +146,43 @@ public class AuthController {
 
     /**
      * 发送手机验证码
+     *
      * @param phone
      */
     @PostMapping("sms-code")
     public ResponseStatusVO sendSmsCode(String phone) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
-        if (StringUtils.isNotEmpty(phone) && RegexUtils.match(RegexUtils.REGEX_PHONE, phone)) {
-            if (smsCodeRedisUtils.existsCode(SmsCodeRedisUtils.SMS_CODE_LOGIN_PREFIX, phone)) {
-                statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "已获取过手机验证码，请稍候再获取", null);
-            } else {
-                JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(phone);
-                if (StringUtils.isEmpty(jwtUser.getUsername())) {
-                    // 此用户还未注册
-                    statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "手机号还未注册用户", null);
-                } else {
-                    // 是平台用户，准备发送手机验证码，此code用于发送短信
-                    String code = RandomUtils.randomCode(RandomCodeEnum.NUMBER_CODE, 6);
-                    try {
-                        AliyunSmsConfig aliyunSmsConfig = sysConfigService.getByName(SysConfigEnum.ALIYUN_SMS_CONFIG.getValue(), AliyunSmsConfig.class);
-                        SendSmsResponse smsResponse = AliyunSmsUtils.sendSms(aliyunSmsConfig, phone, "templateCode", "templateParam", "outId");
-                        if (smsResponse.getCode() != null && smsResponse.getCode().equals("OK")) {
-                            smsCodeRedisUtils.storeCode(SmsCodeRedisUtils.SMS_CODE_LOGIN_PREFIX, phone, code);
-                            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "短信发送成功", smsCodeExpiration);
-                        } else {
-                            logger.error("短信发送失败：{}", smsResponse.getMessage());
-                            statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "短信发送失败", null);
-                        }
-                    } catch (ClientException e) {
-                        logger.error("短信发送失败：{}", e.getMessage());
-                        statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "短信发送失败", null);
-                    }
-                }
-            }
-        } else {
-            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "错误的手机号", null);
+        if (StringUtils.isEmpty(phone) || !RegexUtils.match(RegexUtils.REGEX_PHONE, phone)) {
+            return ResponseStatusVO.dataError("错误的手机号", null);
         }
-        return statusVO;
+        if (smsCodeRedisUtils.existsCode(SmsCodeRedisUtils.SMS_CODE_LOGIN_PREFIX, phone)) {
+            return ResponseStatusVO.error("已获取过手机验证码，请稍候再获取", null);
+        }
+        JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(phone);
+        if (StringUtils.isEmpty(jwtUser.getUsername())) {
+            // 此用户还未注册
+            return ResponseStatusVO.dataError("手机号还未注册用户", null);
+        }
+        // 是平台用户，准备发送手机验证码，此code用于发送短信
+        String code = RandomUtils.randomCode(RandomCodeEnum.NUMBER_CODE, 6);
+        try {
+            AliyunSmsConfig aliyunSmsConfig = sysConfigService.getByName(SysConfigEnum.ALIYUN_SMS_CONFIG.getValue(), AliyunSmsConfig.class);
+            SendSmsResponse smsResponse = AliyunSmsUtils.sendSms(aliyunSmsConfig, phone, "templateCode", "templateParam", "outId");
+            if (smsResponse.getCode() != null && smsResponse.getCode().equals("OK")) {
+                smsCodeRedisUtils.storeCode(SmsCodeRedisUtils.SMS_CODE_LOGIN_PREFIX, phone, code);
+                return ResponseStatusVO.ok("短信发送成功", smsCodeExpiration);
+            } else {
+                logger.error("短信发送失败：{}", smsResponse.getMessage());
+                return ResponseStatusVO.error("短信发送失败", null);
+            }
+        } catch (ClientException e) {
+            logger.error("短信发送失败：{}", e.getMessage());
+            return ResponseStatusVO.error("短信发送失败", null);
+        }
     }
 
     /**
      * 邮箱注册
+     *
      * @param email
      * @param password
      * @param confirmPassword
@@ -192,87 +193,73 @@ public class AuthController {
     @PostMapping("reg")
     @SysLog(description = "用户邮箱注册", requestParams = false)
     public ResponseStatusVO reg(String email, String password, String confirmPassword, String regCode, String shareCode) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
-        if (StringUtils.isNotEmpty(email) && RegexUtils.match(RegexUtils.REGEX_EMAIL, email)) {
-            JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(email);
-            if (StringUtils.isEmpty(jwtUser.getUsername())) {
-                if (StringUtils.isNotEmpty(password) && RegexUtils.match(RegexUtils.REGEX_PASSWORD, password.trim())) {
-                    if (StringUtils.isNotEmpty(confirmPassword) && password.trim().equals(confirmPassword.trim())) {
-                        if (verifyCodeRedisUtils.existsCode(VerifyCodeRedisUtils.CODE_REG_PREFIX, email)
-                                && verifyCodeRedisUtils.getCode(VerifyCodeRedisUtils.CODE_REG_PREFIX, email).equals(regCode)) {
-                            // 标记是否为邀请注册
-                            boolean isInvited = false;
-                            Long inviteUserId = null;
-                            if (StringUtils.isNotEmpty(shareCode)) {
-                                isInvited = true;
-                                inviteUserId = userRegService.getUserIdByShareCode(shareCode);
-                            }
-                            if (isInvited && inviteUserId == null) {
-                                statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "邀请码不正确", null);
-                            } else {
-                                userRegService.saveUser(email, password, defaultRoleQueryService.getDefaultRole(), inviteUserId);
-                                statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "注册成功", null);
-                            }
-                        } else {
-                            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "邮箱验证码不正确", null);
-                        }
-                    } else {
-                        statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "密码和确认密码不一致", null);
-                    }
-                } else {
-                    statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "密码不符合要求", null);
-                }
-            } else {
-                statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "邮箱已注册用户，请直接登录", null);
-            }
-        } else {
-            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "错误的邮箱地址", null);
+        if (StringUtils.isEmpty(email) || !RegexUtils.match(RegexUtils.REGEX_EMAIL, email)) {
+            return ResponseStatusVO.dataError("错误的邮箱地址", null);
         }
-        return statusVO;
+        JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(email);
+        if (StringUtils.isNotEmpty(jwtUser.getUsername())) {
+            return ResponseStatusVO.dataError("邮箱已注册用户，请直接登录", null);
+        }
+        if (StringUtils.isEmpty(password) || !RegexUtils.match(RegexUtils.REGEX_PASSWORD, password.trim())) {
+            return ResponseStatusVO.dataError("密码不符合要求", null);
+        }
+        if (StringUtils.isEmpty(confirmPassword) || !password.trim().equals(confirmPassword.trim())) {
+            return ResponseStatusVO.dataError("密码和确认密码不一致", null);
+        }
+        if (StringUtils.isEmpty(regCode) || !regCode.equals(verifyCodeRedisUtils.getCode(VerifyCodeRedisUtils.CODE_REG_PREFIX, email))) {
+            return ResponseStatusVO.dataError("邮箱验证码不正确", null);
+        }
+        // 标记是否为邀请注册
+        Long inviteUserId = null;
+        if (StringUtils.isNotEmpty(shareCode)) {
+            inviteUserId = userRegService.getUserIdByShareCode(shareCode);
+            if (inviteUserId == null) {
+                return ResponseStatusVO.dataError("邀请码不正确", null);
+            }
+        }
+        userRegService.saveUser(email, password, defaultRoleQueryService.getDefaultRole(), inviteUserId);
+        return ResponseStatusVO.ok("注册成功", null);
     }
 
     /**
      * 发送邮箱注册码到注册邮箱
+     *
      * @param email
      * @return
      */
     @PostMapping("reg-code")
     public ResponseStatusVO sendRegCode(String email) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
-        if (StringUtils.isNotEmpty(email) && RegexUtils.match(RegexUtils.REGEX_EMAIL, email)) {
-            if (verifyCodeRedisUtils.existsCode(VerifyCodeRedisUtils.CODE_REG_PREFIX, email)) {
-                statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "已获取过邮箱验证码，请稍候再获取", null);
-            } else {
-                JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(email);
-                if (StringUtils.isNotEmpty(jwtUser.getUsername())) {
-                    // 此邮箱已注册
-                    statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "邮箱已注册用户，请直接登录", null);
-                } else {
-                    // 还不是平台用户，准备发送邮箱验证码，此code用于发送邮件
-                    String code = RandomUtils.randomCode(RandomCodeEnum.NUMBER_CODE, 6);
-                    try {
-                        AliyunMailConfig aliyunMailConfig = sysConfigService.getByName(SysConfigEnum.ALIYUN_MAIL_CONFIG.getValue(), AliyunMailConfig.class);
-                        SingleSendMailResponse singleSendMailResponse = AliyunMailUtils.sendEmail(aliyunMailConfig, "service@mail.zywork.top", "赣州智悦科技",  email, false, "注册验证码", code, "verifyRegCode");
-                        verifyCodeRedisUtils.storeCode(VerifyCodeRedisUtils.CODE_REG_PREFIX, email, code);
-                        statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "邮件发送成功，请查收邮件", verifyCodeExpiration);
-                    } catch (ClientException e) {
-                        logger.error("邮件发送失败：{}", e.getMessage());
-                        if (e.getErrCode().equals("InvalidToAddress.Spam")) {
-                            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "邮箱地址无效，请重新填写", null);
-                        } else {
-                            statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "邮件发送失败", null);
-                        }
-                    }
-                }
-            }
-        } else {
-            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "错误的邮箱", null);
+        if (StringUtils.isEmpty(email) || !RegexUtils.match(RegexUtils.REGEX_EMAIL, email)) {
+            return ResponseStatusVO.dataError("错误的邮箱", null);
         }
-        return statusVO;
+        if (verifyCodeRedisUtils.existsCode(VerifyCodeRedisUtils.CODE_REG_PREFIX, email)) {
+            return ResponseStatusVO.error("已获取过邮箱验证码，请稍候再获取", null);
+        }
+        JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(email);
+        if (StringUtils.isNotEmpty(jwtUser.getUsername())) {
+            // 此邮箱已注册
+            return ResponseStatusVO.dataError("邮箱已注册用户，请直接登录", null);
+        }
+        // 还不是平台用户，准备发送邮箱验证码，此code用于发送邮件
+        String code = RandomUtils.randomCode(RandomCodeEnum.NUMBER_CODE, 6);
+        try {
+            AliyunMailConfig aliyunMailConfig = sysConfigService.getByName(SysConfigEnum.ALIYUN_MAIL_CONFIG.getValue(), AliyunMailConfig.class);
+            SingleSendMailResponse singleSendMailResponse = AliyunMailUtils.sendEmail(aliyunMailConfig, "service@mail.zywork.top", "赣州智悦科技", email, false, "注册验证码", code, "verifyRegCode");
+            verifyCodeRedisUtils.storeCode(VerifyCodeRedisUtils.CODE_REG_PREFIX, email, code);
+            return ResponseStatusVO.ok("邮件发送成功，请查收邮件", verifyCodeExpiration);
+        } catch (ClientException e) {
+            logger.error("邮件发送失败：{}", e.getMessage());
+            if (e.getErrCode().equals("InvalidToAddress.Spam")) {
+                return ResponseStatusVO.dataError("邮箱地址无效，请重新填写", null);
+            } else {
+                return ResponseStatusVO.error("邮件发送失败", null);
+            }
+        }
     }
 
     /**
      * 手机注册
+     *
      * @param phone
      * @param password
      * @param confirmPassword
@@ -282,84 +269,69 @@ public class AuthController {
     @PostMapping("reg-mobile")
     @SysLog(description = "用户手机注册", requestParams = false)
     public ResponseStatusVO regMobile(String phone, String password, String confirmPassword, String regCode, String shareCode) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
-        if (StringUtils.isNotEmpty(phone) && RegexUtils.match(RegexUtils.REGEX_PHONE, phone)) {
-            JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(phone);
-            if (StringUtils.isEmpty(jwtUser.getUsername())) {
-                if (StringUtils.isNotEmpty(password) && RegexUtils.match(RegexUtils.REGEX_PASSWORD, password.trim())) {
-                    if (StringUtils.isNotEmpty(confirmPassword) && password.trim().equals(confirmPassword.trim())) {
-                        if (verifyCodeRedisUtils.existsCode(VerifyCodeRedisUtils.CODE_REG_PREFIX, phone)
-                                && verifyCodeRedisUtils.getCode(VerifyCodeRedisUtils.CODE_REG_PREFIX, phone).equals(regCode)) {
-                            // 标记是否为邀请注册
-                            boolean isInvited = false;
-                            Long inviteUserId = null;
-                            if (StringUtils.isNotEmpty(shareCode)) {
-                                isInvited = true;
-                                inviteUserId = userRegService.getUserIdByShareCode(shareCode);
-                            }
-                            if (isInvited && inviteUserId == null) {
-                                statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "邀请码不正确", null);
-                            } else {
-                                userRegService.saveUserMobile(phone, password, defaultRoleQueryService.getDefaultRole(), inviteUserId);
-                                statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "注册成功", null);
-                            }
-                        } else {
-                            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "手机验证码不正确", null);
-                        }
-                    } else {
-                        statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "密码和确认密码不一致", null);
-                    }
-                } else {
-                    statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "密码不符合要求", null);
-                }
-            } else {
-                statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "手机号已注册用户，请直接登录", null);
-            }
-        } else {
-            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "错误的手机号", null);
+        if (StringUtils.isEmpty(phone) || !RegexUtils.match(RegexUtils.REGEX_PHONE, phone)) {
+            return ResponseStatusVO.dataError("错误的手机号", null);
         }
-        return statusVO;
+        JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(phone);
+        if (StringUtils.isNotEmpty(jwtUser.getUsername())) {
+            return ResponseStatusVO.dataError("手机号已注册用户，请直接登录", null);
+        }
+        if (StringUtils.isEmpty(password) || !RegexUtils.match(RegexUtils.REGEX_PASSWORD, password.trim())) {
+            return ResponseStatusVO.dataError("密码不符合要求", null);
+        }
+        if (StringUtils.isEmpty(confirmPassword) || !password.trim().equals(confirmPassword.trim())) {
+            return ResponseStatusVO.dataError("密码和确认密码不一致", null);
+        }
+        if (StringUtils.isEmpty(regCode) || !regCode.equals(verifyCodeRedisUtils.getCode(VerifyCodeRedisUtils.CODE_REG_PREFIX, phone))) {
+            return ResponseStatusVO.dataError("手机验证码不正确", null);
+        }
+        // 标记是否为邀请注册
+        Long inviteUserId = null;
+        if (StringUtils.isNotEmpty(shareCode)) {
+            inviteUserId = userRegService.getUserIdByShareCode(shareCode);
+            if (inviteUserId == null) {
+                return ResponseStatusVO.dataError("邀请码不正确", null);
+            }
+        }
+        userRegService.saveUserMobile(phone, password, defaultRoleQueryService.getDefaultRole(), inviteUserId);
+        return ResponseStatusVO.ok("注册成功", null);
     }
 
     /**
      * 发送手机注册验证码到注册手机号
+     *
      * @param phone
      * @return
      */
     @PostMapping("reg-sms-code")
     public ResponseStatusVO sendRegSmsCode(String phone) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
-        if (StringUtils.isNotEmpty(phone) && RegexUtils.match(RegexUtils.REGEX_PHONE, phone)) {
-            if (smsCodeRedisUtils.existsCode(SmsCodeRedisUtils.SMS_CODE_REG_PREFIX, phone)) {
-                statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "已获取过手机验证码，请稍候再获取", null);
-            } else {
-                JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(phone);
-                if (StringUtils.isNotEmpty(jwtUser.getUsername())) {
-                    // 此手机号已注册
-                    statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "手机号已注册用户，请直接登录", null);
-                } else {
-                    // 还不是平台用户，准备发送手机验证码，此code用于发送短信
-                    String code = RandomUtils.randomCode(RandomCodeEnum.NUMBER_CODE, 6);
-                    try {
-                        AliyunSmsConfig aliyunSmsConfig = sysConfigService.getByName(SysConfigEnum.ALIYUN_SMS_CONFIG.getValue(), AliyunSmsConfig.class);
-                        SendSmsResponse smsResponse = AliyunSmsUtils.sendSms(aliyunSmsConfig, phone, "templateCode", "templateParam", "outId");
-                        if (smsResponse.getCode() != null && smsResponse.getCode().equals("OK")) {
-                            smsCodeRedisUtils.storeCode(SmsCodeRedisUtils.SMS_CODE_REG_PREFIX, phone, code);
-                            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "短信发送成功", smsCodeExpiration);
-                        } else {
-                            logger.error("短信发送失败：{}", smsResponse.getMessage());
-                            statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "短信发送失败", null);
-                        }
-                    } catch (ClientException e) {
-                        logger.error("短信发送失败：{}", e.getMessage());
-                        statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "短信发送失败", null);
-                    }
-                }
-            }
-        } else {
-            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "错误的手机号", null);
+        if (StringUtils.isEmpty(phone) || !RegexUtils.match(RegexUtils.REGEX_PHONE, phone)) {
+            return ResponseStatusVO.dataError("错误的手机号", null);
         }
-        return statusVO;
+        if (smsCodeRedisUtils.existsCode(SmsCodeRedisUtils.SMS_CODE_REG_PREFIX, phone)) {
+            return ResponseStatusVO.error("已获取过手机验证码，请稍候再获取", null);
+        }
+        JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(phone);
+        if (StringUtils.isNotEmpty(jwtUser.getUsername())) {
+            // 此手机号已注册
+            return ResponseStatusVO.dataError("手机号已注册用户，请直接登录", null);
+        }
+        // 还不是平台用户，准备发送手机验证码，此code用于发送短信
+        String code = RandomUtils.randomCode(RandomCodeEnum.NUMBER_CODE, 6);
+        try {
+            AliyunSmsConfig aliyunSmsConfig = sysConfigService.getByName(SysConfigEnum.ALIYUN_SMS_CONFIG.getValue(), AliyunSmsConfig.class);
+            SendSmsResponse smsResponse = AliyunSmsUtils.sendSms(aliyunSmsConfig, phone, "templateCode", "templateParam", "outId");
+            if (smsResponse.getCode() != null && smsResponse.getCode().equals("OK")) {
+                smsCodeRedisUtils.storeCode(SmsCodeRedisUtils.SMS_CODE_REG_PREFIX, phone, code);
+                return ResponseStatusVO.ok("短信发送成功", smsCodeExpiration);
+            } else {
+                logger.error("短信发送失败：{}", smsResponse.getMessage());
+                return ResponseStatusVO.error("短信发送失败", null);
+            }
+        } catch (ClientException e) {
+            logger.error("短信发送失败：{}", e.getMessage());
+            return ResponseStatusVO.error("短信发送失败", null);
+        }
     }
 
     @Autowired

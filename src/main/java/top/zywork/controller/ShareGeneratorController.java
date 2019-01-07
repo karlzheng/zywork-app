@@ -11,7 +11,6 @@ import top.zywork.common.QrCodeUtils;
 import top.zywork.dto.UserUserDetailDTO;
 import top.zywork.enums.ContentTypeEnum;
 import top.zywork.enums.MIMETypeEnum;
-import top.zywork.enums.ResponseStatusEnum;
 import top.zywork.security.JwtUser;
 import top.zywork.security.SecurityUtils;
 import top.zywork.service.UserUserDetailService;
@@ -47,38 +46,35 @@ public class ShareGeneratorController {
     @GetMapping("qrcode")
     public ResponseStatusVO generateQrCode(HttpServletResponse response) {
         JwtUser jwtUser = SecurityUtils.getJwtUser();
-        if (jwtUser != null) {
-            UserUserDetailDTO userUserDetailDTO = (UserUserDetailDTO) userUserDetailService.listById(jwtUser.getUserId()).getRows().get(0);
-            BufferedImage bufferedImage = QrCodeUtils.generateQrCode(regShareUrl + userUserDetailDTO.getUserDetailShareCode(), 200, 200);
-            response.setContentType(ContentTypeEnum.PNG.getValue());
-            if (bufferedImage != null) {
-                try {
-                    ImageIO.write(bufferedImage, MIMETypeEnum.PNG.getValue(), response.getOutputStream());
-                } catch (IOException e) {
-                    logger.error("返回验证码图片出错： {}", e.getMessage());
-                }
+        if (jwtUser == null) {
+            return ResponseStatusVO.authenticationError();
+        }
+        UserUserDetailDTO userUserDetailDTO = (UserUserDetailDTO) userUserDetailService.listById(jwtUser.getUserId()).getRows().get(0);
+        BufferedImage bufferedImage = QrCodeUtils.generateQrCode(regShareUrl + userUserDetailDTO.getUserDetailShareCode(), 200, 200);
+        response.setContentType(ContentTypeEnum.PNG.getValue());
+        if (bufferedImage != null) {
+            try {
+                ImageIO.write(bufferedImage, MIMETypeEnum.PNG.getValue(), response.getOutputStream());
+            } catch (IOException e) {
+                logger.error("generate share qr code error： {}", e.getMessage());
             }
-        } else {
-            return new ResponseStatusVO(ResponseStatusEnum.AUTHENTICATION_ERROR.getCode(), ResponseStatusEnum.AUTHENTICATION_ERROR.getMessage(), null);
         }
         return null;
     }
 
     /**
      * 生成用户邀请链接
+     *
      * @return
      */
     @GetMapping("link")
     public ResponseStatusVO generateLink() {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         JwtUser jwtUser = SecurityUtils.getJwtUser();
-        if (jwtUser != null) {
-            UserUserDetailDTO userUserDetailDTO = (UserUserDetailDTO) userUserDetailService.listById(jwtUser.getUserId()).getRows().get(0);
-            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "成功获取邀请链接", regShareUrl + userUserDetailDTO.getUserDetailShareCode());
-        } else {
-            statusVO.errorStatus(ResponseStatusEnum.AUTHENTICATION_ERROR.getCode(), ResponseStatusEnum.AUTHENTICATION_ERROR.getMessage(), null);
+        if (jwtUser == null) {
+            return ResponseStatusVO.authenticationError();
         }
-        return statusVO;
+        UserUserDetailDTO userUserDetailDTO = (UserUserDetailDTO) userUserDetailService.listById(jwtUser.getUserId()).getRows().get(0);
+        return ResponseStatusVO.ok("成功获取邀请链接", regShareUrl + userUserDetailDTO.getUserDetailShareCode());
     }
 
     @Autowired

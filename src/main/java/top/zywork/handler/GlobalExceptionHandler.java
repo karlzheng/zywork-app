@@ -25,9 +25,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     public ResponseStatusVO allExceptionHandler(HttpServletRequest request, Exception exception) {
         logger.error("全局异常, 请求地址：{}， 错误消息：{}", request.getRequestURL(), exception.getMessage());
-        ResponseStatusVO statusVO = new ResponseStatusVO();
-        statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), ResponseStatusEnum.ERROR.getMessage(), null);
-        return statusVO;
+        return ResponseStatusVO.error(ResponseStatusEnum.ERROR.getMessage(), null);
     }
 
 }

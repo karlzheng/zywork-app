@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.zywork.annotation.SysLog;
-import top.zywork.enums.ResponseStatusEnum;
 import top.zywork.security.MyUserDetailsService;
 import top.zywork.security.UserDO;
 import top.zywork.service.UserRechargeService;
@@ -41,6 +40,7 @@ public class UserRechargeController {
 
     /**
      * 系统人工充值
+     *
      * @param userId 用户编号
      * @param amount 充值金额
      * @return
@@ -48,19 +48,15 @@ public class UserRechargeController {
     @PostMapping("admin/human")
     @SysLog(description = "系统人工充值")
     public ResponseStatusVO rechargeByHuman(Long userId, Long amount) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         if (amount == null || amount <= 0) {
-            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "充值金额必须大于0", null);
-        } else {
-            UserDO userDO = jwtUserDetailsService.loadUserByUserId(userId);
-            if (userDO == null) {
-                statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "不存在的用户编号", null);
-            } else {
-                userRechargeService.rechargeByHuman(userId, amount);
-                statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "充值成功", null);
-            }
+            return ResponseStatusVO.dataError("充值金额必须大于0", null);
         }
-        return statusVO;
+        UserDO userDO = jwtUserDetailsService.loadUserByUserId(userId);
+        if (userDO == null) {
+            return ResponseStatusVO.dataError("不存在的用户编号", null);
+        }
+        userRechargeService.rechargeByHuman(userId, amount);
+        return ResponseStatusVO.ok("充值成功", null);
     }
 
     @Autowired

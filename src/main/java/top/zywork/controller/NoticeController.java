@@ -11,7 +11,6 @@ import top.zywork.common.BindingResultUtils;
 import top.zywork.common.StringUtils;
 import top.zywork.dto.NoticeDTO;
 import top.zywork.dto.PagerDTO;
-import top.zywork.enums.ResponseStatusEnum;
 import top.zywork.exception.ServiceException;
 import top.zywork.query.NoticeQuery;
 import top.zywork.service.NoticeService;
@@ -39,177 +38,152 @@ public class NoticeController extends BaseController {
 
     @PostMapping("admin/save")
     public ResponseStatusVO save(@RequestBody @Validated NoticeVO noticeVO, BindingResult bindingResult) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         if (bindingResult.hasErrors()) {
-            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), BindingResultUtils.errorString(bindingResult), null);
-        } else {
-            try {
-                noticeService.save(BeanUtils.copy(noticeVO, NoticeDTO.class));
-                statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "添加成功", null);
-            } catch (ServiceException e) {
-                logger.error("添加失败：{}", e.getMessage());
-                statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "添加失败", null);
-            }
+            return ResponseStatusVO.dataError(BindingResultUtils.errorString(bindingResult), null);
         }
-        return statusVO;
+        try {
+            noticeService.save(BeanUtils.copy(noticeVO, NoticeDTO.class));
+            return ResponseStatusVO.ok("添加成功", null);
+        } catch (ServiceException e) {
+            logger.error("添加失败：{}", e.getMessage());
+            return ResponseStatusVO.error("添加失败", null);
+        }
     }
 
     @PostMapping("admin/batch-save")
     public ResponseStatusVO saveBatch(@RequestBody @Validated List<NoticeVO> noticeVOList, BindingResult bindingResult) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         if (bindingResult.hasErrors()) {
-            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), BindingResultUtils.errorString(bindingResult), null);
-        } else {
-            try {
-                noticeService.saveBatch(BeanUtils.copyListObj(noticeVOList, NoticeDTO.class));
-                statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "批量添加成功", null);
-            } catch (ServiceException e) {
-                logger.error("添加失败：{}", e.getMessage());
-                statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "批量添加失败", null);
-            }
+            return ResponseStatusVO.dataError(BindingResultUtils.errorString(bindingResult), null);
         }
-        return statusVO;
+        try {
+            noticeService.saveBatch(BeanUtils.copyListObj(noticeVOList, NoticeDTO.class));
+            return ResponseStatusVO.ok("批量添加成功", null);
+        } catch (ServiceException e) {
+            logger.error("添加失败：{}", e.getMessage());
+            return ResponseStatusVO.error("批量添加失败", null);
+        }
     }
 
     @GetMapping("admin/remove/{id}")
     public ResponseStatusVO removeById(@PathVariable("id") Long id) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
             noticeService.removeById(id);
-            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "删除成功", null);
+            return ResponseStatusVO.ok("删除成功", null);
         } catch (ServiceException e) {
             logger.error("删除失败：{}", e.getMessage());
-            statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "删除失败", null);
+            return ResponseStatusVO.error("删除失败", null);
         }
-        return statusVO;
     }
 
     @PostMapping("admin/batch-remove")
     public ResponseStatusVO removeByIds(@RequestBody String[] ids) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
             noticeService.removeByIds(StringUtils.strArrayToLongArray(ids));
-            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "批量删除成功", null);
+            return ResponseStatusVO.ok("批量删除成功", null);
         } catch (ServiceException e) {
             logger.error("批量删除失败：{}", e.getMessage());
-            statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "批量删除失败", null);
+            return ResponseStatusVO.error("批量删除失败", null);
         }
-        return statusVO;
     }
 
     @PostMapping("admin/update")
     public ResponseStatusVO update(@RequestBody @Validated NoticeVO noticeVO, BindingResult bindingResult) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         if (bindingResult.hasErrors()) {
-            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), BindingResultUtils.errorString(bindingResult), null);
-        } else {
-            try {
-                int updateRows = noticeService.update(BeanUtils.copy(noticeVO, NoticeDTO.class));
-                if (updateRows == 1) {
-                    statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "更新成功", null);
-                } else {
-                    statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "数据版本号有问题，在此更新前数据已被更新", null);
-                }
-            } catch (ServiceException e) {
-                logger.error("更新失败：{}", e.getMessage());
-                statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "更新失败", null);
-            }
+            return ResponseStatusVO.dataError(BindingResultUtils.errorString(bindingResult), null);
         }
-        return statusVO;
+        try {
+            int updateRows = noticeService.update(BeanUtils.copy(noticeVO, NoticeDTO.class));
+            if (updateRows == 1) {
+                return ResponseStatusVO.ok("更新成功", null);
+            } else {
+                return ResponseStatusVO.dataError("数据版本号有问题，在此更新前数据已被更新", null);
+            }
+        } catch (ServiceException e) {
+            logger.error("更新失败：{}", e.getMessage());
+            return ResponseStatusVO.error("更新失败", null);
+        }
     }
 
     @PostMapping("admin/batch-update")
     public ResponseStatusVO updateBatch(@RequestBody @Validated List<NoticeVO> noticeVOList, BindingResult bindingResult) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         if (bindingResult.hasErrors()) {
-            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), BindingResultUtils.errorString(bindingResult), null);
-        } else {
-            try {
-                noticeService.updateBatch(BeanUtils.copyListObj(noticeVOList, NoticeDTO.class));
-                statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "批量更新成功", null);
-            } catch (ServiceException e) {
-                logger.error("批量更新失败：{}", e.getMessage());
-                statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "批量更新失败", null);
-            }
+            return ResponseStatusVO.dataError(BindingResultUtils.errorString(bindingResult), null);
         }
-        return statusVO;
+        try {
+            noticeService.updateBatch(BeanUtils.copyListObj(noticeVOList, NoticeDTO.class));
+            return ResponseStatusVO.ok("批量更新成功", null);
+        } catch (ServiceException e) {
+            logger.error("批量更新失败：{}", e.getMessage());
+            return ResponseStatusVO.error("批量更新失败", null);
+        }
     }
 
     @PostMapping("admin/active")
     public ResponseStatusVO active(@RequestBody NoticeVO noticeVO) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
             noticeService.update(BeanUtils.copy(noticeVO, NoticeDTO.class));
-            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "激活或冻结成功", null);
+            return ResponseStatusVO.ok("激活或冻结成功", null);
         } catch (ServiceException e) {
             logger.error("激活或冻结失败：{}", e.getMessage());
-            statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "激活或冻结失败", null);
+            return ResponseStatusVO.error("激活或冻结失败", null);
         }
-        return statusVO;
     }
 
     @PostMapping("admin/batch-active")
     public ResponseStatusVO activeBatch(@RequestBody @Validated List<NoticeVO> noticeVOList) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
             noticeService.updateBatch(BeanUtils.copyListObj(noticeVOList, NoticeDTO.class));
-            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "批量激活或冻结成功", null);
+            return ResponseStatusVO.ok("批量激活或冻结成功", null);
         } catch (ServiceException e) {
             logger.error("批量激活或冻结失败：{}", e.getMessage());
-            statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "批量激活或冻结失败", null);
+            return ResponseStatusVO.error("批量激活或冻结失败", null);
         }
-        return statusVO;
     }
 
     @GetMapping("admin/one/{id}")
     public ResponseStatusVO getById(@PathVariable("id") Long id) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         NoticeVO noticeVO = new NoticeVO();
         try {
             Object obj = noticeService.getById(id);
             if (obj != null) {
                 noticeVO = BeanUtils.copy(obj, NoticeVO.class);
             }
-            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "查询成功", noticeVO);
+            return ResponseStatusVO.ok("查询成功", noticeVO);
         } catch (ServiceException e) {
             logger.error("返回单个对象JSON数据失败：{}", e.getMessage());
-            statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "查询失败", null);
+            return ResponseStatusVO.error("查询失败", null);
         }
-        return statusVO;
     }
 
     @GetMapping("admin/all")
     public ResponseStatusVO listAll() {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
             PagerDTO pagerDTO = noticeService.listAll();
             PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
             pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), NoticeVO.class));
-            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "查询成功", pagerVO);
+            return ResponseStatusVO.ok("查询成功", pagerVO);
         } catch (ServiceException e) {
             logger.error("返回所有对象JSON数据失败：{}", e.getMessage());
-            statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "查询失败", null);
+            return ResponseStatusVO.error("查询失败", null);
         }
-        return statusVO;
     }
 
     @PostMapping("admin/pager-cond")
     public ResponseStatusVO listPageByCondition(@RequestBody NoticeQuery noticeQuery) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         try {
             PagerDTO pagerDTO = noticeService.listPageByCondition(noticeQuery);
             PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
             pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), NoticeVO.class));
-            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "查询成功", pagerVO);
+            return ResponseStatusVO.ok("查询成功", pagerVO);
         } catch (ServiceException e) {
             logger.error("返回指定条件的分页对象JSON数据失败：{}", e.getMessage());
-            statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "查询失败", null);
+            return ResponseStatusVO.error("查询失败", null);
         }
-        return statusVO;
     }
 
     /**
      * 用户获取公告，可指定按照stickStatus排序，并指定endTime大于等于今日日期的公告才返回
+     *
      * @param noticeQuery
      * @return
      */

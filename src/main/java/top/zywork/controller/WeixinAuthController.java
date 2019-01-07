@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import top.zywork.annotation.SysLog;
 import top.zywork.common.WebUtils;
-import top.zywork.enums.ResponseStatusEnum;
 import top.zywork.enums.SocialTypeEnum;
 import top.zywork.enums.SysConfigEnum;
 import top.zywork.security.JwtTokenRedisUtils;
@@ -63,10 +62,11 @@ public class WeixinAuthController {
 
     /**
      * 开始微信授权，可指定微信授权后跳转回的url，也可指定分享码
+     *
      * @param request
      * @param modelAndView
-     * @param fromUrl 从哪个url发起微信授权，授权成功后跳转回此url
-     * @param shareCode 分享码
+     * @param fromUrl      从哪个url发起微信授权，授权成功后跳转回此url
+     * @param shareCode    分享码
      * @return
      */
     @GetMapping("to-gzh")
@@ -84,58 +84,52 @@ public class WeixinAuthController {
     /**
      * <p>从cookies中读取用户信息，如果没有用户信息，则需要微信授权登录，登录成功后，把用户信息cookie写出到客户端。</p>
      * <p>如果cookies中有用户信息，则不需要授权登录。</p>
+     *
      * @param request
      * @param code
      */
     @GetMapping("gzh")
     @SysLog(description = "微信公众号登录", requestParams = false)
-    public ResponseStatusVO gzhAuth(HttpServletRequest request, HttpServletResponse response,  String code, String fromUrl, String shareCode) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
+    public ResponseStatusVO gzhAuth(HttpServletRequest request, HttpServletResponse response, String code, String fromUrl, String shareCode) {
         String openid = WebUtils.getCookieValue(request, gzhCookieName);
-        if (StringUtils.isEmpty(openid)) {
-            if (StringUtils.isNotEmpty(code)) {
-                // 没有授权登录，则开始微信授权登录并写出cookie到客户端，返回jwt token
-                WeixinGzhConfig weixinGzhConfig = sysConfigService.getByName(SysConfigEnum.WEIXIN_GZH_CONFIG.getValue(), WeixinGzhConfig.class);
-                GzhAuth gzhAuth = WeixinUtils.authGzh(weixinGzhConfig.getAppId(), weixinGzhConfig.getAppSecret(), code);
-                if (gzhAuth != null) {
-                    // 判断用户是否已经保存，如未保存，则保存微信用户信息到数据库
-                    JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(gzhAuth.getOpenid());
-                    if (StringUtils.isEmpty(jwtUser.getUsername())) {
-                        // 还未保存用户信息
-                        WeixinUser weixinUser = WeixinUtils.userInfo(gzhAuth);
-                        if (weixinUser != null) {
-                            Long inviteUserId = null;
-                            if (StringUtils.isNotEmpty(shareCode)) {
-                                inviteUserId = userRegService.getUserIdByShareCode(shareCode);
-                            }
-                            userRegService.saveWeixinUser(weixinUser.getOpenid(), weixinUser.getUnionid(), gzhAuth.getAccessToken(), null,
-                                    SocialTypeEnum.WEIXIN_GZH.getValue(), null, weixinUser.getNickname(), weixinUser.getHeadimgurl(),
-                                    Byte.valueOf(weixinUser.getSex()), defaultRoleQueryService.getDefaultRole(), inviteUserId);
-                            outInfoToGzh(response, gzhAuth.getOpenid(), fromUrl);
-                        } else {
-                            statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "微信授权登录失败，无法获取用户信息", null);
-                        }
-                    } else {
-                        // 已保存用户信息，更新access token
-                        userRegService.updateWeixinUserSocial(gzhAuth.getOpenid(), gzhAuth.getAccessToken(), null);
-                        outInfoToGzh(response, gzhAuth.getOpenid(), fromUrl);
-                    }
-                } else {
-                    statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "微信授权登录失败，请检查参数", null);
+        if (StringUtils.isNotEmpty(openid)) {
+            // 已经有登录，则什么事都不用做，直接返回已经登录的消息
+            return ResponseStatusVO.ok("已授权登录的用户", null);
+        }
+        if (StringUtils.isEmpty(code)) {
+            // 没有登录，且也没有code
+            return ResponseStatusVO.dataError("微信授权登录缺少code", null);
+        }
+        WeixinGzhConfig weixinGzhConfig = sysConfigService.getByName(SysConfigEnum.WEIXIN_GZH_CONFIG.getValue(), WeixinGzhConfig.class);
+        GzhAuth gzhAuth = WeixinUtils.authGzh(weixinGzhConfig.getAppId(), weixinGzhConfig.getAppSecret(), code);
+        if (gzhAuth == null) {
+            return ResponseStatusVO.error("微信授权登录失败，请检查参数", null);
+        }
+        // 判断用户是否已经保存，如未保存，则保存微信用户信息到数据库
+        JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(gzhAuth.getOpenid());
+        if (StringUtils.isEmpty(jwtUser.getUsername())) {
+            // 还未保存用户信息
+            WeixinUser weixinUser = WeixinUtils.userInfo(gzhAuth);
+            if (weixinUser != null) {
+                Long inviteUserId = null;
+                if (StringUtils.isNotEmpty(shareCode)) {
+                    inviteUserId = userRegService.getUserIdByShareCode(shareCode);
                 }
+                userRegService.saveWeixinUser(weixinUser.getOpenid(), weixinUser.getUnionid(), gzhAuth.getAccessToken(), null,
+                        SocialTypeEnum.WEIXIN_GZH.getValue(), null, weixinUser.getNickname(), weixinUser.getHeadimgurl(),
+                        Byte.valueOf(weixinUser.getSex()), defaultRoleQueryService.getDefaultRole(), inviteUserId);
+                return outInfoToGzh(response, gzhAuth.getOpenid(), fromUrl);
             } else {
-                // 没有登录，且也没有code
-                statusVO.errorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "微信授权登录缺少code", null);
+                return ResponseStatusVO.error("微信授权登录失败，无法获取用户信息", null);
             }
         } else {
-            // 已经有登录，则什么事都不用做，直接返回已经登录的消息
-            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "已授权登录的用户", null);
+            // 已保存用户信息，更新access token
+            userRegService.updateWeixinUserSocial(gzhAuth.getOpenid(), gzhAuth.getAccessToken(), null);
+            return outInfoToGzh(response, gzhAuth.getOpenid(), fromUrl);
         }
-        return statusVO;
     }
 
     private ResponseStatusVO outInfoToGzh(HttpServletResponse response, String openid, String fromUrl) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         // 重新根据openid获取JwtUser，生成jwt token并返回客户端
         JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(openid);
         // 写出用户cookie到客户端
@@ -143,56 +137,51 @@ public class WeixinAuthController {
         String token = jwtUtils.generateToken(jwtUser);
         jwtTokenRedisUtils.storeToken(jwtUser.getUserId() + "", token);
         // 微信授权登录成功，返回openid, jwt token和开启微信授权的页面url，此url可用于微信登录成功后指定要跳转到的页面
-        statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "微信用户授权登录成功", new String[]{openid, token, fromUrl});
-        return statusVO;
+        return ResponseStatusVO.ok("微信用户授权登录成功", new String[]{openid, token, fromUrl});
     }
 
     /**
      * 通过微信小程序端wx.login函数获取的code授权登录，可获取到openid, session_key和unionid
+     *
      * @param code 此code由小程序端调用api获得
      */
     @GetMapping("xcx")
     public ResponseStatusVO xcxAuth(String code) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
-        if (StringUtils.isNotEmpty(code)) {
-            WeixinXcxConfig weixinXcxConfig = sysConfigService.getByName(SysConfigEnum.WEIXIN_GZH_CONFIG.getValue(), WeixinXcxConfig.class);
-            XcxAuth xcxAuth = WeixinUtils.authXcx(weixinXcxConfig.getAppId(), weixinXcxConfig.getAppSecret(), code);
-            if (xcxAuth != null) {
-                // 判断用户是否已经保存，如未保存，则保存微信用户信息到数据库
-                JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(xcxAuth.getOpenid());
-                if (StringUtils.isEmpty(jwtUser.getUsername())) {
-                    // 还未保存用户信息，不包括用户详情
-                    userRegService.saveWeixinUser(xcxAuth.getOpenid(), xcxAuth.getUnionid(), null, xcxAuth.getSessionKey(),
-                            SocialTypeEnum.WEIXIN_XCX.getValue(), null, null, null, null,
-                            defaultRoleQueryService.getDefaultRole(), null);
-                    outInfoToXcx(xcxAuth.getOpenid());
-                } else {
-                    // 已保存用户信息，更新session key
-                    userRegService.updateWeixinUserSocial(xcxAuth.getOpenid(), null, xcxAuth.getSessionKey());
-                    outInfoToXcx(xcxAuth.getOpenid());
-                }
-            } else {
-                statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "微信授权登录失败，请检查参数", null);
-            }
-        } else {
-            statusVO.errorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "微信授权登录缺少code", null);
+        if (StringUtils.isEmpty(code)) {
+            return ResponseStatusVO.dataError("微信授权登录缺少code", null);
         }
-        return statusVO;
+        WeixinXcxConfig weixinXcxConfig = sysConfigService.getByName(SysConfigEnum.WEIXIN_GZH_CONFIG.getValue(), WeixinXcxConfig.class);
+        XcxAuth xcxAuth = WeixinUtils.authXcx(weixinXcxConfig.getAppId(), weixinXcxConfig.getAppSecret(), code);
+        if (xcxAuth == null) {
+            return ResponseStatusVO.error("微信授权登录失败，请检查参数", null);
+        }
+        // 判断用户是否已经保存，如未保存，则保存微信用户信息到数据库
+        JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(xcxAuth.getOpenid());
+        if (StringUtils.isEmpty(jwtUser.getUsername())) {
+            // 还未保存用户信息，不包括用户详情
+            userRegService.saveWeixinUser(xcxAuth.getOpenid(), xcxAuth.getUnionid(), null, xcxAuth.getSessionKey(),
+                    SocialTypeEnum.WEIXIN_XCX.getValue(), null, null, null, null,
+                    defaultRoleQueryService.getDefaultRole(), null);
+            return outInfoToXcx(xcxAuth.getOpenid());
+        } else {
+            // 已保存用户信息，更新session key
+            userRegService.updateWeixinUserSocial(xcxAuth.getOpenid(), null, xcxAuth.getSessionKey());
+            return outInfoToXcx(xcxAuth.getOpenid());
+        }
     }
 
     private ResponseStatusVO outInfoToXcx(String openid) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         // 重新根据openid获取JwtUser，生成jwt token并返回客户端
         JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(openid);
         String token = jwtUtils.generateToken(jwtUser);
         jwtTokenRedisUtils.storeToken(jwtUser.getUserId() + "", token);
         // 微信授权登录成功，返回openid, jwt token
-        statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "微信用户授权登录成功", new String[]{openid, token});
-        return statusVO;
+        return ResponseStatusVO.ok("微信用户授权登录成功", new String[]{openid, token});
     }
 
     /**
      * 微信小程序端调用getUserInfo接口后，获取的用户信息保存到服务器
+     *
      * @param openid
      * @param nickname
      * @param headicon
@@ -201,25 +190,22 @@ public class WeixinAuthController {
      */
     @PostMapping("xcx-userdetail")
     public ResponseStatusVO xcxUserDetail(String openid, String nickname, String headicon, Byte gender) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         userRegService.updateWeixinUserDetail(openid, nickname, headicon, gender);
-        statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "已更新微信用户信息", null);
-        return statusVO;
+        return ResponseStatusVO.ok("已更新微信用户信息", null);
     }
 
     /**
      * 微信小程序获取登录用户手机号
+     *
      * @param openid
      * @param encryptedData 加密数据
-     * @param iv iv向量
+     * @param iv            iv向量
      * @return
      */
     public ResponseStatusVO xcxUserPhone(String openid, String encryptedData, String iv) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         XcxPhone xcxPhone = WeixinUtils.decryptPhoneData(userRegService.getSessionKeyByOpenid(openid), encryptedData, iv);
         userRegService.updateUserPhone(openid, xcxPhone.getPhoneNumber());
-        statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "成功获取微信用户手机号", xcxPhone);
-        return statusVO;
+        return ResponseStatusVO.ok("成功获取微信用户手机号", xcxPhone);
     }
 
     private void writeCookie(HttpServletResponse response, String name, String openid) {

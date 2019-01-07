@@ -19,7 +19,6 @@ import top.zywork.annotation.SysLog;
 import top.zywork.common.RandomUtils;
 import top.zywork.common.RegexUtils;
 import top.zywork.enums.RandomCodeEnum;
-import top.zywork.enums.ResponseStatusEnum;
 import top.zywork.enums.SysConfigEnum;
 import top.zywork.security.JwtUser;
 import top.zywork.security.MyUserDetailsService;
@@ -63,6 +62,7 @@ public class PasswordController {
 
     /**
      * 邮箱重置登录密码
+     *
      * @param email
      * @param password
      * @param confirmPassword
@@ -72,36 +72,29 @@ public class PasswordController {
     @PostMapping("reset-login/email")
     @SysLog(description = "邮箱重置登录密码", requestParams = false)
     public ResponseStatusVO resetLoginPwdByEmail(String email, String password, String confirmPassword, String verifyCode) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
-        if (StringUtils.isNotEmpty(email) && RegexUtils.match(RegexUtils.REGEX_EMAIL, email)) {
-            JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(email);
-            if (StringUtils.isNotEmpty(jwtUser.getUsername())) {
-                if (StringUtils.isNotEmpty(password) && RegexUtils.match(RegexUtils.REGEX_PASSWORD, password.trim())) {
-                    if (StringUtils.isNotEmpty(confirmPassword) && password.trim().equals(confirmPassword.trim())) {
-                        if (verifyCodeRedisUtils.existsCode(VerifyCodeRedisUtils.CODE_RESET_LOGIN_PWD_PREFIX, email)
-                                && verifyCodeRedisUtils.getCode(VerifyCodeRedisUtils.CODE_RESET_LOGIN_PWD_PREFIX, email).equals(verifyCode)) {
-                            userPasswordService.resetLoginPwdByEmail(email, password);
-                            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "重置登录密码成功", null);
-                        } else {
-                            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "邮箱验证码不正确", null);
-                        }
-                    } else {
-                        statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "密码和确认密码不一致", null);
-                    }
-                } else {
-                    statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "密码不符合要求", null);
-                }
-            } else {
-                statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "邮箱未注册用户", null);
-            }
-        } else {
-            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "错误的邮箱地址", null);
+        if (StringUtils.isEmpty(email) || !RegexUtils.match(RegexUtils.REGEX_EMAIL, email)) {
+            return ResponseStatusVO.dataError("错误的邮箱地址", null);
         }
-        return statusVO;
+        JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(email);
+        if (StringUtils.isEmpty(jwtUser.getUsername())) {
+            return ResponseStatusVO.dataError("邮箱未注册用户", null);
+        }
+        if (StringUtils.isEmpty(password) || !RegexUtils.match(RegexUtils.REGEX_PASSWORD, password.trim())) {
+            return ResponseStatusVO.dataError("密码不符合要求", null);
+        }
+        if (StringUtils.isEmpty(confirmPassword) || !password.trim().equals(confirmPassword.trim())) {
+            return ResponseStatusVO.dataError("密码和确认密码不一致", null);
+        }
+        if (StringUtils.isEmpty(verifyCode) || !verifyCode.equals(verifyCodeRedisUtils.getCode(VerifyCodeRedisUtils.CODE_RESET_LOGIN_PWD_PREFIX, email))) {
+            return ResponseStatusVO.dataError("邮箱验证码不正确", null);
+        }
+        userPasswordService.resetLoginPwdByEmail(email, password);
+        return ResponseStatusVO.ok("重置登录密码成功", null);
     }
 
     /**
      * 手机重置登录密码
+     *
      * @param phone
      * @param password
      * @param confirmPassword
@@ -111,36 +104,29 @@ public class PasswordController {
     @PostMapping("reset-login/sms")
     @SysLog(description = "手机重置登录密码", requestParams = false)
     public ResponseStatusVO resetLoginPwdByPhone(String phone, String password, String confirmPassword, String verifyCode) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
-        if (StringUtils.isNotEmpty(phone) && RegexUtils.match(RegexUtils.REGEX_PHONE, phone)) {
-            JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(phone);
-            if (StringUtils.isNotEmpty(jwtUser.getUsername())) {
-                if (StringUtils.isNotEmpty(password) && RegexUtils.match(RegexUtils.REGEX_PASSWORD, password.trim())) {
-                    if (StringUtils.isNotEmpty(confirmPassword) && password.trim().equals(confirmPassword.trim())) {
-                        if (smsCodeRedisUtils.existsCode(SmsCodeRedisUtils.SMS_CODE_RESET_LOGIN_PWD_PREFIX, phone)
-                                && smsCodeRedisUtils.getCode(SmsCodeRedisUtils.SMS_CODE_RESET_LOGIN_PWD_PREFIX, phone).equals(verifyCode)) {
-                            userPasswordService.resetLoginPwdByPhone(phone, password);
-                            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "重置登录密码成功", null);
-                        } else {
-                            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "手机验证码不正确", null);
-                        }
-                    } else {
-                        statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "密码和确认密码不一致", null);
-                    }
-                } else {
-                    statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "密码不符合要求", null);
-                }
-            } else {
-                statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "手机号未注册用户", null);
-            }
-        } else {
-            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "错误的手机号", null);
+        if (StringUtils.isEmpty(phone) || !RegexUtils.match(RegexUtils.REGEX_PHONE, phone)) {
+            return ResponseStatusVO.dataError("错误的手机号", null);
         }
-        return statusVO;
+        JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(phone);
+        if (StringUtils.isEmpty(jwtUser.getUsername())) {
+            return ResponseStatusVO.dataError("手机号未注册用户", null);
+        }
+        if (StringUtils.isEmpty(password) || !RegexUtils.match(RegexUtils.REGEX_PASSWORD, password.trim())) {
+            return ResponseStatusVO.dataError("密码不符合要求", null);
+        }
+        if (StringUtils.isEmpty(confirmPassword) || !password.trim().equals(confirmPassword.trim())) {
+            return ResponseStatusVO.dataError("密码和确认密码不一致", null);
+        }
+        if (StringUtils.isEmpty(verifyCode) || !verifyCode.equals(smsCodeRedisUtils.getCode(SmsCodeRedisUtils.SMS_CODE_RESET_LOGIN_PWD_PREFIX, phone))) {
+            return ResponseStatusVO.dataError("手机验证码不正确", null);
+        }
+        userPasswordService.resetLoginPwdByPhone(phone, password);
+        return ResponseStatusVO.ok("重置登录密码成功", null);
     }
 
     /**
      * 重置登录密码发送邮箱验证码
+     *
      * @param email
      * @return
      */
@@ -151,6 +137,7 @@ public class PasswordController {
 
     /**
      * 重置登录密码发送手机验证码
+     *
      * @param phone
      * @return
      */
@@ -161,6 +148,7 @@ public class PasswordController {
 
     /**
      * 更新登录密码
+     *
      * @param oldPassword
      * @param password
      * @param confirmPassword
@@ -169,30 +157,26 @@ public class PasswordController {
     @PostMapping("update-login")
     @SysLog(description = "更新登录密码", requestParams = false)
     public ResponseStatusVO updateLoginPwd(String oldPassword, String password, String confirmPassword) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         JwtUser jwtUser = SecurityUtils.getJwtUser();
-        if (jwtUser != null) {
-            if (StringUtils.isNotEmpty(password) && RegexUtils.match(RegexUtils.REGEX_PASSWORD, password.trim())) {
-                if (StringUtils.isNotEmpty(confirmPassword) && password.trim().equals(confirmPassword.trim())) {
-                    if (userPasswordService.updateLoginPwd(jwtUser.getUserId(), oldPassword, password)) {
-                        statusVO.dataErrorStatus(ResponseStatusEnum.OK.getCode(), "登录密码更新成功", null);
-                    } else {
-                        statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "原密码错误", null);
-                    }
-                } else {
-                    statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "密码和确认密码不一致", null);
-                }
-            } else {
-                statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "密码不符合要求", null);
-            }
-        } else {
-            statusVO.errorStatus(ResponseStatusEnum.AUTHENTICATION_ERROR.getCode(), ResponseStatusEnum.AUTHENTICATION_ERROR.getMessage(), null);
+        if (jwtUser == null) {
+            return ResponseStatusVO.authenticationError();
         }
-        return statusVO;
+        if (StringUtils.isEmpty(password) || !RegexUtils.match(RegexUtils.REGEX_PASSWORD, password.trim())) {
+            return ResponseStatusVO.dataError("密码不符合要求", null);
+        }
+        if (StringUtils.isEmpty(confirmPassword) || !password.trim().equals(confirmPassword.trim())) {
+            return ResponseStatusVO.dataError("密码和确认密码不一致", null);
+        }
+        if (userPasswordService.updateLoginPwd(jwtUser.getUserId(), oldPassword, password)) {
+            return ResponseStatusVO.ok("登录密码更新成功", null);
+        } else {
+            return ResponseStatusVO.dataError("原密码错误", null);
+        }
     }
 
     /**
      * 邮箱重置支付密码
+     *
      * @param email
      * @param password
      * @param confirmPassword
@@ -202,36 +186,29 @@ public class PasswordController {
     @PostMapping("reset-pay/email")
     @SysLog(description = "邮箱重置支付密码", requestParams = false)
     public ResponseStatusVO resetPayPwdByEmail(String email, String password, String confirmPassword, String verifyCode) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
-        if (StringUtils.isNotEmpty(email) && RegexUtils.match(RegexUtils.REGEX_EMAIL, email)) {
-            JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(email);
-            if (StringUtils.isNotEmpty(jwtUser.getUsername())) {
-                if (StringUtils.isNotEmpty(password) && RegexUtils.match(RegexUtils.REGEX_PASSWORD, password.trim())) {
-                    if (StringUtils.isNotEmpty(confirmPassword) && password.trim().equals(confirmPassword.trim())) {
-                        if (verifyCodeRedisUtils.existsCode(VerifyCodeRedisUtils.CODE_RESET_PAY_PWD_PREFIX, email)
-                                && verifyCodeRedisUtils.getCode(VerifyCodeRedisUtils.CODE_RESET_PAY_PWD_PREFIX, email).equals(verifyCode)) {
-                            userPasswordService.resetPayPwdByEmail(email, password);
-                            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "重置支付密码成功", null);
-                        } else {
-                            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "邮箱验证码不正确", null);
-                        }
-                    } else {
-                        statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "密码和确认密码不一致", null);
-                    }
-                } else {
-                    statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "密码不符合要求", null);
-                }
-            } else {
-                statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "邮箱未注册用户", null);
-            }
-        } else {
-            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "错误的邮箱地址", null);
+        if (StringUtils.isEmpty(email) || !RegexUtils.match(RegexUtils.REGEX_EMAIL, email)) {
+            return ResponseStatusVO.dataError("错误的邮箱地址", null);
         }
-        return statusVO;
+        JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(email);
+        if (StringUtils.isEmpty(jwtUser.getUsername())) {
+            return ResponseStatusVO.dataError("邮箱未注册用户", null);
+        }
+        if (StringUtils.isEmpty(password) || !RegexUtils.match(RegexUtils.REGEX_PASSWORD, password.trim())) {
+            return ResponseStatusVO.dataError("密码不符合要求", null);
+        }
+        if (StringUtils.isEmpty(confirmPassword) || !password.trim().equals(confirmPassword.trim())) {
+            return ResponseStatusVO.dataError("密码和确认密码不一致", null);
+        }
+        if (StringUtils.isEmpty(verifyCode) || !verifyCode.equals(verifyCodeRedisUtils.getCode(VerifyCodeRedisUtils.CODE_RESET_PAY_PWD_PREFIX, email))) {
+            return ResponseStatusVO.dataError("邮箱验证码不正确", null);
+        }
+        userPasswordService.resetPayPwdByEmail(email, password);
+        return ResponseStatusVO.ok("重置支付密码成功", null);
     }
 
     /**
      * 手机重置支付密码
+     *
      * @param phone
      * @param password
      * @param confirmPassword
@@ -241,36 +218,29 @@ public class PasswordController {
     @PostMapping("reset-pay/sms")
     @SysLog(description = "手机重置支付密码", requestParams = false)
     public ResponseStatusVO resetPayPwdByPhone(String phone, String password, String confirmPassword, String verifyCode) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
-        if (StringUtils.isNotEmpty(phone) && RegexUtils.match(RegexUtils.REGEX_PHONE, phone)) {
-            JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(phone);
-            if (StringUtils.isNotEmpty(jwtUser.getUsername())) {
-                if (StringUtils.isNotEmpty(password) && RegexUtils.match(RegexUtils.REGEX_PASSWORD, password.trim())) {
-                    if (StringUtils.isNotEmpty(confirmPassword) && password.trim().equals(confirmPassword.trim())) {
-                        if (smsCodeRedisUtils.existsCode(SmsCodeRedisUtils.SMS_CODE_RESET_PAY_PWD_PREFIX, phone)
-                                && smsCodeRedisUtils.getCode(SmsCodeRedisUtils.SMS_CODE_RESET_PAY_PWD_PREFIX, phone).equals(verifyCode)) {
-                            userPasswordService.resetPayPwdByPhone(phone, password);
-                            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "重置支付密码成功", null);
-                        } else {
-                            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "手机验证码不正确", null);
-                        }
-                    } else {
-                        statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "密码和确认密码不一致", null);
-                    }
-                } else {
-                    statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "密码不符合要求", null);
-                }
-            } else {
-                statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "手机号未注册用户", null);
-            }
-        } else {
-            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "错误的手机号", null);
+        if (StringUtils.isEmpty(phone) || !RegexUtils.match(RegexUtils.REGEX_PHONE, phone)) {
+            return ResponseStatusVO.dataError("错误的手机号", null);
         }
-        return statusVO;
+        JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(phone);
+        if (StringUtils.isEmpty(jwtUser.getUsername())) {
+            return ResponseStatusVO.dataError("手机号未注册用户", null);
+        }
+        if (StringUtils.isEmpty(password) || !RegexUtils.match(RegexUtils.REGEX_PASSWORD, password.trim())) {
+            return ResponseStatusVO.dataError("密码不符合要求", null);
+        }
+        if (StringUtils.isEmpty(confirmPassword) || !password.trim().equals(confirmPassword.trim())) {
+            return ResponseStatusVO.dataError("密码和确认密码不一致", null);
+        }
+        if (StringUtils.isEmpty(verifyCode) || !verifyCode.equals(smsCodeRedisUtils.getCode(SmsCodeRedisUtils.SMS_CODE_RESET_PAY_PWD_PREFIX, phone))) {
+            return ResponseStatusVO.dataError("手机验证码不正确", null);
+        }
+        userPasswordService.resetPayPwdByPhone(phone, password);
+        return ResponseStatusVO.ok("重置支付密码成功", null);
     }
 
     /**
      * 重置支付密码发送邮箱验证码
+     *
      * @param email
      * @return
      */
@@ -281,6 +251,7 @@ public class PasswordController {
 
     /**
      * 重置支付密码发送手机验证码
+     *
      * @param phone
      * @return
      */
@@ -291,6 +262,7 @@ public class PasswordController {
 
     /**
      * 更新支付密码
+     *
      * @param oldPassword
      * @param password
      * @param confirmPassword
@@ -299,107 +271,94 @@ public class PasswordController {
     @PostMapping("update-pay")
     @SysLog(description = "更新支付密码", requestParams = false)
     public ResponseStatusVO updatePayPwd(String oldPassword, String password, String confirmPassword) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         JwtUser jwtUser = SecurityUtils.getJwtUser();
-        if (jwtUser != null) {
-            if (StringUtils.isNotEmpty(password) && RegexUtils.match(RegexUtils.REGEX_PASSWORD, password.trim())) {
-                if (StringUtils.isNotEmpty(confirmPassword) && password.trim().equals(confirmPassword.trim())) {
-                    if (userPasswordService.updatePayPwd(jwtUser.getUserId(), oldPassword, password)) {
-                        statusVO.dataErrorStatus(ResponseStatusEnum.OK.getCode(), "支付密码更新成功", null);
-                    } else {
-                        statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "原密码错误", null);
-                    }
-                } else {
-                    statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "密码和确认密码不一致", null);
-                }
-            } else {
-                statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "密码不符合要求", null);
-            }
-        } else {
-            statusVO.errorStatus(ResponseStatusEnum.AUTHENTICATION_ERROR.getCode(), ResponseStatusEnum.AUTHENTICATION_ERROR.getMessage(), null);
+        if (jwtUser == null) {
+            return ResponseStatusVO.authenticationError();
         }
-        return statusVO;
+        if (StringUtils.isEmpty(password) || !RegexUtils.match(RegexUtils.REGEX_PASSWORD, password.trim())) {
+            return ResponseStatusVO.dataError("密码不符合要求", null);
+        }
+        if (StringUtils.isEmpty(confirmPassword) || !password.trim().equals(confirmPassword.trim())) {
+            return ResponseStatusVO.dataError("密码和确认密码不一致", null);
+        }
+        if (userPasswordService.updatePayPwd(jwtUser.getUserId(), oldPassword, password)) {
+            return ResponseStatusVO.ok("支付密码更新成功", null);
+        } else {
+            return ResponseStatusVO.dataError("原密码错误", null);
+        }
     }
 
     /**
      * 发送邮箱验证码
+     *
      * @param prefix
      * @param email
      * @return
      */
     private ResponseStatusVO sendEmailCode(String prefix, String email) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
-        if (StringUtils.isNotEmpty(email) && RegexUtils.match(RegexUtils.REGEX_EMAIL, email)) {
-            if (verifyCodeRedisUtils.existsCode(prefix, email)) {
-                statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "已获取过邮箱验证码，请稍候再获取", null);
-            } else {
-                JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(email);
-                if (StringUtils.isEmpty(jwtUser.getUsername())) {
-                    // 此邮箱未注册用户
-                    statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "邮箱未注册用户", null);
-                } else {
-                    // 是注册用户，准备发送邮箱验证码，此code用于发送邮件
-                    String code = RandomUtils.randomCode(RandomCodeEnum.NUMBER_CODE, 6);
-                    try {
-                        AliyunMailConfig aliyunMailConfig = sysConfigService.getByName(SysConfigEnum.ALIYUN_MAIL_CONFIG.getValue(), AliyunMailConfig.class);
-                        SingleSendMailResponse singleSendMailResponse = AliyunMailUtils.sendEmail(aliyunMailConfig, "service@mail.zywork.top", "赣州智悦科技",  email, false, "注册验证码", code, "verifyRegCode");
-                        verifyCodeRedisUtils.storeCode(prefix, email, code);
-                        statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "邮件发送成功，请查收邮件", verifyCodeExpiration);
-                    } catch (ClientException e) {
-                        logger.error("邮件发送失败：{}", e.getMessage());
-                        if (e.getErrCode().equals("InvalidToAddress.Spam")) {
-                            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "邮箱地址无效，请重新填写", null);
-                        } else {
-                            statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "邮件发送失败", null);
-                        }
-                    }
-                }
-            }
-        } else {
-            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "错误的邮箱", null);
+        if (StringUtils.isEmpty(email) || !RegexUtils.match(RegexUtils.REGEX_EMAIL, email)) {
+            return ResponseStatusVO.dataError("错误的邮箱", null);
         }
-        return statusVO;
+        if (verifyCodeRedisUtils.existsCode(prefix, email)) {
+            return ResponseStatusVO.error("已获取过邮箱验证码，请稍候再获取", null);
+        }
+        JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(email);
+        if (StringUtils.isEmpty(jwtUser.getUsername())) {
+            // 此邮箱未注册用户
+            return ResponseStatusVO.dataError("邮箱未注册用户", null);
+        }
+        // 是注册用户，准备发送邮箱验证码，此code用于发送邮件
+        String code = RandomUtils.randomCode(RandomCodeEnum.NUMBER_CODE, 6);
+        try {
+            AliyunMailConfig aliyunMailConfig = sysConfigService.getByName(SysConfigEnum.ALIYUN_MAIL_CONFIG.getValue(), AliyunMailConfig.class);
+            SingleSendMailResponse singleSendMailResponse = AliyunMailUtils.sendEmail(aliyunMailConfig, "service@mail.zywork.top", "赣州智悦科技", email, false, "注册验证码", code, "verifyRegCode");
+            verifyCodeRedisUtils.storeCode(prefix, email, code);
+            return ResponseStatusVO.ok("邮件发送成功，请查收邮件", verifyCodeExpiration);
+        } catch (ClientException e) {
+            logger.error("邮件发送失败：{}", e.getMessage());
+            if (e.getErrCode().equals("InvalidToAddress.Spam")) {
+                return ResponseStatusVO.dataError("邮箱地址无效，请重新填写", null);
+            } else {
+                return ResponseStatusVO.error("邮件发送失败", null);
+            }
+        }
     }
 
     /**
      * 发送手机验证码
+     *
      * @param prefix
      * @param phone
      * @return
      */
     private ResponseStatusVO sendSmsCode(String prefix, String phone) {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
-        if (StringUtils.isNotEmpty(phone) && RegexUtils.match(RegexUtils.REGEX_PHONE, phone)) {
-            if (smsCodeRedisUtils.existsCode(prefix, phone)) {
-                statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "已获取过手机验证码，请稍候再获取", null);
-            } else {
-                JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(phone);
-                if (StringUtils.isEmpty(jwtUser.getUsername())) {
-                    // 此手机号未注册
-                    statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "手机号未注册用户", null);
-                } else {
-                    // 是平台用户，准备发送手机验证码，此code用于发送短信
-                    String code = RandomUtils.randomCode(RandomCodeEnum.NUMBER_CODE, 6);
-                    try {
-                        AliyunSmsConfig aliyunSmsConfig = sysConfigService.getByName(SysConfigEnum.ALIYUN_SMS_CONFIG.getValue(), AliyunSmsConfig.class);
-                        SendSmsResponse smsResponse = AliyunSmsUtils.sendSms(aliyunSmsConfig, phone, "templateCode", "templateParam", "outId");
-                        if (smsResponse.getCode() != null && smsResponse.getCode().equals("OK")) {
-                            smsCodeRedisUtils.storeCode(prefix, phone, code);
-                            statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "短信发送成功", smsCodeExpiration);
-                        } else {
-                            logger.error("短信发送失败：{}", smsResponse.getMessage());
-                            statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "短信发送失败", null);
-                        }
-                    } catch (ClientException e) {
-                        logger.error("短信发送失败：{}", e.getMessage());
-                        statusVO.errorStatus(ResponseStatusEnum.ERROR.getCode(), "短信发送失败", null);
-                    }
-                }
-            }
-        } else {
-            statusVO.dataErrorStatus(ResponseStatusEnum.DATA_ERROR.getCode(), "错误的手机号", null);
+        if (StringUtils.isEmpty(phone) || !RegexUtils.match(RegexUtils.REGEX_PHONE, phone)) {
+            return ResponseStatusVO.dataError("错误的手机号", null);
         }
-        return statusVO;
+        if (smsCodeRedisUtils.existsCode(prefix, phone)) {
+            return ResponseStatusVO.error("已获取过手机验证码，请稍候再获取", null);
+        }
+        JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(phone);
+        if (StringUtils.isEmpty(jwtUser.getUsername())) {
+            // 此手机号未注册
+            return ResponseStatusVO.dataError("手机号未注册用户", null);
+        }
+        // 是平台用户，准备发送手机验证码，此code用于发送短信
+        String code = RandomUtils.randomCode(RandomCodeEnum.NUMBER_CODE, 6);
+        try {
+            AliyunSmsConfig aliyunSmsConfig = sysConfigService.getByName(SysConfigEnum.ALIYUN_SMS_CONFIG.getValue(), AliyunSmsConfig.class);
+            SendSmsResponse smsResponse = AliyunSmsUtils.sendSms(aliyunSmsConfig, phone, "templateCode", "templateParam", "outId");
+            if (smsResponse.getCode() != null && smsResponse.getCode().equals("OK")) {
+                smsCodeRedisUtils.storeCode(prefix, phone, code);
+                return ResponseStatusVO.ok("短信发送成功", smsCodeExpiration);
+            } else {
+                logger.error("短信发送失败：{}", smsResponse.getMessage());
+                return ResponseStatusVO.error("短信发送失败", null);
+            }
+        } catch (ClientException e) {
+            logger.error("短信发送失败：{}", e.getMessage());
+            return ResponseStatusVO.error("短信发送失败", null);
+        }
     }
 
     @Autowired

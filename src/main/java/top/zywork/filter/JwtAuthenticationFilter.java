@@ -85,11 +85,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     private void outResponse(HttpServletResponse response, int responseCode, String responseMsg, Object responseData) throws IOException {
-        ResponseStatusVO statusVO = new ResponseStatusVO();
         response.setContentType(ContentTypeEnum.JSON.getValue());
         PrintWriter writer = response.getWriter();
-        statusVO.errorStatus(responseCode, responseMsg, responseData);
-        writer.write(JSON.toJSONString(statusVO));
+        writer.write(JSON.toJSONString(ResponseStatusVO.error(responseCode, responseMsg, responseData)));
     }
 
     @Autowired

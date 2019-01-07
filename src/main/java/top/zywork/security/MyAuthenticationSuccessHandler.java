@@ -42,9 +42,7 @@ public class MyAuthenticationSuccessHandler extends SimpleUrlAuthenticationSucce
         JwtUser jwtUser = (JwtUser) authentication.getPrincipal();
         String token = jwtUtils.generateToken(jwtUser);
         jwtTokenRedisUtils.storeToken(jwtUser.getUserId() + "", token);
-        ResponseStatusVO statusVO = new ResponseStatusVO();
-        statusVO.okStatus(ResponseStatusEnum.OK.getCode(), "用户认证成功", token);
-        response.getWriter().write(JSON.toJSONString(statusVO));
+        response.getWriter().write(JSON.toJSONString(ResponseStatusVO.ok("用户认证成功", token)));
     }
 
     @Autowired

@@ -28,9 +28,7 @@ public class MyAccessDeniedHandler implements AccessDeniedHandler {
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e) throws IOException, ServletException {
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         response.setContentType(ContentTypeEnum.JSON.getValue());
-        ResponseStatusVO statusVO = new ResponseStatusVO();
-        statusVO.errorStatus(ResponseStatusEnum.AUTHORIZATION_ERROR.getCode(),
-                ResponseStatusEnum.AUTHORIZATION_ERROR.getMessage(), null);
-        response.getWriter().write(JSON.toJSONString(statusVO));
+        response.getWriter().write(JSON.toJSONString(ResponseStatusVO.error(ResponseStatusEnum.AUTHORIZATION_ERROR.getCode(),
+                ResponseStatusEnum.AUTHORIZATION_ERROR.getMessage(), null)));
     }
 }
