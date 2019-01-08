@@ -42,7 +42,7 @@ public class UserWithdrawController {
      * @return
      */
     @PostMapping("user/submit")
-    @SysLog(description = "提交提现申请")
+    @SysLog(description = "提交提现申请", requestParams = false)
     public ResponseStatusVO submitWithdraw(Long amount, Long bankcardId, String payPassword) {
         JwtUser jwtUser = SecurityUtils.getJwtUser();
         if (jwtUser == null) {

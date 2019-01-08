@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import top.zywork.annotation.SysLog;
 import top.zywork.common.IPUtils;
+import top.zywork.common.ReflectUtils;
 import top.zywork.common.UserAgentUtils;
 import top.zywork.common.WebUtils;
 import top.zywork.dto.SysLogDTO;
@@ -19,6 +20,8 @@ import top.zywork.vo.ResponseStatusVO;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 系统日志切面，在方法上使用@SysLog注解用于记录系统日志<br />
@@ -85,13 +88,26 @@ public class SysLogAspect {
         sysLogDTO.setRequestUrl(request.getRequestURL().toString());
         sysLogDTO.setRequestMethod(request.getMethod());
         if (sysLog.requestParams()) {
-            sysLogDTO.setRequestParams(JSON.toJSONString(joinPoint.getArgs()));
+            Map<String, Object> requestParams = requestParams(joinPoint.getTarget().getClass(), signature.getName(), joinPoint.getArgs());
+            sysLogDTO.setRequestParams(requestParams == null ? null : JSON.toJSONString(requestParams));
         }
         sysLogDTO.setExecuteClass(signature.getDeclaringTypeName());
         sysLogDTO.setExecuteMethod(signature.getName());
         sysLogDTO.setExecuteCostTime(costTime);
         sysLogDTO.setExecuteIp(IPUtils.getIP(request));
         return sysLogDTO;
+    }
+
+    private Map<String, Object> requestParams(Class<?> clazz, String methodName, Object[] argsArray) {
+        String[] argsNames = ReflectUtils.getArgsNamesBySpring(clazz, methodName);
+        if (argsNames == null) {
+            return null;
+        }
+        Map<String, Object> requestParams = new HashMap<>();
+        for (int i = 0, len = argsNames.length; i < len; i++) {
+            requestParams.put(argsNames[i], argsArray[i]);
+        }
+        return requestParams;
     }
 
     @Autowired
