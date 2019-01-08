@@ -3,12 +3,10 @@ package top.zywork.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.zywork.common.BeanUtils;
-import top.zywork.common.ExceptionUtils;
 import top.zywork.dao.ModulePermissionDAO;
 import top.zywork.dos.ModulePermissionDO;
 import top.zywork.dto.ModulePermissionDTO;
 import top.zywork.dto.PagerDTO;
-import top.zywork.dto.PermissionDTO;
 import top.zywork.service.AbstractBaseService;
 import top.zywork.service.ModulePermissionService;
 
@@ -33,18 +31,14 @@ public class ModulePermissionServiceImpl extends AbstractBaseService implements 
     @SuppressWarnings({"unchecked"})
     public PagerDTO listByUserId(Long userId) {
         PagerDTO pagerDTO = new PagerDTO();
-        try {
-            List<Object> modulePermissionDOList = modulePermissionDAO.listByUserId(userId);
-            List<Object> modulePermissionDTOList = new ArrayList<>();
-            if (modulePermissionDOList != null && modulePermissionDOList.size() > 0) {
-                modulePermissionDTOList = BeanUtils.copyList(modulePermissionDOList, ModulePermissionDTO.class);
-            }
-            pagerDTO.setRows(modulePermissionDTOList);
-            pagerDTO.setTotal((long)(modulePermissionDTOList.size()));
-            return pagerDTO;
-        } catch (RuntimeException e) {
-            throw ExceptionUtils.serviceException(e);
+        List<Object> modulePermissionDOList = modulePermissionDAO.listByUserId(userId);
+        List<Object> modulePermissionDTOList = new ArrayList<>();
+        if (modulePermissionDOList != null && modulePermissionDOList.size() > 0) {
+            modulePermissionDTOList = BeanUtils.copyList(modulePermissionDOList, ModulePermissionDTO.class);
         }
+        pagerDTO.setRows(modulePermissionDTOList);
+        pagerDTO.setTotal((long) (modulePermissionDTOList.size()));
+        return pagerDTO;
     }
 
     @Autowired

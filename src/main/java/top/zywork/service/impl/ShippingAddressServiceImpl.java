@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.zywork.common.BeanUtils;
-import top.zywork.common.ExceptionUtils;
 import top.zywork.dao.ShippingAddressDAO;
 import top.zywork.dos.ShippingAddressDO;
 import top.zywork.dto.ShippingAddressDTO;
@@ -29,18 +28,14 @@ public class ShippingAddressServiceImpl extends AbstractBaseService implements S
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int updateAddress(ShippingAddressDTO shippingAddressDTO) {
-        try {
-            Integer version = shippingAddressDAO.getVersionById(shippingAddressDTO.getId());
-            version = version == null ? 1 : version;
-            shippingAddressDTO.setVersion(version + 1);
-            int updateRows = shippingAddressDAO.update(BeanUtils.copy(shippingAddressDTO, ShippingAddressDO.class));
-            if (shippingAddressDTO.getIsDefault() == 1) {
-                shippingAddressDAO.updateNoDefault(shippingAddressDTO.getUserId());
-            }
-            return updateRows;
-        } catch (RuntimeException e) {
-            throw ExceptionUtils.serviceException(e);
+        Integer version = shippingAddressDAO.getVersionById(shippingAddressDTO.getId());
+        version = version == null ? 1 : version;
+        shippingAddressDTO.setVersion(version + 1);
+        int updateRows = shippingAddressDAO.update(BeanUtils.copy(shippingAddressDTO, ShippingAddressDO.class));
+        if (shippingAddressDTO.getIsDefault() == 1) {
+            shippingAddressDAO.updateNoDefault(shippingAddressDTO.getUserId());
         }
+        return updateRows;
     }
 
     @Override

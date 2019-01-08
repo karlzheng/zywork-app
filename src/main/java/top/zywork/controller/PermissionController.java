@@ -11,7 +11,6 @@ import top.zywork.common.BindingResultUtils;
 import top.zywork.common.StringUtils;
 import top.zywork.dto.PagerDTO;
 import top.zywork.dto.PermissionDTO;
-import top.zywork.exception.ServiceException;
 import top.zywork.query.PermissionQuery;
 import top.zywork.service.PermissionService;
 import top.zywork.vo.PagerVO;
@@ -41,13 +40,8 @@ public class PermissionController extends BaseController {
         if (bindingResult.hasErrors()) {
             return ResponseStatusVO.dataError(BindingResultUtils.errorString(bindingResult), null);
         }
-        try {
-            permissionService.save(BeanUtils.copy(permissionVO, PermissionDTO.class));
-            return ResponseStatusVO.ok("添加成功", null);
-        } catch (ServiceException e) {
-            logger.error("添加失败：{}", e.getMessage());
-            return ResponseStatusVO.error("添加失败", null);
-        }
+        permissionService.save(BeanUtils.copy(permissionVO, PermissionDTO.class));
+        return ResponseStatusVO.ok("添加成功", null);
     }
 
     @PostMapping("admin/batch-save")
@@ -55,35 +49,20 @@ public class PermissionController extends BaseController {
         if (bindingResult.hasErrors()) {
             return ResponseStatusVO.dataError(BindingResultUtils.errorString(bindingResult), null);
         }
-        try {
-            permissionService.saveBatch(BeanUtils.copyListObj(permissionVOList, PermissionDTO.class));
-            return ResponseStatusVO.ok("批量添加成功", null);
-        } catch (ServiceException e) {
-            logger.error("添加失败：{}", e.getMessage());
-            return ResponseStatusVO.error("批量添加失败", null);
-        }
+        permissionService.saveBatch(BeanUtils.copyListObj(permissionVOList, PermissionDTO.class));
+        return ResponseStatusVO.ok("批量添加成功", null);
     }
 
     @GetMapping("admin/remove/{id}")
     public ResponseStatusVO removeById(@PathVariable("id") Long id) {
-        try {
-            permissionService.removeById(id);
-            return ResponseStatusVO.ok("删除成功", null);
-        } catch (ServiceException e) {
-            logger.error("删除失败：{}", e.getMessage());
-            return ResponseStatusVO.error("删除失败", null);
-        }
+        permissionService.removeById(id);
+        return ResponseStatusVO.ok("删除成功", null);
     }
 
     @PostMapping("admin/batch-remove")
     public ResponseStatusVO removeByIds(@RequestBody String[] ids) {
-        try {
-            permissionService.removeByIds(StringUtils.strArrayToLongArray(ids));
-            return ResponseStatusVO.ok("批量删除成功", null);
-        } catch (ServiceException e) {
-            logger.error("批量删除失败：{}", e.getMessage());
-            return ResponseStatusVO.error("批量删除失败", null);
-        }
+        permissionService.removeByIds(StringUtils.strArrayToLongArray(ids));
+        return ResponseStatusVO.ok("批量删除成功", null);
     }
 
     @PostMapping("admin/update")
@@ -91,18 +70,12 @@ public class PermissionController extends BaseController {
         if (bindingResult.hasErrors()) {
             return ResponseStatusVO.dataError(BindingResultUtils.errorString(bindingResult), null);
         }
-        try {
-            int updateRows = permissionService.update(BeanUtils.copy(permissionVO, PermissionDTO.class));
-            if (updateRows == 1) {
-                return ResponseStatusVO.ok("更新成功", null);
-            } else {
-                return ResponseStatusVO.dataError("数据版本号有问题，在此更新前数据已被更新", null);
-            }
-        } catch (ServiceException e) {
-            logger.error("更新失败：{}", e.getMessage());
-            return ResponseStatusVO.error("更新失败", null);
+        int updateRows = permissionService.update(BeanUtils.copy(permissionVO, PermissionDTO.class));
+        if (updateRows == 1) {
+            return ResponseStatusVO.ok("更新成功", null);
+        } else {
+            return ResponseStatusVO.dataError("数据版本号有问题，在此更新前数据已被更新", null);
         }
-
     }
 
     @PostMapping("admin/batch-update")
@@ -110,77 +83,46 @@ public class PermissionController extends BaseController {
         if (bindingResult.hasErrors()) {
             return ResponseStatusVO.dataError(BindingResultUtils.errorString(bindingResult), null);
         }
-        try {
-            permissionService.updateBatch(BeanUtils.copyListObj(permissionVOList, PermissionDTO.class));
-            return ResponseStatusVO.ok("批量更新成功", null);
-        } catch (ServiceException e) {
-            logger.error("批量更新失败：{}", e.getMessage());
-            return ResponseStatusVO.error("批量更新失败", null);
-        }
-
+        permissionService.updateBatch(BeanUtils.copyListObj(permissionVOList, PermissionDTO.class));
+        return ResponseStatusVO.ok("批量更新成功", null);
     }
 
     @PostMapping("admin/active")
     public ResponseStatusVO active(@RequestBody PermissionVO permissionVO) {
-        try {
-            permissionService.update(BeanUtils.copy(permissionVO, PermissionDTO.class));
-            return ResponseStatusVO.ok("激活或冻结成功", null);
-        } catch (ServiceException e) {
-            logger.error("激活或冻结失败：{}", e.getMessage());
-            return ResponseStatusVO.error("激活或冻结失败", null);
-        }
+        permissionService.update(BeanUtils.copy(permissionVO, PermissionDTO.class));
+        return ResponseStatusVO.ok("激活或冻结成功", null);
     }
 
     @PostMapping("admin/batch-active")
     public ResponseStatusVO activeBatch(@RequestBody @Validated List<PermissionVO> permissionVOList) {
-        try {
-            permissionService.updateBatch(BeanUtils.copyListObj(permissionVOList, PermissionDTO.class));
-            return ResponseStatusVO.ok("批量激活或冻结成功", null);
-        } catch (ServiceException e) {
-            logger.error("批量激活或冻结失败：{}", e.getMessage());
-            return ResponseStatusVO.error("批量激活或冻结失败", null);
-        }
+        permissionService.updateBatch(BeanUtils.copyListObj(permissionVOList, PermissionDTO.class));
+        return ResponseStatusVO.ok("批量激活或冻结成功", null);
     }
 
     @GetMapping("admin/one/{id}")
     public ResponseStatusVO getById(@PathVariable("id") Long id) {
         PermissionVO permissionVO = new PermissionVO();
-        try {
-            Object obj = permissionService.getById(id);
-            if (obj != null) {
-                permissionVO = BeanUtils.copy(obj, PermissionVO.class);
-            }
-            return ResponseStatusVO.ok("查询成功", permissionVO);
-        } catch (ServiceException e) {
-            logger.error("返回单个对象JSON数据失败：{}", e.getMessage());
-            return ResponseStatusVO.error("查询失败", null);
+        Object obj = permissionService.getById(id);
+        if (obj != null) {
+            permissionVO = BeanUtils.copy(obj, PermissionVO.class);
         }
+        return ResponseStatusVO.ok("查询成功", permissionVO);
     }
 
     @GetMapping("admin/all")
     public ResponseStatusVO listAll() {
-        try {
-            PagerDTO pagerDTO = permissionService.listAll();
-            PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
-            pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), PermissionVO.class));
-            return ResponseStatusVO.ok("查询成功", pagerVO);
-        } catch (ServiceException e) {
-            logger.error("返回所有对象JSON数据失败：{}", e.getMessage());
-            return ResponseStatusVO.error("查询失败", null);
-        }
+        PagerDTO pagerDTO = permissionService.listAll();
+        PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
+        pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), PermissionVO.class));
+        return ResponseStatusVO.ok("查询成功", pagerVO);
     }
 
     @PostMapping("admin/pager-cond")
     public ResponseStatusVO listPageByCondition(@RequestBody PermissionQuery permissionQuery) {
-        try {
-            PagerDTO pagerDTO = permissionService.listPageByCondition(permissionQuery);
-            PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
-            pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), PermissionVO.class));
-            return ResponseStatusVO.ok("查询成功", pagerVO);
-        } catch (ServiceException e) {
-            logger.error("返回指定条件的分页对象JSON数据失败：{}", e.getMessage());
-            return ResponseStatusVO.error("查询失败", null);
-        }
+        PagerDTO pagerDTO = permissionService.listPageByCondition(permissionQuery);
+        PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
+        pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), PermissionVO.class));
+        return ResponseStatusVO.ok("查询成功", pagerVO);
     }
 
     @Autowired

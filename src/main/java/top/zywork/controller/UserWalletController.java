@@ -12,7 +12,6 @@ import top.zywork.common.BindingResultUtils;
 import top.zywork.common.StringUtils;
 import top.zywork.dto.PagerDTO;
 import top.zywork.dto.UserWalletDTO;
-import top.zywork.exception.ServiceException;
 import top.zywork.query.UserWalletQuery;
 import top.zywork.service.UserWalletService;
 import top.zywork.vo.ResponseStatusVO;
@@ -42,13 +41,8 @@ public class UserWalletController extends BaseController {
         if (bindingResult.hasErrors()) {
             return ResponseStatusVO.dataError(BindingResultUtils.errorString(bindingResult), null);
         }
-        try {
-            userWalletService.save(BeanUtils.copy(userWalletVO, UserWalletDTO.class));
-            return ResponseStatusVO.ok("添加成功", null);
-        } catch (ServiceException e) {
-            logger.error("添加失败：{}", e.getMessage());
-            return ResponseStatusVO.error("添加失败", null);
-        }
+        userWalletService.save(BeanUtils.copy(userWalletVO, UserWalletDTO.class));
+        return ResponseStatusVO.ok("添加成功", null);
     }
 
     @PostMapping("admin/batch-save")
@@ -56,36 +50,20 @@ public class UserWalletController extends BaseController {
         if (bindingResult.hasErrors()) {
             return ResponseStatusVO.dataError(BindingResultUtils.errorString(bindingResult), null);
         }
-        try {
-            userWalletService.saveBatch(BeanUtils.copyListObj(userWalletVOList, UserWalletDTO.class));
-            return ResponseStatusVO.ok("批量添加成功", null);
-        } catch (ServiceException e) {
-            logger.error("添加失败：{}", e.getMessage());
-            return ResponseStatusVO.error("批量添加失败", null);
-        }
-
+        userWalletService.saveBatch(BeanUtils.copyListObj(userWalletVOList, UserWalletDTO.class));
+        return ResponseStatusVO.ok("批量添加成功", null);
     }
 
     @GetMapping("admin/remove/{id}")
     public ResponseStatusVO removeById(@PathVariable("id") Long id) {
-        try {
-            userWalletService.removeById(id);
-            return ResponseStatusVO.ok("删除成功", null);
-        } catch (ServiceException e) {
-            logger.error("删除失败：{}", e.getMessage());
-            return ResponseStatusVO.error("删除失败", null);
-        }
+        userWalletService.removeById(id);
+        return ResponseStatusVO.ok("删除成功", null);
     }
 
     @PostMapping("admin/batch-remove")
     public ResponseStatusVO removeByIds(@RequestBody String[] ids) {
-        try {
-            userWalletService.removeByIds(StringUtils.strArrayToLongArray(ids));
-            return ResponseStatusVO.ok("批量删除成功", null);
-        } catch (ServiceException e) {
-            logger.error("批量删除失败：{}", e.getMessage());
-            return ResponseStatusVO.error("批量删除失败", null);
-        }
+        userWalletService.removeByIds(StringUtils.strArrayToLongArray(ids));
+        return ResponseStatusVO.ok("批量删除成功", null);
     }
 
     @PostMapping("admin/update")
@@ -93,16 +71,11 @@ public class UserWalletController extends BaseController {
         if (bindingResult.hasErrors()) {
             return ResponseStatusVO.dataError(BindingResultUtils.errorString(bindingResult), null);
         }
-        try {
-            int updateRows = userWalletService.update(BeanUtils.copy(userWalletVO, UserWalletDTO.class));
-            if (updateRows == 1) {
-                return ResponseStatusVO.ok("更新成功", null);
-            } else {
-                return ResponseStatusVO.dataError("数据版本号有问题，在此更新前数据已被更新", null);
-            }
-        } catch (ServiceException e) {
-            logger.error("更新失败：{}", e.getMessage());
-            return ResponseStatusVO.error("更新失败", null);
+        int updateRows = userWalletService.update(BeanUtils.copy(userWalletVO, UserWalletDTO.class));
+        if (updateRows == 1) {
+            return ResponseStatusVO.ok("更新成功", null);
+        } else {
+            return ResponseStatusVO.dataError("数据版本号有问题，在此更新前数据已被更新", null);
         }
     }
 
@@ -111,76 +84,46 @@ public class UserWalletController extends BaseController {
         if (bindingResult.hasErrors()) {
             return ResponseStatusVO.dataError(BindingResultUtils.errorString(bindingResult), null);
         }
-        try {
-            userWalletService.updateBatch(BeanUtils.copyListObj(userWalletVOList, UserWalletDTO.class));
-            return ResponseStatusVO.ok("批量更新成功", null);
-        } catch (ServiceException e) {
-            logger.error("批量更新失败：{}", e.getMessage());
-            return ResponseStatusVO.error("批量更新失败", null);
-        }
+        userWalletService.updateBatch(BeanUtils.copyListObj(userWalletVOList, UserWalletDTO.class));
+        return ResponseStatusVO.ok("批量更新成功", null);
     }
 
     @PostMapping("admin/active")
     public ResponseStatusVO active(@RequestBody UserWalletVO userWalletVO) {
-        try {
-            userWalletService.update(BeanUtils.copy(userWalletVO, UserWalletDTO.class));
-            return ResponseStatusVO.ok("激活或冻结成功", null);
-        } catch (ServiceException e) {
-            logger.error("激活或冻结失败：{}", e.getMessage());
-            return ResponseStatusVO.error("激活或冻结失败", null);
-        }
+        userWalletService.update(BeanUtils.copy(userWalletVO, UserWalletDTO.class));
+        return ResponseStatusVO.ok("激活或冻结成功", null);
     }
 
     @PostMapping("admin/batch-active")
     public ResponseStatusVO activeBatch(@RequestBody @Validated List<UserWalletVO> userWalletVOList) {
-        try {
-            userWalletService.updateBatch(BeanUtils.copyListObj(userWalletVOList, UserWalletDTO.class));
-            return ResponseStatusVO.ok("批量激活或冻结成功", null);
-        } catch (ServiceException e) {
-            logger.error("批量激活或冻结失败：{}", e.getMessage());
-            return ResponseStatusVO.error("批量激活或冻结失败", null);
-        }
+        userWalletService.updateBatch(BeanUtils.copyListObj(userWalletVOList, UserWalletDTO.class));
+        return ResponseStatusVO.ok("批量激活或冻结成功", null);
     }
 
     @GetMapping("admin/one/{id}")
     public ResponseStatusVO getById(@PathVariable("id") Long id) {
         UserWalletVO userWalletVO = new UserWalletVO();
-        try {
-            Object obj = userWalletService.getById(id);
-            if (obj != null) {
-                userWalletVO = BeanUtils.copy(obj, UserWalletVO.class);
-            }
-            return ResponseStatusVO.ok("查询成功", userWalletVO);
-        } catch (ServiceException e) {
-            logger.error("返回单个对象JSON数据失败：{}", e.getMessage());
-            return ResponseStatusVO.error("查询失败", null);
+        Object obj = userWalletService.getById(id);
+        if (obj != null) {
+            userWalletVO = BeanUtils.copy(obj, UserWalletVO.class);
         }
+        return ResponseStatusVO.ok("查询成功", userWalletVO);
     }
 
     @GetMapping("admin/all")
     public ResponseStatusVO listAll() {
-        try {
-            PagerDTO pagerDTO = userWalletService.listAll();
-            PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
-            pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), UserWalletVO.class));
-            return ResponseStatusVO.ok("查询成功", pagerVO);
-        } catch (ServiceException e) {
-            logger.error("返回所有对象JSON数据失败：{}", e.getMessage());
-            return ResponseStatusVO.error("查询失败", null);
-        }
+        PagerDTO pagerDTO = userWalletService.listAll();
+        PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
+        pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), UserWalletVO.class));
+        return ResponseStatusVO.ok("查询成功", pagerVO);
     }
 
     @PostMapping("admin/pager-cond")
     public ResponseStatusVO listPageByCondition(@RequestBody UserWalletQuery userWalletQuery) {
-        try {
-            PagerDTO pagerDTO = userWalletService.listPageByCondition(userWalletQuery);
-            PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
-            pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), UserWalletVO.class));
-            return ResponseStatusVO.ok("查询成功", pagerVO);
-        } catch (ServiceException e) {
-            logger.error("返回指定条件的分页对象JSON数据失败：{}", e.getMessage());
-            return ResponseStatusVO.error("查询失败", null);
-        }
+        PagerDTO pagerDTO = userWalletService.listPageByCondition(userWalletQuery);
+        PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
+        pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), UserWalletVO.class));
+        return ResponseStatusVO.ok("查询成功", pagerVO);
     }
 
     @Autowired

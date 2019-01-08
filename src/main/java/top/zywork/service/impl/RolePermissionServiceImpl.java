@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.zywork.common.BeanUtils;
-import top.zywork.common.ExceptionUtils;
 import top.zywork.dao.RolePermissionDAO;
 import top.zywork.dos.RolePermissionDO;
 import top.zywork.dto.RolePermissionDTO;
@@ -30,15 +29,11 @@ public class RolePermissionServiceImpl extends AbstractBaseService implements Ro
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int saveBatch(List<Object> dataTransferObjList) {
-        try {
-            if (dataTransferObjList != null && dataTransferObjList.size() > 0) {
-                rolePermissionDAO.removeById(((RolePermissionDTO) dataTransferObjList.get(0)).getRoleId());
-                return rolePermissionDAO.saveBatch(BeanUtils.copyList(dataTransferObjList, RolePermissionDTO.class));
-            }
-            return 0;
-        } catch (RuntimeException e) {
-            throw ExceptionUtils.serviceException(e);
+        if (dataTransferObjList != null && dataTransferObjList.size() > 0) {
+            rolePermissionDAO.removeById(((RolePermissionDTO) dataTransferObjList.get(0)).getRoleId());
+            return rolePermissionDAO.saveBatch(BeanUtils.copyList(dataTransferObjList, RolePermissionDTO.class));
         }
+        return 0;
     }
 
     @Autowired

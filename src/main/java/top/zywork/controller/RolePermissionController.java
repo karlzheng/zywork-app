@@ -10,7 +10,6 @@ import top.zywork.common.BeanUtils;
 import top.zywork.common.BindingResultUtils;
 import top.zywork.dto.PagerDTO;
 import top.zywork.dto.RolePermissionDTO;
-import top.zywork.exception.ServiceException;
 import top.zywork.query.RolePermissionQuery;
 import top.zywork.service.RolePermissionService;
 import top.zywork.vo.PagerVO;
@@ -47,52 +46,32 @@ public class RolePermissionController extends BaseController {
         if (bindingResult.hasErrors()) {
             return ResponseStatusVO.dataError(BindingResultUtils.errorString(bindingResult), null);
         }
-        try {
-            rolePermissionService.saveBatch(BeanUtils.copyListObj(rolePermissionVOList, RolePermissionDTO.class));
-            return ResponseStatusVO.ok("批量添加成功", null);
-        } catch (ServiceException e) {
-            logger.error("添加失败：{}", e.getMessage());
-            return ResponseStatusVO.error("批量添加失败", null);
-        }
+        rolePermissionService.saveBatch(BeanUtils.copyListObj(rolePermissionVOList, RolePermissionDTO.class));
+        return ResponseStatusVO.ok("批量添加成功", null);
     }
 
     @GetMapping("admin/multi/{id}")
     public ResponseStatusVO listById(@PathVariable("id") Long id) {
-        try {
-            PagerDTO pagerDTO = rolePermissionService.listById(id);
-            PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
-            pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), RolePermissionVO.class));
-            return ResponseStatusVO.ok("查询成功", pagerVO);
-        } catch (ServiceException e) {
-            logger.error("返回单个对象JSON数据失败：{}", e.getMessage());
-            return ResponseStatusVO.error("查询失败", null);
-        }
+        PagerDTO pagerDTO = rolePermissionService.listById(id);
+        PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
+        pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), RolePermissionVO.class));
+        return ResponseStatusVO.ok("查询成功", pagerVO);
     }
 
     @GetMapping("admin/all")
     public ResponseStatusVO listAll() {
-        try {
-            PagerDTO pagerDTO = rolePermissionService.listAll();
-            PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
-            pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), RolePermissionVO.class));
-            return ResponseStatusVO.ok("查询成功", pagerVO);
-        } catch (ServiceException e) {
-            logger.error("返回所有对象JSON数据失败：{}", e.getMessage());
-            return ResponseStatusVO.error("查询失败", null);
-        }
+        PagerDTO pagerDTO = rolePermissionService.listAll();
+        PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
+        pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), RolePermissionVO.class));
+        return ResponseStatusVO.ok("查询成功", pagerVO);
     }
 
     @PostMapping("admin/pager-cond")
     public ResponseStatusVO listPageByCondition(@RequestBody RolePermissionQuery rolePermissionQuery) {
-        try {
-            PagerDTO pagerDTO = rolePermissionService.listPageByCondition(rolePermissionQuery);
-            PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
-            pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), RolePermissionVO.class));
-            return ResponseStatusVO.ok("查询成功", pagerVO);
-        } catch (ServiceException e) {
-            logger.error("返回指定条件的分页对象JSON数据失败：{}", e.getMessage());
-            return ResponseStatusVO.error("查询失败", null);
-        }
+        PagerDTO pagerDTO = rolePermissionService.listPageByCondition(rolePermissionQuery);
+        PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
+        pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), RolePermissionVO.class));
+        return ResponseStatusVO.ok("查询成功", pagerVO);
     }
 
     @Autowired

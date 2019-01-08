@@ -11,7 +11,6 @@ import top.zywork.common.BindingResultUtils;
 import top.zywork.common.StringUtils;
 import top.zywork.dto.PagerDTO;
 import top.zywork.dto.ShippingAddressDTO;
-import top.zywork.exception.ServiceException;
 import top.zywork.query.ShippingAddressQuery;
 import top.zywork.security.JwtUser;
 import top.zywork.security.SecurityUtils;
@@ -60,13 +59,8 @@ public class ShippingAddressController extends BaseController {
         if (bindingResult.hasErrors()) {
             return ResponseStatusVO.dataError(BindingResultUtils.errorString(bindingResult), null);
         }
-        try {
-            shippingAddressService.save(BeanUtils.copy(shippingAddressVO, ShippingAddressDTO.class));
-            return ResponseStatusVO.ok("添加成功", null);
-        } catch (ServiceException e) {
-            logger.error("添加失败：{}", e.getMessage());
-            return ResponseStatusVO.error("添加失败", null);
-        }
+        shippingAddressService.save(BeanUtils.copy(shippingAddressVO, ShippingAddressDTO.class));
+        return ResponseStatusVO.ok("添加成功", null);
     }
 
     @PostMapping("admin/batch-save")
@@ -74,24 +68,14 @@ public class ShippingAddressController extends BaseController {
         if (bindingResult.hasErrors()) {
             return ResponseStatusVO.dataError(BindingResultUtils.errorString(bindingResult), null);
         }
-        try {
-            shippingAddressService.saveBatch(BeanUtils.copyListObj(shippingAddressVOList, ShippingAddressDTO.class));
-            return ResponseStatusVO.ok("批量添加成功", null);
-        } catch (ServiceException e) {
-            logger.error("添加失败：{}", e.getMessage());
-            return ResponseStatusVO.error("批量添加失败", null);
-        }
+        shippingAddressService.saveBatch(BeanUtils.copyListObj(shippingAddressVOList, ShippingAddressDTO.class));
+        return ResponseStatusVO.ok("批量添加成功", null);
     }
 
     @GetMapping("admin/remove/{id}")
     public ResponseStatusVO removeById(@PathVariable("id") Long id) {
-        try {
-            shippingAddressService.removeById(id);
-            return ResponseStatusVO.ok("删除成功", null);
-        } catch (ServiceException e) {
-            logger.error("删除失败：{}", e.getMessage());
-            return ResponseStatusVO.error("删除失败", null);
-        }
+        shippingAddressService.removeById(id);
+        return ResponseStatusVO.ok("删除成功", null);
     }
 
     /**
@@ -115,13 +99,8 @@ public class ShippingAddressController extends BaseController {
 
     @PostMapping("admin/batch-remove")
     public ResponseStatusVO removeByIds(@RequestBody String[] ids) {
-        try {
-            shippingAddressService.removeByIds(StringUtils.strArrayToLongArray(ids));
-            return ResponseStatusVO.ok("批量删除成功", null);
-        } catch (ServiceException e) {
-            logger.error("批量删除失败：{}", e.getMessage());
-            return ResponseStatusVO.error("批量删除失败", null);
-        }
+        shippingAddressService.removeByIds(StringUtils.strArrayToLongArray(ids));
+        return ResponseStatusVO.ok("批量删除成功", null);
     }
 
     @PostMapping("admin/update")
@@ -129,16 +108,11 @@ public class ShippingAddressController extends BaseController {
         if (bindingResult.hasErrors()) {
             return ResponseStatusVO.dataError(BindingResultUtils.errorString(bindingResult), null);
         }
-        try {
-            int updateRows = shippingAddressService.update(BeanUtils.copy(shippingAddressVO, ShippingAddressDTO.class));
-            if (updateRows == 1) {
-                return ResponseStatusVO.ok("更新成功", null);
-            } else {
-                return ResponseStatusVO.dataError("数据版本号有问题，在此更新前数据已被更新", null);
-            }
-        } catch (ServiceException e) {
-            logger.error("更新失败：{}", e.getMessage());
-            return ResponseStatusVO.error("更新失败", null);
+        int updateRows = shippingAddressService.update(BeanUtils.copy(shippingAddressVO, ShippingAddressDTO.class));
+        if (updateRows == 1) {
+            return ResponseStatusVO.ok("更新成功", null);
+        } else {
+            return ResponseStatusVO.dataError("数据版本号有问题，在此更新前数据已被更新", null);
         }
     }
 
@@ -161,16 +135,11 @@ public class ShippingAddressController extends BaseController {
         if (!hasShippingAddress(shippingAddressVO.getId(), jwtUser.getUserId())) {
             return ResponseStatusVO.dataError("不正确的用户地址编号", null);
         }
-        try {
-            int updateRows = shippingAddressService.updateAddress(BeanUtils.copy(shippingAddressVO, ShippingAddressDTO.class));
-            if (updateRows == 1) {
-                return ResponseStatusVO.ok("更新成功", null);
-            } else {
-                return ResponseStatusVO.dataError("数据版本号有问题，在此更新前数据已被更新", null);
-            }
-        } catch (ServiceException e) {
-            logger.error("更新失败：{}", e.getMessage());
-            return ResponseStatusVO.error("更新失败", null);
+        int updateRows = shippingAddressService.updateAddress(BeanUtils.copy(shippingAddressVO, ShippingAddressDTO.class));
+        if (updateRows == 1) {
+            return ResponseStatusVO.ok("更新成功", null);
+        } else {
+            return ResponseStatusVO.dataError("数据版本号有问题，在此更新前数据已被更新", null);
         }
     }
 
@@ -179,76 +148,46 @@ public class ShippingAddressController extends BaseController {
         if (bindingResult.hasErrors()) {
             return ResponseStatusVO.dataError(BindingResultUtils.errorString(bindingResult), null);
         }
-        try {
-            shippingAddressService.updateBatch(BeanUtils.copyListObj(shippingAddressVOList, ShippingAddressDTO.class));
-            return ResponseStatusVO.ok("批量更新成功", null);
-        } catch (ServiceException e) {
-            logger.error("批量更新失败：{}", e.getMessage());
-            return ResponseStatusVO.error("批量更新失败", null);
-        }
+        shippingAddressService.updateBatch(BeanUtils.copyListObj(shippingAddressVOList, ShippingAddressDTO.class));
+        return ResponseStatusVO.ok("批量更新成功", null);
     }
 
     @PostMapping("admin/active")
     public ResponseStatusVO active(@RequestBody ShippingAddressVO shippingAddressVO) {
-        try {
-            shippingAddressService.update(BeanUtils.copy(shippingAddressVO, ShippingAddressDTO.class));
-            return ResponseStatusVO.ok("激活或冻结成功", null);
-        } catch (ServiceException e) {
-            logger.error("激活或冻结失败：{}", e.getMessage());
-            return ResponseStatusVO.error("激活或冻结失败", null);
-        }
+        shippingAddressService.update(BeanUtils.copy(shippingAddressVO, ShippingAddressDTO.class));
+        return ResponseStatusVO.ok("激活或冻结成功", null);
     }
 
     @PostMapping("admin/batch-active")
     public ResponseStatusVO activeBatch(@RequestBody @Validated List<ShippingAddressVO> shippingAddressVOList) {
-        try {
-            shippingAddressService.updateBatch(BeanUtils.copyListObj(shippingAddressVOList, ShippingAddressDTO.class));
-            return ResponseStatusVO.ok("批量激活或冻结成功", null);
-        } catch (ServiceException e) {
-            logger.error("批量激活或冻结失败：{}", e.getMessage());
-            return ResponseStatusVO.error("批量激活或冻结失败", null);
-        }
+        shippingAddressService.updateBatch(BeanUtils.copyListObj(shippingAddressVOList, ShippingAddressDTO.class));
+        return ResponseStatusVO.ok("批量激活或冻结成功", null);
     }
 
     @GetMapping("admin/one/{id}")
     public ResponseStatusVO getById(@PathVariable("id") Long id) {
         ShippingAddressVO shippingAddressVO = new ShippingAddressVO();
-        try {
-            Object obj = shippingAddressService.getById(id);
-            if (obj != null) {
-                shippingAddressVO = BeanUtils.copy(obj, ShippingAddressVO.class);
-            }
-            return ResponseStatusVO.ok("查询成功", shippingAddressVO);
-        } catch (ServiceException e) {
-            logger.error("返回单个对象JSON数据失败：{}", e.getMessage());
-            return ResponseStatusVO.error("查询失败", null);
+        Object obj = shippingAddressService.getById(id);
+        if (obj != null) {
+            shippingAddressVO = BeanUtils.copy(obj, ShippingAddressVO.class);
         }
+        return ResponseStatusVO.ok("查询成功", shippingAddressVO);
     }
 
     @GetMapping("admin/all")
     public ResponseStatusVO listAll() {
-        try {
-            PagerDTO pagerDTO = shippingAddressService.listAll();
-            PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
-            pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), ShippingAddressVO.class));
-            return ResponseStatusVO.ok("查询成功", pagerVO);
-        } catch (ServiceException e) {
-            logger.error("返回所有对象JSON数据失败：{}", e.getMessage());
-            return ResponseStatusVO.error("查询失败", null);
-        }
+        PagerDTO pagerDTO = shippingAddressService.listAll();
+        PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
+        pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), ShippingAddressVO.class));
+        return ResponseStatusVO.ok("查询成功", pagerVO);
     }
 
     @PostMapping("admin/pager-cond")
     public ResponseStatusVO listPageByCondition(@RequestBody ShippingAddressQuery shippingAddressQuery) {
-        try {
-            PagerDTO pagerDTO = shippingAddressService.listPageByCondition(shippingAddressQuery);
-            PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
-            pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), ShippingAddressVO.class));
-            return ResponseStatusVO.ok("查询成功", pagerVO);
-        } catch (ServiceException e) {
-            logger.error("返回指定条件的分页对象JSON数据失败：{}", e.getMessage());
-            return ResponseStatusVO.error("查询失败", null);
-        }
+        PagerDTO pagerDTO = shippingAddressService.listPageByCondition(shippingAddressQuery);
+        PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
+        pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), ShippingAddressVO.class));
+        return ResponseStatusVO.ok("查询成功", pagerVO);
     }
 
     /**
