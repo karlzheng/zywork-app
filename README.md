@@ -2,7 +2,7 @@
 
 *王振宇*
 
-zywork-app是基于SpringBoot，SpringCloud，SpringSecurity，MyBatis的快速开发系统。
+zywork-app是基于SpringBoot，SpringCloud，SpringSecurity，MyBatis，Druid，Redis的快速开发系统，并使用SpringBoot Admin Server进行项目监控。
 
 建议使用IntellijIDEA集成开发工具。
 
@@ -13,6 +13,8 @@ zywork-common项目依赖了zywork-sdk（[https://github.com/gz-zywork/zywork-sd
 #### 使用的技术
 1. Maven
 2. SpringBoot
+3. SpringBoot Admin
+4. SpringCloud
 3. SpringSecurity
 4. JWT
 5. MyBatis
@@ -35,10 +37,14 @@ zywork-common项目依赖了zywork-sdk（[https://github.com/gz-zywork/zywork-sd
 ```documents/zywork_app_data_test.sql``` 包含有数据库结构和测试数据
 
 #### Druid数据监控
-```http://localhost:8088/druid/index.html``` 请修改成自己配置的端口号
+```http://localhost:8088/druid/index.html```
 
 #### API接口测试
-```http://localhost:8088/swagger-ui.html``` 请修改成自己配置的端口号
+```http://localhost:8088/swagger-ui.html```
+
+#### SpringAcuator系统监控及SpringBoot Admin
+```http://localhost:8088/actuator/*``` *部分请自行替换
+```http://localhost:8086``` clone并运行zywork-app-admin项目
 
 #### 第三方SDK说明
 微信支付SDK，阿里云短信，阿里云邮件推送相关配置请自行修改
@@ -47,6 +53,8 @@ zywork-common项目依赖了zywork-sdk（[https://github.com/gz-zywork/zywork-sd
 
 1. 基于SpringSecurity与JWT的用户认证及权限验证，适配任何前端
 2. 基于自定义注解```@SysLog```的系统详细日志记录
+3. Redis缓存的后台界面管理，如查询缓存，删除缓存
+4. SpringBoot Admin Server项目监控
 3. 使用JSON的系统配置存储，如API相关配置等
 4. 数据表增加```version```版本号字段，使用乐观锁机制解决高并发情况下更新表记录时数据一致性问题
 3. 用户邮箱加邮箱验证码注册，用户手机号加手机验证码注册，可选填注册邀请码
