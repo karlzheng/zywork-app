@@ -3,6 +3,8 @@ server:
   tomcat:
     uri-encoding: UTF-8
 spring:
+  application:
+    name: zywork-app
   banner:
     charset: UTF-8
     location: banner.txt
@@ -29,13 +31,22 @@ spring:
         principal-session-name: admin
         principal-cookie-name: admin
       stat-view-servlet:
-          login-username: zywork-app
-          login-password: zywork-app.123654
+        login-username: zywork-app
+        login-password: zywork-app.123654
+  boot:
+    admin:
+      client:
+        url: "http://localhost:8086"
+        username: zywork-app
+        password: zywork-app.123654
 management:
   endpoints:
     web:
       exposure:
         include: '*'
+  endpoint:
+    health:
+      show-details: always
 logging:
   file:
     max-history: 60

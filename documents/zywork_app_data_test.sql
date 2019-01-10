@@ -294,7 +294,6 @@ INSERT INTO `t_permission` VALUES (154, 121, '后台-公告管理', '/notice/adm
 INSERT INTO `t_permission` VALUES (155, 121, '用户-公告查询', '/notice/user/**', NULL, 1, '2019-01-10 15:41:39', NULL, 0);
 INSERT INTO `t_permission` VALUES (156, 122, '后台-导入导出角色权限', '/permission-import-export/*', NULL, 1, '2019-01-10 15:41:39', NULL, 0);
 INSERT INTO `t_permission` VALUES (157, 123, '后台-Redis缓存管理', '/redis-manage/**', NULL, 1, '2019-01-10 15:41:39', NULL, 0);
-INSERT INTO `t_permission` VALUES (158, 124, '后台-SpringActuator管理', '/actuator/**', NULL, 1, '2019-01-10 15:41:39', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -437,7 +436,6 @@ INSERT INTO `t_role_permission` VALUES (337, 2, 155, 1, '2019-01-10 15:41:39', N
 INSERT INTO `t_role_permission` VALUES (338, 3, 155, 1, '2019-01-10 15:41:39', NULL, 0);
 INSERT INTO `t_role_permission` VALUES (339, 7, 156, 1, '2019-01-10 15:41:39', NULL, 0);
 INSERT INTO `t_role_permission` VALUES (340, 7, 157, 1, '2019-01-10 15:41:39', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (341, 7, 158, 1, '2019-01-10 15:41:39', NULL, 0);
 COMMIT;
 
 -- ----------------------------
