@@ -31,6 +31,11 @@ spring:
       stat-view-servlet:
         login-username: zywork-app
         login-password: zywork-app.123654
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
 logging:
   file:
     max-history: 60

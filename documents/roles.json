@@ -10,6 +10,11 @@
         "isDefault": 0
     },
     {
+        "title": "sys_dev",
+        "description": "系统研发人员",
+        "isDefault": 0
+    },
+    {
         "title": "sys_user",
         "description": "系统用户",
         "isDefault": 1

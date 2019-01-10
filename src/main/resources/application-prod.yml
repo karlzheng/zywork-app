@@ -28,9 +28,14 @@ spring:
       web-stat-filter:
         principal-session-name: admin
         principal-cookie-name: admin
-        stat-view-servlet:
+      stat-view-servlet:
           login-username: zywork-app
           login-password: zywork-app.123654
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
 logging:
   file:
     max-history: 60

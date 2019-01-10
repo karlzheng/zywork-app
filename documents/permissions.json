@@ -113,19 +113,6 @@
         ]
     },
     {
-        "moduleTitle": "角色权限导入导出管理",
-        "permissions": [
-            {
-                "title": "后台-导入导出角色权限",
-                "permission": "/permission-import-export/*",
-                "roles": [
-                    "super_sys_admin",
-                    "sys_admin"
-                ]
-            }
-        ]
-    },
-    {
         "moduleTitle": "系统配置管理",
         "permissions": [
             {
@@ -380,6 +367,42 @@
                     "super_sys_admin",
                     "sys_admin",
                     "sys_user"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "角色权限导入导出管理",
+        "permissions": [
+            {
+                "title": "后台-导入导出角色权限",
+                "permission": "/permission-import-export/*",
+                "roles": [
+                    "sys_dev"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "Redis缓存管理",
+        "permissions": [
+            {
+                "title": "后台-Redis缓存管理",
+                "permission": "/redis-manage/**",
+                "roles": [
+                    "sys_dev"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "SpringActuator管理",
+        "permissions": [
+            {
+                "title": "后台-SpringActuator管理",
+                "permission": "/actuator/**",
+                "roles": [
+                    "sys_dev"
                 ]
             }
         ]
