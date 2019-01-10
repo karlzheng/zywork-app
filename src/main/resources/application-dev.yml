@@ -25,6 +25,12 @@ spring:
       test-on-borrow: false
       test-on-return: false
       initial-size: 10
+      web-stat-filter:
+        principal-session-name: admin
+        principal-cookie-name: admin
+      stat-view-servlet:
+        login-username: zywork-app
+        login-password: zywork-app.123654
 logging:
   file:
     max-history: 60
