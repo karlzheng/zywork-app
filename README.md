@@ -42,7 +42,7 @@ zywork-common项目依赖了zywork-sdk（[https://github.com/gz-zywork/zywork-sd
 #### API接口测试
 ```http://localhost:8088/swagger-ui.html```
 
-#### SpringAcuator系统监控及SpringBoot Admin
+#### SpringActuator系统监控及SpringBoot Admin
 ```http://localhost:8088/actuator/*``` *部分请自行替换
 
 ```http://localhost:8086``` clone并运行zywork-app-admin项目
