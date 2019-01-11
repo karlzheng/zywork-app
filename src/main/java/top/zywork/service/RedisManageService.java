@@ -16,12 +16,20 @@ import java.util.Properties;
 public interface RedisManageService {
 
     /**
+     * 根据指定模式和搜索个数列出所有RedisManageVO，只包含key
+     * @param pattern
+     * @param count
+     * @return
+     */
+    public PagerDTO listKeys(String pattern, long count);
+
+    /**
      * 根据指定模式和搜索个数列出所有RedisManageVO
      * @param pattern
      * @param count
      * @return
      */
-    PagerDTO listKeys(String pattern, long count);
+    PagerDTO listKeyValues(String pattern, long count);
 
     /**
      * 获取key的总个数

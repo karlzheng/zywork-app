@@ -26,17 +26,31 @@ public class RedisManageController extends BaseController {
     private RedisManageService redisManageService;
 
     /**
+     * 获取key
+     * @param pattern
+     * @param count
+     * @return
+     */
+    @PostMapping("keys")
+    public ResponseStatusVO listKeys(String pattern, long count) {
+        if (count <= 0) {
+            return ResponseStatusVO.dataError("count必须大于0", null);
+        }
+        return ResponseStatusVO.ok("成功获取keys", redisManageService.listKeys(pattern, count));
+    }
+
+    /**
      * 获取key-value，包括失效时间
      * @param pattern
      * @param count
      * @return
      */
     @PostMapping("key-value")
-    public ResponseStatusVO listKeys(String pattern, long count) {
+    public ResponseStatusVO listKeyValues(String pattern, long count) {
         if (count <= 0) {
             return ResponseStatusVO.dataError("count必须大于0", null);
         }
-        return ResponseStatusVO.ok("成功获取keys", redisManageService.listKeys(pattern, count));
+        return ResponseStatusVO.ok("成功获取key-value", redisManageService.listKeyValues(pattern, count));
     }
 
     /**

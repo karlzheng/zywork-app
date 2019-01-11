@@ -43,6 +43,28 @@ public class RedisManageServiceImpl implements RedisManageService {
         Set<Object> keyValues = new HashSet<>();
         long c = 0;
         while (cursor.hasNext()) {
+            RedisManageVO redisManageVO = new RedisManageVO();
+            redisManageVO.setKey(new String(cursor.next()));
+            keyValues.add(redisManageVO);
+            c++;
+        }
+        pagerDTO.setTotal(c);
+        pagerDTO.setRows(Collections.arrayToList(keyValues.toArray()));
+        return pagerDTO;
+    }
+
+    @Override
+    @SuppressWarnings({"unchecked"})
+    public PagerDTO listKeyValues(String pattern, long count) {
+        Cursor<byte[]> cursor = redisTemplate.executeWithStickyConnection(redisConnection -> redisConnection.scan(ScanOptions.scanOptions().match(pattern).count(count).build()));
+        PagerDTO pagerDTO = new PagerDTO();
+        if (cursor == null) {
+            pagerDTO.setRows(null);
+            return pagerDTO;
+        }
+        Set<Object> keyValues = new HashSet<>();
+        long c = 0;
+        while (cursor.hasNext()) {
             keyValues.add(getValue(new String(cursor.next())));
             c++;
         }
