@@ -12,25 +12,27 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * NoticeVO值对象类<br/>
  *
- * 创建于2019-01-07<br/>
+ * 创建于2019-01-11<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class NoticeVO extends BaseVO {
 
-    private static final long serialVersionUID = -9223372036844275783L;
+    private static final long serialVersionUID = -9223372036307601417L;
 
     // 公告编号
 	private Long id;
 	// 公告标题
-	@Size(min = 0, max = 50, message = "必须小于50个字符")
+	@NotBlank(message = "此项是必须项")
+	@Size(min = 1, max = 50, message = "必须是1-50个字符")
 	private String title;
 	// 公告摘要
 	@Size(min = 0, max = 255, message = "必须小于255个字符")
 	private String summary;
 	// 公告内容
-	@Size(min = 0, max = 5000, message = "必须小于5000个字符")
+	@NotBlank(message = "此项是必须项")
+	@Size(min = 1, max = 5000, message = "必须是1-5000个字符")
 	private String content;
 	// 截止时间
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")

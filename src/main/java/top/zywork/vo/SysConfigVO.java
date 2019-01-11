@@ -12,22 +12,24 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * SysConfigVO值对象类<br/>
  *
- * 创建于2018-12-25<br/>
+ * 创建于2019-01-11<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class SysConfigVO extends BaseVO {
 
-    private static final long serialVersionUID = -9223372035949245858L;
+    private static final long serialVersionUID = -9223372035600772356L;
 
     // 配置编号
 	private Long id;
 	// 配置名称
-	@Size(min = 0, max = 50, message = "必须小于50个字符")
+	@NotBlank(message = "此项是必须项")
+	@Size(min = 1, max = 50, message = "必须是1-50个字符")
 	private String name;
 	// 配置内容(JSON)
-	@Size(min = 0, max = 5000, message = "必须小于5000个字符")
+	@NotBlank(message = "此项是必须项")
+	@Size(min = 1, max = 5000, message = "必须是1-5000个字符")
 	private String value;
 	// 中文说明
 	@Size(min = 0, max = 50, message = "必须小于50个字符")

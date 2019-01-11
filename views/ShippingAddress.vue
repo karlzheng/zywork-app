@@ -291,21 +291,27 @@ isActive: null,
         },
         validateRules: {
           realName: [
+{type: 'string', required: true, message: '此项为必须项', trigger: 'blur'},
 {type: 'string', min: 1, max: 20, message: '必须1-20个字符', trigger: 'blur'}
 ],
 phone: [
+{type: 'string', required: true, message: '此项为必须项', trigger: 'blur'},
 {type: 'string', min: 1, max: 11, message: '必须1-11个字符', trigger: 'blur'}
 ],
 province: [
+{type: 'string', required: true, message: '此项为必须项', trigger: 'blur'},
 {type: 'string', min: 1, max: 20, message: '必须1-20个字符', trigger: 'blur'}
 ],
 city: [
+{type: 'string', required: true, message: '此项为必须项', trigger: 'blur'},
 {type: 'string', min: 1, max: 20, message: '必须1-20个字符', trigger: 'blur'}
 ],
 district: [
+{type: 'string', required: true, message: '此项为必须项', trigger: 'blur'},
 {type: 'string', min: 1, max: 20, message: '必须1-20个字符', trigger: 'blur'}
 ],
 address: [
+{type: 'string', required: true, message: '此项为必须项', trigger: 'blur'},
 {type: 'string', min: 1, max: 255, message: '必须1-255个字符', trigger: 'blur'}
 ],
 

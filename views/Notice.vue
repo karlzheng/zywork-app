@@ -258,12 +258,14 @@ isActive: null,
         },
         validateRules: {
           title: [
+{type: 'string', required: true, message: '此项为必须项', trigger: 'blur'},
 {type: 'string', min: 1, max: 50, message: '必须1-50个字符', trigger: 'blur'}
 ],
 summary: [
 {type: 'string', min: 1, max: 255, message: '必须1-255个字符', trigger: 'blur'}
 ],
 content: [
+{type: 'string', required: true, message: '此项为必须项', trigger: 'blur'},
 {type: 'string', min: 1, max: 5000, message: '必须1-5000个字符', trigger: 'blur'}
 ],
 

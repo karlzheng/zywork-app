@@ -12,36 +12,42 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * ShippingAddressVO值对象类<br/>
  *
- * 创建于2019-01-03<br/>
+ * 创建于2019-01-11<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class ShippingAddressVO extends BaseVO {
 
-    private static final long serialVersionUID = -9223372036307534744L;
+    private static final long serialVersionUID = -9223372036045182876L;
 
     // 地址编号
 	private Long id;
 	// 用户编号
 	private Long userId;
 	// 收货人
-	@Size(min = 0, max = 20, message = "必须小于20个字符")
+	@NotBlank(message = "此项是必须项")
+	@Size(min = 1, max = 20, message = "必须是1-20个字符")
 	private String realName;
 	// 手机号
-	@Size(min = 0, max = 11, message = "必须小于11个字符")
+	@NotBlank(message = "此项是必须项")
+	@Size(min = 1, max = 11, message = "必须是1-11个字符")
 	private String phone;
 	// 省
-	@Size(min = 0, max = 20, message = "必须小于20个字符")
+	@NotBlank(message = "此项是必须项")
+	@Size(min = 1, max = 20, message = "必须是1-20个字符")
 	private String province;
 	// 市
-	@Size(min = 0, max = 20, message = "必须小于20个字符")
+	@NotBlank(message = "此项是必须项")
+	@Size(min = 1, max = 20, message = "必须是1-20个字符")
 	private String city;
 	// 区/县
-	@Size(min = 0, max = 20, message = "必须小于20个字符")
+	@NotBlank(message = "此项是必须项")
+	@Size(min = 1, max = 20, message = "必须是1-20个字符")
 	private String district;
 	// 详细地址
-	@Size(min = 0, max = 255, message = "必须小于255个字符")
+	@NotBlank(message = "此项是必须项")
+	@Size(min = 1, max = 255, message = "必须是1-255个字符")
 	private String address;
 	// 是否默认
 	private Byte isDefault;

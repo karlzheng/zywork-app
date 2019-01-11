@@ -22,39 +22,39 @@
         <FormItem label="配置编号"><Row>
 	<i-col span="11">
 	<FormItem prop="idMin">
-	<InputNumber v-model="searchForm.idMin" style="width: 100%;"/>
+	<InputNumber v-model="searchForm.idMin" placeholder="请输入开始配置编号" style="width: 100%;"/>
 </FormItem>
 </i-col>
 	<i-col span="2" style="text-align: center">-</i-col>
 	<i-col span="11">
 	<FormItem prop="idMax">
-	<InputNumber v-model="searchForm.idMax" style="width: 100%;"/>
+	<InputNumber v-model="searchForm.idMax" placeholder="请输入结束配置编号" style="width: 100%;"/>
 </FormItem>
 </i-col>
 </Row>
 </FormItem>
 <FormItem label="配置名称" prop="name">
-	<Input v-model="searchForm.name"/>
+	<Input v-model="searchForm.name" placeholder="请输入配置名称"/>
 </FormItem>
 <FormItem label="配置内容(JSON)" prop="value">
-	<Input v-model="searchForm.value"/>
+	<Input v-model="searchForm.value" placeholder="请输入配置内容(JSON)"/>
 </FormItem>
 <FormItem label="中文说明" prop="description">
-	<Input v-model="searchForm.description"/>
+	<Input v-model="searchForm.description" placeholder="请输入中文说明"/>
 </FormItem>
 <FormItem label="配置注释" prop="comment">
-	<Input v-model="searchForm.comment"/>
+	<Input v-model="searchForm.comment" placeholder="请输入配置注释"/>
 </FormItem>
 <FormItem label="版本号"><Row>
 	<i-col span="11">
 	<FormItem prop="versionMin">
-	<InputNumber v-model="searchForm.versionMin" style="width: 100%;"/>
+	<InputNumber v-model="searchForm.versionMin" placeholder="请输入开始版本号" style="width: 100%;"/>
 </FormItem>
 </i-col>
 	<i-col span="2" style="text-align: center">-</i-col>
 	<i-col span="11">
 	<FormItem prop="versionMax">
-	<InputNumber v-model="searchForm.versionMax" style="width: 100%;"/>
+	<InputNumber v-model="searchForm.versionMax" placeholder="请输入结束版本号" style="width: 100%;"/>
 </FormItem>
 </i-col>
 </Row>
@@ -62,13 +62,13 @@
 <FormItem label="创建时间"><Row>
 	<i-col span="11">
 	<FormItem prop="createTimeMin">
-	<DatePicker @on-change="searchForm.createTimeMin=$event" :value="searchForm.createTimeMin" type="datetime" format="yyyy-MM-dd HH:mm:ss" style="width: 100%;"></DatePicker>
+	<DatePicker @on-change="searchForm.createTimeMin=$event" :value="searchForm.createTimeMin" placeholder="请输入开始创建时间" type="datetime" format="yyyy-MM-dd HH:mm:ss" style="width: 100%;"></DatePicker>
 </FormItem>
 </i-col>
 	<i-col span="2" style="text-align: center">-</i-col>
 	<i-col span="11">
 	<FormItem prop="createTimeMax">
-	<DatePicker @on-change="searchForm.createTimeMax=$event" :value="searchForm.createTimeMax" type="datetime" format="yyyy-MM-dd HH:mm:ss" style="width: 100%;"></DatePicker>
+	<DatePicker @on-change="searchForm.createTimeMax=$event" :value="searchForm.createTimeMax" placeholder="请输入结束创建时间" type="datetime" format="yyyy-MM-dd HH:mm:ss" style="width: 100%;"></DatePicker>
 </FormItem>
 </i-col>
 </Row>
@@ -76,13 +76,13 @@
 <FormItem label="更新时间"><Row>
 	<i-col span="11">
 	<FormItem prop="updateTimeMin">
-	<DatePicker @on-change="searchForm.updateTimeMin=$event" :value="searchForm.updateTimeMin" type="datetime" format="yyyy-MM-dd HH:mm:ss" style="width: 100%;"></DatePicker>
+	<DatePicker @on-change="searchForm.updateTimeMin=$event" :value="searchForm.updateTimeMin" placeholder="请输入开始更新时间" type="datetime" format="yyyy-MM-dd HH:mm:ss" style="width: 100%;"></DatePicker>
 </FormItem>
 </i-col>
 	<i-col span="2" style="text-align: center">-</i-col>
 	<i-col span="11">
 	<FormItem prop="updateTimeMax">
-	<DatePicker @on-change="searchForm.updateTimeMax=$event" :value="searchForm.updateTimeMax" type="datetime" format="yyyy-MM-dd HH:mm:ss" style="width: 100%;"></DatePicker>
+	<DatePicker @on-change="searchForm.updateTimeMax=$event" :value="searchForm.updateTimeMax" placeholder="请输入结束更新时间" type="datetime" format="yyyy-MM-dd HH:mm:ss" style="width: 100%;"></DatePicker>
 </FormItem>
 </i-col>
 </Row>
@@ -90,13 +90,13 @@
 <FormItem label="是否激活"><Row>
 	<i-col span="11">
 	<FormItem prop="isActiveMin">
-	<InputNumber v-model="searchForm.isActiveMin" style="width: 100%;"/>
+	<InputNumber v-model="searchForm.isActiveMin" placeholder="请输入开始是否激活" style="width: 100%;"/>
 </FormItem>
 </i-col>
 	<i-col span="2" style="text-align: center">-</i-col>
 	<i-col span="11">
 	<FormItem prop="isActiveMax">
-	<InputNumber v-model="searchForm.isActiveMax" style="width: 100%;"/>
+	<InputNumber v-model="searchForm.isActiveMax" placeholder="请输入结束是否激活" style="width: 100%;"/>
 </FormItem>
 </i-col>
 </Row>

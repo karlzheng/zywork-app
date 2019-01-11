@@ -12,30 +12,34 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * UserBankcardVO值对象类<br/>
  *
- * 创建于2018-12-25<br/>
+ * 创建于2019-01-11<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class UserBankcardVO extends BaseVO {
 
-    private static final long serialVersionUID = -9223372035824324503L;
+    private static final long serialVersionUID = -9223372035219500461L;
 
     // 银行卡编号
 	private Long id;
 	// 用户编号
+	@NotNull(message = "此项是必须项")
 	private Long userId;
 	// 持卡人姓名
-	@Size(min = 0, max = 10, message = "必须小于10个字符")
+	@NotBlank(message = "此项是必须项")
+	@Size(min = 1, max = 10, message = "必须是1-10个字符")
 	private String accountName;
 	// 银行代码
 	@Size(min = 0, max = 20, message = "必须小于20个字符")
 	private String bankCode;
 	// 银行名称
-	@Size(min = 0, max = 20, message = "必须小于20个字符")
+	@NotBlank(message = "此项是必须项")
+	@Size(min = 1, max = 20, message = "必须是1-20个字符")
 	private String bankName;
 	// 银行卡号
-	@Size(min = 0, max = 25, message = "必须小于25个字符")
+	@NotBlank(message = "此项是必须项")
+	@Size(min = 1, max = 25, message = "必须是1-25个字符")
 	private String bankcardNo;
 	// 版本号
 	private Integer version;

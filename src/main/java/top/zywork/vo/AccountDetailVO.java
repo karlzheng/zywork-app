@@ -12,20 +12,22 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * AccountDetailVO值对象类<br/>
  *
- * 创建于2018-12-25<br/>
+ * 创建于2019-01-11<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class AccountDetailVO extends BaseVO {
 
-    private static final long serialVersionUID = -9223372034902907811L;
+    private static final long serialVersionUID = -9223372036011298407L;
 
     // 账目编号
 	private Long id;
 	// 用户编号
+	@NotNull(message = "此项是必须项")
 	private Long userId;
 	// 金额
+	@NotNull(message = "此项是必须项")
 	private Long amount;
 	// 收入或支出
 	private Byte type;

@@ -246,16 +246,22 @@ isActive: null,
 
         },
         validateRules: {
-          accountName: [
+          userId: [
+{type: 'integer', required: true, message: '此项为必须项', trigger: 'blur, change'}
+],
+accountName: [
+{type: 'string', required: true, message: '此项为必须项', trigger: 'blur'},
 {type: 'string', min: 1, max: 10, message: '必须1-10个字符', trigger: 'blur'}
 ],
 bankCode: [
 {type: 'string', min: 1, max: 20, message: '必须1-20个字符', trigger: 'blur'}
 ],
 bankName: [
+{type: 'string', required: true, message: '此项为必须项', trigger: 'blur'},
 {type: 'string', min: 1, max: 20, message: '必须1-20个字符', trigger: 'blur'}
 ],
 bankcardNo: [
+{type: 'string', required: true, message: '此项为必须项', trigger: 'blur'},
 {type: 'string', min: 1, max: 25, message: '必须1-25个字符', trigger: 'blur'}
 ],
 

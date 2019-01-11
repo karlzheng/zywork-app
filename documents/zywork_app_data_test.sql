@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 10/01/2019 15:45:26
+ Date: 11/01/2019 13:52:23
 */
 
 SET NAMES utf8mb4;
@@ -23,8 +23,8 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `t_account_detail`;
 CREATE TABLE `t_account_detail` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '账目编号',
-  `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
-  `amount` bigint(20) DEFAULT NULL COMMENT '金额',
+  `user_id` bigint(20) NOT NULL COMMENT '用户编号',
+  `amount` bigint(20) NOT NULL COMMENT '金额',
   `type` tinyint(4) DEFAULT NULL COMMENT '收入或支出',
   `sub_type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '收支类型',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
@@ -51,8 +51,8 @@ COMMIT;
 DROP TABLE IF EXISTS `t_funds_frezee`;
 CREATE TABLE `t_funds_frezee` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '充值编号',
-  `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
-  `amount` bigint(20) DEFAULT NULL COMMENT '金额',
+  `user_id` bigint(20) NOT NULL COMMENT '用户编号',
+  `amount` bigint(20) NOT NULL COMMENT '金额',
   `frezee_type` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '类型',
   `frezee_description` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '描述',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
@@ -68,8 +68,8 @@ CREATE TABLE `t_funds_frezee` (
 DROP TABLE IF EXISTS `t_funds_recharge`;
 CREATE TABLE `t_funds_recharge` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '充值编号',
-  `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
-  `amount` bigint(20) DEFAULT NULL COMMENT '充值金额',
+  `user_id` bigint(20) NOT NULL COMMENT '用户编号',
+  `amount` bigint(20) NOT NULL COMMENT '充值金额',
   `recharge_type` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '充值类型',
   `is_success` tinyint(4) DEFAULT '0' COMMENT '是否成功',
   `out_trade_no` varchar(64) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '商户订单号',
@@ -97,8 +97,8 @@ COMMIT;
 DROP TABLE IF EXISTS `t_funds_transfer`;
 CREATE TABLE `t_funds_transfer` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '充值编号',
-  `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
-  `amount` bigint(20) DEFAULT NULL COMMENT '金额',
+  `user_id` bigint(20) NOT NULL COMMENT '用户编号',
+  `amount` bigint(20) NOT NULL COMMENT '金额',
   `from_user_id` bigint(20) DEFAULT NULL COMMENT 'FROM',
   `to_user_id` bigint(20) DEFAULT NULL COMMENT 'TO',
   `transfer_type` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '类型',
@@ -124,10 +124,10 @@ COMMIT;
 DROP TABLE IF EXISTS `t_funds_withdraw`;
 CREATE TABLE `t_funds_withdraw` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '充值编号',
-  `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
-  `withdraw_no` varchar(32) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '提现单号',
-  `amount` bigint(20) DEFAULT NULL COMMENT '提现金额',
-  `bankcard_id` bigint(20) DEFAULT NULL COMMENT '提现银行卡',
+  `user_id` bigint(20) NOT NULL COMMENT '用户编号',
+  `withdraw_no` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '提现单号',
+  `amount` bigint(20) NOT NULL COMMENT '提现金额',
+  `bankcard_id` bigint(20) NOT NULL COMMENT '提现银行卡',
   `withdraw_status` tinyint(4) DEFAULT NULL COMMENT '提现状态',
   `withdraw_description` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '提现描述',
   `checked_user_id` bigint(20) DEFAULT NULL COMMENT '审核人编号',
@@ -153,14 +153,30 @@ INSERT INTO `t_funds_withdraw` VALUES (13, 31, 'ef011bfb3ee94b6bb978f8fee2023177
 COMMIT;
 
 -- ----------------------------
+-- Table structure for t_goods_category
+-- ----------------------------
+DROP TABLE IF EXISTS `t_goods_category`;
+CREATE TABLE `t_goods_category` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '类型编号',
+  `parent_id` bigint(20) NOT NULL COMMENT '父编号',
+  `title` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '类型名称',
+  `description` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '类型描述',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品类别信息表';
+
+-- ----------------------------
 -- Table structure for t_message
 -- ----------------------------
 DROP TABLE IF EXISTS `t_message`;
 CREATE TABLE `t_message` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '消息编号',
-  `title` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '消息标题',
+  `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '消息标题',
   `summary` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '消息摘要',
-  `content` varchar(5000) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '消息内容',
+  `content` varchar(5000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '消息内容',
   `message_type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '消息类型',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -220,9 +236,9 @@ COMMIT;
 DROP TABLE IF EXISTS `t_notice`;
 CREATE TABLE `t_notice` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '公告编号',
-  `title` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '公告标题',
+  `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '公告标题',
   `summary` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '公告摘要',
-  `content` varchar(5000) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '公告内容',
+  `content` varchar(5000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '公告内容',
   `end_time` datetime DEFAULT NULL COMMENT '截止时间',
   `stick_status` tinyint(4) DEFAULT '0' COMMENT '置顶状态',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
@@ -465,13 +481,13 @@ CREATE TABLE `t_scheduler` (
 DROP TABLE IF EXISTS `t_shipping_address`;
 CREATE TABLE `t_shipping_address` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '地址编号',
-  `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
-  `real_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '收货人',
-  `phone` varchar(11) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '手机号',
-  `province` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '省',
-  `city` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '市',
-  `district` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '区/县',
-  `address` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '详细地址',
+  `user_id` bigint(20) NOT NULL COMMENT '用户编号',
+  `real_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '收货人',
+  `phone` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '手机号',
+  `province` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '省',
+  `city` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '市',
+  `district` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '区/县',
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '详细地址',
   `is_default` tinyint(4) DEFAULT '0' COMMENT '是否默认',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -493,8 +509,8 @@ COMMIT;
 DROP TABLE IF EXISTS `t_sys_config`;
 CREATE TABLE `t_sys_config` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '配置编号',
-  `name` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '配置名称',
-  `value` varchar(5000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '配置内容(JSON)',
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '配置名称',
+  `value` varchar(5000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '配置内容(JSON)',
   `description` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '中文说明',
   `comment` varchar(5000) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '配置注释',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
@@ -524,7 +540,7 @@ CREATE TABLE `t_sys_log` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '日志编号',
   `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
   `user_account` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '用户账号',
-  `description` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '执行说明',
+  `description` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '执行说明',
   `user_agent` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'User-Agent',
   `request_url` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '请求URL',
   `request_method` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '请求方式',
@@ -808,11 +824,11 @@ COMMIT;
 DROP TABLE IF EXISTS `t_user_bankcard`;
 CREATE TABLE `t_user_bankcard` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '银行卡编号',
-  `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
-  `account_name` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '持卡人姓名',
+  `user_id` bigint(20) NOT NULL COMMENT '用户编号',
+  `account_name` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '持卡人姓名',
   `bank_code` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '银行代码',
-  `bank_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '银行名称',
-  `bankcard_no` varchar(25) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '银行卡号',
+  `bank_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '银行名称',
+  `bankcard_no` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '银行卡号',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
@@ -826,12 +842,12 @@ CREATE TABLE `t_user_bankcard` (
 DROP TABLE IF EXISTS `t_user_certification`;
 CREATE TABLE `t_user_certification` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '认证编号',
-  `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
-  `identity` varchar(18) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '身份证号',
-  `real_name` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '真实姓名',
+  `user_id` bigint(20) NOT NULL COMMENT '用户编号',
+  `identity` varchar(18) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '身份证号',
+  `real_name` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '真实姓名',
   `valid_date` date DEFAULT NULL COMMENT '身份证有效期',
-  `idcard_front` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '身份证正面',
-  `idcard_reverse` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '身份证反面',
+  `idcard_front` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '身份证正面',
+  `idcard_reverse` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '身份证反面',
   `idcard_hand` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '手持身份证',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -886,9 +902,9 @@ COMMIT;
 DROP TABLE IF EXISTS `t_user_hierarchy`;
 CREATE TABLE `t_user_hierarchy` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '关系编号',
-  `ancestor_id` bigint(20) DEFAULT NULL COMMENT '祖先编号',
-  `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
-  `user_level` int(11) DEFAULT NULL COMMENT '用户级别',
+  `ancestor_id` bigint(20) NOT NULL COMMENT '祖先编号',
+  `user_id` bigint(20) NOT NULL COMMENT '用户编号',
+  `user_level` int(11) NOT NULL COMMENT '用户级别',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
@@ -911,8 +927,8 @@ COMMIT;
 DROP TABLE IF EXISTS `t_user_message`;
 CREATE TABLE `t_user_message` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '消息发送编号',
-  `message_id` bigint(20) DEFAULT NULL COMMENT '消息编号',
-  `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
+  `message_id` bigint(20) NOT NULL COMMENT '消息编号',
+  `user_id` bigint(20) NOT NULL COMMENT '用户编号',
   `is_read` tinyint(4) DEFAULT '0' COMMENT '是否已读',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -927,7 +943,7 @@ CREATE TABLE `t_user_message` (
 DROP TABLE IF EXISTS `t_user_path`;
 CREATE TABLE `t_user_path` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '路径编号',
-  `user_path` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT '用户路径',
+  `user_path` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户路径',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',

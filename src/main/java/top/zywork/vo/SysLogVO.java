@@ -12,14 +12,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * SysLogVO值对象类<br/>
  *
- * 创建于2018-12-25<br/>
+ * 创建于2019-01-11<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class SysLogVO extends BaseVO {
 
-    private static final long serialVersionUID = -9223372036223858545L;
+    private static final long serialVersionUID = -9223372035278229432L;
 
     // 日志编号
 	private Long id;
@@ -29,7 +29,8 @@ public class SysLogVO extends BaseVO {
 	@Size(min = 0, max = 100, message = "必须小于100个字符")
 	private String userAccount;
 	// 执行说明
-	@Size(min = 0, max = 200, message = "必须小于200个字符")
+	@NotBlank(message = "此项是必须项")
+	@Size(min = 1, max = 200, message = "必须是1-200个字符")
 	private String description;
 	// User-Agent
 	@Size(min = 0, max = 255, message = "必须小于255个字符")

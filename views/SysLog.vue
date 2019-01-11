@@ -415,6 +415,7 @@ isActive: null,
 {type: 'string', min: 1, max: 100, message: '必须1-100个字符', trigger: 'blur'}
 ],
 description: [
+{type: 'string', required: true, message: '此项为必须项', trigger: 'blur'},
 {type: 'string', min: 1, max: 200, message: '必须1-200个字符', trigger: 'blur'}
 ],
 userAgent: [
