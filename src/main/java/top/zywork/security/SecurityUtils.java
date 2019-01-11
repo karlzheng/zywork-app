@@ -1,5 +1,6 @@
 package top.zywork.security;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
@@ -17,7 +18,11 @@ public class SecurityUtils {
      * @return
      */
     public static JwtUser getJwtUser() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null) {
+            return null;
+        }
+        Object principal = authentication.getPrincipal();
         if (principal instanceof JwtUser) {
             return (JwtUser) principal;
         }
