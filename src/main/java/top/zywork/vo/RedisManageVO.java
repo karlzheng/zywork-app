@@ -14,6 +14,7 @@ public class RedisManageVO {
 
     private String key;
     private Object value;
+    private Long size;
     private Long expire;
 
     public String getKey() {
@@ -30,6 +31,14 @@ public class RedisManageVO {
 
     public void setValue(Object value) {
         this.value = value;
+    }
+
+    public Long getSize() {
+        return size;
+    }
+
+    public void setSize(Long size) {
+        this.size = size;
     }
 
     public Long getExpire() {

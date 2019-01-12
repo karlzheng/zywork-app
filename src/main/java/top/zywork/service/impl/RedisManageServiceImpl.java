@@ -3,10 +3,7 @@ package top.zywork.service.impl;
 import io.jsonwebtoken.lang.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisServerCommands;
-import org.springframework.data.redis.core.Cursor;
-import org.springframework.data.redis.core.RedisCallback;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ScanOptions;
+import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Service;
 import top.zywork.dto.PagerDTO;
 import top.zywork.service.RedisManageService;
@@ -84,7 +81,9 @@ public class RedisManageServiceImpl implements RedisManageService {
         if (hasKey != null && hasKey) {
             RedisManageVO redisManageVO = new RedisManageVO();
             redisManageVO.setKey(key);
-            redisManageVO.setValue(redisTemplate.opsForValue().get(key));
+            ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
+            redisManageVO.setValue(valueOperations.get(key));
+            redisManageVO.setSize(valueOperations.size(key));
             redisManageVO.setExpire(redisTemplate.getExpire(key, TimeUnit.MILLISECONDS));
             return redisManageVO;
         }
