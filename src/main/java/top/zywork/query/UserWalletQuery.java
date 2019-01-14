@@ -8,14 +8,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * UserWalletQuery查询对象类<br/>
  *
- * 创建于2018-12-25<br/>
+ * 创建于2019-01-14<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class UserWalletQuery extends PageQuery {
 
-    private static final long serialVersionUID = -9223372036661100030L;
+    private static final long serialVersionUID = -9223372035102085587L;
 
     // 钱包编号
 	private Long id;
@@ -43,6 +43,24 @@ public class UserWalletQuery extends PageQuery {
 	private Long frozenRmbBalanceMin;
 	// 冻结余额（最大值）
 	private Long frozenRmbBalanceMax;
+	// 总积分
+	private Long integral;
+	// 总积分（最小值）
+	private Long integralMin;
+	// 总积分（最大值）
+	private Long integralMax;
+	// 可用积分
+	private Long usableIntegral;
+	// 可用积分（最小值）
+	private Long usableIntegralMin;
+	// 可用积分（最大值）
+	private Long usableIntegralMax;
+	// 冻结积分
+	private Long frozenIntegral;
+	// 冻结积分（最小值）
+	private Long frozenIntegralMin;
+	// 冻结积分（最大值）
+	private Long frozenIntegralMax;
 	// 版本号
 	private Integer version;
 	// 版本号（最小值）
@@ -76,7 +94,7 @@ public class UserWalletQuery extends PageQuery {
 	
     public UserWalletQuery () {}
 
-    public UserWalletQuery (Long id, Long idMin, Long idMax, String payPassword, Long rmbBalance, Long rmbBalanceMin, Long rmbBalanceMax, Long usableRmbBalance, Long usableRmbBalanceMin, Long usableRmbBalanceMax, Long frozenRmbBalance, Long frozenRmbBalanceMin, Long frozenRmbBalanceMax, Integer version, Integer versionMin, Integer versionMax, Date createTime, Date createTimeMin, Date createTimeMax, Date updateTime, Date updateTimeMin, Date updateTimeMax, Byte isActive, Byte isActiveMin, Byte isActiveMax) {
+    public UserWalletQuery (Long id, Long idMin, Long idMax, String payPassword, Long rmbBalance, Long rmbBalanceMin, Long rmbBalanceMax, Long usableRmbBalance, Long usableRmbBalanceMin, Long usableRmbBalanceMax, Long frozenRmbBalance, Long frozenRmbBalanceMin, Long frozenRmbBalanceMax, Long integral, Long integralMin, Long integralMax, Long usableIntegral, Long usableIntegralMin, Long usableIntegralMax, Long frozenIntegral, Long frozenIntegralMin, Long frozenIntegralMax, Integer version, Integer versionMin, Integer versionMax, Date createTime, Date createTimeMin, Date createTimeMax, Date updateTime, Date updateTimeMin, Date updateTimeMax, Byte isActive, Byte isActiveMin, Byte isActiveMax) {
         this.id = id;
 		this.idMin = idMin;
 		this.idMax = idMax;
@@ -90,6 +108,15 @@ public class UserWalletQuery extends PageQuery {
 		this.frozenRmbBalance = frozenRmbBalance;
 		this.frozenRmbBalanceMin = frozenRmbBalanceMin;
 		this.frozenRmbBalanceMax = frozenRmbBalanceMax;
+		this.integral = integral;
+		this.integralMin = integralMin;
+		this.integralMax = integralMax;
+		this.usableIntegral = usableIntegral;
+		this.usableIntegralMin = usableIntegralMin;
+		this.usableIntegralMax = usableIntegralMax;
+		this.frozenIntegral = frozenIntegral;
+		this.frozenIntegralMin = frozenIntegralMin;
+		this.frozenIntegralMax = frozenIntegralMax;
 		this.version = version;
 		this.versionMin = versionMin;
 		this.versionMax = versionMax;
@@ -209,6 +236,78 @@ public class UserWalletQuery extends PageQuery {
 		this.frozenRmbBalanceMax = frozenRmbBalanceMax;
 	}
 
+	public Long getIntegral() {
+		return integral;
+	}
+
+	public void setIntegral(Long integral) {
+		this.integral = integral;
+	}
+
+	public Long getIntegralMin() {
+		return integralMin;
+	}
+
+	public void setIntegralMin(Long integralMin) {
+		this.integralMin = integralMin;
+	}
+
+	public Long getIntegralMax() {
+		return integralMax;
+	}
+
+	public void setIntegralMax(Long integralMax) {
+		this.integralMax = integralMax;
+	}
+
+	public Long getUsableIntegral() {
+		return usableIntegral;
+	}
+
+	public void setUsableIntegral(Long usableIntegral) {
+		this.usableIntegral = usableIntegral;
+	}
+
+	public Long getUsableIntegralMin() {
+		return usableIntegralMin;
+	}
+
+	public void setUsableIntegralMin(Long usableIntegralMin) {
+		this.usableIntegralMin = usableIntegralMin;
+	}
+
+	public Long getUsableIntegralMax() {
+		return usableIntegralMax;
+	}
+
+	public void setUsableIntegralMax(Long usableIntegralMax) {
+		this.usableIntegralMax = usableIntegralMax;
+	}
+
+	public Long getFrozenIntegral() {
+		return frozenIntegral;
+	}
+
+	public void setFrozenIntegral(Long frozenIntegral) {
+		this.frozenIntegral = frozenIntegral;
+	}
+
+	public Long getFrozenIntegralMin() {
+		return frozenIntegralMin;
+	}
+
+	public void setFrozenIntegralMin(Long frozenIntegralMin) {
+		this.frozenIntegralMin = frozenIntegralMin;
+	}
+
+	public Long getFrozenIntegralMax() {
+		return frozenIntegralMax;
+	}
+
+	public void setFrozenIntegralMax(Long frozenIntegralMax) {
+		this.frozenIntegralMax = frozenIntegralMax;
+	}
+
 	public Integer getVersion() {
 		return version;
 	}
@@ -322,6 +421,15 @@ public class UserWalletQuery extends PageQuery {
 				", frozenRmbBalance = " + frozenRmbBalance + 
 				", frozenRmbBalanceMin = " + frozenRmbBalanceMin + 
 				", frozenRmbBalanceMax = " + frozenRmbBalanceMax + 
+				", integral = " + integral + 
+				", integralMin = " + integralMin + 
+				", integralMax = " + integralMax + 
+				", usableIntegral = " + usableIntegral + 
+				", usableIntegralMin = " + usableIntegralMin + 
+				", usableIntegralMax = " + usableIntegralMax + 
+				", frozenIntegral = " + frozenIntegral + 
+				", frozenIntegralMin = " + frozenIntegralMin + 
+				", frozenIntegralMax = " + frozenIntegralMax + 
 				", version = " + version + 
 				", versionMin = " + versionMin + 
 				", versionMax = " + versionMax + 

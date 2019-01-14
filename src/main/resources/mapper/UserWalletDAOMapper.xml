@@ -22,6 +22,15 @@
 			<if test="frozenRmbBalance != null">
 				frozen_rmb_balance,
 			</if>
+			<if test="integral != null">
+				integral,
+			</if>
+			<if test="usableIntegral != null">
+				usable_integral,
+			</if>
+			<if test="frozenIntegral != null">
+				frozen_integral,
+			</if>
 			<if test="version != null">
 				version,
 			</if>
@@ -48,6 +57,15 @@
 			</if>
 			<if test="frozenRmbBalance != null">
 				#{frozenRmbBalance},
+			</if>
+			<if test="integral != null">
+				#{integral},
+			</if>
+			<if test="usableIntegral != null">
+				#{usableIntegral},
+			</if>
+			<if test="frozenIntegral != null">
+				#{frozenIntegral},
 			</if>
 			<if test="version != null">
 				#{version},
@@ -84,6 +102,15 @@
 			<if test="item.frozenRmbBalance != null">
 				frozen_rmb_balance,
 			</if>
+			<if test="item.integral != null">
+				integral,
+			</if>
+			<if test="item.usableIntegral != null">
+				usable_integral,
+			</if>
+			<if test="item.frozenIntegral != null">
+				frozen_integral,
+			</if>
 			<if test="item.version != null">
 				version,
 			</if>
@@ -110,6 +137,15 @@
 			</if>
 			<if test="item.frozenRmbBalance != null">
 				#{item.frozenRmbBalance},
+			</if>
+			<if test="item.integral != null">
+				#{item.integral},
+			</if>
+			<if test="item.usableIntegral != null">
+				#{item.usableIntegral},
+			</if>
+			<if test="item.frozenIntegral != null">
+				#{item.frozenIntegral},
 			</if>
 			<if test="item.version != null">
 				#{item.version},
@@ -154,6 +190,15 @@
 			<if test="frozenRmbBalance != null">
 				frozen_rmb_balance = #{frozenRmbBalance},
 			</if>
+			<if test="integral != null">
+				integral = #{integral},
+			</if>
+			<if test="usableIntegral != null">
+				usable_integral = #{usableIntegral},
+			</if>
+			<if test="frozenIntegral != null">
+				frozen_integral = #{frozenIntegral},
+			</if>
 			<if test="version != null">
 				version = #{version},
 			</if>
@@ -187,6 +232,15 @@
 			<if test="item.frozenRmbBalance != null">
 				frozen_rmb_balance = #{item.frozenRmbBalance},
 			</if>
+			<if test="item.integral != null">
+				integral = #{item.integral},
+			</if>
+			<if test="item.usableIntegral != null">
+				usable_integral = #{item.usableIntegral},
+			</if>
+			<if test="item.frozenIntegral != null">
+				frozen_integral = #{item.frozenIntegral},
+			</if>
 			<if test="item.version != null">
 				version = #{item.version},
 			</if>
@@ -209,7 +263,7 @@
     </update>
 
     <sql id="select_columns">
-        id as id, pay_password as payPassword, rmb_balance as rmbBalance, usable_rmb_balance as usableRmbBalance, frozen_rmb_balance as frozenRmbBalance, version as version, create_time as createTime, update_time as updateTime, is_active as isActive
+        id as id, pay_password as payPassword, rmb_balance as rmbBalance, usable_rmb_balance as usableRmbBalance, frozen_rmb_balance as frozenRmbBalance, integral as integral, usable_integral as usableIntegral, frozen_integral as frozenIntegral, version as version, create_time as createTime, update_time as updateTime, is_active as isActive
     </sql>
 
     <sql id="query_where_clause">
@@ -263,6 +317,42 @@
 		</if>
 		<if test="query != null and query.frozenRmbBalanceMin != null and query.frozenRmbBalanceMax != null">
 			and frozen_rmb_balance <![CDATA[ >= ]]> #{query.frozenRmbBalanceMin} and frozen_rmb_balance <![CDATA[ <= ]]> #{query.frozenRmbBalanceMax}
+		</if>
+		<if test="query != null and query.integral != null">
+			and integral = #{query.integral}
+		</if>
+		<if test="query != null and query.integralMin != null and query.integralMax == null">
+			and integral <![CDATA[ >= ]]> #{query.integralMin}
+		</if>
+		<if test="query != null and query.integralMin == null and query.integralMax != null">
+			and integral <![CDATA[ <= ]]> #{query.integralMax}
+		</if>
+		<if test="query != null and query.integralMin != null and query.integralMax != null">
+			and integral <![CDATA[ >= ]]> #{query.integralMin} and integral <![CDATA[ <= ]]> #{query.integralMax}
+		</if>
+		<if test="query != null and query.usableIntegral != null">
+			and usable_integral = #{query.usableIntegral}
+		</if>
+		<if test="query != null and query.usableIntegralMin != null and query.usableIntegralMax == null">
+			and usable_integral <![CDATA[ >= ]]> #{query.usableIntegralMin}
+		</if>
+		<if test="query != null and query.usableIntegralMin == null and query.usableIntegralMax != null">
+			and usable_integral <![CDATA[ <= ]]> #{query.usableIntegralMax}
+		</if>
+		<if test="query != null and query.usableIntegralMin != null and query.usableIntegralMax != null">
+			and usable_integral <![CDATA[ >= ]]> #{query.usableIntegralMin} and usable_integral <![CDATA[ <= ]]> #{query.usableIntegralMax}
+		</if>
+		<if test="query != null and query.frozenIntegral != null">
+			and frozen_integral = #{query.frozenIntegral}
+		</if>
+		<if test="query != null and query.frozenIntegralMin != null and query.frozenIntegralMax == null">
+			and frozen_integral <![CDATA[ >= ]]> #{query.frozenIntegralMin}
+		</if>
+		<if test="query != null and query.frozenIntegralMin == null and query.frozenIntegralMax != null">
+			and frozen_integral <![CDATA[ <= ]]> #{query.frozenIntegralMax}
+		</if>
+		<if test="query != null and query.frozenIntegralMin != null and query.frozenIntegralMax != null">
+			and frozen_integral <![CDATA[ >= ]]> #{query.frozenIntegralMin} and frozen_integral <![CDATA[ <= ]]> #{query.frozenIntegralMax}
 		</if>
 		<if test="query != null and query.version != null">
 			and version = #{query.version}

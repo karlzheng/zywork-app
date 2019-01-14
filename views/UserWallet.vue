@@ -42,6 +42,15 @@
 <FormItem label="冻结余额" prop="frozenRmbBalance">
 	<InputNumber v-model="form.frozenRmbBalance" placeholder="请输入冻结余额" style="width: 100%;"/>
 </FormItem>
+<FormItem label="总积分" prop="integral">
+	<InputNumber v-model="form.integral" placeholder="请输入总积分" style="width: 100%;"/>
+</FormItem>
+<FormItem label="可用积分" prop="usableIntegral">
+	<InputNumber v-model="form.usableIntegral" placeholder="请输入可用积分" style="width: 100%;"/>
+</FormItem>
+<FormItem label="冻结积分" prop="frozenIntegral">
+	<InputNumber v-model="form.frozenIntegral" placeholder="请输入冻结积分" style="width: 100%;"/>
+</FormItem>
 
       </Form>
       <div slot="footer">
@@ -62,6 +71,15 @@
 </FormItem>
 <FormItem label="冻结余额" prop="frozenRmbBalance">
 	<InputNumber v-model="form.frozenRmbBalance" placeholder="请输入冻结余额" style="width: 100%;"/>
+</FormItem>
+<FormItem label="总积分" prop="integral">
+	<InputNumber v-model="form.integral" placeholder="请输入总积分" style="width: 100%;"/>
+</FormItem>
+<FormItem label="可用积分" prop="usableIntegral">
+	<InputNumber v-model="form.usableIntegral" placeholder="请输入可用积分" style="width: 100%;"/>
+</FormItem>
+<FormItem label="冻结积分" prop="frozenIntegral">
+	<InputNumber v-model="form.frozenIntegral" placeholder="请输入冻结积分" style="width: 100%;"/>
 </FormItem>
 
       </Form>
@@ -127,6 +145,48 @@
 	<i-col span="11">
 	<FormItem prop="frozenRmbBalanceMax">
 	<InputNumber v-model="searchForm.frozenRmbBalanceMax" placeholder="请输入结束冻结余额" style="width: 100%;"/>
+</FormItem>
+</i-col>
+</Row>
+</FormItem>
+<FormItem label="总积分"><Row>
+	<i-col span="11">
+	<FormItem prop="integralMin">
+	<InputNumber v-model="searchForm.integralMin" placeholder="请输入开始总积分" style="width: 100%;"/>
+</FormItem>
+</i-col>
+	<i-col span="2" style="text-align: center">-</i-col>
+	<i-col span="11">
+	<FormItem prop="integralMax">
+	<InputNumber v-model="searchForm.integralMax" placeholder="请输入结束总积分" style="width: 100%;"/>
+</FormItem>
+</i-col>
+</Row>
+</FormItem>
+<FormItem label="可用积分"><Row>
+	<i-col span="11">
+	<FormItem prop="usableIntegralMin">
+	<InputNumber v-model="searchForm.usableIntegralMin" placeholder="请输入开始可用积分" style="width: 100%;"/>
+</FormItem>
+</i-col>
+	<i-col span="2" style="text-align: center">-</i-col>
+	<i-col span="11">
+	<FormItem prop="usableIntegralMax">
+	<InputNumber v-model="searchForm.usableIntegralMax" placeholder="请输入结束可用积分" style="width: 100%;"/>
+</FormItem>
+</i-col>
+</Row>
+</FormItem>
+<FormItem label="冻结积分"><Row>
+	<i-col span="11">
+	<FormItem prop="frozenIntegralMin">
+	<InputNumber v-model="searchForm.frozenIntegralMin" placeholder="请输入开始冻结积分" style="width: 100%;"/>
+</FormItem>
+</i-col>
+	<i-col span="2" style="text-align: center">-</i-col>
+	<i-col span="11">
+	<FormItem prop="frozenIntegralMax">
+	<InputNumber v-model="searchForm.frozenIntegralMax" placeholder="请输入结束冻结积分" style="width: 100%;"/>
 </FormItem>
 </i-col>
 </Row>
@@ -201,6 +261,9 @@
 <p>人民币余额: <span v-text="form.rmbBalance"></span></p>
 <p>可用余额: <span v-text="form.usableRmbBalance"></span></p>
 <p>冻结余额: <span v-text="form.frozenRmbBalance"></span></p>
+<p>总积分: <span v-text="form.integral"></span></p>
+<p>可用积分: <span v-text="form.usableIntegral"></span></p>
+<p>冻结积分: <span v-text="form.frozenIntegral"></span></p>
 <p>版本号: <span v-text="form.version"></span></p>
 <p>创建时间: <span v-text="form.createTime"></span></p>
 <p>更新时间: <span v-text="form.updateTime"></span></p>
@@ -250,6 +313,9 @@ payPassword: null,
 rmbBalance: null,
 usableRmbBalance: null,
 frozenRmbBalance: null,
+integral: null,
+usableIntegral: null,
+frozenIntegral: null,
 version: null,
 createTime: null,
 updateTime: null,
@@ -280,6 +346,15 @@ usableRmbBalanceMax: null,
 frozenRmbBalance: null,
 frozenRmbBalanceMin: null, 
 frozenRmbBalanceMax: null, 
+integral: null,
+integralMin: null, 
+integralMax: null, 
+usableIntegral: null,
+usableIntegralMin: null, 
+usableIntegralMax: null, 
+frozenIntegral: null,
+frozenIntegralMin: null, 
+frozenIntegralMax: null, 
 version: null,
 versionMin: null, 
 versionMax: null, 
@@ -339,6 +414,24 @@ sortable: true
 {
 title: '冻结余额',
 key: 'frozenRmbBalance',
+width: 120,
+sortable: true
+},
+{
+title: '总积分',
+key: 'integral',
+width: 120,
+sortable: true
+},
+{
+title: '可用积分',
+key: 'usableIntegral',
+width: 120,
+sortable: true
+},
+{
+title: '冻结积分',
+key: 'frozenIntegral',
 width: 120,
 sortable: true
 },
@@ -530,7 +623,7 @@ sortable: true
         utils.changePageSize(this, pageSize)
       },
       fitTable() {
-        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['id','payPassword','rmbBalance','usableRmbBalance','frozenRmbBalance','version','createTime','updateTime','isActive',])
+        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['id','payPassword','rmbBalance','usableRmbBalance','frozenRmbBalance','integral','usableIntegral','frozenIntegral','version','createTime','updateTime','isActive',])
       }
     }
   }

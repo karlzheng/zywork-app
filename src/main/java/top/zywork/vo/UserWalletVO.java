@@ -12,14 +12,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * UserWalletVO值对象类<br/>
  *
- * 创建于2018-12-25<br/>
+ * 创建于2019-01-14<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class UserWalletVO extends BaseVO {
 
-    private static final long serialVersionUID = -9223372035363664156L;
+    private static final long serialVersionUID = -9223372035674017998L;
 
     // 钱包编号
 	private Long id;
@@ -32,6 +32,12 @@ public class UserWalletVO extends BaseVO {
 	private Long usableRmbBalance;
 	// 冻结余额
 	private Long frozenRmbBalance;
+	// 总积分
+	private Long integral;
+	// 可用积分
+	private Long usableIntegral;
+	// 冻结积分
+	private Long frozenIntegral;
 	// 版本号
 	private Integer version;
 	// 创建时间
@@ -45,12 +51,15 @@ public class UserWalletVO extends BaseVO {
 	
     public UserWalletVO () {}
 
-    public UserWalletVO (Long id, String payPassword, Long rmbBalance, Long usableRmbBalance, Long frozenRmbBalance, Integer version, Date createTime, Date updateTime, Byte isActive) {
+    public UserWalletVO (Long id, String payPassword, Long rmbBalance, Long usableRmbBalance, Long frozenRmbBalance, Long integral, Long usableIntegral, Long frozenIntegral, Integer version, Date createTime, Date updateTime, Byte isActive) {
         this.id = id;
 		this.payPassword = payPassword;
 		this.rmbBalance = rmbBalance;
 		this.usableRmbBalance = usableRmbBalance;
 		this.frozenRmbBalance = frozenRmbBalance;
+		this.integral = integral;
+		this.usableIntegral = usableIntegral;
+		this.frozenIntegral = frozenIntegral;
 		this.version = version;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
@@ -98,6 +107,30 @@ public class UserWalletVO extends BaseVO {
 		this.frozenRmbBalance = frozenRmbBalance;
 	}
 
+	public Long getIntegral() {
+		return integral;
+	}
+
+	public void setIntegral(Long integral) {
+		this.integral = integral;
+	}
+
+	public Long getUsableIntegral() {
+		return usableIntegral;
+	}
+
+	public void setUsableIntegral(Long usableIntegral) {
+		this.usableIntegral = usableIntegral;
+	}
+
+	public Long getFrozenIntegral() {
+		return frozenIntegral;
+	}
+
+	public void setFrozenIntegral(Long frozenIntegral) {
+		this.frozenIntegral = frozenIntegral;
+	}
+
 	public Integer getVersion() {
 		return version;
 	}
@@ -139,6 +172,9 @@ public class UserWalletVO extends BaseVO {
 				", rmbBalance = " + rmbBalance + 
 				", usableRmbBalance = " + usableRmbBalance + 
 				", frozenRmbBalance = " + frozenRmbBalance + 
+				", integral = " + integral + 
+				", usableIntegral = " + usableIntegral + 
+				", frozenIntegral = " + frozenIntegral + 
 				", version = " + version + 
 				", createTime = " + createTime + 
 				", updateTime = " + updateTime + 
