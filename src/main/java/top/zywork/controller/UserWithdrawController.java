@@ -130,15 +130,14 @@ public class UserWithdrawController {
             return ResponseStatusVO.authenticationError();
         }
         if (StringUtils.isEmpty(withdrawNo) || withdrawStatus == null
-                || (withdrawStatus != WithdrawStatusEnum.CHECKED.getValue().byteValue()
-                || withdrawStatus != WithdrawStatusEnum.UNCHECKED.getValue().byteValue())) {
+                || (withdrawStatus != WithdrawStatusEnum.CHECKED.getValue().byteValue() && withdrawStatus != WithdrawStatusEnum.UNCHECKED.getValue().byteValue())) {
             return ResponseStatusVO.dataError("审核状态错误，1通过，2未通过", null);
         }
         UserWithdrawDO userWithdrawDO = userWithdrawService.getByWithdrawNo(withdrawNo);
         if (userWithdrawDO == null || userWithdrawDO.getWithdrawStatus().byteValue() != WithdrawStatusEnum.CHECKING.getValue()) {
             return ResponseStatusVO.dataError("提现单号不正确或提现申请不是审核中状态", null);
         }
-        int updateRows = userWithdrawService.checkWithdraw(withdrawNo, withdrawStatus, description, jwtUser.getUserId(), userWithdrawDO.getVersion() + 1);
+        int updateRows = userWithdrawService.checkWithdraw(userWithdrawDO.getId(), withdrawNo, withdrawStatus, description, jwtUser.getUserId(), userWithdrawDO.getVersion() + 1);
         if (updateRows == 1) {
             return ResponseStatusVO.ok("审核成功", null);
         } else {
@@ -166,8 +165,7 @@ public class UserWithdrawController {
     @SysLog(description = "人工完成提现操作")
     public ResponseStatusVO confirmWithdrawHuman(String withdrawNo, Byte withdrawStatus) {
         if (StringUtils.isEmpty(withdrawNo) || withdrawStatus == null
-                || (withdrawStatus != WithdrawStatusEnum.SUCCESS.getValue().byteValue()
-                || withdrawStatus != WithdrawStatusEnum.FAILURE.getValue().byteValue())) {
+                || (withdrawStatus != WithdrawStatusEnum.SUCCESS.getValue().byteValue() && withdrawStatus != WithdrawStatusEnum.FAILURE.getValue().byteValue())) {
             return ResponseStatusVO.dataError("请选择正确的提现单号和审核状态", null);
         }
         UserWithdrawDO userWithdrawDO = userWithdrawService.getByWithdrawNo(withdrawNo);

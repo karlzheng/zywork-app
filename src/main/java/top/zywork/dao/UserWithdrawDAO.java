@@ -36,6 +36,18 @@ public interface UserWithdrawDAO {
                              @Param("description") String description, @Param("checkedUserId") Long checkedUserId, @Param("newVersion") Integer newVersion);
 
     /**
+     * 保存提现审核记录
+     * @param withdrawId 提现编号
+     * @param withdrawNo 用户提现单号
+     * @param withdrawStatus 审核状态
+     * @param description 审核描述
+     * @param checkedUserId 审核人编号
+     * @return
+     */
+    int saveWithdrawCheck(@Param("withdrawId") Long withdrawId, @Param("withdrawNo") String withdrawNo, @Param("withdrawStatus") Byte withdrawStatus,
+                          @Param("description") String description, @Param("checkedUserId") Long checkedUserId);
+
+    /**
      * 更新用户提现最终状态，如提现成功，提现失败
      * @param withdrawNo 用户提现单号
      * @param withdrawStatus 提现状态

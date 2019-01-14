@@ -35,6 +35,11 @@
         where withdraw_no = #{withdrawNo} and version + 1 <![CDATA[<=]]> #{newVersion}
     </update>
 
+    <insert id="saveWithdrawCheck">
+        insert into t_funds_withdraw_check(withdraw_id, withdraw_no, withdraw_status, withdraw_description, checked_user_id)
+        values(#{withdrawId}, #{withdrawNo}, #{withdrawStatus}, #{description}, #{checkedUserId})
+    </insert>
+
     <update id="updateWithdraw">
         update t_funds_withdraw set
         withdraw_status = #{withdrawStatus},
@@ -52,7 +57,7 @@
     </select>
 
     <select id="getByWithdrawNo" parameterType="string" resultType="userWithdrawDO">
-        select user_id, amount, withdraw_status, version from t_funds_withdraw where withdraw_no = #{withdrawNo}
+        select id, user_id, amount, withdraw_status, version from t_funds_withdraw where withdraw_no = #{withdrawNo}
     </select>
 
 </mapper>

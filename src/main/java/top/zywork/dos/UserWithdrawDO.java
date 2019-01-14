@@ -10,6 +10,7 @@ package top.zywork.dos;
  */
 public class UserWithdrawDO {
 
+    private Long id;
     private Long userId;
     private Long amount;
     private Byte withdrawStatus;
@@ -17,11 +18,20 @@ public class UserWithdrawDO {
 
     public UserWithdrawDO() {}
 
-    public UserWithdrawDO(Long userId, Long amount, Byte withdrawStatus, Integer version) {
+    public UserWithdrawDO(Long id, Long userId, Long amount, Byte withdrawStatus, Integer version) {
+        this.id = id;
         this.userId = userId;
         this.amount = amount;
         this.withdrawStatus = withdrawStatus;
         this.version = version;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getUserId() {

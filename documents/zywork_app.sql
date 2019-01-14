@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 14/01/2019 17:49:30
+ Date: 14/01/2019 20:51:30
 */
 
 SET NAMES utf8mb4;
@@ -122,7 +122,7 @@ CREATE TABLE `t_funds_withdraw_check` (
   `withdraw_no` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '提现单号',
   `withdraw_status` tinyint(4) NOT NULL COMMENT '提现状态',
   `withdraw_description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '提现描述',
-  `checked_user_id` bigint(20) DEFAULT NULL COMMENT '审核人编号',
+  `checked_user_id` bigint(20) NOT NULL COMMENT '审核人编号',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
@@ -705,7 +705,7 @@ CREATE TABLE `t_sys_log` (
   `execute_time` datetime DEFAULT NULL COMMENT '开始执行时间',
   `execute_cost_time` bigint(20) DEFAULT NULL COMMENT '执行耗时(ms)',
   `has_exception` tinyint(4) DEFAULT '0' COMMENT '是否异常',
-  `exception_msg` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '异常消息',
+  `exception_msg` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '异常消息',
   `execute_ip` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'IP地址',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
