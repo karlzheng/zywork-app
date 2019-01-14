@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 11/01/2019 13:52:23
+ Date: 14/01/2019 17:49:41
 */
 
 SET NAMES utf8mb4;
@@ -24,7 +24,8 @@ DROP TABLE IF EXISTS `t_account_detail`;
 CREATE TABLE `t_account_detail` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '账目编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
-  `amount` bigint(20) NOT NULL COMMENT '金额',
+  `amount` bigint(20) DEFAULT NULL COMMENT '金额',
+  `integral` bigint(20) DEFAULT NULL COMMENT '积分',
   `type` tinyint(4) DEFAULT NULL COMMENT '收入或支出',
   `sub_type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '收支类型',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
@@ -38,11 +39,11 @@ CREATE TABLE `t_account_detail` (
 -- Records of t_account_detail
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_account_detail` VALUES (1, 31, -50, 1, '提现', 1, '2018-12-25 23:24:19', NULL, 0);
-INSERT INTO `t_account_detail` VALUES (2, 31, -50, 1, '提现', 1, '2018-12-26 17:39:45', NULL, 0);
-INSERT INTO `t_account_detail` VALUES (3, 31, 500, 0, '人工充值', 1, '2018-12-26 17:42:32', NULL, 0);
-INSERT INTO `t_account_detail` VALUES (4, 31, -100, 1, '转出', 1, '2019-01-06 20:56:44', NULL, 0);
-INSERT INTO `t_account_detail` VALUES (5, 36, 100, 0, '转入', 1, '2019-01-06 20:56:44', NULL, 0);
+INSERT INTO `t_account_detail` VALUES (1, 31, -50, NULL, 1, '提现', 1, '2018-12-25 23:24:19', NULL, 0);
+INSERT INTO `t_account_detail` VALUES (2, 31, -50, NULL, 1, '提现', 1, '2018-12-26 17:39:45', NULL, 0);
+INSERT INTO `t_account_detail` VALUES (3, 31, 500, NULL, 0, '人工充值', 1, '2018-12-26 17:42:32', NULL, 0);
+INSERT INTO `t_account_detail` VALUES (4, 31, -100, NULL, 1, '转出', 1, '2019-01-06 20:56:44', NULL, 0);
+INSERT INTO `t_account_detail` VALUES (5, 36, 100, NULL, 0, '转入', 1, '2019-01-06 20:56:44', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -96,7 +97,7 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `t_funds_transfer`;
 CREATE TABLE `t_funds_transfer` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '充值编号',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '转账编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
   `amount` bigint(20) NOT NULL COMMENT '金额',
   `from_user_id` bigint(20) DEFAULT NULL COMMENT 'FROM',
@@ -123,7 +124,7 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `t_funds_withdraw`;
 CREATE TABLE `t_funds_withdraw` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '充值编号',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '提现编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
   `withdraw_no` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '提现单号',
   `amount` bigint(20) NOT NULL COMMENT '提现金额',
@@ -153,20 +154,402 @@ INSERT INTO `t_funds_withdraw` VALUES (13, 31, 'ef011bfb3ee94b6bb978f8fee2023177
 COMMIT;
 
 -- ----------------------------
+-- Table structure for t_funds_withdraw_check
+-- ----------------------------
+DROP TABLE IF EXISTS `t_funds_withdraw_check`;
+CREATE TABLE `t_funds_withdraw_check` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '提现审核编号',
+  `withdraw_id` bigint(20) NOT NULL COMMENT '提现编号',
+  `withdraw_no` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '提现单号',
+  `withdraw_status` tinyint(4) NOT NULL COMMENT '提现状态',
+  `withdraw_description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '提现描述',
+  `checked_user_id` bigint(20) DEFAULT NULL COMMENT '审核人编号',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户资金提现审核历史表';
+
+-- ----------------------------
+-- Table structure for t_goods_attribute
+-- ----------------------------
+DROP TABLE IF EXISTS `t_goods_attribute`;
+CREATE TABLE `t_goods_attribute` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '商品属性编号',
+  `attr_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '属性名称',
+  `attr_code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '属性代码',
+  `attr_type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '数据类型',
+  `attr_length` int(11) NOT NULL COMMENT '数据长度',
+  `attr_order` int(11) NOT NULL COMMENT '属性排序',
+  `attr_display` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否前端显示',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品属性信息表';
+
+-- ----------------------------
+-- Table structure for t_goods_attribute_value
+-- ----------------------------
+DROP TABLE IF EXISTS `t_goods_attribute_value`;
+CREATE TABLE `t_goods_attribute_value` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '商品属性值编号',
+  `goods_sku_id` bigint(20) NOT NULL COMMENT 'SKU编号',
+  `attr_id` bigint(20) NOT NULL COMMENT '属性编号',
+  `attr_value` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '属性值',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品SKU属性及属性值表';
+
+-- ----------------------------
+-- Table structure for t_goods_cart
+-- ----------------------------
+DROP TABLE IF EXISTS `t_goods_cart`;
+CREATE TABLE `t_goods_cart` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '购物编号',
+  `user_id` bigint(20) NOT NULL COMMENT '用户编号',
+  `goods_id` bigint(20) NOT NULL COMMENT '商品编号',
+  `goods_sku_id` bigint(20) NOT NULL COMMENT 'SKU编号',
+  `quantity` int(11) NOT NULL COMMENT '购买数量',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='购物车信息记录表';
+
+-- ----------------------------
 -- Table structure for t_goods_category
 -- ----------------------------
 DROP TABLE IF EXISTS `t_goods_category`;
 CREATE TABLE `t_goods_category` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '类型编号',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '类目编号',
   `parent_id` bigint(20) NOT NULL COMMENT '父编号',
-  `title` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '类型名称',
-  `description` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '类型描述',
+  `title` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '类目名称',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '类目描述',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品类别信息表';
+
+-- ----------------------------
+-- Table structure for t_goods_category_attribute
+-- ----------------------------
+DROP TABLE IF EXISTS `t_goods_category_attribute`;
+CREATE TABLE `t_goods_category_attribute` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '类目属性编号',
+  `category_id` bigint(20) NOT NULL COMMENT '商品类目编号',
+  `attr_id` bigint(20) NOT NULL COMMENT '属性编号',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品类目属性信息表';
+
+-- ----------------------------
+-- Table structure for t_goods_comment
+-- ----------------------------
+DROP TABLE IF EXISTS `t_goods_comment`;
+CREATE TABLE `t_goods_comment` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '商品评论编号',
+  `user_id` bigint(20) NOT NULL COMMENT '用户编号',
+  `goods_id` bigint(20) NOT NULL COMMENT '商品编号',
+  `goods_sku_id` bigint(20) NOT NULL COMMENT 'SKU编号',
+  `comments` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '评论详情',
+  `append_comment` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '追加评论',
+  `reply` varchar(1000) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '回复详情',
+  `stick_status` tinyint(4) DEFAULT '0' COMMENT '置顶状态',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品评论表';
+
+-- ----------------------------
+-- Table structure for t_goods_comment_pic
+-- ----------------------------
+DROP TABLE IF EXISTS `t_goods_comment_pic`;
+CREATE TABLE `t_goods_comment_pic` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '评论图片编号',
+  `comment_id` bigint(20) NOT NULL COMMENT '评论编号',
+  `pic_url` varchar(500) COLLATE utf8mb4_general_ci NOT NULL COMMENT '图片URL',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品评论图片表';
+
+-- ----------------------------
+-- Table structure for t_goods_coupon
+-- ----------------------------
+DROP TABLE IF EXISTS `t_goods_coupon`;
+CREATE TABLE `t_goods_coupon` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '优惠券编号',
+  `category_id` bigint(20) DEFAULT NULL COMMENT '商品类目编号',
+  `goods_id` bigint(20) DEFAULT NULL COMMENT '商品编号',
+  `goods_sku_id` bigint(20) DEFAULT NULL COMMENT '商品SKU编号',
+  `title` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '优惠券标题',
+  `use_min_amount` bigint(20) DEFAULT NULL COMMENT '最小消费金额',
+  `discount_amount` bigint(20) DEFAULT NULL COMMENT '满减优惠金额',
+  `discount_percent` double(3,0) DEFAULT NULL COMMENT '满减折扣',
+  `integral_amount` int(11) DEFAULT NULL COMMENT '赠送积分',
+  `total_count` int(11) NOT NULL COMMENT '优惠券总量',
+  `coupon_usable_range` tinyint(4) NOT NULL COMMENT '优惠券使用范围',
+  `coupon_type` tinyint(4) NOT NULL COMMENT '优惠券类型',
+  `start_time` datetime NOT NULL COMMENT '开始时间',
+  `due_time` datetime DEFAULT NULL COMMENT '到期时间',
+  `valid_days` int(11) DEFAULT NULL COMMENT '有效时间',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品优惠券信息表';
+
+-- ----------------------------
+-- Table structure for t_goods_info
+-- ----------------------------
+DROP TABLE IF EXISTS `t_goods_info`;
+CREATE TABLE `t_goods_info` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '商品编号',
+  `shop_id` bigint(20) NOT NULL COMMENT '店铺编号',
+  `category_id` bigint(20) NOT NULL COMMENT '类目编号',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品记录表，包含多个商品SKU';
+
+-- ----------------------------
+-- Table structure for t_goods_intro
+-- ----------------------------
+DROP TABLE IF EXISTS `t_goods_intro`;
+CREATE TABLE `t_goods_intro` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '图文介绍编号',
+  `goods_id` bigint(20) NOT NULL COMMENT '商品编号',
+  `intro` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '图文介绍',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品图文介绍表';
+
+-- ----------------------------
+-- Table structure for t_goods_order
+-- ----------------------------
+DROP TABLE IF EXISTS `t_goods_order`;
+CREATE TABLE `t_goods_order` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '订单编号',
+  `user_id` bigint(20) NOT NULL COMMENT '用户编号',
+  `order_no` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '订单号',
+  `total_amount` bigint(20) NOT NULL COMMENT '订单金额',
+  `pay_amount` bigint(20) NOT NULL COMMENT '实付金额',
+  `discount_amount` bigint(20) NOT NULL DEFAULT '0' COMMENT '优惠金额',
+  `integral_amount` bigint(20) NOT NULL DEFAULT '0' COMMENT '赠送积分',
+  `express_fee` bigint(20) DEFAULT '0' COMMENT '运费',
+  `order_status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '订单状态',
+  `pay_time` datetime DEFAULT NULL COMMENT '支付时间',
+  `pay_type` tinyint(4) DEFAULT NULL COMMENT '支付方式',
+  `transaction_no` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '支付订单号',
+  `pay_success` tinyint(4) DEFAULT NULL COMMENT '是否支付成功',
+  `deliver_time` datetime DEFAULT NULL COMMENT '发货时间',
+  `deal_time` datetime DEFAULT NULL COMMENT '成交时间',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='订单信息表，一个订单包含多个订单条目';
+
+-- ----------------------------
+-- Table structure for t_goods_order_coupon
+-- ----------------------------
+DROP TABLE IF EXISTS `t_goods_order_coupon`;
+CREATE TABLE `t_goods_order_coupon` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用券编号',
+  `order_id` bigint(20) NOT NULL COMMENT '订单编号',
+  `coupon_id` bigint(20) NOT NULL COMMENT '优惠券编号',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='订单优惠券使用记录表';
+
+-- ----------------------------
+-- Table structure for t_goods_order_item
+-- ----------------------------
+DROP TABLE IF EXISTS `t_goods_order_item`;
+CREATE TABLE `t_goods_order_item` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '订单项编号',
+  `order_id` bigint(20) NOT NULL COMMENT '订单编号',
+  `goods_id` bigint(20) NOT NULL COMMENT '商品编号',
+  `goods_sku_id` bigint(20) NOT NULL COMMENT 'SKU编号',
+  `sku_pic_id` bigint(20) NOT NULL COMMENT 'SKU图片编号',
+  `sku_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '售卖标题',
+  `sku_info` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'SKU属性JSON',
+  `quantity` int(11) NOT NULL COMMENT '购买数量',
+  `pay_amount` bigint(20) NOT NULL COMMENT '实付金额',
+  `discount_amount` bigint(20) NOT NULL DEFAULT '0' COMMENT '优惠金额',
+  `integral_amount` bigint(20) NOT NULL COMMENT '赠送积分',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='订单详情信息表';
+
+-- ----------------------------
+-- Table structure for t_goods_order_logistics
+-- ----------------------------
+DROP TABLE IF EXISTS `t_goods_order_logistics`;
+CREATE TABLE `t_goods_order_logistics` (
+  `id` bigint(20) NOT NULL COMMENT '订单编号',
+  `real_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '收货人',
+  `phone` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '手机号',
+  `province` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '省',
+  `city` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '市',
+  `district` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '区/县',
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '详细地址',
+  `is_deliver` tinyint(4) DEFAULT '0' COMMENT '是否已发货',
+  `logistics_company` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '物流公司名称',
+  `logistics_code` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '物流公司编码',
+  `logistics_no` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '物流单号',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='订单物流信息表';
+
+-- ----------------------------
+-- Table structure for t_goods_pic
+-- ----------------------------
+DROP TABLE IF EXISTS `t_goods_pic`;
+CREATE TABLE `t_goods_pic` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '商品图片编号',
+  `goods_id` bigint(20) NOT NULL COMMENT '商品编号',
+  `pic_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '图片URL',
+  `pic_order` int(11) NOT NULL COMMENT '图片顺序',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品图片信息表';
+
+-- ----------------------------
+-- Table structure for t_goods_shop
+-- ----------------------------
+DROP TABLE IF EXISTS `t_goods_shop`;
+CREATE TABLE `t_goods_shop` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '店铺编号',
+  `user_id` bigint(20) NOT NULL COMMENT '用户编号',
+  `category_id` bigint(20) NOT NULL COMMENT '类目编号',
+  `subject_type` tinyint(4) NOT NULL COMMENT '主体类型',
+  `logo` varchar(500) COLLATE utf8mb4_general_ci NOT NULL COMMENT '店铺Logo',
+  `title` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '店铺标题',
+  `intro` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '店铺简介',
+  `level` tinyint(4) DEFAULT '1' COMMENT '店铺等级',
+  `check_status` tinyint(4) DEFAULT NULL COMMENT '审核状态',
+  `check_description` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '审核描述',
+  `checked_user_id` tinyint(4) DEFAULT NULL COMMENT '审核人编号',
+  `checked_time` datetime DEFAULT NULL COMMENT '审核时间',
+  `version` int(11) DEFAULT NULL COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='店铺信息表';
+
+-- ----------------------------
+-- Table structure for t_goods_shop_certification
+-- ----------------------------
+DROP TABLE IF EXISTS `t_goods_shop_certification`;
+CREATE TABLE `t_goods_shop_certification` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '店铺认证编号',
+  `shop_id` bigint(20) NOT NULL COMMENT '店铺编号',
+  `detail` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '认证详情JSON',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='店铺认证信息表';
+
+-- ----------------------------
+-- Table structure for t_goods_shop_check
+-- ----------------------------
+DROP TABLE IF EXISTS `t_goods_shop_check`;
+CREATE TABLE `t_goods_shop_check` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '店铺审核编号',
+  `shop_id` bigint(20) NOT NULL COMMENT '店铺编号',
+  `check_status` tinyint(4) DEFAULT '0' COMMENT '审核状态',
+  `check_description` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '审核描述',
+  `checked_user_id` tinyint(4) DEFAULT NULL COMMENT '审核人编号',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='店铺审核历史表';
+
+-- ----------------------------
+-- Table structure for t_goods_sku
+-- ----------------------------
+DROP TABLE IF EXISTS `t_goods_sku`;
+CREATE TABLE `t_goods_sku` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'SKU编号',
+  `goods_id` bigint(20) NOT NULL COMMENT '商品编号',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品SKU信息表';
+
+-- ----------------------------
+-- Table structure for t_goods_sku_pic
+-- ----------------------------
+DROP TABLE IF EXISTS `t_goods_sku_pic`;
+CREATE TABLE `t_goods_sku_pic` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'SKU图片编号',
+  `goods_sku_id` bigint(20) NOT NULL COMMENT 'SKU编号',
+  `pic_id` bigint(20) NOT NULL COMMENT '商品图片编号',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品SKU图片信息表';
+
+-- ----------------------------
+-- Table structure for t_goods_user_coupon
+-- ----------------------------
+DROP TABLE IF EXISTS `t_goods_user_coupon`;
+CREATE TABLE `t_goods_user_coupon` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '购物编号',
+  `user_id` bigint(20) NOT NULL COMMENT '用户编号',
+  `coupon_id` bigint(20) NOT NULL COMMENT '优惠券编号',
+  `coupon_status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '优惠券状态',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品优惠券用户领券信息表';
 
 -- ----------------------------
 -- Table structure for t_message
@@ -183,7 +566,7 @@ CREATE TABLE `t_message` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='消息记录表';
 
 -- ----------------------------
 -- Table structure for t_module
@@ -559,7 +942,7 @@ CREATE TABLE `t_sys_log` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=217 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统操作日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=219 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统操作日志表';
 
 -- ----------------------------
 -- Records of t_sys_log
@@ -776,6 +1159,8 @@ INSERT INTO `t_sys_log` VALUES (208, 31, '13672297775', '提交提现申请', 'M
 INSERT INTO `t_sys_log` VALUES (214, 31, '13672297775', '提交提现申请', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/withdraw/user/submit', 'POST', '{}', 1003, '必须填写提现金额、支付密码，并选择提现银行卡', 'top.zywork.controller.UserWithdrawController', 'submitWithdraw', '2019-01-08 18:32:42', 0, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-08 18:35:46', NULL, 0);
 INSERT INTO `t_sys_log` VALUES (215, 31, '13672297775', '提交提现申请', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/withdraw/user/submit', 'POST', '{\"amount\":10}', 1003, '必须填写提现金额、支付密码，并选择提现银行卡', 'top.zywork.controller.UserWithdrawController', 'submitWithdraw', '2019-01-08 18:35:56', 0, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-08 18:36:39', NULL, 0);
 INSERT INTO `t_sys_log` VALUES (216, NULL, NULL, '导入权限配置', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/permission-import-export/import-permission', 'POST', NULL, 1001, '成功导入权限配置信息', 'top.zywork.controller.PermissionImportExportController', 'importPermissions', '2019-01-10 15:41:39', 891, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-10 15:41:39', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (217, NULL, NULL, '微信公众号登录', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/wx-auth/gzh', 'GET', NULL, 1003, '微信授权登录缺少code', 'top.zywork.controller.WeixinAuthController', 'gzhAuth', '2019-01-11 18:17:13', 28, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-11 18:17:12', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (218, NULL, NULL, '微信公众号登录', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/wx-auth/gzh', 'GET', NULL, 1003, '微信授权登录缺少code', 'top.zywork.controller.WeixinAuthController', 'gzhAuth', '2019-01-11 18:17:16', 0, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-11 18:17:15', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -935,7 +1320,7 @@ CREATE TABLE `t_user_message` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户消息表';
 
 -- ----------------------------
 -- Table structure for t_user_path
@@ -1036,6 +1421,9 @@ CREATE TABLE `t_user_wallet` (
   `rmb_balance` bigint(20) DEFAULT '0' COMMENT '人民币余额',
   `usable_rmb_balance` bigint(20) DEFAULT '0' COMMENT '可用余额',
   `frozen_rmb_balance` bigint(20) DEFAULT '0' COMMENT '冻结余额',
+  `integral` bigint(20) DEFAULT '0' COMMENT '总积分',
+  `usable_integral` bigint(20) DEFAULT '0' COMMENT '可用积分',
+  `frozen_integral` bigint(20) DEFAULT '0' COMMENT '冻结积分',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
@@ -1047,10 +1435,10 @@ CREATE TABLE `t_user_wallet` (
 -- Records of t_user_wallet
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_user_wallet` VALUES (31, '$2a$10$ApWvvBHw0IMFIHCAT5vHxu9dlE3Kw1j0JBmzDTUTJoQQk1UHPKYBO', 502, 502, 0, 12, NULL, '2019-01-08 14:42:37', 0);
-INSERT INTO `t_user_wallet` VALUES (36, '', 100, 100, 0, 3, '2018-12-28 12:00:36', '2019-01-08 14:42:28', 1);
-INSERT INTO `t_user_wallet` VALUES (37, '', 0, 0, 0, 1, '2019-01-07 19:23:49', NULL, 0);
-INSERT INTO `t_user_wallet` VALUES (38, '', 0, 0, 0, 1, '2019-01-07 19:28:25', NULL, 0);
+INSERT INTO `t_user_wallet` VALUES (31, '$2a$10$ApWvvBHw0IMFIHCAT5vHxu9dlE3Kw1j0JBmzDTUTJoQQk1UHPKYBO', 502, 502, 0, NULL, NULL, NULL, 12, NULL, '2019-01-08 14:42:37', 0);
+INSERT INTO `t_user_wallet` VALUES (36, '', 100, 100, 0, NULL, NULL, NULL, 3, '2018-12-28 12:00:36', '2019-01-08 14:42:28', 1);
+INSERT INTO `t_user_wallet` VALUES (37, '', 0, 0, 0, NULL, NULL, NULL, 1, '2019-01-07 19:23:49', NULL, 0);
+INSERT INTO `t_user_wallet` VALUES (38, '', 0, 0, 0, NULL, NULL, NULL, 1, '2019-01-07 19:28:25', NULL, 0);
 COMMIT;
 
 -- ----------------------------
