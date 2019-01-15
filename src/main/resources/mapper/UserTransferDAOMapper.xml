@@ -5,15 +5,13 @@
 <mapper namespace="top.zywork.dao.UserTransferDAO">
 
     <insert id="saveTransfer">
-        <!-- 只有当可用余额大于等于转账金额加所有未完成的提现金额时才可转账 -->
+        <!-- 只有当可用余额大于等于转账金额时才可转账 -->
         insert into t_funds_transfer(user_id, amount, to_user_id, transfer_type)
         select #{userId}, #{amount}, #{toUserId}, #{transferType} from dual
         where exists(
-        select t_user_wallet.usable_rmb_balance as usableRmbBalance,
-        (select ifnull(sum(t_funds_withdraw.amount), 0)
-        from t_funds_withdraw where t_funds_withdraw.user_id = #{userId} and t_funds_withdraw.complete_time is null) as withdrawAmount
+        select t_user_wallet.usable_rmb_balance
         from t_user_wallet where t_user_wallet.id = #{userId}
-        having usableRmbBalance - withdrawAmount >= #{amount})
+        and t_user_wallet.usable_rmb_balance - #{amount} <![CDATA[>=]]> 0)
     </insert>
 
     <insert id="saveTransferTo">

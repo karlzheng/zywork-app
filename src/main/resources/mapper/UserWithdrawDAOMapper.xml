@@ -23,7 +23,7 @@
             <if test="description != null and description != ''">
                 withdraw_description = #{description},
             </if>
-            <!-- 如果未通过，由需要设置完成时间 -->
+            <!-- 如果未通过，需要设置完成时间 -->
             <if test="withdrawStatus == 2">
                 complete_time = CURRENT_TIMESTAMP,
             </if>
@@ -33,6 +33,10 @@
             update_time = CURRENT_TIMESTAMP,
         </set>
         where withdraw_no = #{withdrawNo} and version + 1 <![CDATA[<=]]> #{newVersion}
+        <!-- 如果审核通过，则需要判断只有当提现金额小于等于可用余额时才能通过 -->
+        <if test="withdrawStatus == 1">
+            and amount <![CDATA[<=]]> (select t_user_wallet.usable_rmb_balance from t_user_wallet where t_user_wallet.id = #{userId})
+        </if>
     </update>
 
     <insert id="saveWithdrawCheck">

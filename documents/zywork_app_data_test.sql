@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 14/01/2019 20:51:45
+ Date: 15/01/2019 21:02:07
 */
 
 SET NAMES utf8mb4;
@@ -28,22 +28,25 @@ CREATE TABLE `t_account_detail` (
   `integral` bigint(20) DEFAULT NULL COMMENT '积分',
   `type` tinyint(4) DEFAULT NULL COMMENT '收入或支出',
   `sub_type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '收支类型',
+  `pay_type` tinyint(4) DEFAULT NULL COMMENT '支付方式',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户账目明细表';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户账目明细表';
 
 -- ----------------------------
 -- Records of t_account_detail
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_account_detail` VALUES (1, 31, -50, NULL, 1, '提现', 1, '2018-12-25 23:24:19', NULL, 0);
-INSERT INTO `t_account_detail` VALUES (2, 31, -50, NULL, 1, '提现', 1, '2018-12-26 17:39:45', NULL, 0);
-INSERT INTO `t_account_detail` VALUES (3, 31, 500, NULL, 0, '人工充值', 1, '2018-12-26 17:42:32', NULL, 0);
-INSERT INTO `t_account_detail` VALUES (4, 31, -100, NULL, 1, '转出', 1, '2019-01-06 20:56:44', NULL, 0);
-INSERT INTO `t_account_detail` VALUES (5, 36, 100, NULL, 0, '转入', 1, '2019-01-06 20:56:44', NULL, 0);
+INSERT INTO `t_account_detail` VALUES (1, 31, -50, NULL, 1, '提现', NULL, 1, '2018-12-25 23:24:19', NULL, 0);
+INSERT INTO `t_account_detail` VALUES (2, 31, -50, NULL, 1, '提现', NULL, 1, '2018-12-26 17:39:45', NULL, 0);
+INSERT INTO `t_account_detail` VALUES (3, 31, 500, NULL, 0, '人工充值', NULL, 1, '2018-12-26 17:42:32', NULL, 0);
+INSERT INTO `t_account_detail` VALUES (4, 31, -100, NULL, 1, '转出', NULL, 1, '2019-01-06 20:56:44', NULL, 0);
+INSERT INTO `t_account_detail` VALUES (5, 36, 100, NULL, 0, '转入', NULL, 1, '2019-01-06 20:56:44', NULL, 0);
+INSERT INTO `t_account_detail` VALUES (6, 31, -100, NULL, 1, '转出', NULL, 1, '2019-01-15 20:51:44', NULL, 0);
+INSERT INTO `t_account_detail` VALUES (7, 36, 100, NULL, 0, '转入', NULL, 1, '2019-01-15 20:51:44', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -109,7 +112,7 @@ CREATE TABLE `t_funds_transfer` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户资金转入与转出记录表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户资金转入与转出记录表';
 
 -- ----------------------------
 -- Records of t_funds_transfer
@@ -117,6 +120,8 @@ CREATE TABLE `t_funds_transfer` (
 BEGIN;
 INSERT INTO `t_funds_transfer` VALUES (1, 31, 100, NULL, 36, '转出', NULL, 1, '2019-01-06 20:56:44', NULL, 0);
 INSERT INTO `t_funds_transfer` VALUES (2, 36, 100, 31, NULL, '转入', NULL, 1, '2019-01-06 20:56:44', NULL, 0);
+INSERT INTO `t_funds_transfer` VALUES (3, 31, 100, NULL, 36, '转出', NULL, 1, '2019-01-15 20:51:44', NULL, 0);
+INSERT INTO `t_funds_transfer` VALUES (4, 36, 100, 31, NULL, '转入', NULL, 1, '2019-01-15 20:51:44', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -149,7 +154,7 @@ INSERT INTO `t_funds_withdraw` VALUES (5, 31, '3ea854cde3b842338cc7a0fb3fd49bcb'
 INSERT INTO `t_funds_withdraw` VALUES (6, 31, '77d07a5d6d2b4a7280e9ecff229d4888', 100, 1, 4, NULL, 31, '2018-12-23 20:56:16', '2018-12-23 21:05:20', 1, '2018-12-23 18:49:38', '2018-12-23 21:05:20', 0);
 INSERT INTO `t_funds_withdraw` VALUES (7, 31, '399a929dc59a48f0af9498a534252792', 100, 1, 4, NULL, 31, '2018-12-25 15:04:57', '2018-12-25 15:22:34', 4, '2018-12-23 22:25:54', '2018-12-25 15:22:34', 0);
 INSERT INTO `t_funds_withdraw` VALUES (8, 31, 'b84bdc6156554a27a57229faa361d6a4', 50, 1, 4, NULL, NULL, NULL, '2018-12-25 23:24:19', 2, '2018-12-25 18:22:14', '2018-12-25 23:24:19', 0);
-INSERT INTO `t_funds_withdraw` VALUES (12, 31, '2a5e0e09c3084e6ebee0dd36a6f3acc7', 100, 1, 1, '审核通过', 31, '2019-01-14 20:50:02', NULL, 5, '2018-12-26 17:36:15', '2019-01-14 20:50:02', 0);
+INSERT INTO `t_funds_withdraw` VALUES (12, 31, '2a5e0e09c3084e6ebee0dd36a6f3acc7', 100, 1, 1, '审核通过', 31, '2019-01-15 18:06:19', NULL, 6, '2018-12-26 17:36:15', '2019-01-15 18:06:19', 0);
 INSERT INTO `t_funds_withdraw` VALUES (13, 31, 'ef011bfb3ee94b6bb978f8fee2023177', 50, 1, 4, NULL, 31, '2018-12-26 17:39:26', '2018-12-26 17:39:45', 3, '2018-12-26 17:38:45', '2018-12-26 17:39:45', 0);
 COMMIT;
 
@@ -169,13 +174,14 @@ CREATE TABLE `t_funds_withdraw_check` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户资金提现审核历史表';
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户资金提现审核历史表';
 
 -- ----------------------------
 -- Records of t_funds_withdraw_check
 -- ----------------------------
 BEGIN;
 INSERT INTO `t_funds_withdraw_check` VALUES (14, 12, '2a5e0e09c3084e6ebee0dd36a6f3acc7', 1, '审核通过', 31, 1, '2019-01-14 20:50:02', NULL, 0);
+INSERT INTO `t_funds_withdraw_check` VALUES (15, 12, '2a5e0e09c3084e6ebee0dd36a6f3acc7', 1, NULL, 31, 1, '2019-01-15 18:06:19', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -185,7 +191,7 @@ DROP TABLE IF EXISTS `t_goods_attribute`;
 CREATE TABLE `t_goods_attribute` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '商品属性编号',
   `attr_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '属性名称',
-  `attr_code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '属性代码',
+  `attr_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '属性代码',
   `attr_type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '数据类型',
   `attr_length` int(11) NOT NULL COMMENT '数据长度',
   `attr_display` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否前端显示',
@@ -204,6 +210,7 @@ CREATE TABLE `t_goods_attribute_value` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '商品属性值编号',
   `goods_sku_id` bigint(20) NOT NULL COMMENT 'SKU编号',
   `attr_id` bigint(20) NOT NULL COMMENT '属性编号',
+  `attr_code` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '属性代码',
   `attr_value` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '属性值',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -950,7 +957,7 @@ CREATE TABLE `t_sys_log` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=240 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统操作日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=245 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统操作日志表';
 
 -- ----------------------------
 -- Records of t_sys_log
@@ -1170,6 +1177,11 @@ INSERT INTO `t_sys_log` VALUES (216, NULL, NULL, '导入权限配置', 'Mozilla/
 INSERT INTO `t_sys_log` VALUES (217, NULL, NULL, '微信公众号登录', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/wx-auth/gzh', 'GET', NULL, 1003, '微信授权登录缺少code', 'top.zywork.controller.WeixinAuthController', 'gzhAuth', '2019-01-11 18:17:13', 28, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-11 18:17:12', NULL, 0);
 INSERT INTO `t_sys_log` VALUES (218, NULL, NULL, '微信公众号登录', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/wx-auth/gzh', 'GET', NULL, 1003, '微信授权登录缺少code', 'top.zywork.controller.WeixinAuthController', 'gzhAuth', '2019-01-11 18:17:16', 0, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-11 18:17:15', NULL, 0);
 INSERT INTO `t_sys_log` VALUES (239, 31, '13672297775', '提现申请审核', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/withdraw/admin/check', 'POST', '{\"withdrawNo\":\"2a5e0e09c3084e6ebee0dd36a6f3acc7\",\"description\":\"审核通过\",\"withdrawStatus\":1}', 1001, '审核成功', 'top.zywork.controller.UserWithdrawController', 'checkWithdraw', '2019-01-14 20:50:03', 73, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-14 20:50:02', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (240, 31, '13672297775', '提现申请审核', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/withdraw/admin/check', 'POST', '{\"withdrawNo\":\"2a5e0e09c3084e6ebee0dd36a6f3acc7\",\"withdrawStatus\":1}', 1003, '可用余额不足，请检查用户可用余额是否大于等于提现金额，或数据版本号有问题，在审核前提现记录已被更新', 'top.zywork.controller.UserWithdrawController', 'checkWithdraw', '2019-01-15 18:06:00', 61, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-15 18:06:00', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (241, 31, '13672297775', '提现申请审核', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/withdraw/admin/check', 'POST', '{\"withdrawNo\":\"2a5e0e09c3084e6ebee0dd36a6f3acc7\",\"withdrawStatus\":1}', 1001, '审核成功', 'top.zywork.controller.UserWithdrawController', 'checkWithdraw', '2019-01-15 18:06:20', 41, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-15 18:06:19', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (242, 31, '13672297775', '用户转账', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/transfer/user/trans', 'POST', NULL, 1003, '对方账户填写错误', 'top.zywork.controller.UserTransferController', 'transfer', '2019-01-15 20:51:04', 206, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-15 20:51:03', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (243, 31, '13672297775', '用户转账', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/transfer/user/trans', 'POST', NULL, 1003, '转账金额必须小于等于可转账余额', 'top.zywork.controller.UserTransferController', 'transfer', '2019-01-15 20:51:33', 174, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-15 20:51:33', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (244, 31, '13672297775', '用户转账', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/transfer/user/trans', 'POST', NULL, 1001, '转账成功', 'top.zywork.controller.UserTransferController', 'transfer', '2019-01-15 20:51:45', 259, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-15 20:51:44', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -1444,8 +1456,8 @@ CREATE TABLE `t_user_wallet` (
 -- Records of t_user_wallet
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_user_wallet` VALUES (31, '$2a$10$ApWvvBHw0IMFIHCAT5vHxu9dlE3Kw1j0JBmzDTUTJoQQk1UHPKYBO', 502, 502, 0, NULL, NULL, NULL, 12, NULL, '2019-01-08 14:42:37', 0);
-INSERT INTO `t_user_wallet` VALUES (36, '', 100, 100, 0, NULL, NULL, NULL, 3, '2018-12-28 12:00:36', '2019-01-08 14:42:28', 1);
+INSERT INTO `t_user_wallet` VALUES (31, '$2a$10$ApWvvBHw0IMFIHCAT5vHxu9dlE3Kw1j0JBmzDTUTJoQQk1UHPKYBO', 402, 402, 0, NULL, NULL, NULL, 13, NULL, '2019-01-15 20:51:44', 0);
+INSERT INTO `t_user_wallet` VALUES (36, '', 200, 200, 0, NULL, NULL, NULL, 4, '2018-12-28 12:00:36', '2019-01-15 20:51:44', 1);
 INSERT INTO `t_user_wallet` VALUES (37, '', 0, 0, 0, NULL, NULL, NULL, 1, '2019-01-07 19:23:49', NULL, 0);
 INSERT INTO `t_user_wallet` VALUES (38, '', 0, 0, 0, NULL, NULL, NULL, 1, '2019-01-07 19:28:25', NULL, 0);
 COMMIT;

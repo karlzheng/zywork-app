@@ -23,6 +23,7 @@ public interface UserWithdrawService {
 
     /**
      * 审核用户提现，审核后人工完成提现
+     * @param userId 用户编号
      * @param withdrawId 提现编号
      * @param withdrawNo 用户提现记录编号
      * @param withdrawStatus 审核状态
@@ -31,7 +32,7 @@ public interface UserWithdrawService {
      * @param newVersion 更新的版本号
      * @return 如果版本错误，已经被更新过，则不更新，返回0
      */
-    int checkWithdraw(Long withdrawId, String withdrawNo, Byte withdrawStatus, String description, Long checkedUserId, Integer newVersion);
+    int checkWithdraw(Long userId, Long withdrawId, String withdrawNo, Byte withdrawStatus, String description, Long checkedUserId, Integer newVersion);
 
     /**
      *

@@ -137,11 +137,12 @@ public class UserWithdrawController {
         if (userWithdrawDO == null || userWithdrawDO.getWithdrawStatus().byteValue() != WithdrawStatusEnum.CHECKING.getValue()) {
             return ResponseStatusVO.dataError("提现单号不正确或提现申请不是审核中状态", null);
         }
-        int updateRows = userWithdrawService.checkWithdraw(userWithdrawDO.getId(), withdrawNo, withdrawStatus, description, jwtUser.getUserId(), userWithdrawDO.getVersion() + 1);
+        int updateRows = userWithdrawService.checkWithdraw(userWithdrawDO.getUserId(), userWithdrawDO.getId(), withdrawNo,
+                withdrawStatus, description, jwtUser.getUserId(), userWithdrawDO.getVersion() + 1);
         if (updateRows == 1) {
             return ResponseStatusVO.ok("审核成功", null);
         } else {
-            return ResponseStatusVO.dataError("数据版本号有问题，在审核前提现记录已被更新", null);
+            return ResponseStatusVO.dataError("可用余额不足，请检查用户可用余额是否大于等于提现金额，或数据版本号有问题，在审核前提现记录已被更新", null);
         }
     }
 

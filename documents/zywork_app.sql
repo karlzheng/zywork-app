@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 14/01/2019 20:51:30
+ Date: 15/01/2019 21:02:19
 */
 
 SET NAMES utf8mb4;
@@ -28,6 +28,7 @@ CREATE TABLE `t_account_detail` (
   `integral` bigint(20) DEFAULT NULL COMMENT '积分',
   `type` tinyint(4) DEFAULT NULL COMMENT '收入或支出',
   `sub_type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '收支类型',
+  `pay_type` tinyint(4) DEFAULT NULL COMMENT '支付方式',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
@@ -156,7 +157,7 @@ CREATE TABLE `t_goods_attribute_value` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '商品属性值编号',
   `goods_sku_id` bigint(20) NOT NULL COMMENT 'SKU编号',
   `attr_id` bigint(20) NOT NULL COMMENT '属性编号',
-  `attr_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '属性代码',
+  `attr_code` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '属性代码',
   `attr_value` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '属性值',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',

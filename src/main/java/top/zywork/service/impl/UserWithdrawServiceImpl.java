@@ -36,8 +36,8 @@ public class UserWithdrawServiceImpl implements UserWithdrawService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int checkWithdraw(Long withdrawId, String withdrawNo, Byte withdrawStatus, String description, Long checkedUserId, Integer newVersion) {
-        int updatedRows = userWithdrawDAO.updateWithdrawCheck(withdrawNo, withdrawStatus, description, checkedUserId, newVersion);
+    public int checkWithdraw(Long userId, Long withdrawId, String withdrawNo, Byte withdrawStatus, String description, Long checkedUserId, Integer newVersion) {
+        int updatedRows = userWithdrawDAO.updateWithdrawCheck(userId, withdrawNo, withdrawStatus, description, checkedUserId, newVersion);
         if (updatedRows == 1) {
             userWithdrawDAO.saveWithdrawCheck(withdrawId, withdrawNo, withdrawStatus, description, checkedUserId);
         }

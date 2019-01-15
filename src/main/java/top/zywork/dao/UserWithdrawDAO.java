@@ -25,6 +25,7 @@ public interface UserWithdrawDAO {
 
     /**
      * 更新用户提现，如审核未通过，需要提交未通过说明
+     * @param userId 用户编号
      * @param withdrawNo 用户提现单号
      * @param withdrawStatus 审核状态
      * @param description 审核描述
@@ -32,7 +33,7 @@ public interface UserWithdrawDAO {
      * @param newVersion 更新的版本号
      * @return 如果版本错误，已经被更新过，则不更新，返回0
      */
-    int updateWithdrawCheck(@Param("withdrawNo") String withdrawNo, @Param("withdrawStatus") Byte withdrawStatus,
+    int updateWithdrawCheck(@Param("userId") Long userId, @Param("withdrawNo") String withdrawNo, @Param("withdrawStatus") Byte withdrawStatus,
                              @Param("description") String description, @Param("checkedUserId") Long checkedUserId, @Param("newVersion") Integer newVersion);
 
     /**
