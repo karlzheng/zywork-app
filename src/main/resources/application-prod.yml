@@ -104,3 +104,5 @@ user:
     #用户分享码长度
     length: 6
   reg-share-url: "http://zywork.top/user-reg?shareCode="
+exception:
+  printStackTrace: false

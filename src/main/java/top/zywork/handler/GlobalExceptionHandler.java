@@ -2,6 +2,7 @@ package top.zywork.handler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import top.zywork.enums.ResponseStatusEnum;
@@ -22,9 +23,15 @@ public class GlobalExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
+    @Value("${exception.printStackTrace}")
+    private boolean printStackTrace;
+
     @ExceptionHandler(value = Exception.class)
     public ResponseStatusVO allExceptionHandler(HttpServletRequest request, Exception exception) {
         logger.error("出现异常, 请求地址：{}， 错误消息：{}", request.getRequestURL(), exception.getMessage());
+        if (printStackTrace) {
+            exception.printStackTrace();
+        }
         return ResponseStatusVO.error(ResponseStatusEnum.ERROR.getMessage(), null);
     }
 
