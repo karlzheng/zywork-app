@@ -36,6 +36,9 @@
 <FormItem label="金额" prop="amount">
 	<InputNumber v-model="form.amount" placeholder="请输入金额" style="width: 100%;"/>
 </FormItem>
+<FormItem label="积分" prop="integral">
+	<InputNumber v-model="form.integral" placeholder="请输入积分" style="width: 100%;"/>
+</FormItem>
 <FormItem label="收入或支出" prop="type">
 	<InputNumber v-model="form.type" placeholder="请输入收入或支出" style="width: 100%;"/>
 </FormItem>
@@ -56,6 +59,9 @@
 </FormItem>
 <FormItem label="金额" prop="amount">
 	<InputNumber v-model="form.amount" placeholder="请输入金额" style="width: 100%;"/>
+</FormItem>
+<FormItem label="积分" prop="integral">
+	<InputNumber v-model="form.integral" placeholder="请输入积分" style="width: 100%;"/>
 </FormItem>
 <FormItem label="收入或支出" prop="type">
 	<InputNumber v-model="form.type" placeholder="请输入收入或支出" style="width: 100%;"/>
@@ -110,6 +116,20 @@
 	<i-col span="11">
 	<FormItem prop="amountMax">
 	<InputNumber v-model="searchForm.amountMax" placeholder="请输入结束金额" style="width: 100%;"/>
+</FormItem>
+</i-col>
+</Row>
+</FormItem>
+<FormItem label="积分"><Row>
+	<i-col span="11">
+	<FormItem prop="integralMin">
+	<InputNumber v-model="searchForm.integralMin" placeholder="请输入开始积分" style="width: 100%;"/>
+</FormItem>
+</i-col>
+	<i-col span="2" style="text-align: center">-</i-col>
+	<i-col span="11">
+	<FormItem prop="integralMax">
+	<InputNumber v-model="searchForm.integralMax" placeholder="请输入结束积分" style="width: 100%;"/>
 </FormItem>
 </i-col>
 </Row>
@@ -199,6 +219,7 @@
       <p>账目编号: <span v-text="form.id"></span></p>
 <p>用户编号: <span v-text="form.userId"></span></p>
 <p>金额: <span v-text="form.amount"></span></p>
+<p>积分: <span v-text="form.integral"></span></p>
 <p>收入或支出: <span v-text="form.type"></span></p>
 <p>收支类型: <span v-text="form.subType"></span></p>
 <p>版本号: <span v-text="form.version"></span></p>
@@ -248,6 +269,7 @@
           id: null,
 userId: null,
 amount: null,
+integral: null,
 type: null,
 subType: null,
 version: null,
@@ -258,9 +280,6 @@ isActive: null,
         },
         validateRules: {
           userId: [
-{type: 'integer', required: true, message: '此项为必须项', trigger: 'blur, change'}
-],
-amount: [
 {type: 'integer', required: true, message: '此项为必须项', trigger: 'blur, change'}
 ],
 subType: [
@@ -282,6 +301,9 @@ userIdMax: null,
 amount: null,
 amountMin: null, 
 amountMax: null, 
+integral: null,
+integralMin: null, 
+integralMax: null, 
 type: null,
 typeMin: null, 
 typeMax: null, 
@@ -333,6 +355,12 @@ sortable: true
 {
 title: '金额',
 key: 'amount',
+width: 120,
+sortable: true
+},
+{
+title: '积分',
+key: 'integral',
 width: 120,
 sortable: true
 },
@@ -414,6 +442,9 @@ sortable: true
                     'on-click': (itemName) => {
                       this.userOpt(itemName, params.row)
                     }
+                  },
+                  props: {
+                    transfer: true
                   }
                 }, [
                   h('Button', {
@@ -536,7 +567,7 @@ sortable: true
         utils.changePageSize(this, pageSize)
       },
       fitTable() {
-        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['id','userId','amount','type','subType','version','createTime','updateTime','isActive',])
+        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['id','userId','amount','integral','type','subType','version','createTime','updateTime','isActive',])
       }
     }
   }

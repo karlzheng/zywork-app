@@ -8,14 +8,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * AccountDetailQuery查询对象类<br/>
  *
- * 创建于2018-12-25<br/>
+ * 创建于2019-01-15<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class AccountDetailQuery extends PageQuery {
 
-    private static final long serialVersionUID = -9223372035102882512L;
+    private static final long serialVersionUID = -9223372036076707292L;
 
     // 账目编号
 	private Long id;
@@ -35,6 +35,12 @@ public class AccountDetailQuery extends PageQuery {
 	private Long amountMin;
 	// 金额（最大值）
 	private Long amountMax;
+	// 积分
+	private Long integral;
+	// 积分（最小值）
+	private Long integralMin;
+	// 积分（最大值）
+	private Long integralMax;
 	// 收入或支出
 	private Byte type;
 	// 收入或支出（最小值）
@@ -76,7 +82,7 @@ public class AccountDetailQuery extends PageQuery {
 	
     public AccountDetailQuery () {}
 
-    public AccountDetailQuery (Long id, Long idMin, Long idMax, Long userId, Long userIdMin, Long userIdMax, Long amount, Long amountMin, Long amountMax, Byte type, Byte typeMin, Byte typeMax, String subType, Integer version, Integer versionMin, Integer versionMax, Date createTime, Date createTimeMin, Date createTimeMax, Date updateTime, Date updateTimeMin, Date updateTimeMax, Byte isActive, Byte isActiveMin, Byte isActiveMax) {
+    public AccountDetailQuery (Long id, Long idMin, Long idMax, Long userId, Long userIdMin, Long userIdMax, Long amount, Long amountMin, Long amountMax, Long integral, Long integralMin, Long integralMax, Byte type, Byte typeMin, Byte typeMax, String subType, Integer version, Integer versionMin, Integer versionMax, Date createTime, Date createTimeMin, Date createTimeMax, Date updateTime, Date updateTimeMin, Date updateTimeMax, Byte isActive, Byte isActiveMin, Byte isActiveMax) {
         this.id = id;
 		this.idMin = idMin;
 		this.idMax = idMax;
@@ -86,6 +92,9 @@ public class AccountDetailQuery extends PageQuery {
 		this.amount = amount;
 		this.amountMin = amountMin;
 		this.amountMax = amountMax;
+		this.integral = integral;
+		this.integralMin = integralMin;
+		this.integralMax = integralMax;
 		this.type = type;
 		this.typeMin = typeMin;
 		this.typeMax = typeMax;
@@ -175,6 +184,30 @@ public class AccountDetailQuery extends PageQuery {
 
 	public void setAmountMax(Long amountMax) {
 		this.amountMax = amountMax;
+	}
+
+	public Long getIntegral() {
+		return integral;
+	}
+
+	public void setIntegral(Long integral) {
+		this.integral = integral;
+	}
+
+	public Long getIntegralMin() {
+		return integralMin;
+	}
+
+	public void setIntegralMin(Long integralMin) {
+		this.integralMin = integralMin;
+	}
+
+	public Long getIntegralMax() {
+		return integralMax;
+	}
+
+	public void setIntegralMax(Long integralMax) {
+		this.integralMax = integralMax;
 	}
 
 	public Byte getType() {
@@ -318,6 +351,9 @@ public class AccountDetailQuery extends PageQuery {
 				", amount = " + amount + 
 				", amountMin = " + amountMin + 
 				", amountMax = " + amountMax + 
+				", integral = " + integral + 
+				", integralMin = " + integralMin + 
+				", integralMax = " + integralMax + 
 				", type = " + type + 
 				", typeMin = " + typeMin + 
 				", typeMax = " + typeMax + 

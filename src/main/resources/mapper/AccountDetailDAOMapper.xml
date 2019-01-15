@@ -16,6 +16,9 @@
 			<if test="amount != null">
 				amount,
 			</if>
+			<if test="integral != null">
+				integral,
+			</if>
 			<if test="type != null">
 				type,
 			</if>
@@ -42,6 +45,9 @@
 			</if>
 			<if test="amount != null">
 				#{amount},
+			</if>
+			<if test="integral != null">
+				#{integral},
 			</if>
 			<if test="type != null">
 				#{type},
@@ -78,6 +84,9 @@
 			<if test="item.amount != null">
 				amount,
 			</if>
+			<if test="item.integral != null">
+				integral,
+			</if>
 			<if test="item.type != null">
 				type,
 			</if>
@@ -104,6 +113,9 @@
 			</if>
 			<if test="item.amount != null">
 				#{item.amount},
+			</if>
+			<if test="item.integral != null">
+				#{item.integral},
 			</if>
 			<if test="item.type != null">
 				#{item.type},
@@ -148,6 +160,9 @@
 			<if test="amount != null">
 				amount = #{amount},
 			</if>
+			<if test="integral != null">
+				integral = #{integral},
+			</if>
 			<if test="type != null">
 				type = #{type},
 			</if>
@@ -181,6 +196,9 @@
 			<if test="item.amount != null">
 				amount = #{item.amount},
 			</if>
+			<if test="item.integral != null">
+				integral = #{item.integral},
+			</if>
 			<if test="item.type != null">
 				type = #{item.type},
 			</if>
@@ -209,7 +227,7 @@
     </update>
 
     <sql id="select_columns">
-        id as id, user_id as userId, amount as amount, type as type, sub_type as subType, version as version, create_time as createTime, update_time as updateTime, is_active as isActive
+        id as id, user_id as userId, amount as amount, integral as integral, type as type, sub_type as subType, version as version, create_time as createTime, update_time as updateTime, is_active as isActive
     </sql>
 
     <sql id="query_where_clause">
@@ -248,6 +266,18 @@
 		</if>
 		<if test="query != null and query.amountMin != null and query.amountMax != null">
 			and amount <![CDATA[ >= ]]> #{query.amountMin} and amount <![CDATA[ <= ]]> #{query.amountMax}
+		</if>
+		<if test="query != null and query.integral != null">
+			and integral = #{query.integral}
+		</if>
+		<if test="query != null and query.integralMin != null and query.integralMax == null">
+			and integral <![CDATA[ >= ]]> #{query.integralMin}
+		</if>
+		<if test="query != null and query.integralMin == null and query.integralMax != null">
+			and integral <![CDATA[ <= ]]> #{query.integralMax}
+		</if>
+		<if test="query != null and query.integralMin != null and query.integralMax != null">
+			and integral <![CDATA[ >= ]]> #{query.integralMin} and integral <![CDATA[ <= ]]> #{query.integralMax}
 		</if>
 		<if test="query != null and query.type != null">
 			and type = #{query.type}
