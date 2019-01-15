@@ -63,6 +63,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         // springsecurity上下文中不存在认证信息，则存储新的authentication到上下文
                         storeAuthentication(request, jwtClaims);
                     }
+                    // 只要jwt token正常使用了，就刷新失效时间
+                    jwtTokenRedisUtils.refreshTokenExpiration(userId + "");
                 } else {
                     outResponse(response, ResponseStatusEnum.AUTHENTICATION_TOKEN_ERROR.getCode(), "Token不存在，或已失效", null);
                     return;
