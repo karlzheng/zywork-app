@@ -92,6 +92,20 @@
 <FormItem label="收支类型" prop="subType">
 	<Input v-model="searchForm.subType" placeholder="请输入收支类型"/>
 </FormItem>
+<FormItem label="支付方式"><Row>
+	<i-col span="11">
+	<FormItem prop="payTypeMin">
+	<InputNumber v-model="searchForm.payTypeMin" placeholder="请输入开始支付方式" style="width: 100%;"/>
+</FormItem>
+</i-col>
+	<i-col span="2" style="text-align: center">-</i-col>
+	<i-col span="11">
+	<FormItem prop="payTypeMax">
+	<InputNumber v-model="searchForm.payTypeMax" placeholder="请输入结束支付方式" style="width: 100%;"/>
+</FormItem>
+</i-col>
+</Row>
+</FormItem>
 <FormItem label="版本号"><Row>
 	<i-col span="11">
 	<FormItem prop="versionMin">
@@ -163,6 +177,7 @@
 <p>积分: <span v-text="form.integral"></span></p>
 <p>收入或支出: <span v-text="form.type"></span></p>
 <p>收支类型: <span v-text="form.subType"></span></p>
+<p>支付方式: <span v-text="form.payType"></span></p>
 <p>版本号: <span v-text="form.version"></span></p>
 <p>创建时间: <span v-text="form.createTime"></span></p>
 <p>更新时间: <span v-text="form.updateTime"></span></p>
@@ -201,6 +216,7 @@ amount: null,
 integral: null,
 type: null,
 subType: null,
+payType: null,
 version: null,
 createTime: null,
 updateTime: null,
@@ -228,6 +244,9 @@ type: null,
 typeMin: null, 
 typeMax: null, 
 subType: null,
+payType: null,
+payTypeMin: null, 
+payTypeMax: null, 
 version: null,
 versionMin: null, 
 versionMax: null, 
@@ -293,6 +312,12 @@ sortable: true
 {
 title: '收支类型',
 key: 'subType',
+width: 120,
+sortable: true
+},
+{
+title: '支付方式',
+key: 'payType',
 width: 120,
 sortable: true
 },
@@ -400,7 +425,7 @@ sortable: true
         utils.changePageSize(this, pageSize)
       },
       fitTable() {
-        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['id','userId','amount','integral','type','subType','version','createTime','updateTime','isActive',])
+        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['id','userId','amount','integral','type','subType','payType','version','createTime','updateTime','isActive',])
       },
       confirmSelection() {
         // 确认选择的逻辑

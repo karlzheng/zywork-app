@@ -39,6 +39,8 @@ spring:
         url: "http://localhost:8086"
         username: zywork-app
         password: zywork-app.123654
+        instance:
+          service-base-url: "http://localhost:8088"
 management:
   endpoints:
     web:

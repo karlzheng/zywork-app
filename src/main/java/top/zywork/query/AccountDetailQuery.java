@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  */
 public class AccountDetailQuery extends PageQuery {
 
-    private static final long serialVersionUID = -9223372036076707292L;
+    private static final long serialVersionUID = -9223372035439965715L;
 
     // 账目编号
 	private Long id;
@@ -49,6 +49,12 @@ public class AccountDetailQuery extends PageQuery {
 	private Byte typeMax;
 	// 收支类型
 	private String subType;
+	// 支付方式
+	private Byte payType;
+	// 支付方式（最小值）
+	private Byte payTypeMin;
+	// 支付方式（最大值）
+	private Byte payTypeMax;
 	// 版本号
 	private Integer version;
 	// 版本号（最小值）
@@ -82,7 +88,7 @@ public class AccountDetailQuery extends PageQuery {
 	
     public AccountDetailQuery () {}
 
-    public AccountDetailQuery (Long id, Long idMin, Long idMax, Long userId, Long userIdMin, Long userIdMax, Long amount, Long amountMin, Long amountMax, Long integral, Long integralMin, Long integralMax, Byte type, Byte typeMin, Byte typeMax, String subType, Integer version, Integer versionMin, Integer versionMax, Date createTime, Date createTimeMin, Date createTimeMax, Date updateTime, Date updateTimeMin, Date updateTimeMax, Byte isActive, Byte isActiveMin, Byte isActiveMax) {
+    public AccountDetailQuery (Long id, Long idMin, Long idMax, Long userId, Long userIdMin, Long userIdMax, Long amount, Long amountMin, Long amountMax, Long integral, Long integralMin, Long integralMax, Byte type, Byte typeMin, Byte typeMax, String subType, Byte payType, Byte payTypeMin, Byte payTypeMax, Integer version, Integer versionMin, Integer versionMax, Date createTime, Date createTimeMin, Date createTimeMax, Date updateTime, Date updateTimeMin, Date updateTimeMax, Byte isActive, Byte isActiveMin, Byte isActiveMax) {
         this.id = id;
 		this.idMin = idMin;
 		this.idMax = idMax;
@@ -99,6 +105,9 @@ public class AccountDetailQuery extends PageQuery {
 		this.typeMin = typeMin;
 		this.typeMax = typeMax;
 		this.subType = subType;
+		this.payType = payType;
+		this.payTypeMin = payTypeMin;
+		this.payTypeMax = payTypeMax;
 		this.version = version;
 		this.versionMin = versionMin;
 		this.versionMax = versionMax;
@@ -242,6 +251,30 @@ public class AccountDetailQuery extends PageQuery {
 		this.subType = subType;
 	}
 
+	public Byte getPayType() {
+		return payType;
+	}
+
+	public void setPayType(Byte payType) {
+		this.payType = payType;
+	}
+
+	public Byte getPayTypeMin() {
+		return payTypeMin;
+	}
+
+	public void setPayTypeMin(Byte payTypeMin) {
+		this.payTypeMin = payTypeMin;
+	}
+
+	public Byte getPayTypeMax() {
+		return payTypeMax;
+	}
+
+	public void setPayTypeMax(Byte payTypeMax) {
+		this.payTypeMax = payTypeMax;
+	}
+
 	public Integer getVersion() {
 		return version;
 	}
@@ -358,6 +391,9 @@ public class AccountDetailQuery extends PageQuery {
 				", typeMin = " + typeMin + 
 				", typeMax = " + typeMax + 
 				", subType = " + subType + 
+				", payType = " + payType + 
+				", payTypeMin = " + payTypeMin + 
+				", payTypeMax = " + payTypeMax + 
 				", version = " + version + 
 				", versionMin = " + versionMin + 
 				", versionMax = " + versionMax + 

@@ -55,18 +55,18 @@ public class UserWithdrawServiceImpl implements UserWithdrawService {
         int updateRows = userWithdrawDAO.updateWithdraw(withdrawNo, withdrawStatus, newVersion);
         if (updateRows == 1 && withdrawStatus == WithdrawStatusEnum.SUCCESS.getValue().byteValue()) {
             // 如果提现成功，则更新钱包余额和可用余额
-            saveAccountDetail(userId, amount, FundsChangeTypeEnum.WITHDRAW.getValue());
+            saveAccountDetail(userId, amount);
             userWalletDAO.updateWalletOut(userId, amount);
         }
         return updateRows;
     }
 
-    private void saveAccountDetail(Long userId, Long amount, String fundsChangeType) {
+    private void saveAccountDetail(Long userId, Long amount) {
         AccountDetailDO accountDetailDO = new AccountDetailDO();
         accountDetailDO.setUserId(userId);
         accountDetailDO.setAmount(-amount);
         accountDetailDO.setType((byte) 1);
-        accountDetailDO.setSubType(fundsChangeType);
+        accountDetailDO.setSubType(FundsChangeTypeEnum.WITHDRAW.getValue());
         accountDetailDAO.save(accountDetailDO);
     }
 

@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class AccountDetailDTO extends BaseDTO {
 
-    private static final long serialVersionUID = -9223372035914318887L;
+    private static final long serialVersionUID = -9223372035672151673L;
 
     // 账目编号
 	private Long id;
@@ -27,6 +27,8 @@ public class AccountDetailDTO extends BaseDTO {
 	private Byte type;
 	// 收支类型
 	private String subType;
+	// 支付方式
+	private Byte payType;
 	// 版本号
 	private Integer version;
 	// 创建时间
@@ -38,13 +40,14 @@ public class AccountDetailDTO extends BaseDTO {
 	
     public AccountDetailDTO () {}
 
-    public AccountDetailDTO (Long id, Long userId, Long amount, Long integral, Byte type, String subType, Integer version, Date createTime, Date updateTime, Byte isActive) {
+    public AccountDetailDTO (Long id, Long userId, Long amount, Long integral, Byte type, String subType, Byte payType, Integer version, Date createTime, Date updateTime, Byte isActive) {
         this.id = id;
 		this.userId = userId;
 		this.amount = amount;
 		this.integral = integral;
 		this.type = type;
 		this.subType = subType;
+		this.payType = payType;
 		this.version = version;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
@@ -100,6 +103,14 @@ public class AccountDetailDTO extends BaseDTO {
 		this.subType = subType;
 	}
 
+	public Byte getPayType() {
+		return payType;
+	}
+
+	public void setPayType(Byte payType) {
+		this.payType = payType;
+	}
+
 	public Integer getVersion() {
 		return version;
 	}
@@ -142,6 +153,7 @@ public class AccountDetailDTO extends BaseDTO {
 				", integral = " + integral + 
 				", type = " + type + 
 				", subType = " + subType + 
+				", payType = " + payType + 
 				", version = " + version + 
 				", createTime = " + createTime + 
 				", updateTime = " + updateTime + 

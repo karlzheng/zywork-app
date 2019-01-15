@@ -37,7 +37,7 @@ public class UserRechargeServiceImpl implements UserRechargeService {
     @Override
     public void rechargeByHuman(Long userId, Long amount) {
         userRechargeDAO.saveRechargeHuman(userId, amount, FundsChangeTypeEnum.RECHARGE_HUMAN.getValue());
-        saveAccountDetail(userId, amount, FundsChangeTypeEnum.RECHARGE_HUMAN.getValue());
+        saveAccountDetail(userId, amount);
         updateWallet(userId, amount);
     }
 
@@ -45,12 +45,12 @@ public class UserRechargeServiceImpl implements UserRechargeService {
         userWalletDAO.updateWalletIn(userId, amount);
     }
 
-    private void saveAccountDetail(Long userId, Long amount, String fundsChangeType) {
+    private void saveAccountDetail(Long userId, Long amount) {
         AccountDetailDO accountDetailDO = new AccountDetailDO();
         accountDetailDO.setUserId(userId);
         accountDetailDO.setAmount(amount);
         accountDetailDO.setType((byte) 0);
-        accountDetailDO.setSubType(fundsChangeType);
+        accountDetailDO.setSubType(FundsChangeTypeEnum.RECHARGE_HUMAN.getValue());
         accountDetailDAO.save(accountDetailDO);
     }
 

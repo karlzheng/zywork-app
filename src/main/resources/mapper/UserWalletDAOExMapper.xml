@@ -19,7 +19,7 @@
         usable_rmb_balance = usable_rmb_balance - #{amount},
         version = version + 1,
         update_time = CURRENT_TIMESTAMP
-        where id = #{userId}
+        where id = #{userId} and usable_rmb_balance - #{amount} <![CDATA[>=]]> 0
     </update>
 
 </mapper>

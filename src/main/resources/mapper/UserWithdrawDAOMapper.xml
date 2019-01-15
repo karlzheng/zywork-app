@@ -13,7 +13,7 @@
 				(select ifnull(sum(t_funds_withdraw.amount), 0)
 				from t_funds_withdraw where t_funds_withdraw.user_id = #{userId} and t_funds_withdraw.complete_time is null) as withdrawAmount
 				from t_user_wallet where t_user_wallet.id = #{userId}
-				having usableRmbBalance - withdrawAmount >= #{amount})
+				having usableRmbBalance - withdrawAmount <![CDATA[>=]]> #{amount})
     </insert>
 
     <update id="updateWithdrawCheck">

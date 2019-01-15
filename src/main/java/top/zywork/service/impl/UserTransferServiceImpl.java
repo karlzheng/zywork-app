@@ -34,8 +34,8 @@ public class UserTransferServiceImpl implements UserTransferService {
         if (savedRows == 1) {
             userTransferDAO.saveTransferTo(toUserId, userId, amount, FundsChangeTypeEnum.TRANSFER_IN.getValue());
             updateWallet(userId, toUserId, amount);
-            saveAccountDetail(userId, amount, FundsChangeTypeEnum.TRANSFER_OUT.getValue());
-            saveAccountDetailTo(toUserId, amount, FundsChangeTypeEnum.TRANSFER_IN.getValue());
+            saveAccountDetail(userId, amount);
+            saveAccountDetailTo(toUserId, amount);
         }
         return savedRows;
     }
@@ -45,21 +45,21 @@ public class UserTransferServiceImpl implements UserTransferService {
         userWalletDAO.updateWalletIn(toUserId, amount);
     }
 
-    private void saveAccountDetail(Long userId, Long amount, String fundsChangeType) {
+    private void saveAccountDetail(Long userId, Long amount) {
         AccountDetailDO accountDetailDO = new AccountDetailDO();
         accountDetailDO.setUserId(userId);
         accountDetailDO.setAmount(-amount);
         accountDetailDO.setType((byte) 1);
-        accountDetailDO.setSubType(fundsChangeType);
+        accountDetailDO.setSubType(FundsChangeTypeEnum.TRANSFER_OUT.getValue());
         accountDetailDAO.save(accountDetailDO);
     }
 
-    private void saveAccountDetailTo(Long userId, Long amount, String fundsChangeType) {
+    private void saveAccountDetailTo(Long userId, Long amount) {
         AccountDetailDO accountDetailDO = new AccountDetailDO();
         accountDetailDO.setUserId(userId);
         accountDetailDO.setAmount(amount);
         accountDetailDO.setType((byte) 0);
-        accountDetailDO.setSubType(fundsChangeType);
+        accountDetailDO.setSubType(FundsChangeTypeEnum.TRANSFER_IN.getValue());
         accountDetailDAO.save(accountDetailDO);
     }
 
