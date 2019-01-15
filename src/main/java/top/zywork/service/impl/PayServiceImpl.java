@@ -64,7 +64,11 @@ public abstract class PayServiceImpl implements PayService {
         WXPayConfig wxPayConfig = sysConfigService.getByName(SysConfigEnum.WX_PAY_CONFIG.getValue(), WXPayConfig.class);
         Map<String, String> unifiedOrderResult = WeixinUtils.unifiedOrder(weixinGzhConfig.getAppId(), wxPayConfig.getMchId(), wxPayConfig.getApiSecret(), openid, orderNo, ip, body, attach, totalFee, wxPayConfig.getPayNotifyUrl());
         if (!WeixinUtils.isReturnSuccess(unifiedOrderResult)) {
-            logger.error("weixin gzh unified order error, err code: {}, err code des: {}", WeixinUtils.errCode(unifiedOrderResult), WeixinUtils.errCodeDes(unifiedOrderResult));
+            logger.error("weixin gzh unified order fail");
+            return ResponseStatusVO.error("微信公众号端统一下单请求失败", null);
+        }
+        if (!WeixinUtils.isResultSuccess(unifiedOrderResult)) {
+            logger.error("weixin gzh unified order fail, err code: {}, err code des: {}", WeixinUtils.errCode(unifiedOrderResult), WeixinUtils.errCodeDes(unifiedOrderResult));
             return ResponseStatusVO.error("微信公众号端统一下单失败", null);
         }
         PayData payData = WeixinUtils.payData(WeixinUtils.payDataMap(weixinGzhConfig.getAppId(), wxPayConfig.getApiSecret(), unifiedOrderResult));
@@ -77,6 +81,10 @@ public abstract class PayServiceImpl implements PayService {
         WXPayConfig wxPayConfig = sysConfigService.getByName(SysConfigEnum.WX_PAY_CONFIG.getValue(), WXPayConfig.class);
         Map<String, String> unifiedOrderResult = WeixinUtils.unifiedOrder(weixinXcxConfig.getAppId(), wxPayConfig.getMchId(), wxPayConfig.getApiSecret(), openid, orderNo, ip, body, attach, totalFee, wxPayConfig.getPayNotifyUrl());
         if (!WeixinUtils.isReturnSuccess(unifiedOrderResult)) {
+            logger.error("weixin xcx unified order fail");
+            return ResponseStatusVO.error("微信小程序端统一下单请求失败", null);
+        }
+        if (!WeixinUtils.isResultSuccess(unifiedOrderResult)) {
             logger.error("weixin xcx unified order error, err code: {}, err code des: {}", WeixinUtils.errCode(unifiedOrderResult), WeixinUtils.errCodeDes(unifiedOrderResult));
             return ResponseStatusVO.error("微信小程序端统一下单失败", null);
         }
