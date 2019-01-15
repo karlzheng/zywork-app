@@ -1,5 +1,6 @@
 package top.zywork.controller;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ public class RedisManageController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(RedisManageController.class);
 
+    private static final String JWT_TOKEN = "jwt_token::";
+
     private RedisManageService redisManageService;
 
     /**
@@ -32,8 +35,11 @@ public class RedisManageController extends BaseController {
      * @return
      */
     @PostMapping("keys")
-    public ResponseStatusVO listKeys(String pattern, long count) {
-        if (count <= 0) {
+    public ResponseStatusVO listKeys(String pattern, Long count) {
+        if (StringUtils.isEmpty(pattern)) {
+            return ResponseStatusVO.dataError("pattern不能为空", null);
+        }
+        if (count == null || count <= 0) {
             return ResponseStatusVO.dataError("count必须大于0", null);
         }
         return ResponseStatusVO.ok("成功获取keys", redisManageService.listKeys(pattern, count));
@@ -46,8 +52,11 @@ public class RedisManageController extends BaseController {
      * @return
      */
     @PostMapping("key-value")
-    public ResponseStatusVO listKeyValues(String pattern, long count) {
-        if (count <= 0) {
+    public ResponseStatusVO listKeyValues(String pattern, Long count) {
+        if (StringUtils.isEmpty(pattern)) {
+            return ResponseStatusVO.dataError("pattern不能为空", null);
+        }
+        if (count == null || count <= 0) {
             return ResponseStatusVO.dataError("count必须大于0", null);
         }
         return ResponseStatusVO.ok("成功获取key-value", redisManageService.listKeyValues(pattern, count));
@@ -69,6 +78,9 @@ public class RedisManageController extends BaseController {
      */
     @PostMapping("value")
     public ResponseStatusVO getValue(String key) {
+        if (StringUtils.isEmpty(key)) {
+            return ResponseStatusVO.dataError("key不能为空", null);
+        }
         Object value = redisManageService.getValue(key);
         if (value == null) {
             return ResponseStatusVO.dataError("不存在的key", null);
@@ -83,6 +95,12 @@ public class RedisManageController extends BaseController {
      */
     @PostMapping("del-key")
     public ResponseStatusVO delKey(String key) {
+        if (StringUtils.isEmpty(key)) {
+            return ResponseStatusVO.dataError("key不能为空", null);
+        }
+        if (key.startsWith(JWT_TOKEN)) {
+            return ResponseStatusVO.dataError("不能删除jwt_token的缓存", null);
+        }
         if (redisManageService.delKey(key)) {
             return ResponseStatusVO.ok("成功删除key为" + key + "的缓存", null);
         }
@@ -95,16 +113,20 @@ public class RedisManageController extends BaseController {
      * @return
      */
     @PostMapping("del-keys")
-    public ResponseStatusVO delKey(@RequestParam("keys") List<String> keys) {
-       Long count = redisManageService.delKeys(keys);
-       int size = keys.size();
-       if (count > 0 && count < keys.size()) {
+    public ResponseStatusVO delKey(@RequestBody List<String> keys) {
+        if (keys == null || keys.size() == 0) {
+            return ResponseStatusVO.dataError("keys不能为空", null);
+        }
+        keys.removeIf(key -> key.startsWith(JWT_TOKEN));
+        Long count = redisManageService.delKeys(keys);
+        int size = keys.size();
+        if (count > 0 && count < keys.size()) {
             return ResponseStatusVO.ok("成功删除" + count + "个缓存，" + (keys.size() - count) + "个未删除", null);
-       }
-       if (count == size) {
-           return ResponseStatusVO.ok("成功删除所有指定缓存，共" + count + "个", null);
-       }
-       return ResponseStatusVO.dataError("全部删除失败", null);
+        }
+        if (count == size) {
+            return ResponseStatusVO.ok("成功删除所有指定缓存，共" + count + "个", null);
+        }
+        return ResponseStatusVO.dataError("全部删除失败", null);
     }
 
     /**
