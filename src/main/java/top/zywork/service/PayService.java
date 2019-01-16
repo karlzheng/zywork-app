@@ -24,7 +24,7 @@ public interface PayService {
      * 微信公众号支付
      * @param openid 用户openid
      * @param orderNo 订单号
-     * @param ip ip地址
+     * @param ip 调用接口的ip地址
      * @param body 订单主体信息
      * @param attach 订单附加信息
      * @param totalFee 支付金额，单位为分
@@ -36,7 +36,7 @@ public interface PayService {
      * 微信小程序支付
      * @param openid 用户openid
      * @param orderNo 订单号
-     * @param ip ip地址
+     * @param ip 调用接口的ip地址
      * @param body 订单主体信息
      * @param attach 订单附加信息
      * @param totalFee 支付金额，单位为分
@@ -55,5 +55,22 @@ public interface PayService {
      * @return
      */
     ResponseStatusVO payByUnionpay();
+
+    /**
+     * 微信公众号端发送普通红包
+     * @param openid 用户openid
+     * @param billNo 商户订单号
+     * @param ip 调用接口的ip地址
+     * @param sendName 发送名称，如**公司
+     * @param totalAmount 发送金额，普通红包1-200元
+     * @param totalNum 发送人数
+     * @param wishing 祝福语
+     * @param actName 活动名称
+     * @param remark 备注
+     * @param sceneId 普通红包不需要传，非普通红包必传，参考RedpackSceneEnum枚举
+     * @return
+     */
+    ResponseStatusVO sendRedpackByWxpay(String openid, String billNo, String ip, String sendName, int totalAmount,
+                                        int totalNum, String wishing, String actName, String remark, String sceneId);
 
 }

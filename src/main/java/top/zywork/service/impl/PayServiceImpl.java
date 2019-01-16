@@ -102,6 +102,23 @@ public abstract class PayServiceImpl implements PayService {
         return null;
     }
 
+    @Override
+    public ResponseStatusVO sendRedpackByWxpay(String openid, String billNo, String ip, String sendName, int totalAmount,
+                                               int totalNum, String wishing, String actName, String remark, String sceneId) {
+        WeixinGzhConfig weixinGzhConfig = sysConfigService.getByName(SysConfigEnum.WEIXIN_GZH_CONFIG.getValue(), WeixinGzhConfig.class);
+        WXPayConfig wxPayConfig = sysConfigService.getByName(SysConfigEnum.WX_PAY_CONFIG.getValue(), WXPayConfig.class);
+        Map<String, String> redpackResultMap = WeixinUtils.sendRedpack(weixinGzhConfig.getAppId(), wxPayConfig.getMchId(), wxPayConfig.getApiSecret(), openid, ip, billNo, sendName, totalAmount, totalNum, wishing, actName, remark, sceneId);
+        if (!WeixinUtils.isReturnSuccess(redpackResultMap)) {
+            logger.error("weixin gzh send redpack fail");
+            return ResponseStatusVO.error("微信公众号端发送普通红包请求失败", null);
+        }
+        if (!WeixinUtils.isResultSuccess(redpackResultMap)) {
+            logger.error("weixin gzh send redpack error, err code: {}, err code des: {}", WeixinUtils.errCode(redpackResultMap), WeixinUtils.errCodeDes(redpackResultMap));
+            return ResponseStatusVO.error("微信公众号端发送普通红包失败", null);
+        }
+        return ResponseStatusVO.ok("公众号端发送普通红包成功", WeixinUtils.redpackResult(redpackResultMap));
+    }
+
     @Autowired
     public void setAccountDetailDAO(AccountDetailDAO accountDetailDAO) {
         this.accountDetailDAO = accountDetailDAO;
