@@ -116,7 +116,7 @@ public abstract class PayServiceImpl implements PayService {
             logger.error("weixin gzh send redpack error, err code: {}, err code des: {}", WeixinUtils.errCode(redpackResultMap), WeixinUtils.errCodeDes(redpackResultMap));
             return ResponseStatusVO.error("微信公众号端发送普通红包失败", null);
         }
-        return ResponseStatusVO.ok("公众号端发送普通红包成功", WeixinUtils.redpackResult(redpackResultMap));
+        return ResponseStatusVO.ok("微信公众号端发送普通红包成功", WeixinUtils.redpackResult(redpackResultMap));
     }
 
     @Autowired
