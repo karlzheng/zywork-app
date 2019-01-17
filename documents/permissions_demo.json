@@ -383,6 +383,13 @@
                 ]
             },
             {
+                "title": "演示-用户详情查询",
+                "permission": "/user-userdetail/user/get",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
                 "title": "演示-用户详情查询-查询单个",
                 "permission": "/user-userdetail/admin/multi/**",
                 "roles": [
