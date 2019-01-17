@@ -15,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * 用户认证成功处理器<br/>
@@ -40,8 +41,11 @@ public class MyAuthenticationSuccessHandler extends SimpleUrlAuthenticationSucce
         logger.info("用户认证成功");
         response.setContentType(ContentTypeEnum.JSON.getValue());
         JwtUser jwtUser = (JwtUser) authentication.getPrincipal();
-        String token = jwtUtils.generateToken(jwtUser);
-        jwtTokenRedisUtils.storeToken(jwtUser.getUserId() + "", token);
+        Map<String, Object> claims = jwtUtils.generateClaims(jwtUser);
+        String token = jwtUtils.generateToken(jwtUser.getUsername(), claims);
+        // 支持用户多平台同时登录，一次平台登录产生一个jwt token
+        JwtClaims jwtClaims = JSON.parseObject((String) claims.get(JwtUtils.JWT_CLAIMS), JwtClaims.class);
+        jwtTokenRedisUtils.storeToken(jwtUser.getUserId() + "_" + jwtClaims.getCreateDate().getTime(), token);
         response.getWriter().write(JSON.toJSONString(ResponseStatusVO.ok("用户认证成功", token)));
     }
 

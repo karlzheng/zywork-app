@@ -55,8 +55,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             JwtClaims jwtClaims = jwtUtils.getTokenJwtClaims(token);
             if (jwtClaims != null) {
                 // 如果解析到正确的token
-                Long userId = jwtClaims.getUserId();
-                String jwtTokenInRedis = jwtTokenRedisUtils.getToken(userId + "");
+                String jwtTokenKey = jwtClaims.getUserId() + "_" + jwtClaims.getCreateDate().getTime();
+                String jwtTokenInRedis = jwtTokenRedisUtils.getToken(jwtTokenKey);
                 if (token.equals(jwtTokenInRedis)) {
                     // 如果redis中存在此token
                     if (SecurityContextHolder.getContext().getAuthentication() == null) {
@@ -64,7 +64,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         storeAuthentication(request, jwtClaims);
                     }
                     // 只要jwt token正常使用了，就刷新失效时间
-                    jwtTokenRedisUtils.refreshTokenExpiration(userId + "");
+                    jwtTokenRedisUtils.refreshTokenExpiration(jwtTokenKey);
                 } else {
                     outResponse(response, ResponseStatusEnum.AUTHENTICATION_TOKEN_ERROR.getCode(), "Token不存在，或已失效", null);
                     return;

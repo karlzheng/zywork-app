@@ -1,0 +1,735 @@
+[
+    {
+        "moduleTitle": "测试模块",
+        "permissions": [
+            {
+                "title": "测试添加",
+                "permission": "/test/add",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_user",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "测试修改",
+                "permission": "/test/edit",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_user",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "测试删除",
+                "permission": "/test/remove/*",
+                "roles": [
+                    "sys_user"
+                ]
+            },
+            {
+                "title": "测试文件上传",
+                "permission": "/test/upload",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin",
+                    "sys_user"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "模块管理",
+        "permissions": [
+            {
+                "title": "后台-模块管理",
+                "permission": "/module/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "演示-模块管理-查询单个",
+                "permission": "/module/admin/one/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-模块管理-查询所有",
+                "permission": "/module/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-模块管理-分页查询",
+                "permission": "/module/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "权限管理",
+        "permissions": [
+            {
+                "title": "后台-权限管理",
+                "permission": "/permission/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "演示-权限管理-查询单个",
+                "permission": "/permission/admin/one/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-权限管理-查询所有",
+                "permission": "/permission/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-权限管理-分页查询",
+                "permission": "/permission/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "角色管理",
+        "permissions": [
+            {
+                "title": "后台-角色管理",
+                "permission": "/role/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "演示-角色管理-查询单个",
+                "permission": "/role/admin/one/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-角色管理-查询所有",
+                "permission": "/role/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-角色管理-分页查询",
+                "permission": "/role/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "模块权限查询模块",
+        "permissions": [
+            {
+                "title": "后台-模块权限查询",
+                "permission": "/module-permission/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "用户-模块权限查询",
+                "permission": "/module-permission/user/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin",
+                    "sys_user"
+                ]
+            },
+            {
+                "title": "演示-模块权限查询-查询单个",
+                "permission": "/module-permission/admin/multi/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-模块权限查询-查询所有",
+                "permission": "/module-permission/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-模块权限查询-分页查询",
+                "permission": "/module-permission/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "角色权限管理",
+        "permissions": [
+            {
+                "title": "后台-角色权限管理",
+                "permission": "/role-permission/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "演示-角色权限管理-查询单个",
+                "permission": "/role-permission/admin/multi/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-角色权限管理-查询所有",
+                "permission": "/role-permission/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-角色权限管理-分页查询",
+                "permission": "/role-permission/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "系统配置管理",
+        "permissions": [
+            {
+                "title": "后台-系统配置管理",
+                "permission": "/sys-config/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "演示-系统配置管理-查询单个",
+                "permission": "/sys-config/admin/one/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-系统配置管理-查询所有",
+                "permission": "/sys-config/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-系统配置管理-分页查询",
+                "permission": "/sys-config/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "系统日志管理",
+        "permissions": [
+            {
+                "title": "后台-系统日志管理",
+                "permission": "/sys-log/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "演示-系统日志管理-查询单个",
+                "permission": "/sys-log/admin/one/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-系统日志管理-查询所有",
+                "permission": "/sys-log/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-系统日志管理-分页查询",
+                "permission": "/sys-log/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "用户管理",
+        "permissions": [
+            {
+                "title": "后台-用户管理",
+                "permission": "/user/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "演示-用户管理-查询单个",
+                "permission": "/user/admin/one/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-用户管理-查询所有",
+                "permission": "/user/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-用户管理-分页查询",
+                "permission": "/user/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "用户角色管理",
+        "permissions": [
+            {
+                "title": "后台-用户角色查询",
+                "permission": "/user-role/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "用户-用户角色查询",
+                "permission": "/user-role/user/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin",
+                    "sys_user"
+                ]
+            },
+            {
+                "title": "演示-用户角色查询-查询单个",
+                "permission": "/user/admin/multi/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-用户角色查询-查询所有",
+                "permission": "/user/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-用户角色查询-分页查询",
+                "permission": "/user/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "用户详情管理",
+        "permissions": [
+            {
+                "title": "后台-用户详情查询",
+                "permission": "/user-userdetail/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "用户-用户详情查询",
+                "permission": "/user-userdetail/user/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin",
+                    "sys_user"
+                ]
+            },
+            {
+                "title": "演示-用户详情查询-查询单个",
+                "permission": "/user-userdetail/admin/multi/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-用户详情查询-查询所有",
+                "permission": "/user-userdetail/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-用户详情查询-分页查询",
+                "permission": "/user-userdetail/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "用户第三方登录管理",
+        "permissions": [
+            {
+                "title": "后台-用户第三方登录管理",
+                "permission": "/user-usersocial/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "演示-用户第三方登录管理-查询单个",
+                "permission": "/user-usersocial/admin/multi/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-用户第三方登录管理-查询所有",
+                "permission": "/user-usersocial/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-用户第三方登录管理-分页查询",
+                "permission": "/user-usersocial/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "用户钱包管理",
+        "permissions": [
+            {
+                "title": "后台-用户钱包管理",
+                "permission": "/user-wallet/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "演示-用户钱包管理-查询单个",
+                "permission": "/user-wallet/admin/one/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-用户钱包管理-查询所有",
+                "permission": "/user-wallet/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-用户钱包管理-分页查询",
+                "permission": "/user-wallet/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "用户银行卡管理",
+        "permissions": [
+            {
+                "title": "后台-用户银行卡管理",
+                "permission": "/user-bankcard/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "用户-用户银行卡管理",
+                "permission": "/user-bankcard/user/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin",
+                    "sys_user"
+                ]
+            },
+            {
+                "title": "演示-用户银行卡管理-查询单个",
+                "permission": "/user-bankcard/admin/one/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-用户银行卡管理-查询所有",
+                "permission": "/user-bankcard/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-用户银行卡管理-分页查询",
+                "permission": "/user-bankcard/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "充值管理",
+        "permissions": [
+            {
+                "title": "后台-系统人工充值",
+                "permission": "/user-recharge/admin/human",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "提现管理",
+        "permissions": [
+            {
+                "title": "后台-提现管理",
+                "permission": "/withdraw/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "用户-提现管理",
+                "permission": "/withdraw/user/*",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin",
+                    "sys_user"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "转账管理",
+        "permissions": [
+            {
+                "title": "用户-转账操作",
+                "permission": "/transfer/user/*",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin",
+                    "sys_user"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "用户收货地址管理",
+        "permissions": [
+            {
+                "title": "后台-用户收货地址管理",
+                "permission": "/shipping-address/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "用户-用户收货地址管理",
+                "permission": "/shipping-address/user/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin",
+                    "sys_user"
+                ]
+            },
+            {
+                "title": "演示-用户收货地址管理-查询单个",
+                "permission": "/shipping-address/admin/one/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-用户收货地址管理-查询所有",
+                "permission": "/shipping-address/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-用户收货地址管理-分页查询",
+                "permission": "/shipping-address/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "用户账目详情管理",
+        "permissions": [
+            {
+                "title": "后台-用户账目详情管理",
+                "permission": "/accoundetail/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "演示-用户账目详情管理-查询单个",
+                "permission": "/accoundetail/admin/one/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-用户账目详情管理-查询所有",
+                "permission": "/accoundetail/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-用户账目详情管理-分页查询",
+                "permission": "/accoundetail/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "分销查询模块",
+        "permissions": [
+            {
+                "title": "后台-分销查询",
+                "permission": "/distribution/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin",
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "用户-分销查询",
+                "permission": "/distribution/user/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin",
+                    "sys_user"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "公告管理",
+        "permissions": [
+            {
+                "title": "后台-公告管理",
+                "permission": "/notice/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "用户-公告查询",
+                "permission": "/notice/user/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin",
+                    "sys_user"
+                ]
+            },
+            {
+                "title": "演示-公告查询-查询单个",
+                "permission": "/notice/admin/one/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-公告查询-查询所有",
+                "permission": "/notice/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-公告查询-分页查询",
+                "permission": "/notice/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "角色权限导入导出管理",
+        "permissions": [
+            {
+                "title": "后台-导入导出角色权限",
+                "permission": "/permission-import-export/*",
+                "roles": [
+                    "sys_dev"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "Redis缓存管理",
+        "permissions": [
+            {
+                "title": "后台-Redis缓存管理",
+                "permission": "/redis-manage/**",
+                "roles": [
+                    "sys_dev"
+                ]
+            }
+        ]
+    }
+]

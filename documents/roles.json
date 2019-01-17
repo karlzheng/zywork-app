@@ -15,6 +15,11 @@
         "isDefault": 0
     },
     {
+        "title": "sys_user_demo",
+        "description": "系统演示用户",
+        "isDefault": 0
+    },
+    {
         "title": "sys_user",
         "description": "系统用户",
         "isDefault": 1
