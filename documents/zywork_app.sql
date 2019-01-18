@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 15/01/2019 21:02:19
+ Date: 18/01/2019 17:44:22
 */
 
 SET NAMES utf8mb4;
@@ -642,7 +642,8 @@ CREATE TABLE `t_scheduler` (
   `trigger_name` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '触发器名称',
   `trigger_group` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '触发器组',
   `description` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '作业描述',
-  `job_status` tinyint(4) DEFAULT NULL COMMENT '作业状态',
+  `job_status` tinyint(4) DEFAULT '0' COMMENT '作业状态',
+  `job_status_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '状态更新时间',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
@@ -670,6 +671,21 @@ CREATE TABLE `t_shipping_address` (
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户收货地址表';
+
+-- ----------------------------
+-- Table structure for t_statistics_dau
+-- ----------------------------
+DROP TABLE IF EXISTS `t_statistics_dau`;
+CREATE TABLE `t_statistics_dau` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'DAU编号',
+  `dau` int(11) NOT NULL COMMENT 'DAU',
+  `statistics_date` datetime NOT NULL COMMENT '统计日期',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='日活用户统计表';
 
 -- ----------------------------
 -- Table structure for t_sys_config

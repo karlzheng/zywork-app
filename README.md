@@ -52,9 +52,11 @@ zywork-common项目依赖了zywork-sdk（[https://github.com/gz-zywork/zywork-sd
 
 #### 目前已实现并测试的功能
 
-1. 基于SpringSecurity与JWT的用户认证及权限验证，适配任何前端
+1. 基于SpringSecurity与JWT的用户认证及权限验证，适配任何前端，可支持多个端同时登录同一账号
+2. 实现了使用JWT登录的日活跃用户统计功能，并可保存日活数据到数据库中
 2. 基于自定义注解```@SysLog```的系统详细日志记录
 3. Redis缓存的后台界面管理，如查询缓存，删除缓存
+4. 定时任务管理，与SpringBoot整合，通过后台页面启动，暂停，恢复，停止或删除定时任务
 4. SpringBoot Admin Server项目监控
 3. 使用JSON的系统配置存储，如API相关配置等
 4. 数据表增加```version```版本号字段，使用乐观锁机制解决高并发情况下更新表记录时数据一致性问题
