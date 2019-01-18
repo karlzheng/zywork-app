@@ -394,5 +394,30 @@
                 ]
             }
         ]
+    },
+    {
+        "moduleTitle": "定时任务管理",
+        "permissions": [
+            {
+                "title": "后台-定时任务管理",
+                "permission": "/scheduler/admin/**",
+                "roles": [
+                    "sys_dev"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "DAU管理",
+        "permissions": [
+            {
+                "title": "后台-DAU管理",
+                "permission": "/statistics-dau/admin/**",
+                "roles": [
+                    "sys_super_admin",
+                    "sys_admin"
+                ]
+            }
+        ]
     }
 ]
