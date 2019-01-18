@@ -779,7 +779,7 @@
                 "title": "后台-DAU管理",
                 "permission": "/statistics-dau/admin/**",
                 "roles": [
-                    "sys_super_admin",
+                    "super_sys_admin",
                     "sys_admin"
                 ]
             },
