@@ -9,12 +9,11 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
+import top.zywork.common.DateFormatUtils;
 import top.zywork.enums.ContentTypeEnum;
+import top.zywork.enums.DatePatternEnum;
 import top.zywork.enums.ResponseStatusEnum;
-import top.zywork.security.JwtClaims;
-import top.zywork.security.JwtTokenRedisUtils;
-import top.zywork.security.JwtUser;
-import top.zywork.security.JwtUtils;
+import top.zywork.security.*;
 import top.zywork.vo.ResponseStatusVO;
 
 import javax.servlet.FilterChain;
@@ -56,13 +55,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             if (jwtClaims != null) {
                 // 如果解析到正确的token
                 String jwtTokenKey = jwtClaims.getUserId() + "_" + jwtClaims.getCreateDate().getTime();
-                String jwtTokenInRedis = jwtTokenRedisUtils.getToken(jwtTokenKey);
-                if (token.equals(jwtTokenInRedis)) {
+                JwtToken jwtTokenInRedis = jwtTokenRedisUtils.getToken(jwtTokenKey);
+                if (jwtTokenInRedis != null &&token.equals(jwtTokenInRedis.getToken())) {
                     // 如果redis中存在此token
                     if (SecurityContextHolder.getContext().getAuthentication() == null) {
                         // springsecurity上下文中不存在认证信息，则存储新的authentication到上下文
                         storeAuthentication(request, jwtClaims);
                     }
+                    jwtTokenRedisUtils.countDau(jwtTokenKey, jwtTokenInRedis);
                     // 只要jwt token正常使用了，就刷新失效时间
                     jwtTokenRedisUtils.refreshTokenExpiration(jwtTokenKey);
                 } else {

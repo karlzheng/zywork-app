@@ -1,5 +1,6 @@
 package top.zywork.controller;
 
+import com.alibaba.fastjson.JSON;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,13 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import top.zywork.annotation.SysLog;
+import top.zywork.common.DateFormatUtils;
 import top.zywork.common.WebUtils;
+import top.zywork.enums.DatePatternEnum;
 import top.zywork.enums.SocialTypeEnum;
 import top.zywork.enums.SysConfigEnum;
-import top.zywork.security.JwtTokenRedisUtils;
-import top.zywork.security.JwtUser;
-import top.zywork.security.JwtUtils;
-import top.zywork.security.MyUserDetailsService;
+import top.zywork.security.*;
 import top.zywork.service.DefaultRoleQueryService;
 import top.zywork.service.SysConfigService;
 import top.zywork.service.UserRegService;
@@ -27,6 +27,7 @@ import top.zywork.weixin.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 /**
  * <p>微信控制器</p>
@@ -134,8 +135,12 @@ public class WeixinAuthController {
         JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(openid);
         // 写出用户cookie到客户端
         writeCookie(response, gzhCookieName, openid);
-        String token = jwtUtils.generateToken(jwtUser);
-        jwtTokenRedisUtils.storeToken(jwtUser.getUserId() + "", token);
+        Map<String, Object> claims = jwtUtils.generateClaims(jwtUser);
+        String token = jwtUtils.generateToken(jwtUser.getUsername(), claims);
+        // 支持用户多平台同时登录，一次平台登录产生一个jwt token
+        JwtClaims jwtClaims = JSON.parseObject((String) claims.get(JwtUtils.JWT_CLAIMS), JwtClaims.class);
+        jwtTokenRedisUtils.storeToken(jwtUser.getUserId() + "_" + jwtClaims.getCreateDate().getTime(),
+                new JwtToken(token, DateFormatUtils.format(System.currentTimeMillis(), DatePatternEnum.DATE.getValue())));
         // 微信授权登录成功，返回openid, jwt token和开启微信授权的页面url，此url可用于微信登录成功后指定要跳转到的页面
         return ResponseStatusVO.ok("微信用户授权登录成功", new String[]{openid, token, fromUrl});
     }
@@ -173,8 +178,12 @@ public class WeixinAuthController {
     private ResponseStatusVO outInfoToXcx(String openid) {
         // 重新根据openid获取JwtUser，生成jwt token并返回客户端
         JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(openid);
-        String token = jwtUtils.generateToken(jwtUser);
-        jwtTokenRedisUtils.storeToken(jwtUser.getUserId() + "", token);
+        Map<String, Object> claims = jwtUtils.generateClaims(jwtUser);
+        String token = jwtUtils.generateToken(jwtUser.getUsername(), claims);
+        // 支持用户多平台同时登录，一次平台登录产生一个jwt token
+        JwtClaims jwtClaims = JSON.parseObject((String) claims.get(JwtUtils.JWT_CLAIMS), JwtClaims.class);
+        jwtTokenRedisUtils.storeToken(jwtUser.getUserId() + "_" + jwtClaims.getCreateDate().getTime(),
+                new JwtToken(token, DateFormatUtils.format(System.currentTimeMillis(), DatePatternEnum.DATE.getValue())));
         // 微信授权登录成功，返回openid, jwt token
         return ResponseStatusVO.ok("微信用户授权登录成功", new String[]{openid, token});
     }

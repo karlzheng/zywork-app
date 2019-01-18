@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
+import top.zywork.common.RedisUtils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -35,7 +36,7 @@ public class SmsCodeRedisUtils {
      * @param code
      */
     public void storeCode(String prefix, String phone, String code) {
-        redisTemplate.opsForValue().set(prefix + phone, code, smsCodeExpiration, TimeUnit.SECONDS);
+        RedisUtils.save(redisTemplate, prefix + phone, code, smsCodeExpiration, TimeUnit.SECONDS);
     }
 
     /**
@@ -45,7 +46,7 @@ public class SmsCodeRedisUtils {
      * @return
      */
     public Boolean existsCode(String prefix, String phone) {
-        return redisTemplate.hasKey(prefix + phone);
+        return RedisUtils.exists(redisTemplate, prefix + phone);
     }
 
     /**
@@ -55,7 +56,7 @@ public class SmsCodeRedisUtils {
      * @return
      */
     public String getCode(String prefix, String phone) {
-        return (String) redisTemplate.opsForValue().get(prefix + phone);
+        return (String) RedisUtils.get(redisTemplate, prefix + phone);
     }
 
     @Autowired

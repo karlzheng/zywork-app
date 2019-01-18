@@ -3,6 +3,7 @@ package top.zywork.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import top.zywork.common.RedisUtils;
 import top.zywork.dao.DefaultRoleQueryDAO;
 import top.zywork.service.DefaultRoleQueryService;
 
@@ -25,11 +26,11 @@ public class DefaultRoleQueryServiceImpl implements DefaultRoleQueryService {
 
     @Override
     public Long getDefaultRole() {
-        Object roleId = redisTemplate.opsForValue().get(DEFAULT_ROLE_KEY);
+        Object roleId = RedisUtils.get(redisTemplate, DEFAULT_ROLE_KEY);
         if (roleId == null) {
             roleId = defaultRoleQueryDAO.getDefaultRole();
             if (roleId != null) {
-                redisTemplate.opsForValue().set(DEFAULT_ROLE_KEY, roleId);
+                RedisUtils.save(redisTemplate, DEFAULT_ROLE_KEY, roleId);
             }
         }
         if (roleId instanceof Long) {

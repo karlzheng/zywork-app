@@ -7,8 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+import top.zywork.common.DateFormatUtils;
 import top.zywork.enums.ContentTypeEnum;
-import top.zywork.enums.ResponseStatusEnum;
+import top.zywork.enums.DatePatternEnum;
 import top.zywork.vo.ResponseStatusVO;
 
 import javax.servlet.ServletException;
@@ -45,7 +46,9 @@ public class MyAuthenticationSuccessHandler extends SimpleUrlAuthenticationSucce
         String token = jwtUtils.generateToken(jwtUser.getUsername(), claims);
         // 支持用户多平台同时登录，一次平台登录产生一个jwt token
         JwtClaims jwtClaims = JSON.parseObject((String) claims.get(JwtUtils.JWT_CLAIMS), JwtClaims.class);
-        jwtTokenRedisUtils.storeToken(jwtUser.getUserId() + "_" + jwtClaims.getCreateDate().getTime(), token);
+        String jwtTokenKey = jwtUser.getUserId() + "_" + jwtClaims.getCreateDate().getTime();
+        jwtTokenRedisUtils.storeToken(jwtTokenKey, new JwtToken(token, DateFormatUtils.format(System.currentTimeMillis(), DatePatternEnum.DATE.getValue())));
+        jwtTokenRedisUtils.countDau();
         response.getWriter().write(JSON.toJSONString(ResponseStatusVO.ok("用户认证成功", token)));
     }
 

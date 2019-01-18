@@ -3,6 +3,7 @@ package top.zywork.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
+import top.zywork.common.RedisUtils;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class RolePermissionRedisUtils {
      * @param rolePermissionDOList
      */
     public void store(List<RolePermissionDO> rolePermissionDOList) {
-        redisTemplate.opsForValue().set(ROLE_PERMISSION_LIST, rolePermissionDOList);
+        RedisUtils.save(redisTemplate, ROLE_PERMISSION_LIST, rolePermissionDOList);
     }
 
     /**
@@ -34,7 +35,7 @@ public class RolePermissionRedisUtils {
      * @return
      */
     public Boolean exists() {
-        return redisTemplate.hasKey(ROLE_PERMISSION_LIST);
+        return RedisUtils.exists(redisTemplate, ROLE_PERMISSION_LIST);
     }
 
     /**
@@ -43,14 +44,14 @@ public class RolePermissionRedisUtils {
      */
     @SuppressWarnings({"unchecked"})
     public List<RolePermissionDO> get() {
-        return (List<RolePermissionDO>) redisTemplate.opsForValue().get(ROLE_PERMISSION_LIST);
+        return (List<RolePermissionDO>) RedisUtils.get(redisTemplate, ROLE_PERMISSION_LIST);
     }
 
     /**
      * 删除缓存的角色权限
      */
     public void del() {
-        redisTemplate.delete(ROLE_PERMISSION_LIST);
+        RedisUtils.delete(redisTemplate, ROLE_PERMISSION_LIST);
     }
 
     @Autowired

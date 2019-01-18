@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
+import top.zywork.common.RedisUtils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -35,7 +36,7 @@ public class VerifyCodeRedisUtils {
      * @param code
      */
     public void storeCode(String prefix, String userIdentity, String code) {
-        redisTemplate.opsForValue().set(prefix + userIdentity, code, verifyCodeExpiration, TimeUnit.SECONDS);
+        RedisUtils.save(redisTemplate, prefix + userIdentity, code, verifyCodeExpiration, TimeUnit.SECONDS);
     }
 
     /**
@@ -45,7 +46,7 @@ public class VerifyCodeRedisUtils {
      * @return
      */
     public Boolean existsCode(String prefix, String userIdentity) {
-        return redisTemplate.hasKey(prefix + userIdentity);
+        return RedisUtils.exists(redisTemplate, prefix + userIdentity);
     }
 
     /**
@@ -55,7 +56,7 @@ public class VerifyCodeRedisUtils {
      * @return
      */
     public String getCode(String prefix, String userIdentity) {
-        return (String) redisTemplate.opsForValue().get(prefix+ userIdentity);
+        return (String) RedisUtils.get(redisTemplate, prefix + userIdentity);
     }
 
     @Autowired
