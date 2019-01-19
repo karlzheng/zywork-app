@@ -378,6 +378,8 @@
                 "title": "后台-导入导出角色权限",
                 "permission": "/permission-import-export/*",
                 "roles": [
+                    "super_sys_admin",
+                    "sys_admin",
                     "sys_dev"
                 ]
             }
@@ -390,6 +392,8 @@
                 "title": "后台-Redis缓存管理",
                 "permission": "/redis-manage/**",
                 "roles": [
+                    "super_sys_admin",
+                    "sys_admin",
                     "sys_dev"
                 ]
             }
