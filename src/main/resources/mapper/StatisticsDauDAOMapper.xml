@@ -13,8 +13,8 @@
             <if test="dau != null">
 				dau,
 			</if>
-			<if test="statisticsDate != null">
-				statistics_date,
+			<if test="statisticsTime != null">
+				statistics_time,
 			</if>
 			<if test="version != null">
 				version,
@@ -34,8 +34,8 @@
             <if test="dau != null">
 				#{dau},
 			</if>
-			<if test="statisticsDate != null">
-				#{statisticsDate},
+			<if test="statisticsTime != null">
+				#{statisticsTime},
 			</if>
 			<if test="version != null">
 				#{version},
@@ -63,8 +63,8 @@
                 <if test="item.dau != null">
 				dau,
 			</if>
-			<if test="item.statisticsDate != null">
-				statistics_date,
+			<if test="item.statisticsTime != null">
+				statistics_time,
 			</if>
 			<if test="item.version != null">
 				version,
@@ -84,8 +84,8 @@
                 <if test="item.dau != null">
 				#{item.dau},
 			</if>
-			<if test="item.statisticsDate != null">
-				#{item.statisticsDate},
+			<if test="item.statisticsTime != null">
+				#{item.statisticsTime},
 			</if>
 			<if test="item.version != null">
 				#{item.version},
@@ -121,8 +121,8 @@
             <if test="dau != null">
 				dau = #{dau},
 			</if>
-			<if test="statisticsDate != null">
-				statistics_date = #{statisticsDate},
+			<if test="statisticsTime != null">
+				statistics_time = #{statisticsTime},
 			</if>
 			<if test="version != null">
 				version = #{version},
@@ -148,8 +148,8 @@
                 <if test="item.dau != null">
 				dau = #{item.dau},
 			</if>
-			<if test="item.statisticsDate != null">
-				statistics_date = #{item.statisticsDate},
+			<if test="item.statisticsTime != null">
+				statistics_time = #{item.statisticsTime},
 			</if>
 			<if test="item.version != null">
 				version = #{item.version},
@@ -173,7 +173,7 @@
     </update>
 
     <sql id="select_columns">
-        id as id, dau as dau, statistics_date as statisticsDate, version as version, create_time as createTime, update_time as updateTime, is_active as isActive
+        id as id, dau as dau, statistics_time as statisticsTime, version as version, create_time as createTime, update_time as updateTime, is_active as isActive
     </sql>
 
     <sql id="query_where_clause">
@@ -201,17 +201,17 @@
 		<if test="query != null and query.dauMin != null and query.dauMax != null">
 			and dau <![CDATA[ >= ]]> #{query.dauMin} and dau <![CDATA[ <= ]]> #{query.dauMax}
 		</if>
-		<if test="query != null and query.statisticsDate != null">
-			and statistics_date = #{query.statisticsDate}
+		<if test="query != null and query.statisticsTime != null">
+			and statistics_time = #{query.statisticsTime}
 		</if>
-		<if test="query != null and query.statisticsDateMin != null and query.statisticsDateMax == null">
-			and statistics_date <![CDATA[ >= ]]> #{query.statisticsDateMin}
+		<if test="query != null and query.statisticsTimeMin != null and query.statisticsTimeMax == null">
+			and statistics_time <![CDATA[ >= ]]> #{query.statisticsTimeMin}
 		</if>
-		<if test="query != null and query.statisticsDateMin == null and query.statisticsDateMax != null">
-			and statistics_date <![CDATA[ <= ]]> #{query.statisticsDateMax}
+		<if test="query != null and query.statisticsTimeMin == null and query.statisticsTimeMax != null">
+			and statistics_time <![CDATA[ <= ]]> #{query.statisticsTimeMax}
 		</if>
-		<if test="query != null and query.statisticsDateMin != null and query.statisticsDateMax != null">
-			and statistics_date <![CDATA[ >= ]]> #{query.statisticsDateMin} and statistics_date <![CDATA[ <= ]]> #{query.statisticsDateMax}
+		<if test="query != null and query.statisticsTimeMin != null and query.statisticsTimeMax != null">
+			and statistics_time <![CDATA[ >= ]]> #{query.statisticsTimeMin} and statistics_time <![CDATA[ <= ]]> #{query.statisticsTimeMax}
 		</if>
 		<if test="query != null and query.version != null">
 			and version = #{query.version}

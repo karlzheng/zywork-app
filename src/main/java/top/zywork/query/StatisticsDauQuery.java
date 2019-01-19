@@ -8,14 +8,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * StatisticsDauQuery查询对象类<br/>
  *
- * 创建于2019-01-18<br/>
+ * 创建于2019-01-19<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class StatisticsDauQuery extends PageQuery {
 
-    private static final long serialVersionUID = -9223372036238868929L;
+    private static final long serialVersionUID = -9223372036461686148L;
 
     // DAU编号
 	private Long id;
@@ -24,20 +24,20 @@ public class StatisticsDauQuery extends PageQuery {
 	// DAU编号（最大值）
 	private Long idMax;
 	// DAU
-	private Integer dau;
+	private Long dau;
 	// DAU（最小值）
-	private Integer dauMin;
+	private Long dauMin;
 	// DAU（最大值）
-	private Integer dauMax;
-	// 统计日期
+	private Long dauMax;
+	// 统计时间
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	private Date statisticsDate;
-	// 统计日期（最小值）
+	private Date statisticsTime;
+	// 统计时间（最小值）
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	private Date statisticsDateMin;
-	// 统计日期（最大值）
+	private Date statisticsTimeMin;
+	// 统计时间（最大值）
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	private Date statisticsDateMax;
+	private Date statisticsTimeMax;
 	// 版本号
 	private Integer version;
 	// 版本号（最小值）
@@ -71,16 +71,16 @@ public class StatisticsDauQuery extends PageQuery {
 	
     public StatisticsDauQuery () {}
 
-    public StatisticsDauQuery (Long id, Long idMin, Long idMax, Integer dau, Integer dauMin, Integer dauMax, Date statisticsDate, Date statisticsDateMin, Date statisticsDateMax, Integer version, Integer versionMin, Integer versionMax, Date createTime, Date createTimeMin, Date createTimeMax, Date updateTime, Date updateTimeMin, Date updateTimeMax, Byte isActive, Byte isActiveMin, Byte isActiveMax) {
+    public StatisticsDauQuery (Long id, Long idMin, Long idMax, Long dau, Long dauMin, Long dauMax, Date statisticsTime, Date statisticsTimeMin, Date statisticsTimeMax, Integer version, Integer versionMin, Integer versionMax, Date createTime, Date createTimeMin, Date createTimeMax, Date updateTime, Date updateTimeMin, Date updateTimeMax, Byte isActive, Byte isActiveMin, Byte isActiveMax) {
         this.id = id;
 		this.idMin = idMin;
 		this.idMax = idMax;
 		this.dau = dau;
 		this.dauMin = dauMin;
 		this.dauMax = dauMax;
-		this.statisticsDate = statisticsDate;
-		this.statisticsDateMin = statisticsDateMin;
-		this.statisticsDateMax = statisticsDateMax;
+		this.statisticsTime = statisticsTime;
+		this.statisticsTimeMin = statisticsTimeMin;
+		this.statisticsTimeMax = statisticsTimeMax;
 		this.version = version;
 		this.versionMin = versionMin;
 		this.versionMax = versionMax;
@@ -120,52 +120,52 @@ public class StatisticsDauQuery extends PageQuery {
 		this.idMax = idMax;
 	}
 
-	public Integer getDau() {
+	public Long getDau() {
 		return dau;
 	}
 
-	public void setDau(Integer dau) {
+	public void setDau(Long dau) {
 		this.dau = dau;
 	}
 
-	public Integer getDauMin() {
+	public Long getDauMin() {
 		return dauMin;
 	}
 
-	public void setDauMin(Integer dauMin) {
+	public void setDauMin(Long dauMin) {
 		this.dauMin = dauMin;
 	}
 
-	public Integer getDauMax() {
+	public Long getDauMax() {
 		return dauMax;
 	}
 
-	public void setDauMax(Integer dauMax) {
+	public void setDauMax(Long dauMax) {
 		this.dauMax = dauMax;
 	}
 
-	public Date getStatisticsDate() {
-		return statisticsDate;
+	public Date getStatisticsTime() {
+		return statisticsTime;
 	}
 
-	public void setStatisticsDate(Date statisticsDate) {
-		this.statisticsDate = statisticsDate;
+	public void setStatisticsTime(Date statisticsTime) {
+		this.statisticsTime = statisticsTime;
 	}
 
-	public Date getStatisticsDateMin() {
-		return statisticsDateMin;
+	public Date getStatisticsTimeMin() {
+		return statisticsTimeMin;
 	}
 
-	public void setStatisticsDateMin(Date statisticsDateMin) {
-		this.statisticsDateMin = statisticsDateMin;
+	public void setStatisticsTimeMin(Date statisticsTimeMin) {
+		this.statisticsTimeMin = statisticsTimeMin;
 	}
 
-	public Date getStatisticsDateMax() {
-		return statisticsDateMax;
+	public Date getStatisticsTimeMax() {
+		return statisticsTimeMax;
 	}
 
-	public void setStatisticsDateMax(Date statisticsDateMax) {
-		this.statisticsDateMax = statisticsDateMax;
+	public void setStatisticsTimeMax(Date statisticsTimeMax) {
+		this.statisticsTimeMax = statisticsTimeMax;
 	}
 
 	public Integer getVersion() {
@@ -274,9 +274,9 @@ public class StatisticsDauQuery extends PageQuery {
 				", dau = " + dau + 
 				", dauMin = " + dauMin + 
 				", dauMax = " + dauMax + 
-				", statisticsDate = " + statisticsDate + 
-				", statisticsDateMin = " + statisticsDateMin + 
-				", statisticsDateMax = " + statisticsDateMax + 
+				", statisticsTime = " + statisticsTime + 
+				", statisticsTimeMin = " + statisticsTimeMin + 
+				", statisticsTimeMax = " + statisticsTimeMax + 
 				", version = " + version + 
 				", versionMin = " + versionMin + 
 				", versionMax = " + versionMax + 

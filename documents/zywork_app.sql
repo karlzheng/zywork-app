@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 18/01/2019 17:44:22
+ Date: 19/01/2019 21:38:46
 */
 
 SET NAMES utf8mb4;
@@ -678,14 +678,29 @@ CREATE TABLE `t_shipping_address` (
 DROP TABLE IF EXISTS `t_statistics_dau`;
 CREATE TABLE `t_statistics_dau` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'DAU编号',
-  `dau` int(11) NOT NULL COMMENT 'DAU',
-  `statistics_date` datetime NOT NULL COMMENT '统计日期',
+  `dau` bigint(20) NOT NULL COMMENT 'DAU',
+  `statistics_time` datetime NOT NULL COMMENT '统计时间',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='日活用户统计表';
+
+-- ----------------------------
+-- Table structure for t_statistics_day
+-- ----------------------------
+DROP TABLE IF EXISTS `t_statistics_day`;
+CREATE TABLE `t_statistics_day` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '日期编号',
+  `the_date` datetime NOT NULL COMMENT '日期字符串',
+  `am_pm` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '上午或下午',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用于数据统计的日期信息';
 
 -- ----------------------------
 -- Table structure for t_sys_config
@@ -914,6 +929,35 @@ CREATE TABLE `t_user_wallet` (
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户钱包表';
+
+-- ----------------------------
+-- Procedure structure for initStatisticsDay
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `initStatisticsDay`;
+delimiter ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `initStatisticsDay`(in beginDate datetime, in totalDays int)
+BEGIN
+	declare days int default 0;
+	declare theDate datetime;
+	declare hasError integer default 0;
+	declare continue handler for sqlexception set hasError = 1;
+	start transaction;
+		delete from t_statistics_day;
+		while days < totalDays
+			do
+				set theDate = date_add(beginDate, interval days day);
+				insert into t_statistics_day(the_date, am_pm) values(theDate, 'am');
+				insert into t_statistics_day(the_date, am_pm) values(theDate, 'pm');
+				set days = days + 1;
+		end while;
+	if hasError = 1 then
+		rollback;
+	else
+		commit;
+  end if;
+END;
+;;
+delimiter ;
 
 -- ----------------------------
 -- Procedure structure for invite_user

@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 18/01/2019 17:44:13
+ Date: 19/01/2019 21:38:18
 */
 
 SET NAMES utf8mb4;
@@ -597,35 +597,38 @@ CREATE TABLE `t_module` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=171 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统模块表';
+) ENGINE=InnoDB AUTO_INCREMENT=351 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统模块表';
 
 -- ----------------------------
 -- Records of t_module
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_module` VALUES (148, '测试模块', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_module` VALUES (149, '模块管理', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_module` VALUES (150, '权限管理', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_module` VALUES (151, '角色管理', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_module` VALUES (152, '模块权限查询模块', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_module` VALUES (153, '角色权限管理', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_module` VALUES (154, '系统配置管理', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_module` VALUES (155, '系统日志管理', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_module` VALUES (156, '用户管理', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_module` VALUES (157, '用户角色管理', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_module` VALUES (158, '用户详情管理', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_module` VALUES (159, '用户第三方登录管理', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_module` VALUES (160, '用户钱包管理', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_module` VALUES (161, '用户银行卡管理', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_module` VALUES (162, '充值管理', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_module` VALUES (163, '提现管理', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_module` VALUES (164, '转账管理', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_module` VALUES (165, '用户收货地址管理', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_module` VALUES (166, '用户账目详情管理', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_module` VALUES (167, '分销查询模块', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_module` VALUES (168, '公告管理', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_module` VALUES (169, '角色权限导入导出管理', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_module` VALUES (170, 'Redis缓存管理', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
+INSERT INTO `t_module` VALUES (325, '测试模块', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_module` VALUES (326, '模块管理', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_module` VALUES (327, '权限管理', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_module` VALUES (328, '角色管理', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_module` VALUES (329, '模块权限查询模块', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_module` VALUES (330, '角色权限管理', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_module` VALUES (331, '系统配置管理', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_module` VALUES (332, '系统日志管理', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_module` VALUES (333, '用户管理', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_module` VALUES (334, '用户角色管理', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_module` VALUES (335, '用户详情管理', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_module` VALUES (336, '用户第三方登录管理', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_module` VALUES (337, '用户钱包管理', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_module` VALUES (338, '用户银行卡管理', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_module` VALUES (339, '充值管理', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_module` VALUES (340, '提现管理', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_module` VALUES (341, '转账管理', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_module` VALUES (342, '用户收货地址管理', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_module` VALUES (343, '用户账目详情管理', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_module` VALUES (344, '分销查询模块', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_module` VALUES (345, '公告管理', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_module` VALUES (346, '角色权限导入导出管理', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_module` VALUES (347, 'Redis缓存管理', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_module` VALUES (348, '定时任务管理', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_module` VALUES (349, 'DAU管理', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_module` VALUES (350, '用户统计管理', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -668,95 +671,105 @@ CREATE TABLE `t_permission` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=324 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=964 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统权限表';
 
 -- ----------------------------
 -- Records of t_permission
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_permission` VALUES (241, 148, '测试添加', '/test/add', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_permission` VALUES (242, 148, '测试修改', '/test/edit', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_permission` VALUES (243, 148, '测试删除', '/test/remove/*', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_permission` VALUES (244, 148, '测试文件上传', '/test/upload', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_permission` VALUES (245, 149, '后台-模块管理', '/module/admin/**', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_permission` VALUES (246, 149, '演示-模块管理-查询单个', '/module/admin/one/**', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_permission` VALUES (247, 149, '演示-模块管理-查询所有', '/module/admin/all', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_permission` VALUES (248, 149, '演示-模块管理-分页查询', '/module/admin/pager-cond', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_permission` VALUES (249, 150, '后台-权限管理', '/permission/admin/**', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_permission` VALUES (250, 150, '演示-权限管理-查询单个', '/permission/admin/one/**', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_permission` VALUES (251, 150, '演示-权限管理-查询所有', '/permission/admin/all', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_permission` VALUES (252, 150, '演示-权限管理-分页查询', '/permission/admin/pager-cond', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_permission` VALUES (253, 151, '后台-角色管理', '/role/admin/**', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_permission` VALUES (254, 151, '演示-角色管理-查询单个', '/role/admin/one/**', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_permission` VALUES (255, 151, '演示-角色管理-查询所有', '/role/admin/all', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_permission` VALUES (256, 151, '演示-角色管理-分页查询', '/role/admin/pager-cond', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_permission` VALUES (257, 152, '后台-模块权限查询', '/module-permission/admin/**', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_permission` VALUES (258, 152, '用户-模块权限查询', '/module-permission/user/**', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_permission` VALUES (259, 152, '演示-模块权限查询-查询单个', '/module-permission/admin/multi/**', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_permission` VALUES (260, 152, '演示-模块权限查询-查询所有', '/module-permission/admin/all', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_permission` VALUES (261, 152, '演示-模块权限查询-分页查询', '/module-permission/admin/pager-cond', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_permission` VALUES (262, 153, '后台-角色权限管理', '/role-permission/admin/**', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_permission` VALUES (263, 153, '演示-角色权限管理-查询单个', '/role-permission/admin/multi/**', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_permission` VALUES (264, 153, '演示-角色权限管理-查询所有', '/role-permission/admin/all', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_permission` VALUES (265, 153, '演示-角色权限管理-分页查询', '/role-permission/admin/pager-cond', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_permission` VALUES (266, 154, '后台-系统配置管理', '/sys-config/admin/**', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_permission` VALUES (267, 154, '演示-系统配置管理-查询单个', '/sys-config/admin/one/**', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_permission` VALUES (268, 154, '演示-系统配置管理-查询所有', '/sys-config/admin/all', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_permission` VALUES (269, 154, '演示-系统配置管理-分页查询', '/sys-config/admin/pager-cond', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_permission` VALUES (270, 155, '后台-系统日志管理', '/sys-log/admin/**', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_permission` VALUES (271, 155, '演示-系统日志管理-查询单个', '/sys-log/admin/one/**', NULL, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_permission` VALUES (272, 155, '演示-系统日志管理-查询所有', '/sys-log/admin/all', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (273, 155, '演示-系统日志管理-分页查询', '/sys-log/admin/pager-cond', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (274, 156, '后台-用户管理', '/user/admin/**', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (275, 156, '演示-用户管理-查询单个', '/user/admin/one/**', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (276, 156, '演示-用户管理-查询所有', '/user/admin/all', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (277, 156, '演示-用户管理-分页查询', '/user/admin/pager-cond', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (278, 157, '后台-用户角色查询', '/user-role/admin/**', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (279, 157, '用户-用户角色查询', '/user-role/user/**', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (280, 157, '演示-用户角色查询-查询单个', '/user/admin/multi/**', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (281, 157, '演示-用户角色查询-查询所有', '/user/admin/all', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (282, 157, '演示-用户角色查询-分页查询', '/user/admin/pager-cond', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (283, 158, '后台-用户详情查询', '/user-userdetail/admin/**', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (284, 158, '用户-用户详情查询', '/user-userdetail/user/**', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (285, 158, '演示-用户详情查询', '/user-userdetail/user/get', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (286, 158, '演示-用户详情查询-查询单个', '/user-userdetail/admin/multi/**', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (287, 158, '演示-用户详情查询-查询所有', '/user-userdetail/admin/all', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (288, 158, '演示-用户详情查询-分页查询', '/user-userdetail/admin/pager-cond', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (289, 159, '后台-用户第三方登录管理', '/user-usersocial/admin/**', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (290, 159, '演示-用户第三方登录管理-查询单个', '/user-usersocial/admin/multi/**', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (291, 159, '演示-用户第三方登录管理-查询所有', '/user-usersocial/admin/all', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (292, 159, '演示-用户第三方登录管理-分页查询', '/user-usersocial/admin/pager-cond', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (293, 160, '后台-用户钱包管理', '/user-wallet/admin/**', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (294, 160, '演示-用户钱包管理-查询单个', '/user-wallet/admin/one/**', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (295, 160, '演示-用户钱包管理-查询所有', '/user-wallet/admin/all', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (296, 160, '演示-用户钱包管理-分页查询', '/user-wallet/admin/pager-cond', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (297, 161, '后台-用户银行卡管理', '/user-bankcard/admin/**', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (298, 161, '用户-用户银行卡管理', '/user-bankcard/user/**', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (299, 161, '演示-用户银行卡管理-查询单个', '/user-bankcard/admin/one/**', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (300, 161, '演示-用户银行卡管理-查询所有', '/user-bankcard/admin/all', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (301, 161, '演示-用户银行卡管理-分页查询', '/user-bankcard/admin/pager-cond', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (302, 162, '后台-系统人工充值', '/user-recharge/admin/human', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (303, 163, '后台-提现管理', '/withdraw/admin/**', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (304, 163, '用户-提现管理', '/withdraw/user/*', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (305, 164, '用户-转账操作', '/transfer/user/*', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (306, 165, '后台-用户收货地址管理', '/shipping-address/admin/**', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (307, 165, '用户-用户收货地址管理', '/shipping-address/user/**', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (308, 165, '演示-用户收货地址管理-查询单个', '/shipping-address/admin/one/**', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (309, 165, '演示-用户收货地址管理-查询所有', '/shipping-address/admin/all', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (310, 165, '演示-用户收货地址管理-分页查询', '/shipping-address/admin/pager-cond', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (311, 166, '后台-用户账目详情管理', '/accoundetail/admin/**', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (312, 166, '演示-用户账目详情管理-查询单个', '/accoundetail/admin/one/**', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (313, 166, '演示-用户账目详情管理-查询所有', '/accoundetail/admin/all', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (314, 166, '演示-用户账目详情管理-分页查询', '/accoundetail/admin/pager-cond', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (315, 167, '后台-分销查询', '/distribution/admin/**', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (316, 167, '用户-分销查询', '/distribution/user/**', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (317, 168, '后台-公告管理', '/notice/admin/**', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (318, 168, '用户-公告查询', '/notice/user/**', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (319, 168, '演示-公告查询-查询单个', '/notice/admin/one/**', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (320, 168, '演示-公告查询-查询所有', '/notice/admin/all', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (321, 168, '演示-公告查询-分页查询', '/notice/admin/pager-cond', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (322, 169, '后台-导入导出角色权限', '/permission-import-export/*', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_permission` VALUES (323, 170, '后台-Redis缓存管理', '/redis-manage/**', NULL, 1, '2019-01-17 15:09:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (871, 325, '测试添加', '/test/add', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (872, 325, '测试修改', '/test/edit', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (873, 325, '测试删除', '/test/remove/*', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (874, 325, '测试文件上传', '/test/upload', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (875, 326, '后台-模块管理', '/module/admin/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (876, 326, '演示-模块管理-查询单个', '/module/admin/one/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (877, 326, '演示-模块管理-查询所有', '/module/admin/all', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (878, 326, '演示-模块管理-分页查询', '/module/admin/pager-cond', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (879, 327, '后台-权限管理', '/permission/admin/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (880, 327, '演示-权限管理-查询单个', '/permission/admin/one/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (881, 327, '演示-权限管理-查询所有', '/permission/admin/all', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (882, 327, '演示-权限管理-分页查询', '/permission/admin/pager-cond', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (883, 328, '后台-角色管理', '/role/admin/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (884, 328, '演示-角色管理-查询单个', '/role/admin/one/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (885, 328, '演示-角色管理-查询所有', '/role/admin/all', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (886, 328, '演示-角色管理-分页查询', '/role/admin/pager-cond', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (887, 329, '后台-模块权限查询', '/module-permission/admin/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (888, 329, '用户-模块权限查询', '/module-permission/user/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (889, 329, '演示-模块权限查询-查询单个', '/module-permission/admin/multi/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (890, 329, '演示-模块权限查询-查询所有', '/module-permission/admin/all', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (891, 329, '演示-模块权限查询-分页查询', '/module-permission/admin/pager-cond', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (892, 330, '后台-角色权限管理', '/role-permission/admin/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (893, 330, '演示-角色权限管理-查询单个', '/role-permission/admin/multi/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (894, 330, '演示-角色权限管理-查询所有', '/role-permission/admin/all', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (895, 330, '演示-角色权限管理-分页查询', '/role-permission/admin/pager-cond', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (896, 331, '后台-系统配置管理', '/sys-config/admin/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (897, 331, '演示-系统配置管理-查询单个', '/sys-config/admin/one/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (898, 331, '演示-系统配置管理-查询所有', '/sys-config/admin/all', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (899, 331, '演示-系统配置管理-分页查询', '/sys-config/admin/pager-cond', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (900, 332, '后台-系统日志管理', '/sys-log/admin/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (901, 332, '演示-系统日志管理-查询单个', '/sys-log/admin/one/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (902, 332, '演示-系统日志管理-查询所有', '/sys-log/admin/all', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (903, 332, '演示-系统日志管理-分页查询', '/sys-log/admin/pager-cond', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (904, 333, '后台-用户管理', '/user/admin/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (905, 333, '演示-用户管理-查询单个', '/user/admin/one/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (906, 333, '演示-用户管理-查询所有', '/user/admin/all', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (907, 333, '演示-用户管理-分页查询', '/user/admin/pager-cond', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (908, 334, '后台-用户角色查询', '/user-role/admin/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (909, 334, '用户-用户角色查询', '/user-role/user/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (910, 334, '演示-用户角色查询-查询单个', '/user/admin/multi/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (911, 334, '演示-用户角色查询-查询所有', '/user/admin/all', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (912, 334, '演示-用户角色查询-分页查询', '/user/admin/pager-cond', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (913, 335, '后台-用户详情查询', '/user-userdetail/admin/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (914, 335, '用户-用户详情查询', '/user-userdetail/user/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (915, 335, '演示-用户详情查询', '/user-userdetail/user/get', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (916, 335, '演示-用户详情查询-查询单个', '/user-userdetail/admin/multi/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (917, 335, '演示-用户详情查询-查询所有', '/user-userdetail/admin/all', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (918, 335, '演示-用户详情查询-分页查询', '/user-userdetail/admin/pager-cond', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (919, 336, '后台-用户第三方登录管理', '/user-usersocial/admin/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (920, 336, '演示-用户第三方登录管理-查询单个', '/user-usersocial/admin/multi/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (921, 336, '演示-用户第三方登录管理-查询所有', '/user-usersocial/admin/all', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (922, 336, '演示-用户第三方登录管理-分页查询', '/user-usersocial/admin/pager-cond', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (923, 337, '后台-用户钱包管理', '/user-wallet/admin/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (924, 337, '演示-用户钱包管理-查询单个', '/user-wallet/admin/one/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (925, 337, '演示-用户钱包管理-查询所有', '/user-wallet/admin/all', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (926, 337, '演示-用户钱包管理-分页查询', '/user-wallet/admin/pager-cond', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (927, 338, '后台-用户银行卡管理', '/user-bankcard/admin/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (928, 338, '用户-用户银行卡管理', '/user-bankcard/user/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (929, 338, '演示-用户银行卡管理-查询单个', '/user-bankcard/admin/one/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (930, 338, '演示-用户银行卡管理-查询所有', '/user-bankcard/admin/all', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (931, 338, '演示-用户银行卡管理-分页查询', '/user-bankcard/admin/pager-cond', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (932, 339, '后台-系统人工充值', '/user-recharge/admin/human', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (933, 340, '后台-提现管理', '/withdraw/admin/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (934, 340, '用户-提现管理', '/withdraw/user/*', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (935, 341, '用户-转账操作', '/transfer/user/*', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (936, 342, '后台-用户收货地址管理', '/shipping-address/admin/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (937, 342, '用户-用户收货地址管理', '/shipping-address/user/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (938, 342, '演示-用户收货地址管理-查询单个', '/shipping-address/admin/one/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (939, 342, '演示-用户收货地址管理-查询所有', '/shipping-address/admin/all', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (940, 342, '演示-用户收货地址管理-分页查询', '/shipping-address/admin/pager-cond', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (941, 343, '后台-用户账目详情管理', '/accoundetail/admin/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (942, 343, '演示-用户账目详情管理-查询单个', '/accoundetail/admin/one/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (943, 343, '演示-用户账目详情管理-查询所有', '/accoundetail/admin/all', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (944, 343, '演示-用户账目详情管理-分页查询', '/accoundetail/admin/pager-cond', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (945, 344, '后台-分销查询', '/distribution/admin/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (946, 344, '用户-分销查询', '/distribution/user/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (947, 345, '后台-公告管理', '/notice/admin/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (948, 345, '用户-公告查询', '/notice/user/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (949, 345, '演示-公告查询-查询单个', '/notice/admin/one/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (950, 345, '演示-公告查询-查询所有', '/notice/admin/all', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (951, 345, '演示-公告查询-分页查询', '/notice/admin/pager-cond', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (952, 346, '后台-导入导出角色权限', '/permission-import-export/*', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (953, 347, '后台-Redis缓存管理', '/redis-manage/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (954, 348, '后台-定时任务管理', '/scheduler/admin/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (955, 348, '演示-定时任务管理-查询单个', '/scheduler/admin/one/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (956, 348, '演示-定时任务管理-查询所有', '/scheduler/admin/all', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (957, 348, '演示-定时任务管理-分页查询', '/scheduler/admin/pager-cond', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (958, 349, '后台-DAU管理', '/statistics-dau/admin/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (959, 349, '演示-DAU管理-查询单个', '/statistics-dau/admin/one/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (960, 349, '演示-DAU管理-查询所有', '/statistics-dau/admin/all', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (961, 349, '演示-DAU管理-分页查询', '/statistics-dau/admin/pager-cond', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (962, 350, '后台-用户统计管理', '/user-liveness-stat/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_permission` VALUES (963, 350, '演示-用户统计管理', '/user-liveness-stat/**', NULL, 1, '2019-01-19 21:38:03', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -817,139 +830,151 @@ CREATE TABLE `t_role_permission` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=595 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='角色权限关联表';
+) ENGINE=InnoDB AUTO_INCREMENT=1545 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='角色权限关联表';
 
 -- ----------------------------
 -- Records of t_role_permission
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_role_permission` VALUES (468, 1, 241, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (469, 3, 241, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (470, 2, 241, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (471, 1, 242, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (472, 3, 242, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (473, 2, 242, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (474, 3, 243, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (475, 1, 244, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (476, 2, 244, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (477, 3, 244, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (478, 1, 245, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (479, 2, 245, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (480, 8, 246, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (481, 8, 247, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (482, 8, 248, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (483, 1, 249, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (484, 2, 249, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (485, 8, 250, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (486, 8, 251, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (487, 8, 252, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (488, 1, 253, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (489, 2, 253, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (490, 8, 254, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (491, 8, 255, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (492, 8, 256, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (493, 1, 257, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (494, 2, 257, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (495, 1, 258, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (496, 2, 258, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (497, 3, 258, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (498, 8, 259, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (499, 8, 260, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (500, 8, 261, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (501, 1, 262, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (502, 2, 262, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (503, 8, 263, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (504, 8, 264, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (505, 8, 265, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (506, 1, 266, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (507, 2, 266, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (508, 8, 267, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (509, 8, 268, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (510, 8, 269, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (511, 1, 270, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (512, 2, 270, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (513, 8, 271, 1, '2019-01-17 15:09:02', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (514, 8, 272, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (515, 8, 273, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (516, 1, 274, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (517, 2, 274, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (518, 8, 275, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (519, 8, 276, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (520, 8, 277, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (521, 1, 278, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (522, 2, 278, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (523, 1, 279, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (524, 2, 279, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (525, 3, 279, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (526, 8, 280, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (527, 8, 281, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (528, 8, 282, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (529, 1, 283, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (530, 2, 283, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (531, 1, 284, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (532, 2, 284, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (533, 3, 284, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (534, 8, 285, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (535, 8, 286, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (536, 8, 287, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (537, 8, 288, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (538, 1, 289, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (539, 2, 289, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (540, 8, 290, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (541, 8, 291, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (542, 8, 292, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (543, 1, 293, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (544, 2, 293, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (545, 8, 294, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (546, 8, 295, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (547, 8, 296, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (548, 1, 297, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (549, 2, 297, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (550, 1, 298, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (551, 2, 298, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (552, 3, 298, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (553, 8, 299, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (554, 8, 300, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (555, 8, 301, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (556, 1, 302, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (557, 2, 302, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (558, 1, 303, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (559, 2, 303, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (560, 1, 304, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (561, 2, 304, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (562, 3, 304, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (563, 1, 305, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (564, 2, 305, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (565, 3, 305, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (566, 1, 306, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (567, 2, 306, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (568, 1, 307, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (569, 2, 307, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (570, 3, 307, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (571, 8, 308, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (572, 8, 309, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (573, 8, 310, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (574, 1, 311, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (575, 2, 311, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (576, 8, 312, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (577, 8, 313, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (578, 8, 314, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (579, 1, 315, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (580, 2, 315, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (581, 8, 315, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (582, 1, 316, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (583, 2, 316, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (584, 3, 316, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (585, 1, 317, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (586, 2, 317, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (587, 1, 318, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (588, 2, 318, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (589, 3, 318, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (590, 8, 319, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (591, 8, 320, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (592, 8, 321, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (593, 7, 322, 1, '2019-01-17 15:09:03', NULL, 0);
-INSERT INTO `t_role_permission` VALUES (594, 7, 323, 1, '2019-01-17 15:09:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1406, 1, 871, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1407, 3, 871, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1408, 2, 871, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1409, 1, 872, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1410, 3, 872, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1411, 2, 872, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1412, 3, 873, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1413, 1, 874, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1414, 2, 874, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1415, 3, 874, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1416, 1, 875, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1417, 2, 875, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1418, 8, 876, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1419, 8, 877, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1420, 8, 878, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1421, 1, 879, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1422, 2, 879, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1423, 8, 880, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1424, 8, 881, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1425, 8, 882, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1426, 1, 883, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1427, 2, 883, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1428, 8, 884, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1429, 8, 885, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1430, 8, 886, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1431, 1, 887, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1432, 2, 887, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1433, 1, 888, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1434, 2, 888, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1435, 3, 888, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1436, 8, 889, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1437, 8, 890, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1438, 8, 891, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1439, 1, 892, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1440, 2, 892, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1441, 8, 893, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1442, 8, 894, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1443, 8, 895, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1444, 1, 896, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1445, 2, 896, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1446, 8, 897, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1447, 8, 898, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1448, 8, 899, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1449, 1, 900, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1450, 2, 900, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1451, 8, 901, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1452, 8, 902, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1453, 8, 903, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1454, 1, 904, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1455, 2, 904, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1456, 8, 905, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1457, 8, 906, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1458, 8, 907, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1459, 1, 908, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1460, 2, 908, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1461, 1, 909, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1462, 2, 909, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1463, 3, 909, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1464, 8, 910, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1465, 8, 911, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1466, 8, 912, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1467, 1, 913, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1468, 2, 913, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1469, 1, 914, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1470, 2, 914, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1471, 3, 914, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1472, 8, 915, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1473, 8, 916, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1474, 8, 917, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1475, 8, 918, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1476, 1, 919, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1477, 2, 919, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1478, 8, 920, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1479, 8, 921, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1480, 8, 922, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1481, 1, 923, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1482, 2, 923, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1483, 8, 924, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1484, 8, 925, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1485, 8, 926, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1486, 1, 927, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1487, 2, 927, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1488, 1, 928, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1489, 2, 928, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1490, 3, 928, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1491, 8, 929, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1492, 8, 930, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1493, 8, 931, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1494, 1, 932, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1495, 2, 932, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1496, 1, 933, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1497, 2, 933, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1498, 1, 934, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1499, 2, 934, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1500, 3, 934, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1501, 1, 935, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1502, 2, 935, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1503, 3, 935, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1504, 1, 936, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1505, 2, 936, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1506, 1, 937, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1507, 2, 937, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1508, 3, 937, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1509, 8, 938, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1510, 8, 939, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1511, 8, 940, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1512, 1, 941, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1513, 2, 941, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1514, 8, 942, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1515, 8, 943, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1516, 8, 944, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1517, 1, 945, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1518, 2, 945, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1519, 8, 945, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1520, 1, 946, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1521, 2, 946, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1522, 3, 946, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1523, 1, 947, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1524, 2, 947, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1525, 1, 948, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1526, 2, 948, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1527, 3, 948, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1528, 8, 949, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1529, 8, 950, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1530, 8, 951, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1531, 7, 952, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1532, 7, 953, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1533, 7, 954, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1534, 8, 955, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1535, 8, 956, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1536, 8, 957, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1537, 1, 958, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1538, 2, 958, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1539, 8, 959, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1540, 8, 960, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1541, 8, 961, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1542, 1, 962, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1543, 2, 962, 1, '2019-01-19 21:38:03', NULL, 0);
+INSERT INTO `t_role_permission` VALUES (1544, 8, 963, 1, '2019-01-19 21:38:03', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -978,7 +1003,7 @@ CREATE TABLE `t_scheduler` (
 -- Records of t_scheduler
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_scheduler` VALUES (1, 'DauSaveJob', 'top.zywork.job.DauSaveJob', '*/10 * * * * ?', 'job_group', 'trigger_name', 'trigger_group', NULL, 1, '2019-01-18 17:42:22', 5, '2019-01-18 17:34:42', '2019-01-18 17:42:21', 0);
+INSERT INTO `t_scheduler` VALUES (1, 'DauSaveJob', 'top.zywork.job.DauSaveJob', '*/10 * * * * ?', 'job_group', 'trigger_name', 'trigger_group', NULL, 0, '2019-01-18 17:42:22', 9, '2019-01-18 17:34:42', '2019-01-19 14:23:59', 0);
 COMMIT;
 
 -- ----------------------------
@@ -1015,8 +1040,8 @@ COMMIT;
 DROP TABLE IF EXISTS `t_statistics_dau`;
 CREATE TABLE `t_statistics_dau` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'DAU编号',
-  `dau` int(11) NOT NULL COMMENT 'DAU',
-  `statistics_date` datetime NOT NULL COMMENT '统计日期',
+  `dau` bigint(20) NOT NULL COMMENT 'DAU',
+  `statistics_time` datetime NOT NULL COMMENT '统计时间',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
@@ -1028,8 +1053,128 @@ CREATE TABLE `t_statistics_dau` (
 -- Records of t_statistics_dau
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_statistics_dau` VALUES (67, 2, '2019-01-18 17:41:52', 1, '2019-01-18 17:42:52', NULL, 0);
 INSERT INTO `t_statistics_dau` VALUES (68, 2, '2019-01-18 17:42:00', 1, '2019-01-18 17:43:00', NULL, 0);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for t_statistics_day
+-- ----------------------------
+DROP TABLE IF EXISTS `t_statistics_day`;
+CREATE TABLE `t_statistics_day` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '日期编号',
+  `the_date` datetime NOT NULL COMMENT '日期字符串',
+  `am_pm` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '上午或下午',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用于数据统计的日期信息';
+
+-- ----------------------------
+-- Records of t_statistics_day
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_statistics_day` VALUES (1, '2019-01-01 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (2, '2019-01-01 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (3, '2019-01-02 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (4, '2019-01-02 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (5, '2019-01-03 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (6, '2019-01-03 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (7, '2019-01-04 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (8, '2019-01-04 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (9, '2019-01-05 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (10, '2019-01-05 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (11, '2019-01-06 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (12, '2019-01-06 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (13, '2019-01-07 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (14, '2019-01-07 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (15, '2019-01-08 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (16, '2019-01-08 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (17, '2019-01-09 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (18, '2019-01-09 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (19, '2019-01-10 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (20, '2019-01-10 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (21, '2019-01-11 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (22, '2019-01-11 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (23, '2019-01-12 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (24, '2019-01-12 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (25, '2019-01-13 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (26, '2019-01-13 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (27, '2019-01-14 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (28, '2019-01-14 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (29, '2019-01-15 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (30, '2019-01-15 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (31, '2019-01-16 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (32, '2019-01-16 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (33, '2019-01-17 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (34, '2019-01-17 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (35, '2019-01-18 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (36, '2019-01-18 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (37, '2019-01-19 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (38, '2019-01-19 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (39, '2019-01-20 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (40, '2019-01-20 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (41, '2019-01-21 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (42, '2019-01-21 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (43, '2019-01-22 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (44, '2019-01-22 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (45, '2019-01-23 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (46, '2019-01-23 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (47, '2019-01-24 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (48, '2019-01-24 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (49, '2019-01-25 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (50, '2019-01-25 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (51, '2019-01-26 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (52, '2019-01-26 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (53, '2019-01-27 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (54, '2019-01-27 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (55, '2019-01-28 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (56, '2019-01-28 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (57, '2019-01-29 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (58, '2019-01-29 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (59, '2019-01-30 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (60, '2019-01-30 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (61, '2019-01-31 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (62, '2019-01-31 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (63, '2019-02-01 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (64, '2019-02-01 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (65, '2019-02-02 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (66, '2019-02-02 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (67, '2019-02-03 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (68, '2019-02-03 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (69, '2019-02-04 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (70, '2019-02-04 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (71, '2019-02-05 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (72, '2019-02-05 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (73, '2019-02-06 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (74, '2019-02-06 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (75, '2019-02-07 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (76, '2019-02-07 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (77, '2019-02-08 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (78, '2019-02-08 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (79, '2019-02-09 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (80, '2019-02-09 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (81, '2019-02-10 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (82, '2019-02-10 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (83, '2019-02-11 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (84, '2019-02-11 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (85, '2019-02-12 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (86, '2019-02-12 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (87, '2019-02-13 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (88, '2019-02-13 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (89, '2019-02-14 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (90, '2019-02-14 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (91, '2019-02-15 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (92, '2019-02-15 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (93, '2019-02-16 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (94, '2019-02-16 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (95, '2019-02-17 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (96, '2019-02-17 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (97, '2019-02-18 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (98, '2019-02-18 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (99, '2019-02-19 00:00:00', 'am', 1, '2019-01-19 19:48:17', NULL, 0);
+INSERT INTO `t_statistics_day` VALUES (100, '2019-02-19 00:00:00', 'pm', 1, '2019-01-19 19:48:17', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -1088,7 +1233,7 @@ CREATE TABLE `t_sys_log` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=248 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统操作日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=253 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统操作日志表';
 
 -- ----------------------------
 -- Records of t_sys_log
@@ -1316,6 +1461,11 @@ INSERT INTO `t_sys_log` VALUES (244, 31, '13672297775', '用户转账', 'Mozilla
 INSERT INTO `t_sys_log` VALUES (245, NULL, NULL, '用户邮箱注册', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/auth/reg', 'POST', NULL, 1001, '注册成功', 'top.zywork.controller.AuthController', 'reg', '2019-01-17 10:30:22', 256, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-17 10:30:21', NULL, 0);
 INSERT INTO `t_sys_log` VALUES (246, 31, '13672297775', '导入权限配置', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/permission-import-export/import-permission', 'POST', NULL, 1001, '成功导入权限配置信息', 'top.zywork.controller.PermissionImportExportController', 'importPermissions', '2019-01-17 10:33:28', 1228, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-17 10:33:28', NULL, 0);
 INSERT INTO `t_sys_log` VALUES (247, 31, '13672297775', '导入权限配置', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/permission-import-export/import-permission', 'POST', NULL, 1001, '成功导入权限配置信息', 'top.zywork.controller.PermissionImportExportController', 'importPermissions', '2019-01-17 15:09:04', 1231, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-17 15:09:03', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (248, 31, '13672297775', '导入权限配置', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/permission-import-export/import-permission', 'POST', NULL, NULL, NULL, 'top.zywork.controller.PermissionImportExportController', 'importPermissions', '2019-01-18 18:25:46', 1508, 1, '\n### Error updating database.  Cause: java.sql.SQLException: Field \'role_id\' doesn\'t have a default value\n### The error may involve top.zywork.dao.RolePermissionDAO.saveBatch-Inline\n### The error occurred while setting parameters\n### SQL: insert into t_role_permission              ( permission_id )               values ( ? )           ;              insert into t_role_permission              ( role_id,                                                       permission_id )               values ( ?,                                                       ? )\n### Cause: java.sql.SQLException: Field \'role_id\' doesn\'t have a default value\n; Field \'role_id\' doesn\'t have a default value; nested exception is java.sql.SQLException: Field \'role_id\' doesn\'t have a default value', '0:0:0:0:0:0:0:1', 1, '2019-01-18 18:25:45', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (249, 31, '13672297775', '导入权限配置', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/permission-import-export/import-permission', 'POST', NULL, 1001, '成功导入权限配置信息', 'top.zywork.controller.PermissionImportExportController', 'importPermissions', '2019-01-18 18:26:59', 847, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-18 18:26:59', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (250, 31, '13672297775', '导入权限配置', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/permission-import-export/import-permission', 'POST', NULL, NULL, NULL, 'top.zywork.controller.PermissionImportExportController', 'importPermissions', '2019-01-19 21:34:29', 1684, 1, '\n### Error updating database.  Cause: java.sql.SQLException: Field \'role_id\' doesn\'t have a default value\n### The error may involve top.zywork.dao.RolePermissionDAO.saveBatch-Inline\n### The error occurred while setting parameters\n### SQL: insert into t_role_permission              ( permission_id )               values ( ? )           ;              insert into t_role_permission              ( role_id,                                                       permission_id )               values ( ?,                                                       ? )           ;              insert into t_role_permission              ( permission_id )               values ( ? )\n### Cause: java.sql.SQLException: Field \'role_id\' doesn\'t have a default value\n; Field \'role_id\' doesn\'t have a default value; nested exception is java.sql.SQLException: Field \'role_id\' doesn\'t have a default value', '0:0:0:0:0:0:0:1', 1, '2019-01-19 21:34:29', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (251, 31, '13672297775', '导入权限配置', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/permission-import-export/import-permission', 'POST', NULL, NULL, NULL, 'top.zywork.controller.PermissionImportExportController', 'importPermissions', '2019-01-19 21:36:32', 604, 1, '\n### Error updating database.  Cause: java.sql.SQLException: Field \'role_id\' doesn\'t have a default value\n### The error may involve top.zywork.dao.RolePermissionDAO.saveBatch-Inline\n### The error occurred while setting parameters\n### SQL: insert into t_role_permission              ( permission_id )               values ( ? )           ;              insert into t_role_permission              ( role_id,                                                       permission_id )               values ( ?,                                                       ? )\n### Cause: java.sql.SQLException: Field \'role_id\' doesn\'t have a default value\n; Field \'role_id\' doesn\'t have a default value; nested exception is java.sql.SQLException: Field \'role_id\' doesn\'t have a default value', '0:0:0:0:0:0:0:1', 1, '2019-01-19 21:36:32', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (252, 31, '13672297775', '导入权限配置', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/permission-import-export/import-permission', 'POST', NULL, 1001, '成功导入权限配置信息', 'top.zywork.controller.PermissionImportExportController', 'importPermissions', '2019-01-19 21:38:04', 677, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-19 21:38:03', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -1599,6 +1749,35 @@ INSERT INTO `t_user_wallet` VALUES (37, '', 0, 0, 0, NULL, NULL, NULL, 1, '2019-
 INSERT INTO `t_user_wallet` VALUES (38, '', 0, 0, 0, NULL, NULL, NULL, 1, '2019-01-07 19:28:25', NULL, 0);
 INSERT INTO `t_user_wallet` VALUES (40, '', 0, 0, 0, 0, 0, 0, 1, '2019-01-17 10:30:21', NULL, 0);
 COMMIT;
+
+-- ----------------------------
+-- Procedure structure for initStatisticsDay
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `initStatisticsDay`;
+delimiter ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `initStatisticsDay`(in beginDate datetime, in totalDays int)
+BEGIN
+	declare days int default 0;
+	declare theDate datetime;
+	declare hasError integer default 0;
+	declare continue handler for sqlexception set hasError = 1;
+	start transaction;
+		delete from t_statistics_day;
+		while days < totalDays
+			do
+				set theDate = date_add(beginDate, interval days day);
+				insert into t_statistics_day(the_date, am_pm) values(theDate, 'am');
+				insert into t_statistics_day(the_date, am_pm) values(theDate, 'pm');
+				set days = days + 1;
+		end while;
+	if hasError = 1 then
+		rollback;
+	else
+		commit;
+  end if;
+END;
+;;
+delimiter ;
 
 -- ----------------------------
 -- Procedure structure for invite_user

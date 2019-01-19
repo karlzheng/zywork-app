@@ -6,21 +6,21 @@ import java.util.Date;
 /**
  * StatisticsDauDO数据对象实体类<br/>
  *
- * 创建于2019-01-18<br/>
+ * 创建于2019-01-19<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class StatisticsDauDO extends BaseDO {
 
-    private static final long serialVersionUID = -9223372036240497926L;
+    private static final long serialVersionUID = -9223372035022716989L;
 
     // DAU编号
 	private Long id;
 	// DAU
-	private Integer dau;
-	// 统计日期
-	private Date statisticsDate;
+	private Long dau;
+	// 统计时间
+	private Date statisticsTime;
 	// 版本号
 	private Integer version;
 	// 创建时间
@@ -32,10 +32,10 @@ public class StatisticsDauDO extends BaseDO {
 	
     public StatisticsDauDO () {}
 
-    public StatisticsDauDO (Long id, Integer dau, Date statisticsDate, Integer version, Date createTime, Date updateTime, Byte isActive) {
+    public StatisticsDauDO (Long id, Long dau, Date statisticsTime, Integer version, Date createTime, Date updateTime, Byte isActive) {
         this.id = id;
 		this.dau = dau;
-		this.statisticsDate = statisticsDate;
+		this.statisticsTime = statisticsTime;
 		this.version = version;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
@@ -51,20 +51,20 @@ public class StatisticsDauDO extends BaseDO {
 		this.id = id;
 	}
 
-	public Integer getDau() {
+	public Long getDau() {
 		return dau;
 	}
 
-	public void setDau(Integer dau) {
+	public void setDau(Long dau) {
 		this.dau = dau;
 	}
 
-	public Date getStatisticsDate() {
-		return statisticsDate;
+	public Date getStatisticsTime() {
+		return statisticsTime;
 	}
 
-	public void setStatisticsDate(Date statisticsDate) {
-		this.statisticsDate = statisticsDate;
+	public void setStatisticsTime(Date statisticsTime) {
+		this.statisticsTime = statisticsTime;
 	}
 
 	public Integer getVersion() {
@@ -105,7 +105,7 @@ public class StatisticsDauDO extends BaseDO {
         return "StatisticsDauDO {" +
                 "id = " + id + 
 				", dau = " + dau + 
-				", statisticsDate = " + statisticsDate + 
+				", statisticsTime = " + statisticsTime + 
 				", version = " + version + 
 				", createTime = " + createTime + 
 				", updateTime = " + updateTime + 

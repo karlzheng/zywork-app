@@ -47,16 +47,16 @@
 </i-col>
 </Row>
 </FormItem>
-<FormItem label="统计日期"><Row>
+<FormItem label="统计时间"><Row>
 	<i-col span="11">
-	<FormItem prop="statisticsDateMin">
-	<DatePicker @on-change="searchForm.statisticsDateMin=$event" :value="searchForm.statisticsDateMin" placeholder="请输入开始统计日期" type="datetime" format="yyyy-MM-dd HH:mm:ss" style="width: 100%;"></DatePicker>
+	<FormItem prop="statisticsTimeMin">
+	<DatePicker @on-change="searchForm.statisticsTimeMin=$event" :value="searchForm.statisticsTimeMin" placeholder="请输入开始统计时间" type="datetime" format="yyyy-MM-dd HH:mm:ss" style="width: 100%;"></DatePicker>
 </FormItem>
 </i-col>
 	<i-col span="2" style="text-align: center">-</i-col>
 	<i-col span="11">
-	<FormItem prop="statisticsDateMax">
-	<DatePicker @on-change="searchForm.statisticsDateMax=$event" :value="searchForm.statisticsDateMax" placeholder="请输入结束统计日期" type="datetime" format="yyyy-MM-dd HH:mm:ss" style="width: 100%;"></DatePicker>
+	<FormItem prop="statisticsTimeMax">
+	<DatePicker @on-change="searchForm.statisticsTimeMax=$event" :value="searchForm.statisticsTimeMax" placeholder="请输入结束统计时间" type="datetime" format="yyyy-MM-dd HH:mm:ss" style="width: 100%;"></DatePicker>
 </FormItem>
 </i-col>
 </Row>
@@ -128,7 +128,7 @@
     <Modal v-model="modal.detail" title="详情">
       <p>DAU编号: <span v-text="form.id"></span></p>
 <p>DAU: <span v-text="form.dau"></span></p>
-<p>统计日期: <span v-text="form.statisticsDate"></span></p>
+<p>统计时间: <span v-text="form.statisticsTime"></span></p>
 <p>版本号: <span v-text="form.version"></span></p>
 <p>创建时间: <span v-text="form.createTime"></span></p>
 <p>更新时间: <span v-text="form.updateTime"></span></p>
@@ -163,7 +163,7 @@
         form: {
           id: null,
 dau: null,
-statisticsDate: null,
+statisticsTime: null,
 version: null,
 createTime: null,
 updateTime: null,
@@ -181,9 +181,9 @@ idMax: null,
 dau: null,
 dauMin: null, 
 dauMax: null, 
-statisticsDate: null,
-statisticsDateMin: null, 
-statisticsDateMax: null, 
+statisticsTime: null,
+statisticsTimeMin: null, 
+statisticsTimeMax: null, 
 version: null,
 versionMin: null, 
 versionMax: null, 
@@ -229,8 +229,8 @@ width: 120,
 sortable: true
 },
 {
-title: '统计日期',
-key: 'statisticsDate',
+title: '统计时间',
+key: 'statisticsTime',
 width: 120,
 sortable: true
 },
@@ -338,7 +338,7 @@ sortable: true
         utils.changePageSize(this, pageSize)
       },
       fitTable() {
-        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['id','dau','statisticsDate','version','createTime','updateTime','isActive',])
+        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['id','dau','statisticsTime','version','createTime','updateTime','isActive',])
       },
       confirmSelection() {
         // 确认选择的逻辑

@@ -32,8 +32,8 @@ public class DauSaveJob implements Job {
         int dauCount = jwtTokenRedisUtils.getDau();
         jwtTokenRedisUtils.removeDau();
         StatisticsDauDO statisticsDauDO = new StatisticsDauDO();
-        statisticsDauDO.setDau(dauCount);
-        statisticsDauDO.setStatisticsDate(DateUtils.millisToDate(DateUtils.millis(LocalDateTime.now().minusSeconds(60))));
+        statisticsDauDO.setDau((long) dauCount);
+        statisticsDauDO.setStatisticsTime(DateUtils.millisToDate(DateUtils.millis(LocalDateTime.now().minusSeconds(60))));
         statisticsDauService.save(statisticsDauDO);
     }
 

@@ -1,0 +1,45 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.zywork.dao.UserLivenessStatisticsDAO">
+
+    <select id="countAllRegUser" resultType="long">
+        select count(id) from t_user
+    </select>
+
+    <select id="countDayRegUserByTime" resultType="top.zywork.vo.StatisticsDayCountVO">
+        select count(t_user.id) as totalCount,
+        date_format(sDate.the_date, '%Y-%m-%d') as dateStr
+        from t_user right join
+        (
+        select distinct t_statistics_day.the_date from t_statistics_day where
+        t_statistics_day.the_date <![CDATA[>=]]> #{beginTime}
+        and t_statistics_day.the_date <![CDATA[<=]]> #{endTime}
+        ) as sDate
+        on date_format(t_user.create_time, '%Y-%m-%d') = sDate.the_date
+        group by sDate.the_date order by sDate.the_date asc;
+    </select>
+
+    <select id="countAllRegUserByTime" resultType="long">
+        select count(id) from t_user where create_time <![CDATA[>=]]> #{beginTime} and create_time <![CDATA[<=]]> #{endTime}
+    </select>
+
+    <select id="getDayDauByTime" resultType="top.zywork.vo.StatisticsDayCountVO">
+        select ifnull(t_statistics_dau.dau, 0) as totalCount,
+        date_format(sDate.the_date, '%Y-%m-%d') as dateStr
+        from t_statistics_dau right join
+        (
+        select distinct t_statistics_day.the_date from t_statistics_day where
+        t_statistics_day.the_date <![CDATA[>=]]> #{beginTime}
+        and t_statistics_day.the_date <![CDATA[<=]]> #{endTime}
+        )
+        as sDate on date_format(t_statistics_dau.statistics_time, '%Y-%m-%d') = sDate.the_date
+        group by t_statistics_dau.dau, sDate.the_date order by sDate.the_date asc;
+    </select>
+
+    <select id="getAllDauByTime" resultType="long">
+        select sum(dau) from t_statistics_dau where statistics_time <![CDATA[>=]]> #{beginTime} and statistics_time <![CDATA[<=]]> #{endTime}
+    </select>
+
+</mapper>
