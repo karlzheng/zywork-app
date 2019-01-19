@@ -158,10 +158,10 @@ public class SchedulerController extends BaseController {
         }
         SchedulerUtils.initScheduler(schedulerFactoryBean);
         if (SchedulerUtils.deleteJob(jobName, jobGroup, triggerName, triggerGroup)) {
-            schedulerService.update(getSchedulerDTO(jobId, SchedulerJobStatusEnum.PAUSED));
-            return ResponseStatusVO.ok("成功恢复定时任务", null);
+            schedulerService.update(getSchedulerDTO(jobId, SchedulerJobStatusEnum.DELETED));
+            return ResponseStatusVO.ok("成功删除调度器中的定时任务", null);
         }
-        return ResponseStatusVO.error("定时任务恢复失败，请检查所有参数", null);
+        return ResponseStatusVO.error("调度器中定时任务删除失败，请检查所有参数", null);
     }
 
     /**
