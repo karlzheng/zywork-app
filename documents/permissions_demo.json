@@ -749,22 +749,8 @@
                 ]
             },
             {
-                "title": "演示-Redis缓存管理-搜索key-value",
-                "permission": "/redis-manage/key-value",
-                "roles": [
-                    "sys_user_demo"
-                ]
-            },
-            {
                 "title": "演示-Redis缓存管理-获取keys个数",
                 "permission": "/redis-manage/keys-count",
-                "roles": [
-                    "sys_user_demo"
-                ]
-            },
-            {
-                "title": "演示-Redis缓存管理-获取指定key的value",
-                "permission": "/redis-manage/value",
                 "roles": [
                     "sys_user_demo"
                 ]
