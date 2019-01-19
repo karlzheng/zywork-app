@@ -117,7 +117,7 @@ public class AuthController {
         if (jwtUser == null) {
             return ResponseStatusVO.ok("未登录，无需退出", null);
         }
-        jwtTokenRedisUtils.removeToken(jwtUser.getUserId() + "");
+        jwtTokenRedisUtils.removeToken(jwtUser.getUserId() + "_" + jwtUser.getTokenCreateDate().getTime());
         return ResponseStatusVO.ok("已安全退出", null);
     }
 

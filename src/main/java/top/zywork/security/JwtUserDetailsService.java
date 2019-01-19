@@ -34,9 +34,9 @@ public class JwtUserDetailsService implements MyUserDetailsService {
                 authorities.add(new SimpleGrantedAuthority(role));
             }
             // authorities就是用户对应的角色, access list即为用户可访问的url
-            return new JwtUser(userDO.getId(), username, userDO.getPassword(), userDO.getIsActive() == 0, authorities);
+            return new JwtUser(userDO.getId(), username, userDO.getPassword(), userDO.getIsActive() == 0, authorities, null);
         } else {
-            return new JwtUser(0L, null, null, null);
+            return new JwtUser(0L, null, null, null, null);
         }
     }
 

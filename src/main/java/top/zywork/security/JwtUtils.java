@@ -136,7 +136,7 @@ public class JwtUtils {
      */
     public JwtUser getTokenJwtUser(JwtClaims jwtClaims) {
         return new JwtUser(jwtClaims.getUserId(), jwtClaims.getUsername(), new BCryptPasswordEncoder().encode("password"), jwtClaims.getEnabled(),
-                jwtClaims.getNonExpired(), true, jwtClaims.getNonLocked(), jwtClaims.getAuthorities());
+                jwtClaims.getNonExpired(), true, jwtClaims.getNonLocked(), jwtClaims.getAuthorities(), jwtClaims.getCreateDate());
     }
 
     /**
