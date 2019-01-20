@@ -33,4 +33,10 @@ public interface RoleDAO extends BaseDAO {
      * 删除所有角色
      */
     void removeAll();
+
+    /**
+     * 按id排序获取所有角色
+     * @return
+     */
+    List<Object> listAllIdAsc();
 }

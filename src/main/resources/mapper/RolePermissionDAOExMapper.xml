@@ -40,7 +40,9 @@
     </delete>
 
     <select id="listRolesByPermissionId" parameterType="long" resultType="string">
-        select t_role.title from t_role_permission, t_role where t_role.id = t_role_permission.role_id and t_role_permission.permission_id = #{permissionId}
+        select t_role.title from t_role_permission, t_role
+        where t_role.id = t_role_permission.role_id and t_role_permission.permission_id = #{permissionId}
+        order by t_role.id
     </select>
 
 </mapper>

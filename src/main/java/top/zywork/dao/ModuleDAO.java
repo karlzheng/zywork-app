@@ -26,4 +26,11 @@ public interface ModuleDAO extends BaseDAO {
      * 删除所有模块
      */
     void removeAll();
+
+    /**
+     * 按id排序获取所有模块
+     * @return
+     */
+    List<Object> listAllIdAsc();
+
 }

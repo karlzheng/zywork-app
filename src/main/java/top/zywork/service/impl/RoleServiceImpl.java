@@ -39,9 +39,8 @@ public class RoleServiceImpl extends AbstractBaseService implements RoleService 
     @SuppressWarnings({"unchecked"})
     public List<RoleExportVO> exportRoles() {
         List<RoleExportVO> roleExportVOList = new ArrayList<>();
-        List<RoleDO> roleDOList = (List) roleDAO.listAll();
-        for (int i = roleDOList.size() - 1; i >= 0; i--) {
-            RoleDO roleDO = roleDOList.get(i);
+        List<RoleDO> roleDOList = (List) roleDAO.listAllIdAsc();
+        for (RoleDO roleDO : roleDOList) {
             RoleExportVO roleExportVO = new RoleExportVO(roleDO.getTitle(), roleDO.getDescription(), roleDO.getIsDefault());
             roleExportVOList.add(roleExportVO);
         }
