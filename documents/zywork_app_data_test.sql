@@ -1785,7 +1785,7 @@ BEGIN
 	declare hasError integer default 0;
 	declare continue handler for sqlexception set hasError = 1;
 	start transaction;
-		delete from t_statistics_day;
+		truncate table t_statistics_day;
 		while days < totalDays
 			do
 				set theDate = date_add(beginDate, interval days day);
