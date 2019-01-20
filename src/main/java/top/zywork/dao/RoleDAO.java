@@ -28,4 +28,9 @@ public interface RoleDAO extends BaseDAO {
      * @return
      */
     Long getByTitle(String title);
+
+    /**
+     * 删除所有角色
+     */
+    void removeAll();
 }

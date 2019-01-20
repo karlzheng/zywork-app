@@ -17,6 +17,7 @@ import top.zywork.service.PermissionImportExportService;
 import top.zywork.service.RoleService;
 import top.zywork.vo.PermissionImportExportVO;
 import top.zywork.vo.ResponseStatusVO;
+import top.zywork.vo.RoleExportVO;
 import top.zywork.vo.RoleVO;
 
 import javax.servlet.http.HttpServletResponse;
@@ -56,11 +57,26 @@ public class PermissionImportExportController {
             if (roleVOList.size() == 0) {
                 return ResponseStatusVO.dataError("JSON文件内没有角色信息", null);
             }
-            roleService.saveBatch(roleVOList);
+            roleService.importRoles(roleVOList);
             return ResponseStatusVO.ok("成功导入角色信息", null);
         } catch (IOException e) {
             logger.error("read json from input stream error: {}", e.getMessage());
             return ResponseStatusVO.dataError("JSON文件错误", null);
+        }
+    }
+
+    @GetMapping("export-roles")
+    @SysLog(description = "导出角色信息", requestParams = false)
+    public void exportRoles(HttpServletResponse response) {
+        List<RoleExportVO> roleExportVOList = roleService.exportRoles();
+        String jsonString = JSON.toJSONString(roleExportVOList);
+        response.setContentType(ContentTypeEnum.TEXT_PLAIN.getValue());
+        response.addHeader("Content-Disposition", "attachment;fileName=roles.json");
+        try {
+            PrintWriter writer = response.getWriter();
+            writer.write(jsonString);
+        } catch (IOException e) {
+            logger.error("writer roles json file error: {}", e.getMessage());
         }
     }
 

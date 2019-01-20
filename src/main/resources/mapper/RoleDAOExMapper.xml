@@ -8,4 +8,8 @@
         select id from t_role where title = #{title}
     </select>
 
+    <delete id="removeAll">
+        truncate table t_role
+    </delete>
+
 </mapper>

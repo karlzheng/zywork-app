@@ -36,7 +36,7 @@
     </insert>
 
     <delete id="removeAll">
-        delete from t_role_permission
+        truncate table t_role_permission
     </delete>
 
     <select id="listRolesByPermissionId" parameterType="long" resultType="string">

@@ -5,7 +5,7 @@
 <mapper namespace="top.zywork.dao.PermissionDAO">
 
     <delete id="removeAll">
-        delete from t_permission
+        truncate table t_permission
     </delete>
 
 </mapper>

@@ -81,7 +81,8 @@ public class PermissionImportExportServiceImpl implements PermissionImportExport
         List<PermissionImportExportVO> permissionImportExportVOList = new ArrayList<>();
         // 获取所有模块信息
         List<ModuleDO> moduleDOList = (List) moduleDAO.listAll();
-        for (ModuleDO moduleDO : moduleDOList) {
+        for (int i = moduleDOList.size() - 1; i >= 0; i--) {
+            ModuleDO moduleDO = moduleDOList.get(i);
             PermissionImportExportVO permissionImportExportVO = new PermissionImportExportVO();
             permissionImportExportVO.setModuleTitle(moduleDO.getTitle());
             List<ModulePermissionDO> modulePermissionDOList = (List) modulePermissionDAO.listById(moduleDO.getId());

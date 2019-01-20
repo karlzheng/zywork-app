@@ -2,13 +2,17 @@ package top.zywork.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import top.zywork.dao.RoleDAO;
 import top.zywork.dos.RoleDO;
 import top.zywork.dto.RoleDTO;
 import top.zywork.service.AbstractBaseService;
 import top.zywork.service.RoleService;
+import top.zywork.vo.RoleExportVO;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * RoleServiceImpl服务接口实现类<br/>
@@ -22,6 +26,27 @@ import javax.annotation.PostConstruct;
 public class RoleServiceImpl extends AbstractBaseService implements RoleService {
 
     private RoleDAO roleDAO;
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    @SuppressWarnings({"unchecked"})
+    public void importRoles(List roleVOList) {
+        roleDAO.removeAll();
+        roleDAO.saveBatch(roleVOList);
+    }
+
+    @Override
+    @SuppressWarnings({"unchecked"})
+    public List<RoleExportVO> exportRoles() {
+        List<RoleExportVO> roleExportVOList = new ArrayList<>();
+        List<RoleDO> roleDOList = (List) roleDAO.listAll();
+        for (int i = roleDOList.size() - 1; i >= 0; i--) {
+            RoleDO roleDO = roleDOList.get(i);
+            RoleExportVO roleExportVO = new RoleExportVO(roleDO.getTitle(), roleDO.getDescription(), roleDO.getIsDefault());
+            roleExportVOList.add(roleExportVO);
+        }
+        return roleExportVOList;
+    }
 
     @Autowired
     public void setRoleDAO(RoleDAO roleDAO) {
