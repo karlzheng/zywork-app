@@ -84,7 +84,7 @@ public class UserRegServiceImpl implements UserRegService {
     }
 
     @Override
-    public void updateWeixinUserDetail(String openid, String nickname, String headicon, byte gender) {
+    public void updateWeixinUserDetail(String openid, String nickname, String headicon, Byte gender) {
         userRegDAO.updateWeixinUserDetail(openid, nickname, headicon, gender);
     }
 

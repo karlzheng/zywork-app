@@ -40,7 +40,7 @@
     </update>
 
     <update id="updateWeixinUserSocial">
-        update t_user_detail
+        update t_user_social
         <set>
             <if test="accessToken != null and accessToken != ''" >
                 access_token = #{accessToken},
@@ -49,7 +49,7 @@
                 session_key = #{sessionKey},
             </if>
         </set>
-        where id = (select user_id from t_user_social where openid = #{openid})
+        where openid = #{openid}
     </update>
 
     <select id="getSessionKeyByOpenid" parameterType="string" resultType="string">

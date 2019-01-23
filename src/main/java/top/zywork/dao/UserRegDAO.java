@@ -42,7 +42,7 @@ public interface UserRegDAO {
      * @param shareCode
      */
     void saveWeixinUserDetail(@Param("userId") Long userId, @Param("nickname") String nickname,
-                           @Param("headicon") String headicon, @Param("gender") byte gender,
+                           @Param("headicon") String headicon, @Param("gender") Byte gender,
                            @Param("shareCode") String shareCode);
 
     /**
@@ -61,7 +61,7 @@ public interface UserRegDAO {
      * @param headicon
      * @param gender
      */
-    void updateWeixinUserDetail(@Param("openid") String openid, @Param("nickname") String nickname, @Param("headicon") String headicon, @Param("gender") byte gender);
+    void updateWeixinUserDetail(@Param("openid") String openid, @Param("nickname") String nickname, @Param("headicon") String headicon, @Param("gender") Byte gender);
 
     /**
      * 更新第三方登录的access token 或 session key

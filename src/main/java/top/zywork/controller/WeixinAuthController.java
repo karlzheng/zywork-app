@@ -155,7 +155,7 @@ public class WeixinAuthController {
         if (StringUtils.isEmpty(code)) {
             return ResponseStatusVO.dataError("微信授权登录缺少code", null);
         }
-        WeixinXcxConfig weixinXcxConfig = sysConfigService.getByName(SysConfigEnum.WEIXIN_GZH_CONFIG.getValue(), WeixinXcxConfig.class);
+        WeixinXcxConfig weixinXcxConfig = sysConfigService.getByName(SysConfigEnum.WEIXIN_XCX_CONFIG.getValue(), WeixinXcxConfig.class);
         XcxAuth xcxAuth = WeixinUtils.authXcx(weixinXcxConfig.getAppId(), weixinXcxConfig.getAppSecret(), code);
         if (xcxAuth == null) {
             return ResponseStatusVO.error("微信授权登录失败，请检查参数", null);

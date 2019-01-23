@@ -61,7 +61,7 @@ public interface UserRegService {
      * @param headicon
      * @param gender
      */
-    void updateWeixinUserDetail(String openid, String nickname, String headicon, byte gender);
+    void updateWeixinUserDetail(String openid, String nickname, String headicon, Byte gender);
 
     /**
      * 更新第三方登录的access token 或 session key
