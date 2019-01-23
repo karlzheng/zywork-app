@@ -211,6 +211,7 @@ public class WeixinAuthController {
      * @param iv            iv向量
      * @return
      */
+    @PostMapping("xcx-phone")
     public ResponseStatusVO xcxUserPhone(String openid, String encryptedData, String iv) {
         XcxPhone xcxPhone = WeixinUtils.decryptPhoneData(userRegService.getSessionKeyByOpenid(openid), encryptedData, iv);
         userRegService.updateUserPhone(openid, xcxPhone.getPhoneNumber());
