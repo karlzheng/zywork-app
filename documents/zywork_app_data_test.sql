@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 20/01/2019 13:10:16
+ Date: 24/01/2019 10:23:41
 */
 
 SET NAMES utf8mb4;
@@ -58,8 +58,8 @@ CREATE TABLE `t_funds_frezee` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '充值编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
   `amount` bigint(20) NOT NULL COMMENT '金额',
-  `frezee_type` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '类型',
-  `frezee_description` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '描述',
+  `frezee_type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '类型',
+  `frezee_description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '描述',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
@@ -75,10 +75,10 @@ CREATE TABLE `t_funds_recharge` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '充值编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
   `amount` bigint(20) NOT NULL COMMENT '充值金额',
-  `recharge_type` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '充值类型',
+  `recharge_type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '充值类型',
   `is_success` tinyint(4) DEFAULT '0' COMMENT '是否成功',
-  `out_trade_no` varchar(64) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '商户订单号',
-  `trade_no` varchar(64) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '支付系统订单号',
+  `out_trade_no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '商户订单号',
+  `trade_no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '支付系统订单号',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
@@ -106,8 +106,8 @@ CREATE TABLE `t_funds_transfer` (
   `amount` bigint(20) NOT NULL COMMENT '金额',
   `from_user_id` bigint(20) DEFAULT NULL COMMENT 'FROM',
   `to_user_id` bigint(20) DEFAULT NULL COMMENT 'TO',
-  `transfer_type` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '类型',
-  `transfer_description` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '描述',
+  `transfer_type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '类型',
+  `transfer_description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '描述',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
@@ -136,7 +136,7 @@ CREATE TABLE `t_funds_withdraw` (
   `amount` bigint(20) NOT NULL COMMENT '提现金额',
   `bankcard_id` bigint(20) NOT NULL COMMENT '提现银行卡',
   `withdraw_status` tinyint(4) DEFAULT NULL COMMENT '提现状态',
-  `withdraw_description` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '提现描述',
+  `withdraw_description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '提现描述',
   `checked_user_id` bigint(20) DEFAULT NULL COMMENT '审核人编号',
   `checked_time` datetime DEFAULT NULL COMMENT '审核时间',
   `complete_time` datetime DEFAULT NULL COMMENT '完成时间',
@@ -211,7 +211,7 @@ CREATE TABLE `t_goods_attribute_value` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '商品属性值编号',
   `goods_sku_id` bigint(20) NOT NULL COMMENT 'SKU编号',
   `attr_id` bigint(20) NOT NULL COMMENT '属性编号',
-  `attr_code` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '属性代码',
+  `attr_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '属性代码',
   `attr_value` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '属性值',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -280,7 +280,7 @@ CREATE TABLE `t_goods_comment` (
   `goods_sku_id` bigint(20) NOT NULL COMMENT 'SKU编号',
   `comments` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '评论详情',
   `append_comment` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '追加评论',
-  `reply` varchar(1000) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '回复详情',
+  `reply` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '回复详情',
   `stick_status` tinyint(4) DEFAULT '0' COMMENT '置顶状态',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -296,7 +296,7 @@ DROP TABLE IF EXISTS `t_goods_comment_pic`;
 CREATE TABLE `t_goods_comment_pic` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '评论图片编号',
   `comment_id` bigint(20) NOT NULL COMMENT '评论编号',
-  `pic_url` varchar(500) COLLATE utf8mb4_general_ci NOT NULL COMMENT '图片URL',
+  `pic_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '图片URL',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
@@ -313,7 +313,7 @@ CREATE TABLE `t_goods_coupon` (
   `category_id` bigint(20) DEFAULT NULL COMMENT '商品类目编号',
   `goods_id` bigint(20) DEFAULT NULL COMMENT '商品编号',
   `goods_sku_id` bigint(20) DEFAULT NULL COMMENT '商品SKU编号',
-  `title` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '优惠券标题',
+  `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '优惠券标题',
   `use_min_amount` bigint(20) DEFAULT NULL COMMENT '最小消费金额',
   `discount_amount` bigint(20) DEFAULT NULL COMMENT '满减优惠金额',
   `discount_percent` double(3,0) DEFAULT NULL COMMENT '满减折扣',
@@ -440,7 +440,7 @@ CREATE TABLE `t_goods_order_logistics` (
   `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '详细地址',
   `is_deliver` tinyint(4) DEFAULT '0' COMMENT '是否已发货',
   `logistics_company` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '物流公司名称',
-  `logistics_code` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '物流公司编码',
+  `logistics_code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '物流公司编码',
   `logistics_no` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '物流单号',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -474,12 +474,12 @@ CREATE TABLE `t_goods_shop` (
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
   `category_id` bigint(20) NOT NULL COMMENT '类目编号',
   `subject_type` tinyint(4) NOT NULL COMMENT '主体类型',
-  `logo` varchar(500) COLLATE utf8mb4_general_ci NOT NULL COMMENT '店铺Logo',
-  `title` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '店铺标题',
+  `logo` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '店铺Logo',
+  `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '店铺标题',
   `intro` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '店铺简介',
   `level` tinyint(4) DEFAULT '1' COMMENT '店铺等级',
   `check_status` tinyint(4) DEFAULT NULL COMMENT '审核状态',
-  `check_description` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '审核描述',
+  `check_description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '审核描述',
   `checked_user_id` tinyint(4) DEFAULT NULL COMMENT '审核人编号',
   `checked_time` datetime DEFAULT NULL COMMENT '审核时间',
   `version` int(11) DEFAULT NULL COMMENT '版本号',
@@ -512,7 +512,7 @@ CREATE TABLE `t_goods_shop_check` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '店铺审核编号',
   `shop_id` bigint(20) NOT NULL COMMENT '店铺编号',
   `check_status` tinyint(4) DEFAULT '0' COMMENT '审核状态',
-  `check_description` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '审核描述',
+  `check_description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '审核描述',
   `checked_user_id` tinyint(4) DEFAULT NULL COMMENT '审核人编号',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -574,7 +574,7 @@ DROP TABLE IF EXISTS `t_message`;
 CREATE TABLE `t_message` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '消息编号',
   `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '消息标题',
-  `summary` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '消息摘要',
+  `summary` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '消息摘要',
   `content` varchar(5000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '消息内容',
   `message_type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '消息类型',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
@@ -590,8 +590,8 @@ CREATE TABLE `t_message` (
 DROP TABLE IF EXISTS `t_module`;
 CREATE TABLE `t_module` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '模块编号',
-  `title` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '模块标题',
-  `description` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '模块描述',
+  `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '模块标题',
+  `description` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '模块描述',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
@@ -657,15 +657,31 @@ INSERT INTO `t_notice` VALUES (1, '公告标题', '公告摘要', '公告内容'
 COMMIT;
 
 -- ----------------------------
+-- Table structure for t_organization
+-- ----------------------------
+DROP TABLE IF EXISTS `t_organization`;
+CREATE TABLE `t_organization` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '组织编号',
+  `parent_id` bigint(20) NOT NULL COMMENT '父编号',
+  `title` varchar(20) COLLATE utf8mb4_general_ci NOT NULL COMMENT '组织名称',
+  `description` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '组织描述',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='组织或部门表';
+
+-- ----------------------------
 -- Table structure for t_permission
 -- ----------------------------
 DROP TABLE IF EXISTS `t_permission`;
 CREATE TABLE `t_permission` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '权限编号',
   `module_id` bigint(20) NOT NULL COMMENT '所属模块',
-  `title` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '权限标题',
-  `permission` varchar(200) COLLATE utf8mb4_general_ci NOT NULL COMMENT '权限字符串',
-  `description` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '权限描述',
+  `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '权限标题',
+  `permission` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '权限字符串',
+  `description` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '权限描述',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
@@ -782,9 +798,9 @@ COMMIT;
 DROP TABLE IF EXISTS `t_process`;
 CREATE TABLE `t_process` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '流程编号',
-  `name` varchar(200) COLLATE utf8mb4_general_ci NOT NULL COMMENT '流程标题',
-  `file_path` varchar(500) COLLATE utf8mb4_general_ci NOT NULL COMMENT '流程文件路径',
-  `description` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '流程描述',
+  `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '流程标题',
+  `file_path` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '流程文件路径',
+  `description` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '流程描述',
   `is_deploy` tinyint(4) DEFAULT '0' COMMENT '是否部署',
   `deploy_time` datetime DEFAULT NULL COMMENT '部署时间',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
@@ -800,8 +816,8 @@ CREATE TABLE `t_process` (
 DROP TABLE IF EXISTS `t_role`;
 CREATE TABLE `t_role` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '角色编号',
-  `title` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '角色标题',
-  `description` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '角色描述',
+  `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '角色标题',
+  `description` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '角色描述',
   `is_default` tinyint(4) DEFAULT '0' COMMENT '是否默认角色',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -814,7 +830,7 @@ CREATE TABLE `t_role` (
 -- Records of t_role
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_role` VALUES (1, 'super_sys_admin', '超级系统管理员', 0, 1, '2019-01-20 13:07:37', NULL, 0);
+INSERT INTO `t_role` VALUES (1, 'super_sys_admin', '超级系统管理员', 0, 3, '2019-01-20 13:07:37', '2019-01-23 18:14:57', 0);
 INSERT INTO `t_role` VALUES (2, 'sys_admin', '系统管理员', 0, 1, '2019-01-20 13:07:37', NULL, 0);
 INSERT INTO `t_role` VALUES (3, 'sys_dev', '系统研发人员', 0, 1, '2019-01-20 13:07:37', NULL, 0);
 INSERT INTO `t_role` VALUES (4, 'sys_user_demo', '系统演示用户', 0, 1, '2019-01-20 13:07:37', NULL, 0);
@@ -997,13 +1013,13 @@ COMMIT;
 DROP TABLE IF EXISTS `t_scheduler`;
 CREATE TABLE `t_scheduler` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '作业编号',
-  `name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '作业名称',
-  `class_name` varchar(200) COLLATE utf8mb4_general_ci NOT NULL COMMENT '完整类名',
-  `cron_expression` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT 'cron表达式',
-  `group_name` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '作业组名称',
-  `trigger_name` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '触发器名称',
-  `trigger_group` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '触发器组',
-  `description` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '作业描述',
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '作业名称',
+  `class_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '完整类名',
+  `cron_expression` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'cron表达式',
+  `group_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '作业组名称',
+  `trigger_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '触发器名称',
+  `trigger_group` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '触发器组',
+  `description` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '作业描述',
   `job_status` tinyint(4) DEFAULT '0' COMMENT '作业状态',
   `job_status_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '状态更新时间',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
@@ -1017,7 +1033,7 @@ CREATE TABLE `t_scheduler` (
 -- Records of t_scheduler
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_scheduler` VALUES (1, 'DauSaveJob', 'top.zywork.job.DauSaveJob', '*/10 * * * * ?', 'job_group', 'trigger_name', 'trigger_group', NULL, 0, '2019-01-18 17:42:22', 9, '2019-01-18 17:34:42', '2019-01-19 14:23:59', 0);
+INSERT INTO `t_scheduler` VALUES (1, 'DauSaveJob', 'top.zywork.job.DauSaveJob', '59 59 23 * * ?', 'job_group', 'trigger_name', 'trigger_group', NULL, 0, '2019-01-18 17:42:22', 9, '2019-01-18 17:34:42', '2019-01-19 14:23:59', 0);
 COMMIT;
 
 -- ----------------------------
@@ -1199,8 +1215,8 @@ CREATE TABLE `t_sys_config` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '配置编号',
   `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '配置名称',
   `value` varchar(5000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '配置内容(JSON)',
-  `description` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '中文说明',
-  `comment` varchar(5000) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '配置注释',
+  `description` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '中文说明',
+  `comment` varchar(5000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '配置注释',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
@@ -1227,11 +1243,11 @@ DROP TABLE IF EXISTS `t_sys_log`;
 CREATE TABLE `t_sys_log` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '日志编号',
   `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
-  `user_account` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '用户账号',
+  `user_account` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '用户账号',
   `description` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '执行说明',
-  `user_agent` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'User-Agent',
-  `request_url` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '请求URL',
-  `request_method` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '请求方式',
+  `user_agent` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'User-Agent',
+  `request_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '请求URL',
+  `request_method` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '请求方式',
   `request_params` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '请求参数',
   `response_code` int(11) DEFAULT NULL COMMENT '响应编码',
   `response_msg` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '响应消息',
@@ -1241,7 +1257,7 @@ CREATE TABLE `t_sys_log` (
   `execute_cost_time` bigint(20) DEFAULT NULL COMMENT '执行耗时(ms)',
   `has_exception` tinyint(4) DEFAULT '0' COMMENT '是否异常',
   `exception_msg` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '异常消息',
-  `execute_ip` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'IP地址',
+  `execute_ip` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'IP地址',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
@@ -1500,13 +1516,13 @@ CREATE TABLE `t_user` (
   `phone` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '手机号',
   `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '用户邮箱',
   `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '登录密码',
-  `salt` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '加密盐值',
+  `salt` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '加密盐值',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户基本信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户基本信息表';
 
 -- ----------------------------
 -- Records of t_user
@@ -1540,7 +1556,7 @@ CREATE TABLE `t_user_bankcard` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '银行卡编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
   `account_name` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '持卡人姓名',
-  `bank_code` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '银行代码',
+  `bank_code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '银行代码',
   `bank_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '银行名称',
   `bankcard_no` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '银行卡号',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
@@ -1562,7 +1578,7 @@ CREATE TABLE `t_user_certification` (
   `valid_date` date DEFAULT NULL COMMENT '身份证有效期',
   `idcard_front` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '身份证正面',
   `idcard_reverse` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '身份证反面',
-  `idcard_hand` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '手持身份证',
+  `idcard_hand` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '手持身份证',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
@@ -1576,18 +1592,18 @@ CREATE TABLE `t_user_certification` (
 DROP TABLE IF EXISTS `t_user_detail`;
 CREATE TABLE `t_user_detail` (
   `id` bigint(20) NOT NULL COMMENT '用户编号',
-  `nickname` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '昵称',
-  `headicon` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '头像地址',
+  `nickname` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '昵称',
+  `headicon` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '头像地址',
   `gender` tinyint(4) DEFAULT '0' COMMENT '性别',
   `birthday` date DEFAULT NULL COMMENT '生日',
   `age` int(11) DEFAULT NULL COMMENT '年龄',
-  `qq` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'QQ号',
-  `qq_qrcode` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'QQ二维码',
-  `wechat` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '微信号',
-  `wechat_qrcode` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '微信二维码',
-  `alipay` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '支付宝账号',
-  `alipay_qrcode` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '支付宝二维码',
-  `share_code` varchar(36) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '分享码',
+  `qq` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'QQ号',
+  `qq_qrcode` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'QQ二维码',
+  `wechat` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '微信号',
+  `wechat_qrcode` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '微信二维码',
+  `alipay` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '支付宝账号',
+  `alipay_qrcode` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '支付宝二维码',
+  `share_code` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '分享码',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
@@ -1653,6 +1669,21 @@ CREATE TABLE `t_user_message` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户消息表';
 
 -- ----------------------------
+-- Table structure for t_user_organization
+-- ----------------------------
+DROP TABLE IF EXISTS `t_user_organization`;
+CREATE TABLE `t_user_organization` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用户组织编号',
+  `user_id` bigint(20) NOT NULL COMMENT '用户编号',
+  `organization_id` bigint(20) NOT NULL COMMENT '组织编号',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户组织部门信息表';
+
+-- ----------------------------
 -- Table structure for t_user_path
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user_path`;
@@ -1688,7 +1719,7 @@ CREATE TABLE `t_user_role` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户角色表';
 
 -- ----------------------------
 -- Records of t_user_role
@@ -1718,16 +1749,16 @@ CREATE TABLE `t_user_social` (
   `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
   `openid` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'openid',
   `union_id` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'unionid',
-  `access_token` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'AccessToken',
-  `session_key` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'SessionKey',
-  `refresh_token` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '刷新Token',
-  `social_type` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '第三方登录类型',
+  `access_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'AccessToken',
+  `session_key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'SessionKey',
+  `refresh_token` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '刷新Token',
+  `social_type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '第三方登录类型',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '第三方登录绑定时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户第三方登录信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户第三方登录信息表';
 
 -- ----------------------------
 -- Records of t_user_social
