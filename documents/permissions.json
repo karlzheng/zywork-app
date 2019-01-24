@@ -139,14 +139,36 @@
         ]
     },
     {
-        "moduleTitle": "组织机构管理",
+        "moduleTitle": "组织部门管理",
         "permissions": [
             {
-                "title": "后台-组织机构管理",
+                "title": "后台-组织部门管理",
                 "permission": "/organization/admin/**",
                 "roles": [
                     "super_sys_admin",
                     "sys_admin"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "组织部门查询模块",
+        "permissions": [
+            {
+                "title": "后台-用户组织部门查询",
+                "permission": "/user-organization/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "用户-用户组织部门查询",
+                "permission": "/user-organization/user/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin",
+                    "sys_user"
                 ]
             }
         ]
