@@ -10,6 +10,9 @@ zywork-app依赖于zywork-common（[https://github.com/gz-zywork/zywork-common](
 
 zywork-common项目依赖了zywork-sdk（[https://github.com/gz-zywork/zywork-sdk](https://github.com/gz-zywork/zywork-sdk)）中的微信支付SDK，微信支付SDK需要自行mvn install。
 
+#### 官方网站及在线体验
+[赣州智悦科技-zywork.top](http://zywork.top)
+
 #### 使用的技术
 1. Maven
 2. SpringBoot
@@ -78,6 +81,9 @@ zywork-common项目依赖了zywork-sdk（[https://github.com/gz-zywork/zywork-sd
 12. 实现了部分分销代码，可支持```N级分销```，并可配置。功能包括获取顶级分销商，获取指定分销商的上下K级分销商，获取指定用户所在的用户路径等
 13. 系统消息管理（消息发送给指定的用户），用户消息查询，系统公告管理（所有用户可看）
 14. 文件上传工具类及文件上传示例，可支持图片压缩
+
+#### zywork-app在线体验发布日志
+1. V1.0.0，2019-01-22 22:45
 
 #### 支持与赞赏
 ![支持与赞赏](documents/wxpay.jpg)
