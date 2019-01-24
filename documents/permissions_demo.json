@@ -286,6 +286,40 @@
         ]
     },
     {
+        "moduleTitle": "组织机构管理",
+        "permissions": [
+            {
+                "title": "后台-组织机构管理",
+                "permission": "/organization/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "演示-组织机构管理-查询单个",
+                "permission": "/organization/admin/one/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-组织机构管理-查询所有",
+                "permission": "/organization/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-组织机构管理-分页查询",
+                "permission": "/organization/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
         "moduleTitle": "用户管理",
         "permissions": [
             {
@@ -668,6 +702,64 @@
                     "super_sys_admin",
                     "sys_admin",
                     "sys_user"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "消息管理",
+        "permissions": [
+            {
+                "title": "后台-消息管理",
+                "permission": "/message/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "演示-消息管理-查询单个",
+                "permission": "/message/admin/one/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-消息管理-查询所有",
+                "permission": "/message/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-消息管理-分页查询",
+                "permission": "/message/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "消息查询模块",
+        "permissions": [
+            {
+                "title": "后台-消息查询",
+                "permission": "/user-message/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin",
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "用户-消息查询",
+                "permission": "/user-message/user/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin",
+                    "sys_user",
+                    "sys_user_demo"
                 ]
             }
         ]

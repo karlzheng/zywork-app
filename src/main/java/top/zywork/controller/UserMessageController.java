@@ -3,14 +3,15 @@ package top.zywork.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 import top.zywork.common.BeanUtils;
 import top.zywork.dto.PagerDTO;
 import top.zywork.query.UserMessageQuery;
+import top.zywork.security.JwtUser;
+import top.zywork.security.SecurityUtils;
 import top.zywork.service.UserMessageService;
-import top.zywork.vo.ResponseStatusVO;
 import top.zywork.vo.PagerVO;
+import top.zywork.vo.ResponseStatusVO;
 import top.zywork.vo.UserMessageVO;
 
 /**
@@ -51,6 +52,21 @@ public class UserMessageController extends BaseController {
         PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
         pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), UserMessageVO.class));
         return ResponseStatusVO.ok("查询成功", pagerVO);
+    }
+
+    /**
+     * 用户查询消息
+     * @param userMessageQuery
+     * @return
+     */
+    @PostMapping("user/pager-cond")
+    public ResponseStatusVO userListPageByCondition(@RequestBody UserMessageQuery userMessageQuery) {
+        JwtUser jwtUser = SecurityUtils.getJwtUser();
+        if (jwtUser == null) {
+            return ResponseStatusVO.authenticationError();
+        }
+        userMessageQuery.setUserId(jwtUser.getUserId());
+        return listPageByCondition(userMessageQuery);
     }
 
     @Autowired
