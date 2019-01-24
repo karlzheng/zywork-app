@@ -419,21 +419,21 @@
             },
             {
                 "title": "演示-用户角色查询-查询单个",
-                "permission": "/user/admin/multi/**",
+                "permission": "/user-role/admin/multi/**",
                 "roles": [
                     "sys_user_demo"
                 ]
             },
             {
                 "title": "演示-用户角色查询-查询所有",
-                "permission": "/user/admin/all",
+                "permission": "/user-role/admin/all",
                 "roles": [
                     "sys_user_demo"
                 ]
             },
             {
                 "title": "演示-用户角色查询-分页查询",
-                "permission": "/user/admin/pager-cond",
+                "permission": "/user-role/admin/pager-cond",
                 "roles": [
                     "sys_user_demo"
                 ]
