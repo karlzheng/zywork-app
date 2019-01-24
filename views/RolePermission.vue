@@ -175,7 +175,7 @@ sortable: true
             {
               title: '操作',
               key: 'action',
-              width: 180,
+              width: 120,
               align: 'center',
               fixed: 'right',
               render: (h, params) => {
