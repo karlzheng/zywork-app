@@ -132,7 +132,7 @@ public class SchedulerController extends BaseController {
         }
         SchedulerUtils.initScheduler(schedulerFactoryBean);
         if (SchedulerUtils.stopJob(jobName, jobGroup, triggerName, triggerGroup)) {
-            schedulerService.update(getSchedulerDTO(jobId, SchedulerJobStatusEnum.PAUSED));
+            schedulerService.update(getSchedulerDTO(jobId, SchedulerJobStatusEnum.STOPED));
             return ResponseStatusVO.ok("成功停止定时任务", null);
         }
         return ResponseStatusVO.error("定时任务停止失败，请检查所有参数", null);

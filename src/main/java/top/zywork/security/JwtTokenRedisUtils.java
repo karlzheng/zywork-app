@@ -76,23 +76,6 @@ public class JwtTokenRedisUtils {
     }
 
     /**
-     * 日活用户计数
-     * @param count 加或减
-     */
-    private void updateDau(int count) {
-        if (RedisUtils.exists(redisTemplate, DAY_ACCESS_USER_COUNT)) {
-            RedisUtils.lock(redisTemplate, DAY_ACCESS_USER_COUNT, 60, TimeUnit.SECONDS);
-            int total = (int) RedisUtils.get(redisTemplate, DAY_ACCESS_USER_COUNT);
-            RedisUtils.save(redisTemplate, DAY_ACCESS_USER_COUNT, total + count);
-            RedisUtils.unlock(redisTemplate, DAY_ACCESS_USER_COUNT);
-        } else {
-            RedisUtils.lock(redisTemplate, DAY_ACCESS_USER_COUNT, 60, TimeUnit.SECONDS);
-            RedisUtils.save(redisTemplate, DAY_ACCESS_USER_COUNT, 1);
-            RedisUtils.unlock(redisTemplate, DAY_ACCESS_USER_COUNT);
-        }
-    }
-
-    /**
      * 登录时统计活跃用户<br/>
      * 此种方法的问题在于：<br/>
      * 1、如果用户不断的登录，退出，再登录，则同一个用户每一次的登录都会被视为活跃用户<br/>
@@ -134,7 +117,8 @@ public class JwtTokenRedisUtils {
      * @return
      */
     public int getDau() {
-        return (int) RedisUtils.get(redisTemplate, DAY_ACCESS_USER_COUNT);
+        Object count = RedisUtils.get(redisTemplate, DAY_ACCESS_USER_COUNT);
+        return count == null ? 0 : (Integer) count;
     }
 
     @Autowired
