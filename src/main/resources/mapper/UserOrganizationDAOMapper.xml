@@ -90,6 +90,22 @@
         order by t_user.update_time desc, t_user.create_time desc
     </select>
 
+	<select id="listAllByCondition" resultType="userOrganizationDO">
+		select
+		<include refid="select_columns"/>
+		from t_user, t_organization, t_user_organization
+		<where>
+			<include refid="query_where_clause"/>
+		</where>
+		order by
+		<if test="query.sortColumn != null and query.sortColumn != ''">
+			${query.sortColumn} ${query.sortOrder}
+		</if>
+		<if test="query.sortColumn == null or query.sortColumn == ''">
+			t_user.update_time desc, t_user.create_time desc
+		</if>
+	</select>
+
     <select id="listPageByCondition" resultType="userOrganizationDO">
         select
         <include refid="select_columns"/>

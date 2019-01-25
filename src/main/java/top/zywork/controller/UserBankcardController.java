@@ -193,6 +193,14 @@ public class UserBankcardController extends BaseController {
         return ResponseStatusVO.ok("查询成功", pagerVO);
     }
 
+    @PostMapping("admin/all-cond")
+    public ResponseStatusVO listAllByCondition(@RequestBody UserBankcardQuery userBankcardQuery) {
+        PagerDTO pagerDTO = userBankcardService.listAllByCondition(userBankcardQuery);
+        PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
+        pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), UserBankcardVO.class));
+        return ResponseStatusVO.ok("查询成功", pagerVO);
+    }
+
     @PostMapping("admin/pager-cond")
     public ResponseStatusVO listPageByCondition(@RequestBody UserBankcardQuery userBankcardQuery) {
         PagerDTO pagerDTO = userBankcardService.listPageByCondition(userBankcardQuery);

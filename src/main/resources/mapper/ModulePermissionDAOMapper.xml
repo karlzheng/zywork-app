@@ -117,6 +117,22 @@
         order by t_module.update_time desc, t_module.create_time desc
     </select>
 
+	<select id="listAllByCondition" resultType="modulePermissionDO">
+		select
+		<include refid="select_columns"/>
+		from t_module, t_permission
+		<where>
+			<include refid="query_where_clause"/>
+		</where>
+		order by
+		<if test="query.sortColumn != null and query.sortColumn != ''">
+			${query.sortColumn} ${query.sortOrder}
+		</if>
+		<if test="query.sortColumn == null or query.sortColumn == ''">
+			t_module.update_time desc, t_module.create_time desc
+		</if>
+	</select>
+
     <select id="listPageByCondition" resultType="modulePermissionDO">
         select
         <include refid="select_columns"/>

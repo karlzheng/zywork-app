@@ -6,6 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import top.zywork.dao.RoleDAO;
 import top.zywork.dos.RoleDO;
 import top.zywork.dto.RoleDTO;
+import top.zywork.enums.SqlSortOrderEnum;
+import top.zywork.query.RoleQuery;
 import top.zywork.service.AbstractBaseService;
 import top.zywork.service.RoleService;
 import top.zywork.vo.RoleExportVO;
@@ -39,7 +41,10 @@ public class RoleServiceImpl extends AbstractBaseService implements RoleService 
     @SuppressWarnings({"unchecked"})
     public List<RoleExportVO> exportRoles() {
         List<RoleExportVO> roleExportVOList = new ArrayList<>();
-        List<RoleDO> roleDOList = (List) roleDAO.listAllIdAsc();
+        RoleQuery roleQuery = new RoleQuery();
+        roleQuery.setSortColumn("id");
+        roleQuery.setSortOrder(SqlSortOrderEnum.ASC.getValue());
+        List<RoleDO> roleDOList = (List) roleDAO.listAllByCondition(roleQuery);
         for (RoleDO roleDO : roleDOList) {
             RoleExportVO roleExportVO = new RoleExportVO(roleDO.getTitle(), roleDO.getDescription(), roleDO.getIsDefault());
             roleExportVOList.add(roleExportVO);

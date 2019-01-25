@@ -63,6 +63,22 @@
         order by t_role.update_time desc, t_role.create_time desc
     </select>
 
+    <select id="listAllByCondition" resultType="rolePermissionDO">
+        select
+        <include refid="select_columns"/>
+        from t_role, t_permission, t_role_permission
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+        order by
+        <if test="query.sortColumn != null and query.sortColumn != ''">
+            ${query.sortColumn} ${query.sortOrder}
+        </if>
+        <if test="query.sortColumn == null or query.sortColumn == ''">
+            t_role.update_time desc, t_role.create_time desc
+        </if>
+    </select>
+
     <select id="listPageByCondition" resultType="rolePermissionDO">
         select
         <include refid="select_columns"/>

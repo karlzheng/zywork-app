@@ -118,6 +118,14 @@ public class SysLogController extends BaseController {
         return ResponseStatusVO.ok("查询成功", pagerVO);
     }
 
+    @PostMapping("admin/all-cond")
+    public ResponseStatusVO listAllByCondition(@RequestBody SysLogQuery sysLogQuery) {
+        PagerDTO pagerDTO = sysLogService.listAllByCondition(sysLogQuery);
+        PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
+        pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), SysLogVO.class));
+        return ResponseStatusVO.ok("查询成功", pagerVO);
+    }
+
     @PostMapping("admin/pager-cond")
     public ResponseStatusVO listPageByCondition(@RequestBody SysLogQuery sysLogQuery) {
         PagerDTO pagerDTO = sysLogService.listPageByCondition(sysLogQuery);

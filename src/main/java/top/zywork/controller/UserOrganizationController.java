@@ -47,6 +47,14 @@ public class UserOrganizationController extends BaseController {
         return ResponseStatusVO.ok("查询成功", pagerVO);
     }
 
+    @PostMapping("admin/all-cond")
+    public ResponseStatusVO listAllByCondition(@RequestBody UserOrganizationQuery userOrganizationQuery) {
+        PagerDTO pagerDTO = userOrganizationService.listAllByCondition(userOrganizationQuery);
+        PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
+        pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), UserOrganizationVO.class));
+        return ResponseStatusVO.ok("查询成功", pagerVO);
+    }
+
     @PostMapping("admin/pager-cond")
     public ResponseStatusVO listPageByCondition(@RequestBody UserOrganizationQuery userOrganizationQuery) {
         PagerDTO pagerDTO = userOrganizationService.listPageByCondition(userOrganizationQuery);

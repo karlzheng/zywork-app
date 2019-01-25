@@ -8,6 +8,9 @@ import top.zywork.dos.ModuleDO;
 import top.zywork.dos.ModulePermissionDO;
 import top.zywork.dos.PermissionDO;
 import top.zywork.dos.RolePermissionDO;
+import top.zywork.enums.SqlSortOrderEnum;
+import top.zywork.query.ModulePermissionQuery;
+import top.zywork.query.ModuleQuery;
 import top.zywork.service.PermissionImportExportService;
 import top.zywork.vo.PermissionImportExportVO;
 import top.zywork.vo.PermissionInnerVO;
@@ -80,11 +83,17 @@ public class PermissionImportExportServiceImpl implements PermissionImportExport
     public List<PermissionImportExportVO> exportPermissions() {
         List<PermissionImportExportVO> permissionImportExportVOList = new ArrayList<>();
         // 获取所有模块信息
-        List<ModuleDO> moduleDOList = (List) moduleDAO.listAllIdAsc();
+        ModuleQuery moduleQuery = new ModuleQuery();
+        moduleQuery.setSortColumn("id");
+        moduleQuery.setSortOrder(SqlSortOrderEnum.ASC.getValue());
+        List<ModuleDO> moduleDOList = (List) moduleDAO.listAllByCondition(moduleQuery);
         for (ModuleDO moduleDO : moduleDOList) {
             PermissionImportExportVO permissionImportExportVO = new PermissionImportExportVO();
             permissionImportExportVO.setModuleTitle(moduleDO.getTitle());
-            List<ModulePermissionDO> modulePermissionDOList = (List) modulePermissionDAO.listByIdAsc(moduleDO.getId());
+            ModulePermissionQuery modulePermissionQuery = new ModulePermissionQuery();
+            modulePermissionQuery.setSortColumn("permissionId");
+            modulePermissionQuery.setSortOrder(SqlSortOrderEnum.ASC.getValue());
+            List<ModulePermissionDO> modulePermissionDOList = (List) modulePermissionDAO.listAllByCondition(modulePermissionQuery);
             // 根据模块获取所有权限信息
             List<PermissionInnerVO> permissionInnerVOList = new ArrayList<>();
             for (ModulePermissionDO modulePermissionDO : modulePermissionDOList) {

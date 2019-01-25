@@ -8,10 +8,4 @@
         truncate table t_module
     </delete>
 
-    <select id="listAllIdAsc" resultType="moduleDO">
-        select id as id, title as title
-        from t_module
-        order by id
-    </select>
-
 </mapper>

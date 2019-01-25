@@ -118,6 +118,14 @@ public class MessageController extends BaseController {
         return ResponseStatusVO.ok("查询成功", pagerVO);
     }
 
+    @PostMapping("admin/all-cond")
+    public ResponseStatusVO listAllByCondition(@RequestBody MessageQuery messageQuery) {
+        PagerDTO pagerDTO = messageService.listAllByCondition(messageQuery);
+        PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
+        pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), MessageVO.class));
+        return ResponseStatusVO.ok("查询成功", pagerVO);
+    }
+
     @PostMapping("admin/pager-cond")
     public ResponseStatusVO listPageByCondition(@RequestBody MessageQuery messageQuery) {
         PagerDTO pagerDTO = messageService.listPageByCondition(messageQuery);

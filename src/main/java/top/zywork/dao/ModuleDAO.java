@@ -17,6 +17,9 @@ import java.util.List;
 public interface ModuleDAO extends BaseDAO {
 
     @Override
+    List<Object> listAllByCondition(@Param("query") Object queryObj);
+
+    @Override
     List<Object> listPageByCondition(@Param("query") Object queryObj);
 
     @Override
@@ -26,11 +29,5 @@ public interface ModuleDAO extends BaseDAO {
      * 删除所有模块
      */
     void removeAll();
-
-    /**
-     * 按id排序获取所有模块
-     * @return
-     */
-    List<Object> listAllIdAsc();
 
 }

@@ -18,6 +18,9 @@ import java.util.List;
 public interface ModulePermissionDAO extends BaseDAO {
 
     @Override
+    List<Object> listAllByCondition(@Param("query") Object queryObj);
+
+    @Override
     List<Object> listPageByCondition(@Param("query") Object queryObj);
 
     @Override
@@ -29,12 +32,5 @@ public interface ModulePermissionDAO extends BaseDAO {
      * @return
      */
     List<Object> listByUserId(Long userId);
-
-    /**
-     * 按权限的id排序获取指定模块下的所有权限
-     * @param id
-     * @return
-     */
-    List<Object> listByIdAsc(Long id);
 
 }

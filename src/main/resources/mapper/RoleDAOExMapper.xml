@@ -12,10 +12,4 @@
         truncate table t_role
     </delete>
 
-    <select id="listAllIdAsc" resultType="roleDO">
-        select title as title, description as description, is_default as isDefault
-        from t_role
-        order by id
-    </select>
-
 </mapper>

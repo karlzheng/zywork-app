@@ -15,11 +15,4 @@
         and t_permission.module_id = t_module.id
     </select>
 
-    <select id="listByIdAsc" parameterType="long" resultType="modulePermissionDO">
-        select t_permission.title as permissionTitle, t_permission.id as permissionId,
-        t_permission.permission as permissionPermission
-        from t_module, t_permission where t_module.id = #{id} and
-        t_module.id = t_permission.module_id order by t_permission.id
-    </select>
-
 </mapper>

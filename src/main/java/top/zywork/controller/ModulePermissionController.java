@@ -64,6 +64,14 @@ public class ModulePermissionController extends BaseController {
         return ResponseStatusVO.ok("查询成功", pagerVO);
     }
 
+    @PostMapping("admin/all-cond")
+    public ResponseStatusVO listAllByCondition(@RequestBody ModulePermissionQuery modulePermissionQuery) {
+        PagerDTO pagerDTO = modulePermissionService.listAllByCondition(modulePermissionQuery);
+        PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
+        pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), ModulePermissionVO.class));
+        return ResponseStatusVO.ok("查询成功", pagerVO);
+    }
+
     @PostMapping("admin/pager-cond")
     public ResponseStatusVO listPageByCondition(@RequestBody ModulePermissionQuery modulePermissionQuery) {
         PagerDTO pagerDTO = modulePermissionService.listPageByCondition(modulePermissionQuery);

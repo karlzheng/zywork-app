@@ -17,6 +17,9 @@ import java.util.List;
 public interface UserWalletDAO extends BaseDAO {
 
     @Override
+    List<Object> listAllByCondition(@Param("query") Object queryObj);
+
+    @Override
     List<Object> listPageByCondition(@Param("query") Object queryObj);
 
     @Override

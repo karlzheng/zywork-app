@@ -117,6 +117,14 @@ public class PermissionController extends BaseController {
         return ResponseStatusVO.ok("查询成功", pagerVO);
     }
 
+    @PostMapping("admin/all-cond")
+    public ResponseStatusVO listAllByCondition(@RequestBody PermissionQuery permissionQuery) {
+        PagerDTO pagerDTO = permissionService.listAllByCondition(permissionQuery);
+        PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
+        pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), PermissionVO.class));
+        return ResponseStatusVO.ok("查询成功", pagerVO);
+    }
+
     @PostMapping("admin/pager-cond")
     public ResponseStatusVO listPageByCondition(@RequestBody PermissionQuery permissionQuery) {
         PagerDTO pagerDTO = permissionService.listPageByCondition(permissionQuery);

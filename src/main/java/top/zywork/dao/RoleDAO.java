@@ -17,6 +17,9 @@ import java.util.List;
 public interface RoleDAO extends BaseDAO {
 
     @Override
+    List<Object> listAllByCondition(@Param("query") Object queryObj);
+
+    @Override
     List<Object> listPageByCondition(@Param("query") Object queryObj);
 
     @Override
@@ -34,9 +37,4 @@ public interface RoleDAO extends BaseDAO {
      */
     void removeAll();
 
-    /**
-     * 按id排序获取所有角色
-     * @return
-     */
-    List<Object> listAllIdAsc();
 }

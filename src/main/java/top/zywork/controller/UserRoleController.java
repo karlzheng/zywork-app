@@ -61,6 +61,14 @@ public class UserRoleController extends BaseController {
         return ResponseStatusVO.ok("查询成功", pagerVO);
     }
 
+    @PostMapping("admin/all-cond")
+    public ResponseStatusVO listAllByCondition(@RequestBody UserRoleQuery userRoleQuery) {
+        PagerDTO pagerDTO = userRoleService.listAllByCondition(userRoleQuery);
+        PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
+        pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), UserRoleVO.class));
+        return ResponseStatusVO.ok("查询成功", pagerVO);
+    }
+
     @PostMapping("admin/pager-cond")
     public ResponseStatusVO listPageByCondition(@RequestBody UserRoleQuery userRoleQuery) {
         PagerDTO pagerDTO = userRoleService.listPageByCondition(userRoleQuery);
