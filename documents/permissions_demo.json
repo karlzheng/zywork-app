@@ -311,6 +311,13 @@
                 ]
             },
             {
+                "title": "演示-组织部门管理-条件查询所有",
+                "permission": "/organization/admin/all-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
                 "title": "演示-组织部门管理-分页查询",
                 "permission": "/organization/admin/pager-cond",
                 "roles": [
