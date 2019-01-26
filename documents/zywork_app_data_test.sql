@@ -1099,7 +1099,7 @@ CREATE TABLE `t_scheduler` (
 -- Records of t_scheduler
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_scheduler` VALUES (1, 'DauSaveJob', 'top.zywork.job.DauSaveJob', '0/10 * * * * ?', 'job_group', 'trigger_name', 'trigger_group', NULL, 2, '2019-01-25 10:51:05', 17, '2019-01-18 17:34:42', '2019-01-25 10:51:04', 0);
+INSERT INTO `t_scheduler` VALUES (1, 'DauSaveJob', 'top.zywork.job.DauSaveJob', '59 59 23 * * ?', 'job_group', 'trigger_name', 'trigger_group', NULL, 2, '2019-01-25 10:51:05', 17, '2019-01-18 17:34:42', '2019-01-25 10:51:04', 0);
 COMMIT;
 
 -- ----------------------------
