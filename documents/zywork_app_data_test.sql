@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 25/01/2019 23:12:47
+ Date: 26/01/2019 12:24:21
 */
 
 SET NAMES utf8mb4;
@@ -658,7 +658,7 @@ CREATE TABLE `t_notice` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统公告表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统公告表';
 
 -- ----------------------------
 -- Records of t_notice
@@ -681,7 +681,7 @@ CREATE TABLE `t_organization` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='组织或部门表';
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='组织或部门表';
 
 -- ----------------------------
 -- Records of t_organization
@@ -690,6 +690,10 @@ BEGIN;
 INSERT INTO `t_organization` VALUES (1, 0, '赣州智悦科技有限公司', NULL, 1, '2019-01-24 16:15:02', NULL, 0);
 INSERT INTO `t_organization` VALUES (2, 1, '研发部', NULL, 1, '2019-01-24 16:15:13', NULL, 0);
 INSERT INTO `t_organization` VALUES (3, 1, '市场部', NULL, 1, '2019-01-24 16:15:27', NULL, 0);
+INSERT INTO `t_organization` VALUES (4, 2, '后端组', NULL, 1, '2019-01-26 09:59:02', NULL, 0);
+INSERT INTO `t_organization` VALUES (5, 2, '前端组', NULL, 1, '2019-01-26 10:04:42', NULL, 0);
+INSERT INTO `t_organization` VALUES (8, 2, '运维组', NULL, 1, '2019-01-26 10:37:52', NULL, 0);
+INSERT INTO `t_organization` VALUES (12, 2, '测试组', NULL, 1, '2019-01-26 10:47:41', NULL, 0);
 COMMIT;
 
 -- ----------------------------
