@@ -1695,7 +1695,7 @@ INSERT INTO `t_user_detail` VALUES (31, NULL, NULL, 0, NULL, NULL, NULL, NULL, N
 INSERT INTO `t_user_detail` VALUES (36, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '62TNSs', 1, '2018-12-28 12:00:36', NULL, 0);
 INSERT INTO `t_user_detail` VALUES (37, 'nickname', 'headicon', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'frBh72', 1, '2019-01-07 19:23:49', NULL, 0);
 INSERT INTO `t_user_detail` VALUES (38, 'nickname', 'headicon', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'mxvMT2', 1, '2019-01-07 19:28:25', NULL, 0);
-INSERT INTO `t_user_detail` VALUES (40, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'h345CG', 1, '2019-01-17 10:30:21', NULL, 0);
+INSERT INTO `t_user_detail` VALUES (40, 'demo', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'h345CG', 1, '2019-01-17 10:30:21', NULL, 0);
 COMMIT;
 
 -- ----------------------------
