@@ -7,7 +7,6 @@ import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import top.zywork.annotation.ExposeClass;
 import top.zywork.common.*;
 import top.zywork.dto.PagerDTO;
 import top.zywork.dto.SchedulerDTO;
@@ -209,7 +208,7 @@ public class SchedulerController extends BaseController {
     @GetMapping("admin/job-classes")
     @SuppressWarnings({"unchecked"})
     public ResponseStatusVO getJobClassNames() {
-        List<Object> classNames = (List) ReflectUtils.getClassNames("top.zywork.job", false, ExposeClass.class);
+        List<Object> classNames = (List) ReflectUtils.getExposeClassNames("top.zywork.job", false, "job");
         PagerVO pagerVO = new PagerVO();
         pagerVO.setTotal((long) classNames.size());
         pagerVO.setRows(classNames);

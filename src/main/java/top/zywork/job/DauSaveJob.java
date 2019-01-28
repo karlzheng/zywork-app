@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
  * @author 王振宇
  * @version 1.0
  */
-@ExposeClass
+@ExposeClass(type = "job")
 public class DauSaveJob implements Job {
 
     private static final Logger logger = LoggerFactory.getLogger(DauSaveJob.class);
