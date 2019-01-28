@@ -59,6 +59,12 @@ public class AuthController {
     @Value("${verify.sms-code.expiration}")
     private Integer smsCodeExpiration;
 
+    @Value("${reg.code.email}")
+    private Boolean regEmailCode;
+
+    @Value("${reg.code.sms}")
+    private Boolean regSmsCode;
+
     private JwtTokenRedisUtils jwtTokenRedisUtils;
 
     private VerifyCodeRedisUtils verifyCodeRedisUtils;
@@ -206,7 +212,10 @@ public class AuthController {
         if (StringUtils.isEmpty(confirmPassword) || !password.trim().equals(confirmPassword.trim())) {
             return ResponseStatusVO.dataError("密码和确认密码不一致", null);
         }
-        if (StringUtils.isEmpty(regCode) || !regCode.equals(verifyCodeRedisUtils.getCode(VerifyCodeRedisUtils.CODE_REG_PREFIX, email))) {
+        boolean emailCode = regEmailCode &&
+                (StringUtils.isEmpty(regCode)
+                        || !regCode.equals(verifyCodeRedisUtils.getCode(VerifyCodeRedisUtils.CODE_REG_PREFIX, email)));
+        if (emailCode) {
             return ResponseStatusVO.dataError("邮箱验证码不正确", null);
         }
         // 标记是否为邀请注册
@@ -282,7 +291,10 @@ public class AuthController {
         if (StringUtils.isEmpty(confirmPassword) || !password.trim().equals(confirmPassword.trim())) {
             return ResponseStatusVO.dataError("密码和确认密码不一致", null);
         }
-        if (StringUtils.isEmpty(regCode) || !regCode.equals(verifyCodeRedisUtils.getCode(VerifyCodeRedisUtils.CODE_REG_PREFIX, phone))) {
+        boolean smsCode = regSmsCode &&
+                (StringUtils.isEmpty(regCode)
+                        || !regCode.equals(verifyCodeRedisUtils.getCode(VerifyCodeRedisUtils.CODE_REG_PREFIX, phone)));
+        if (smsCode) {
             return ResponseStatusVO.dataError("手机验证码不正确", null);
         }
         // 标记是否为邀请注册

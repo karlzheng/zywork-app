@@ -91,6 +91,12 @@ weixin:
     gzh-cookie-name: "zywork_weixin_gzh_openid"
     #小程序登录后的cookie
     xcx-cookie-name: "zywork_weixin_xcx_openid"
+reg:
+  code:
+    #邮箱注册时是否启用邮箱验证码
+    email: false
+    #手机注册时是否启用手机验证码
+    sms: false
 verify:
   code:
     #是否启用邮箱登录时的验证码功能
