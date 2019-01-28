@@ -70,19 +70,20 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
     @SuppressWarnings({"unchecked"})
     public Map getParameterMap() {
         String charset = request.getCharacterEncoding();
-        HashMap paramMap = (HashMap) super.getParameterMap();
-        paramMap = (HashMap) paramMap.clone();
+        Map<String, String[]> paramMap = super.getParameterMap();
+        Map<String, String[]> newParamMap = new HashMap<>(paramMap.size());
         for (Iterator iterator = paramMap.entrySet().iterator(); iterator.hasNext(); ) {
             Map.Entry<String, String[]> entry = (Map.Entry) iterator.next();
+            String key = entry.getKey();
             String[] values = entry.getValue();
             for (int i = 0; i < values.length; i++) {
                 if (StringUtils.isNotEmpty(values[i])) {
                     values[i] = HtmlUtils.htmlEscape(values[i], charset);
                 }
             }
-            entry.setValue(values);
+            newParamMap.put(key, values);
         }
-        return paramMap;
+        return newParamMap;
     }
 
     @Override
