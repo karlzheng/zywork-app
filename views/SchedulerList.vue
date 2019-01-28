@@ -82,6 +82,20 @@
 </i-col>
 </Row>
 </FormItem>
+<FormItem label="自动启动"><Row>
+	<i-col span="11">
+	<FormItem prop="autoStartMin">
+	<InputNumber v-model="searchForm.autoStartMin" placeholder="请输入开始自动启动" style="width: 100%;"/>
+</FormItem>
+</i-col>
+	<i-col span="2" style="text-align: center">-</i-col>
+	<i-col span="11">
+	<FormItem prop="autoStartMax">
+	<InputNumber v-model="searchForm.autoStartMax" placeholder="请输入结束自动启动" style="width: 100%;"/>
+</FormItem>
+</i-col>
+</Row>
+</FormItem>
 <FormItem label="版本号"><Row>
 	<i-col span="11">
 	<FormItem prop="versionMin">
@@ -157,6 +171,7 @@
 <p>作业描述: <span v-text="form.description"></span></p>
 <p>作业状态: <span v-text="form.jobStatus"></span></p>
 <p>状态更新时间: <span v-text="form.jobStatusTime"></span></p>
+<p>自动启动: <span v-text="form.autoStart"></span></p>
 <p>版本号: <span v-text="form.version"></span></p>
 <p>创建时间: <span v-text="form.createTime"></span></p>
 <p>更新时间: <span v-text="form.updateTime"></span></p>
@@ -199,6 +214,7 @@ triggerGroup: null,
 description: null,
 jobStatus: null,
 jobStatusTime: null,
+autoStart: null,
 version: null,
 createTime: null,
 updateTime: null,
@@ -226,6 +242,9 @@ jobStatusMax: null,
 jobStatusTime: null,
 jobStatusTimeMin: null, 
 jobStatusTimeMax: null, 
+autoStart: null,
+autoStartMin: null, 
+autoStartMax: null, 
 version: null,
 versionMin: null, 
 versionMax: null, 
@@ -315,6 +334,12 @@ sortable: true
 {
 title: '状态更新时间',
 key: 'jobStatusTime',
+width: 120,
+sortable: true
+},
+{
+title: '自动启动',
+key: 'autoStart',
 width: 120,
 sortable: true
 },
@@ -422,7 +447,7 @@ sortable: true
         utils.changePageSize(this, pageSize)
       },
       fitTable() {
-        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['id','name','className','cronExpression','groupName','triggerName','triggerGroup','description','jobStatus','jobStatusTime','version','createTime','updateTime','isActive',])
+        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['id','name','className','cronExpression','groupName','triggerName','triggerGroup','description','jobStatus','jobStatusTime','autoStart','version','createTime','updateTime','isActive',])
       },
       confirmSelection() {
         // 确认选择的逻辑

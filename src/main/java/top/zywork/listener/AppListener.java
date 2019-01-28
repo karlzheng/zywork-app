@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import top.zywork.security.RolePermissionRedisUtils;
+import top.zywork.service.SchedulerService;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -24,12 +25,17 @@ public class AppListener implements ServletContextListener {
 
     private RolePermissionRedisUtils rolePermissionRedisUtils;
 
+    private SchedulerService schedulerService;
+
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         logger.info("zywork-app应用启动……");
         logger.info("开始删除缓存的角色权限信息……");
         rolePermissionRedisUtils.del();
         logger.info("已删除缓存的角色权限信息……");
+        logger.info("开始启动自动启动的作业……");
+        schedulerService.startAutoJobs();
+        logger.info("已启动自动启动的作业……");
     }
 
     @Override
@@ -40,5 +46,10 @@ public class AppListener implements ServletContextListener {
     @Autowired
     public void setRolePermissionRedisUtils(RolePermissionRedisUtils rolePermissionRedisUtils) {
         this.rolePermissionRedisUtils = rolePermissionRedisUtils;
+    }
+
+    @Autowired
+    public void setSchedulerService(SchedulerService schedulerService) {
+        this.schedulerService = schedulerService;
     }
 }

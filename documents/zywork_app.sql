@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 24/01/2019 10:25:01
+ Date: 28/01/2019 15:30:31
 */
 
 SET NAMES utf8mb4;
@@ -660,6 +660,7 @@ CREATE TABLE `t_scheduler` (
   `description` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '作业描述',
   `job_status` tinyint(4) DEFAULT '0' COMMENT '作业状态',
   `job_status_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '状态更新时间',
+  `auto_start` tinyint(4) DEFAULT '0' COMMENT '自动启动',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',

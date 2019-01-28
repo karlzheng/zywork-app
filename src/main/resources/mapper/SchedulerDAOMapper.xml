@@ -37,6 +37,9 @@
 			<if test="jobStatusTime != null">
 				job_status_time,
 			</if>
+			<if test="autoStart != null">
+				auto_start,
+			</if>
 			<if test="version != null">
 				version,
 			</if>
@@ -78,6 +81,9 @@
 			</if>
 			<if test="jobStatusTime != null">
 				#{jobStatusTime},
+			</if>
+			<if test="autoStart != null">
+				#{autoStart},
 			</if>
 			<if test="version != null">
 				#{version},
@@ -129,6 +135,9 @@
 			<if test="item.jobStatusTime != null">
 				job_status_time,
 			</if>
+			<if test="item.autoStart != null">
+				auto_start,
+			</if>
 			<if test="item.version != null">
 				version,
 			</if>
@@ -170,6 +179,9 @@
 			</if>
 			<if test="item.jobStatusTime != null">
 				#{item.jobStatusTime},
+			</if>
+			<if test="item.autoStart != null">
+				#{item.autoStart},
 			</if>
 			<if test="item.version != null">
 				#{item.version},
@@ -229,6 +241,9 @@
 			<if test="jobStatusTime != null">
 				job_status_time = #{jobStatusTime},
 			</if>
+			<if test="autoStart != null">
+				auto_start = #{autoStart},
+			</if>
 			<if test="version != null">
 				version = #{version},
 			</if>
@@ -277,6 +292,9 @@
 			<if test="item.jobStatusTime != null">
 				job_status_time = #{item.jobStatusTime},
 			</if>
+			<if test="item.autoStart != null">
+				auto_start = #{item.autoStart},
+			</if>
 			<if test="item.version != null">
 				version = #{item.version},
 			</if>
@@ -299,7 +317,7 @@
     </update>
 
     <sql id="select_columns">
-        id as id, name as name, class_name as className, cron_expression as cronExpression, group_name as groupName, trigger_name as triggerName, trigger_group as triggerGroup, description as description, job_status as jobStatus, job_status_time as jobStatusTime, version as version, create_time as createTime, update_time as updateTime, is_active as isActive
+        id as id, name as name, class_name as className, cron_expression as cronExpression, group_name as groupName, trigger_name as triggerName, trigger_group as triggerGroup, description as description, job_status as jobStatus, job_status_time as jobStatusTime, auto_start as autoStart, version as version, create_time as createTime, update_time as updateTime, is_active as isActive
     </sql>
 
     <sql id="query_where_clause">
@@ -359,6 +377,18 @@
 		</if>
 		<if test="query != null and query.jobStatusTimeMin != null and query.jobStatusTimeMax != null">
 			and job_status_time <![CDATA[ >= ]]> #{query.jobStatusTimeMin} and job_status_time <![CDATA[ <= ]]> #{query.jobStatusTimeMax}
+		</if>
+		<if test="query != null and query.autoStart != null">
+			and auto_start = #{query.autoStart}
+		</if>
+		<if test="query != null and query.autoStartMin != null and query.autoStartMax == null">
+			and auto_start <![CDATA[ >= ]]> #{query.autoStartMin}
+		</if>
+		<if test="query != null and query.autoStartMin == null and query.autoStartMax != null">
+			and auto_start <![CDATA[ <= ]]> #{query.autoStartMax}
+		</if>
+		<if test="query != null and query.autoStartMin != null and query.autoStartMax != null">
+			and auto_start <![CDATA[ >= ]]> #{query.autoStartMin} and auto_start <![CDATA[ <= ]]> #{query.autoStartMax}
 		</if>
 		<if test="query != null and query.version != null">
 			and version = #{query.version}
@@ -428,21 +458,21 @@
         order by update_time desc, create_time desc
     </select>
 
-	<select id="listAllByCondition" resultType="schedulerDO">
-		select
-		<include refid="select_columns"/>
-		from t_scheduler
-		<where>
-			<include refid="query_where_clause"/>
-		</where>
-		order by
-		<if test="query.sortColumn != null and query.sortColumn != ''">
-			${query.sortColumn} ${query.sortOrder}
-		</if>
-		<if test="query.sortColumn == null or query.sortColumn == ''">
-			update_time desc, create_time desc
-		</if>
-	</select>
+    <select id="listAllByCondition" resultType="schedulerDO">
+        select
+        <include refid="select_columns"/>
+        from t_scheduler
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+        order by
+        <if test="query.sortColumn != null and query.sortColumn != ''">
+             ${query.sortColumn} ${query.sortOrder}
+        </if>
+        <if test="query.sortColumn == null or query.sortColumn == ''">
+            update_time desc, create_time desc
+        </if>
+    </select>
 
     <select id="listPageByCondition" resultType="schedulerDO">
         select

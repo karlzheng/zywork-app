@@ -8,14 +8,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * SchedulerQuery查询对象类<br/>
  *
- * 创建于2019-01-18<br/>
+ * 创建于2019-01-28<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class SchedulerQuery extends PageQuery {
 
-    private static final long serialVersionUID = -9223372035125346209L;
+    private static final long serialVersionUID = -9223372036285391737L;
 
     // 作业编号
 	private Long id;
@@ -52,6 +52,12 @@ public class SchedulerQuery extends PageQuery {
 	// 状态更新时间（最大值）
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date jobStatusTimeMax;
+	// 自动启动
+	private Byte autoStart;
+	// 自动启动（最小值）
+	private Byte autoStartMin;
+	// 自动启动（最大值）
+	private Byte autoStartMax;
 	// 版本号
 	private Integer version;
 	// 版本号（最小值）
@@ -85,7 +91,7 @@ public class SchedulerQuery extends PageQuery {
 	
     public SchedulerQuery () {}
 
-    public SchedulerQuery (Long id, Long idMin, Long idMax, String name, String className, String cronExpression, String groupName, String triggerName, String triggerGroup, String description, Byte jobStatus, Byte jobStatusMin, Byte jobStatusMax, Date jobStatusTime, Date jobStatusTimeMin, Date jobStatusTimeMax, Integer version, Integer versionMin, Integer versionMax, Date createTime, Date createTimeMin, Date createTimeMax, Date updateTime, Date updateTimeMin, Date updateTimeMax, Byte isActive, Byte isActiveMin, Byte isActiveMax) {
+    public SchedulerQuery (Long id, Long idMin, Long idMax, String name, String className, String cronExpression, String groupName, String triggerName, String triggerGroup, String description, Byte jobStatus, Byte jobStatusMin, Byte jobStatusMax, Date jobStatusTime, Date jobStatusTimeMin, Date jobStatusTimeMax, Byte autoStart, Byte autoStartMin, Byte autoStartMax, Integer version, Integer versionMin, Integer versionMax, Date createTime, Date createTimeMin, Date createTimeMax, Date updateTime, Date updateTimeMin, Date updateTimeMax, Byte isActive, Byte isActiveMin, Byte isActiveMax) {
         this.id = id;
 		this.idMin = idMin;
 		this.idMax = idMax;
@@ -102,6 +108,9 @@ public class SchedulerQuery extends PageQuery {
 		this.jobStatusTime = jobStatusTime;
 		this.jobStatusTimeMin = jobStatusTimeMin;
 		this.jobStatusTimeMax = jobStatusTimeMax;
+		this.autoStart = autoStart;
+		this.autoStartMin = autoStartMin;
+		this.autoStartMax = autoStartMax;
 		this.version = version;
 		this.versionMin = versionMin;
 		this.versionMax = versionMax;
@@ -245,6 +254,30 @@ public class SchedulerQuery extends PageQuery {
 		this.jobStatusTimeMax = jobStatusTimeMax;
 	}
 
+	public Byte getAutoStart() {
+		return autoStart;
+	}
+
+	public void setAutoStart(Byte autoStart) {
+		this.autoStart = autoStart;
+	}
+
+	public Byte getAutoStartMin() {
+		return autoStartMin;
+	}
+
+	public void setAutoStartMin(Byte autoStartMin) {
+		this.autoStartMin = autoStartMin;
+	}
+
+	public Byte getAutoStartMax() {
+		return autoStartMax;
+	}
+
+	public void setAutoStartMax(Byte autoStartMax) {
+		this.autoStartMax = autoStartMax;
+	}
+
 	public Integer getVersion() {
 		return version;
 	}
@@ -361,6 +394,9 @@ public class SchedulerQuery extends PageQuery {
 				", jobStatusTime = " + jobStatusTime + 
 				", jobStatusTimeMin = " + jobStatusTimeMin + 
 				", jobStatusTimeMax = " + jobStatusTimeMax + 
+				", autoStart = " + autoStart + 
+				", autoStartMin = " + autoStartMin + 
+				", autoStartMax = " + autoStartMax + 
 				", version = " + version + 
 				", versionMin = " + versionMin + 
 				", versionMax = " + versionMax + 

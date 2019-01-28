@@ -12,14 +12,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * SchedulerVO值对象类<br/>
  *
- * 创建于2019-01-18<br/>
+ * 创建于2019-01-28<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class SchedulerVO extends BaseVO {
 
-    private static final long serialVersionUID = -9223372036531573189L;
+    private static final long serialVersionUID = -9223372036086062918L;
 
     // 作业编号
 	private Long id;
@@ -52,6 +52,8 @@ public class SchedulerVO extends BaseVO {
 	// 状态更新时间
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date jobStatusTime;
+	// 自动启动
+	private Byte autoStart;
 	// 版本号
 	private Integer version;
 	// 创建时间
@@ -65,7 +67,7 @@ public class SchedulerVO extends BaseVO {
 	
     public SchedulerVO () {}
 
-    public SchedulerVO (Long id, String name, String className, String cronExpression, String groupName, String triggerName, String triggerGroup, String description, Byte jobStatus, Date jobStatusTime, Integer version, Date createTime, Date updateTime, Byte isActive) {
+    public SchedulerVO (Long id, String name, String className, String cronExpression, String groupName, String triggerName, String triggerGroup, String description, Byte jobStatus, Date jobStatusTime, Byte autoStart, Integer version, Date createTime, Date updateTime, Byte isActive) {
         this.id = id;
 		this.name = name;
 		this.className = className;
@@ -76,6 +78,7 @@ public class SchedulerVO extends BaseVO {
 		this.description = description;
 		this.jobStatus = jobStatus;
 		this.jobStatusTime = jobStatusTime;
+		this.autoStart = autoStart;
 		this.version = version;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
@@ -163,6 +166,14 @@ public class SchedulerVO extends BaseVO {
 		this.jobStatusTime = jobStatusTime;
 	}
 
+	public Byte getAutoStart() {
+		return autoStart;
+	}
+
+	public void setAutoStart(Byte autoStart) {
+		this.autoStart = autoStart;
+	}
+
 	public Integer getVersion() {
 		return version;
 	}
@@ -209,6 +220,7 @@ public class SchedulerVO extends BaseVO {
 				", description = " + description + 
 				", jobStatus = " + jobStatus + 
 				", jobStatusTime = " + jobStatusTime + 
+				", autoStart = " + autoStart + 
 				", version = " + version + 
 				", createTime = " + createTime + 
 				", updateTime = " + updateTime + 

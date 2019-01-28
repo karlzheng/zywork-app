@@ -6,14 +6,14 @@ import java.util.Date;
 /**
  * SchedulerDTO数据传输对象类<br/>
  *
- * 创建于2019-01-18<br/>
+ * 创建于2019-01-28<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class SchedulerDTO extends BaseDTO {
 
-    private static final long serialVersionUID = -9223372036212748309L;
+    private static final long serialVersionUID = -9223372035487488764L;
 
     // 作业编号
 	private Long id;
@@ -35,6 +35,8 @@ public class SchedulerDTO extends BaseDTO {
 	private Byte jobStatus;
 	// 状态更新时间
 	private Date jobStatusTime;
+	// 自动启动
+	private Byte autoStart;
 	// 版本号
 	private Integer version;
 	// 创建时间
@@ -46,7 +48,7 @@ public class SchedulerDTO extends BaseDTO {
 	
     public SchedulerDTO () {}
 
-    public SchedulerDTO (Long id, String name, String className, String cronExpression, String groupName, String triggerName, String triggerGroup, String description, Byte jobStatus, Date jobStatusTime, Integer version, Date createTime, Date updateTime, Byte isActive) {
+    public SchedulerDTO (Long id, String name, String className, String cronExpression, String groupName, String triggerName, String triggerGroup, String description, Byte jobStatus, Date jobStatusTime, Byte autoStart, Integer version, Date createTime, Date updateTime, Byte isActive) {
         this.id = id;
 		this.name = name;
 		this.className = className;
@@ -57,6 +59,7 @@ public class SchedulerDTO extends BaseDTO {
 		this.description = description;
 		this.jobStatus = jobStatus;
 		this.jobStatusTime = jobStatusTime;
+		this.autoStart = autoStart;
 		this.version = version;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
@@ -144,6 +147,14 @@ public class SchedulerDTO extends BaseDTO {
 		this.jobStatusTime = jobStatusTime;
 	}
 
+	public Byte getAutoStart() {
+		return autoStart;
+	}
+
+	public void setAutoStart(Byte autoStart) {
+		this.autoStart = autoStart;
+	}
+
 	public Integer getVersion() {
 		return version;
 	}
@@ -190,6 +201,7 @@ public class SchedulerDTO extends BaseDTO {
 				", description = " + description + 
 				", jobStatus = " + jobStatus + 
 				", jobStatusTime = " + jobStatusTime + 
+				", autoStart = " + autoStart + 
 				", version = " + version + 
 				", createTime = " + createTime + 
 				", updateTime = " + updateTime + 
