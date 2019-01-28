@@ -144,31 +144,31 @@ permissionPermission: null,
             {
 title: '角色编号',
 key: 'roleId',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '角色标题',
 key: 'roleTitle',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '权限编号',
 key: 'permissionId',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '权限标题',
 key: 'permissionTitle',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '权限字符串',
 key: 'permissionPermission',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 
@@ -205,7 +205,6 @@ sortable: true
     },
     computed: {},
     mounted() {
-      this.fitTable()
       this.search()
     },
     methods: {
@@ -249,9 +248,6 @@ sortable: true
       },
       changePageSize(pageSize) {
         utils.changePageSize(this, pageSize)
-      },
-      fitTable() {
-        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['roleId','roleTitle','permissionId','permissionTitle','permissionPermission',])
       }
     }
   }

@@ -301,73 +301,73 @@ isActiveMax: null,
             {
 title: '钱包编号',
 key: 'id',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '支付密码',
 key: 'payPassword',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '人民币余额',
 key: 'rmbBalance',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '可用余额',
 key: 'usableRmbBalance',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '冻结余额',
 key: 'frozenRmbBalance',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '总积分',
 key: 'integral',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '可用积分',
 key: 'usableIntegral',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '冻结积分',
 key: 'frozenIntegral',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '版本号',
 key: 'version',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '创建时间',
 key: 'createTime',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '更新时间',
 key: 'updateTime',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '是否激活',
 key: 'isActive',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 
@@ -404,7 +404,6 @@ sortable: true
     },
     computed: {},
     mounted() {
-      this.fitTable()
       this.search()
     },
     methods: {
@@ -448,9 +447,6 @@ sortable: true
       },
       changePageSize(pageSize) {
         utils.changePageSize(this, pageSize)
-      },
-      fitTable() {
-        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['id','payPassword','rmbBalance','usableRmbBalance','frozenRmbBalance','integral','usableIntegral','frozenIntegral','version','createTime','updateTime','isActive',])
       },
       confirmSelection() {
         // 确认选择的逻辑

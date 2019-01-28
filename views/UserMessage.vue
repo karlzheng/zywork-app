@@ -219,67 +219,67 @@ userMessageUpdateTimeMax: null,
             {
 title: '用户编号',
 key: 'userId',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '手机号',
 key: 'userPhone',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '用户邮箱',
 key: 'userEmail',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '消息编号',
 key: 'messageId',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '消息标题',
 key: 'messageTitle',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '消息摘要',
 key: 'messageSummary',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '消息内容',
 key: 'messageContent',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '消息类型',
 key: 'messageMessageType',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '是否已读',
 key: 'userMessageIsRead',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '创建时间',
 key: 'userMessageCreateTime',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '更新时间',
 key: 'userMessageUpdateTime',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 
@@ -316,7 +316,6 @@ sortable: true
     },
     computed: {},
     mounted() {
-      this.fitTable()
       this.search()
     },
     methods: {
@@ -360,9 +359,6 @@ sortable: true
       },
       changePageSize(pageSize) {
         utils.changePageSize(this, pageSize)
-      },
-      fitTable() {
-        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['userId','userPhone','userEmail','messageId','messageTitle','messageSummary','messageContent','messageMessageType','userMessageIsRead','userMessageCreateTime','userMessageUpdateTime',])
       }
     }
   }

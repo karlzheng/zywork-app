@@ -368,74 +368,74 @@ isActiveMax: null,
             {
 title: '账目编号',
 key: 'id',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '用户编号',
 key: 'userId',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '金额',
 key: 'amount',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '积分',
 key: 'integral',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '收入或支出',
 key: 'type',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '收支类型',
 key: 'subType',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '支付方式',
 key: 'payType',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '版本号',
 key: 'version',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '创建时间',
 key: 'createTime',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '更新时间',
 key: 'updateTime',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '是否激活',
 key: 'isActive',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 
             {
               title: '激活状态',
               key: 'isActive',
-              width: 100,
+              minWidth: 100,
               align: 'center',
               render: (h, params) => {
                 return h('i-switch', {
@@ -527,7 +527,6 @@ sortable: true
     },
     computed: {},
     mounted() {
-      this.fitTable()
       this.search()
     },
     methods: {
@@ -596,9 +595,6 @@ sortable: true
       },
       changePageSize(pageSize) {
         utils.changePageSize(this, pageSize)
-      },
-      fitTable() {
-        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['id','userId','amount','integral','type','subType','payType','version','createTime','updateTime','isActive',])
       }
     }
   }

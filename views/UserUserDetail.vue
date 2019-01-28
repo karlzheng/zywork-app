@@ -268,103 +268,103 @@ userDetailVersionMax: null,
             {
 title: '用户编号',
 key: 'userId',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '手机号',
 key: 'userPhone',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '用户邮箱',
 key: 'userEmail',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '创建时间',
 key: 'userCreateTime',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '昵称',
 key: 'userDetailNickname',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '头像地址',
 key: 'userDetailHeadicon',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '性别',
 key: 'userDetailGender',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '生日',
 key: 'userDetailBirthday',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '年龄',
 key: 'userDetailAge',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: 'QQ号',
 key: 'userDetailQq',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: 'QQ二维码',
 key: 'userDetailQqQrcode',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '微信号',
 key: 'userDetailWechat',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '微信二维码',
 key: 'userDetailWechatQrcode',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '支付宝账号',
 key: 'userDetailAlipay',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '支付宝二维码',
 key: 'userDetailAlipayQrcode',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '分享码',
 key: 'userDetailShareCode',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '版本号',
 key: 'userDetailVersion',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 
@@ -401,7 +401,6 @@ sortable: true
     },
     computed: {},
     mounted() {
-      this.fitTable()
       this.search()
     },
     methods: {
@@ -445,9 +444,6 @@ sortable: true
       },
       changePageSize(pageSize) {
         utils.changePageSize(this, pageSize)
-      },
-      fitTable() {
-        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['userId','userPhone','userEmail','userCreateTime','userDetailNickname','userDetailHeadicon','userDetailGender','userDetailBirthday','userDetailAge','userDetailQq','userDetailQqQrcode','userDetailWechat','userDetailWechatQrcode','userDetailAlipay','userDetailAlipayQrcode','userDetailShareCode','userDetailVersion',])
       }
     }
   }

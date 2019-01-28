@@ -188,49 +188,49 @@ userOrganizationUpdateTimeMax: null,
             {
 title: '用户编号',
 key: 'userId',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '手机号',
 key: 'userPhone',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '用户邮箱',
 key: 'userEmail',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '组织编号',
 key: 'organizationId',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '组织名称',
 key: 'organizationTitle',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '组织描述',
 key: 'organizationDescription',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '创建时间',
 key: 'userOrganizationCreateTime',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '更新时间',
 key: 'userOrganizationUpdateTime',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 
@@ -267,7 +267,6 @@ sortable: true
     },
     computed: {},
     mounted() {
-      this.fitTable()
       this.search()
     },
     methods: {
@@ -311,9 +310,6 @@ sortable: true
       },
       changePageSize(pageSize) {
         utils.changePageSize(this, pageSize)
-      },
-      fitTable() {
-        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['userId','userPhone','userEmail','organizationId','organizationTitle','organizationDescription','userOrganizationCreateTime','userOrganizationUpdateTime',])
       }
     }
   }

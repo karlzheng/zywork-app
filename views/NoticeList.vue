@@ -237,61 +237,61 @@ isActiveMax: null,
             {
 title: '公告编号',
 key: 'id',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '公告标题',
 key: 'title',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '公告摘要',
 key: 'summary',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '公告内容',
 key: 'content',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '截止时间',
 key: 'endTime',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '置顶状态',
 key: 'stickStatus',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '版本号',
 key: 'version',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '创建时间',
 key: 'createTime',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '更新时间',
 key: 'updateTime',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '是否激活',
 key: 'isActive',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 
@@ -328,7 +328,6 @@ sortable: true
     },
     computed: {},
     mounted() {
-      this.fitTable()
       this.search()
     },
     methods: {
@@ -372,9 +371,6 @@ sortable: true
       },
       changePageSize(pageSize) {
         utils.changePageSize(this, pageSize)
-      },
-      fitTable() {
-        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['id','title','summary','content','endTime','stickStatus','version','createTime','updateTime','isActive',])
       },
       confirmSelection() {
         // 确认选择的逻辑

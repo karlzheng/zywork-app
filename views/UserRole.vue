@@ -150,37 +150,37 @@ userRoleCreateTimeMax: null,
             {
 title: '用户编号',
 key: 'userId',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '手机号',
 key: 'userPhone',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '用户邮箱',
 key: 'userEmail',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '角色标题',
 key: 'roleTitle',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '角色描述',
 key: 'roleDescription',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '创建时间',
 key: 'userRoleCreateTime',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 
@@ -217,7 +217,6 @@ sortable: true
     },
     computed: {},
     mounted() {
-      this.fitTable()
       this.search()
     },
     methods: {
@@ -261,9 +260,6 @@ sortable: true
       },
       changePageSize(pageSize) {
         utils.changePageSize(this, pageSize)
-      },
-      fitTable() {
-        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['userId','userPhone','userEmail','roleTitle','roleDescription','userRoleCreateTime',])
       }
     }
   }

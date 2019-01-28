@@ -231,79 +231,79 @@ userSocialUpdateTimeMax: null,
             {
 title: '用户编号',
 key: 'userId',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '手机号',
 key: 'userPhone',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '用户邮箱',
 key: 'userEmail',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '第三方登录编号',
 key: 'userSocialId',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: 'openid',
 key: 'userSocialOpenid',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: 'unionid',
 key: 'userSocialUnionId',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: 'AccessToken',
 key: 'userSocialAccessToken',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: 'SessionKey',
 key: 'userSocialSessionKey',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '刷新Token',
 key: 'userSocialRefreshToken',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '第三方登录类型',
 key: 'userSocialSocialType',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '版本号',
 key: 'userSocialVersion',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '第三方登录绑定时间',
 key: 'userSocialCreateTime',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '更新时间',
 key: 'userSocialUpdateTime',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 
@@ -340,7 +340,6 @@ sortable: true
     },
     computed: {},
     mounted() {
-      this.fitTable()
       this.search()
     },
     methods: {
@@ -384,9 +383,6 @@ sortable: true
       },
       changePageSize(pageSize) {
         utils.changePageSize(this, pageSize)
-      },
-      fitTable() {
-        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['userId','userPhone','userEmail','userSocialId','userSocialOpenid','userSocialUnionId','userSocialAccessToken','userSocialSessionKey','userSocialRefreshToken','userSocialSocialType','userSocialVersion','userSocialCreateTime','userSocialUpdateTime',])
       }
     }
   }

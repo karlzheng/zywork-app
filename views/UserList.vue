@@ -205,55 +205,55 @@ isActiveMax: null,
             {
 title: '用户编号',
 key: 'id',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '手机号',
 key: 'phone',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '用户邮箱',
 key: 'email',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '登录密码',
 key: 'password',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '加密盐值',
 key: 'salt',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '版本号',
 key: 'version',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '创建时间',
 key: 'createTime',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '更新时间',
 key: 'updateTime',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '是否激活',
 key: 'isActive',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 
@@ -290,7 +290,6 @@ sortable: true
     },
     computed: {},
     mounted() {
-      this.fitTable()
       this.search()
     },
     methods: {
@@ -334,9 +333,6 @@ sortable: true
       },
       changePageSize(pageSize) {
         utils.changePageSize(this, pageSize)
-      },
-      fitTable() {
-        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['id','phone','email','password','salt','version','createTime','updateTime','isActive',])
       },
       confirmSelection() {
         // 确认选择的逻辑

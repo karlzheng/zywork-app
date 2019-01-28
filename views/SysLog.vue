@@ -516,134 +516,134 @@ isActiveMax: null,
             {
 title: '日志编号',
 key: 'id',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '用户编号',
 key: 'userId',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '用户账号',
 key: 'userAccount',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '执行说明',
 key: 'description',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: 'User-Agent',
 key: 'userAgent',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '请求URL',
 key: 'requestUrl',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '请求方式',
 key: 'requestMethod',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '请求参数',
 key: 'requestParams',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '响应编码',
 key: 'responseCode',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '响应消息',
 key: 'responseMsg',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '完整类名',
 key: 'executeClass',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '方法名称',
 key: 'executeMethod',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '开始执行时间',
 key: 'executeTime',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '执行耗时(ms)',
 key: 'executeCostTime',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '是否异常',
 key: 'hasException',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '异常消息',
 key: 'exceptionMsg',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: 'IP地址',
 key: 'executeIp',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '版本号',
 key: 'version',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '创建时间',
 key: 'createTime',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '更新时间',
 key: 'updateTime',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '是否激活',
 key: 'isActive',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 
             {
               title: '激活状态',
               key: 'isActive',
-              width: 100,
+              minWidth: 100,
               align: 'center',
               render: (h, params) => {
                 return h('i-switch', {
@@ -735,7 +735,6 @@ sortable: true
     },
     computed: {},
     mounted() {
-      this.fitTable()
       this.search()
     },
     methods: {
@@ -804,9 +803,6 @@ sortable: true
       },
       changePageSize(pageSize) {
         utils.changePageSize(this, pageSize)
-      },
-      fitTable() {
-        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['id','userId','userAccount','description','userAgent','requestUrl','requestMethod','requestParams','responseCode','responseMsg','executeClass','executeMethod','executeTime','executeCostTime','hasException','exceptionMsg','executeIp','version','createTime','updateTime','isActive',])
       }
     }
   }

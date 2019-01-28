@@ -287,62 +287,62 @@ isActiveMax: null,
             {
 title: '消息编号',
 key: 'id',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '消息标题',
 key: 'title',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '消息摘要',
 key: 'summary',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '消息内容',
 key: 'content',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '消息类型',
 key: 'messageType',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '版本号',
 key: 'version',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '创建时间',
 key: 'createTime',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '更新时间',
 key: 'updateTime',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '是否激活',
 key: 'isActive',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 
             {
               title: '激活状态',
               key: 'isActive',
-              width: 100,
+              minWidth: 100,
               align: 'center',
               render: (h, params) => {
                 return h('i-switch', {
@@ -434,7 +434,6 @@ sortable: true
     },
     computed: {},
     mounted() {
-      this.fitTable()
       this.search()
     },
     methods: {
@@ -503,9 +502,6 @@ sortable: true
       },
       changePageSize(pageSize) {
         utils.changePageSize(this, pageSize)
-      },
-      fitTable() {
-        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['id','title','summary','content','messageType','version','createTime','updateTime','isActive',])
       }
     }
   }

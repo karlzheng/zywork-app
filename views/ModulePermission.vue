@@ -232,67 +232,67 @@ permissionIsActiveMax: null,
             {
 title: '模块标题',
 key: 'moduleTitle',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '模块描述',
 key: 'moduleDescription',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '权限编号',
 key: 'permissionId',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '所属模块',
 key: 'permissionModuleId',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '权限标题',
 key: 'permissionTitle',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '权限字符串',
 key: 'permissionPermission',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '权限描述',
 key: 'permissionDescription',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '版本号',
 key: 'permissionVersion',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '创建时间',
 key: 'permissionCreateTime',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '更新时间',
 key: 'permissionUpdateTime',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 {
 title: '是否激活',
 key: 'permissionIsActive',
-width: 120,
+minWidth: 120,
 sortable: true
 },
 
@@ -329,7 +329,6 @@ sortable: true
     },
     computed: {},
     mounted() {
-      this.fitTable()
       this.search()
     },
     methods: {
@@ -373,9 +372,6 @@ sortable: true
       },
       changePageSize(pageSize) {
         utils.changePageSize(this, pageSize)
-      },
-      fitTable() {
-        utils.fitTable(this, 'dataTable', this.table.tableColumns, ['moduleTitle','moduleDescription','permissionId','permissionModuleId','permissionTitle','permissionPermission','permissionDescription','permissionVersion','permissionCreateTime','permissionUpdateTime','permissionIsActive',])
       }
     }
   }
