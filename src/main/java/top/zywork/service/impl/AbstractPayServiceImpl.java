@@ -27,9 +27,9 @@ import java.util.Map;
  * @version 1.0
  */
 @Service
-public abstract class PayServiceImpl implements PayService {
+public abstract class AbstractPayServiceImpl implements PayService {
 
-    private static final Logger logger = LoggerFactory.getLogger(PayServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(AbstractPayServiceImpl.class);
 
     private UserWalletDAO userWalletDAO;
 

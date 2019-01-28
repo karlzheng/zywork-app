@@ -103,8 +103,9 @@ public class SysLogAspect {
         if (argsNames == null) {
             return null;
         }
-        Map<String, Object> requestParams = new HashMap<>();
-        for (int i = 0, len = argsNames.length; i < len; i++) {
+        int len = argsNames.length;
+        Map<String, Object> requestParams = new HashMap<>(len);
+        for (int i = 0; i < len; i++) {
             requestParams.put(argsNames[i], argsArray[i]);
         }
         return requestParams;

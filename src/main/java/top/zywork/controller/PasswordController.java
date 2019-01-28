@@ -44,6 +44,10 @@ public class PasswordController {
 
     private static final Logger logger = LoggerFactory.getLogger(PasswordController.class);
 
+    private static final String ALIYUN_SMS_OK = "OK";
+
+    private static final String ALIYUN_MAIL_INVALID = "InvalidToAddress.Spam";
+
     @Value("${verify.code.expiration}")
     private Integer verifyCodeExpiration;
 
@@ -316,7 +320,7 @@ public class PasswordController {
             return ResponseStatusVO.ok("邮件发送成功，请查收邮件", verifyCodeExpiration);
         } catch (ClientException e) {
             logger.error("邮件发送失败：{}", e.getMessage());
-            if (e.getErrCode().equals("InvalidToAddress.Spam")) {
+            if (ALIYUN_MAIL_INVALID.equals(e.getErrCode())) {
                 return ResponseStatusVO.dataError("邮箱地址无效，请重新填写", null);
             } else {
                 return ResponseStatusVO.error("邮件发送失败", null);
@@ -348,7 +352,7 @@ public class PasswordController {
         try {
             AliyunSmsConfig aliyunSmsConfig = sysConfigService.getByName(SysConfigEnum.ALIYUN_SMS_CONFIG.getValue(), AliyunSmsConfig.class);
             SendSmsResponse smsResponse = AliyunSmsUtils.sendSms(aliyunSmsConfig, phone, "templateCode", "templateParam", "outId");
-            if (smsResponse.getCode() != null && smsResponse.getCode().equals("OK")) {
+            if (smsResponse.getCode() != null && ALIYUN_SMS_OK.equals(smsResponse.getCode())) {
                 smsCodeRedisUtils.storeCode(prefix, phone, code);
                 return ResponseStatusVO.ok("短信发送成功", smsCodeExpiration);
             } else {

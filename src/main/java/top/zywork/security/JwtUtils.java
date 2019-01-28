@@ -83,7 +83,7 @@ public class JwtUtils {
      * @return
      */
     public Map<String, Object> generateClaims(JwtUser jwtUser) {
-        Map<String, Object> claims = new HashMap<>();
+        Map<String, Object> claims = new HashMap<>(1);
         JwtClaims jwtClaims = new JwtClaims();
         jwtClaims.setUserId(jwtUser.getUserId());
         jwtClaims.setUsername(jwtUser.getUsername());

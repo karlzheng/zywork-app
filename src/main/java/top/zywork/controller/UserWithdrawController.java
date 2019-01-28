@@ -129,9 +129,13 @@ public class UserWithdrawController {
         if (jwtUser == null) {
             return ResponseStatusVO.authenticationError();
         }
-        if (StringUtils.isEmpty(withdrawNo) || withdrawStatus == null
-                || (withdrawStatus != WithdrawStatusEnum.CHECKED.getValue().byteValue() && withdrawStatus != WithdrawStatusEnum.UNCHECKED.getValue().byteValue())) {
+        boolean isStatusError = withdrawStatus == null
+                || (withdrawStatus != WithdrawStatusEnum.CHECKED.getValue().byteValue() && withdrawStatus != WithdrawStatusEnum.UNCHECKED.getValue().byteValue());
+        if (isStatusError) {
             return ResponseStatusVO.dataError("审核状态错误，1通过，2未通过", null);
+        }
+        if (StringUtils.isEmpty(withdrawNo)) {
+            return ResponseStatusVO.dataError("提现单号不能为空", null);
         }
         UserWithdrawDO userWithdrawDO = userWithdrawService.getByWithdrawNo(withdrawNo);
         if (userWithdrawDO == null || userWithdrawDO.getWithdrawStatus().byteValue() != WithdrawStatusEnum.CHECKING.getValue()) {
@@ -165,9 +169,13 @@ public class UserWithdrawController {
     @PostMapping("admin/confirm-human")
     @SysLog(description = "人工完成提现操作")
     public ResponseStatusVO confirmWithdrawHuman(String withdrawNo, Byte withdrawStatus) {
-        if (StringUtils.isEmpty(withdrawNo) || withdrawStatus == null
-                || (withdrawStatus != WithdrawStatusEnum.SUCCESS.getValue().byteValue() && withdrawStatus != WithdrawStatusEnum.FAILURE.getValue().byteValue())) {
-            return ResponseStatusVO.dataError("请选择正确的提现单号和审核状态", null);
+        boolean isStatusError = withdrawStatus == null
+                || (withdrawStatus != WithdrawStatusEnum.SUCCESS.getValue().byteValue() && withdrawStatus != WithdrawStatusEnum.FAILURE.getValue().byteValue());
+        if (isStatusError) {
+            return ResponseStatusVO.dataError("审核状态错误，4成功，5失败", null);
+        }
+        if (StringUtils.isEmpty(withdrawNo)) {
+            return ResponseStatusVO.dataError("提现单号不能为空", null);
         }
         UserWithdrawDO userWithdrawDO = userWithdrawService.getByWithdrawNo(withdrawNo);
         if (userWithdrawDO == null || userWithdrawDO.getWithdrawStatus().byteValue() != WithdrawStatusEnum.CHECKED.getValue()) {

@@ -65,9 +65,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private VerifyCodeAuthenticationFilter verifyCodeAuthenticationFilter;
 
-    // @Autowired
-    // private SmsCodeAuthenticationFilter smsCodeAuthenticationFilter;
-
     @Autowired
     private SmsCodeAuthenticationProvider smsCodeAuthenticationProvider;
 

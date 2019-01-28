@@ -23,6 +23,10 @@ import java.io.IOException;
  */
 public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
+    private static final String MOBILE_URL = "/auth/mobile";
+
+    private static final String POST = "POST";
+
     public static final String PHONE_KEY = "phone";
     public static final String SMS_CODE = "smsCode";
     private String phoneParameter = PHONE_KEY;
@@ -31,12 +35,12 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
 
     public SmsCodeAuthenticationFilter() {
         // 设置短信登录url，必须是post请求
-        super(new AntPathRequestMatcher("/auth/mobile", "POST"));
+        super(new AntPathRequestMatcher(MOBILE_URL, POST));
     }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
-        if (postOnly && !request.getMethod().equals("POST")) {
+        if (postOnly && !POST.equals(request.getMethod())) {
             throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
         }
         String phone = obtainPhone(request);

@@ -51,8 +51,12 @@ public class RedisManageVO {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         RedisManageVO that = (RedisManageVO) o;
         return Objects.equals(key, that.key);
     }

@@ -31,6 +31,9 @@ import java.io.PrintWriter;
 @Component
 public class VerifyCodeAuthenticationFilter extends OncePerRequestFilter {
 
+    private static final String LOGIN_URL = "/auth/login";
+    private static final String POST = "post";
+
     @Value("${verify.code.cookie-name}")
     private String verifyCodeCookieName;
 
@@ -38,7 +41,7 @@ public class VerifyCodeAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if (StringUtils.equals("/auth/login", request.getRequestURI()) && StringUtils.equalsIgnoreCase(request.getMethod(), "POST")) {
+        if (StringUtils.equals(LOGIN_URL, request.getRequestURI()) && StringUtils.equalsIgnoreCase(request.getMethod(),  POST)) {
             String sessionId = WebUtils.getCookieValue(request, verifyCodeCookieName);
             String verifyCode = ServletRequestUtils.getStringParameter(request, "verifyCode");
             String codeInRedis = verifyCodeRedisUtils.getCode(VerifyCodeRedisUtils.CODE_LOGIN_PREFIX, sessionId);

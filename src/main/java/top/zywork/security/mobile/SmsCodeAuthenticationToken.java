@@ -16,9 +16,13 @@ import java.util.Collection;
 public class SmsCodeAuthenticationToken extends AbstractAuthenticationToken {
     private static final long serialVersionUID = 2383092775910246006L;
 
-    // 存储手机号
+    /**
+     * 存储手机号
+     */
     private final Object principal;
-    // 存储手机验证码
+    /**
+     * 存储手机验证码
+     */
     private Object credentials;
 
     public SmsCodeAuthenticationToken(Object principal, Object credentials) {
@@ -44,6 +48,7 @@ public class SmsCodeAuthenticationToken extends AbstractAuthenticationToken {
         return this.principal;
     }
 
+    @Override
     public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
         if (isAuthenticated) {
             throw new IllegalArgumentException(
