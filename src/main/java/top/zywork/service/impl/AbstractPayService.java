@@ -3,7 +3,6 @@ package top.zywork.service.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.zywork.dao.AccountDetailDAO;
 import top.zywork.dao.UserWalletDAO;
@@ -26,10 +25,9 @@ import java.util.Map;
  * @author 王振宇
  * @version 1.0
  */
-@Service
-public abstract class AbstractPayServiceImpl implements PayService {
+public abstract class AbstractPayService implements PayService {
 
-    private static final Logger logger = LoggerFactory.getLogger(AbstractPayServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(AbstractPayService.class);
 
     private UserWalletDAO userWalletDAO;
 
