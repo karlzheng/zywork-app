@@ -11,69 +11,69 @@ import top.zywork.common.BeanUtils;
 import top.zywork.common.BindingResultUtils;
 import top.zywork.common.StringUtils;
 import top.zywork.dto.PagerDTO;
-import top.zywork.dto.UserDTO;
-import top.zywork.query.UserQuery;
+import top.zywork.dto.UserDetailDTO;
+import top.zywork.query.UserDetailQuery;
 import top.zywork.security.JwtUser;
 import top.zywork.security.SecurityUtils;
-import top.zywork.service.UserService;
+import top.zywork.service.UserDetailService;
 import top.zywork.vo.ResponseStatusVO;
 import top.zywork.vo.PagerVO;
-import top.zywork.vo.UserVO;
+import top.zywork.vo.UserDetailVO;
 
 import java.util.List;
 
 /**
- * UserController控制器类<br/>
+ * UserDetailController控制器类<br/>
  *
- * 创建于2018-12-25<br/>
+ * 创建于2019-01-29<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 @RestController
-@RequestMapping("/user")
-public class UserController extends BaseController {
+@RequestMapping("/user-detail")
+public class UserDetailController extends BaseController {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserDetailController.class);
 
-    private UserService userService;
+    private UserDetailService userDetailService;
 
     @PostMapping("admin/save")
-    public ResponseStatusVO save(@RequestBody @Validated UserVO userVO, BindingResult bindingResult) {
+    public ResponseStatusVO save(@RequestBody @Validated UserDetailVO userDetailVO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResponseStatusVO.dataError(BindingResultUtils.errorString(bindingResult), null);
         }
-        userService.save(BeanUtils.copy(userVO, UserDTO.class));
+        userDetailService.save(BeanUtils.copy(userDetailVO, UserDetailDTO.class));
         return ResponseStatusVO.ok("添加成功", null);
     }
 
     @PostMapping("admin/batch-save")
-    public ResponseStatusVO saveBatch(@RequestBody @Validated List<UserVO> userVOList, BindingResult bindingResult) {
+    public ResponseStatusVO saveBatch(@RequestBody @Validated List<UserDetailVO> userDetailVOList, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResponseStatusVO.dataError(BindingResultUtils.errorString(bindingResult), null);
         }
-        userService.saveBatch(BeanUtils.copyListObj(userVOList, UserDTO.class));
+        userDetailService.saveBatch(BeanUtils.copyListObj(userDetailVOList, UserDetailDTO.class));
         return ResponseStatusVO.ok("批量添加成功", null);
     }
 
     @GetMapping("admin/remove/{id}")
     public ResponseStatusVO removeById(@PathVariable("id") Long id) {
-        userService.removeById(id);
+        userDetailService.removeById(id);
         return ResponseStatusVO.ok("删除成功", null);
     }
 
     @PostMapping("admin/batch-remove")
     public ResponseStatusVO removeByIds(@RequestBody String[] ids) {
-        userService.removeByIds(StringUtils.strArrayToLongArray(ids));
+        userDetailService.removeByIds(StringUtils.strArrayToLongArray(ids));
         return ResponseStatusVO.ok("批量删除成功", null);
     }
 
     @PostMapping("admin/update")
-    public ResponseStatusVO update(@RequestBody @Validated UserVO userVO, BindingResult bindingResult) {
+    public ResponseStatusVO update(@RequestBody @Validated UserDetailVO userDetailVO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResponseStatusVO.dataError(BindingResultUtils.errorString(bindingResult), null);
         }
-        int updateRows = userService.update(BeanUtils.copy(userVO, UserDTO.class));
+        int updateRows = userDetailService.update(BeanUtils.copy(userDetailVO, UserDetailDTO.class));
         if (updateRows == 1) {
             return ResponseStatusVO.ok("更新成功", null);
         } else {
@@ -81,39 +81,55 @@ public class UserController extends BaseController {
         }
     }
 
+    /**
+     * 用户更新自己的详情信息
+     * @param userDetailVO
+     * @param bindingResult
+     * @return
+     */
+    @PostMapping("user/update")
+    public ResponseStatusVO userUpdate(@RequestBody @Validated UserDetailVO userDetailVO, BindingResult bindingResult) {
+        JwtUser jwtUser = SecurityUtils.getJwtUser();
+        if (jwtUser == null) {
+            return ResponseStatusVO.authenticationError();
+        }
+        userDetailVO.setId(jwtUser.getUserId());
+        return update(userDetailVO, bindingResult);
+    }
+
     @PostMapping("admin/batch-update")
-    public ResponseStatusVO updateBatch(@RequestBody @Validated List<UserVO> userVOList, BindingResult bindingResult) {
+    public ResponseStatusVO updateBatch(@RequestBody @Validated List<UserDetailVO> userDetailVOList, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResponseStatusVO.dataError(BindingResultUtils.errorString(bindingResult), null);
         }
-        userService.updateBatch(BeanUtils.copyListObj(userVOList, UserDTO.class));
+        userDetailService.updateBatch(BeanUtils.copyListObj(userDetailVOList, UserDetailDTO.class));
         return ResponseStatusVO.ok("批量更新成功", null);
     }
 
     @PostMapping("admin/active")
-    public ResponseStatusVO active(@RequestBody UserVO userVO) {
-        userService.update(BeanUtils.copy(userVO, UserDTO.class));
+    public ResponseStatusVO active(@RequestBody UserDetailVO userDetailVO) {
+        userDetailService.update(BeanUtils.copy(userDetailVO, UserDetailDTO.class));
         return ResponseStatusVO.ok("激活或冻结成功", null);
     }
 
     @PostMapping("admin/batch-active")
-    public ResponseStatusVO activeBatch(@RequestBody @Validated List<UserVO> userVOList) {
-        userService.updateBatch(BeanUtils.copyListObj(userVOList, UserDTO.class));
+    public ResponseStatusVO activeBatch(@RequestBody @Validated List<UserDetailVO> userDetailVOList) {
+        userDetailService.updateBatch(BeanUtils.copyListObj(userDetailVOList, UserDetailDTO.class));
         return ResponseStatusVO.ok("批量激活或冻结成功", null);
     }
 
     @GetMapping("admin/one/{id}")
     public ResponseStatusVO getById(@PathVariable("id") Long id) {
-        UserVO userVO = new UserVO();
-        Object obj = userService.getById(id);
+        UserDetailVO userDetailVO = new UserDetailVO();
+        Object obj = userDetailService.getById(id);
         if (obj != null) {
-            userVO = BeanUtils.copy(obj, UserVO.class);
+            userDetailVO = BeanUtils.copy(obj, UserDetailVO.class);
         }
-        return ResponseStatusVO.ok("查询成功", userVO);
+        return ResponseStatusVO.ok("查询成功", userDetailVO);
     }
 
     /**
-     * 用户获取基本信息
+     * 用户获取用户详情信息
      * @return
      */
     @GetMapping("user/one")
@@ -122,41 +138,35 @@ public class UserController extends BaseController {
         if (jwtUser == null) {
             return ResponseStatusVO.authenticationError();
         }
-        UserVO userVO = new UserVO();
-        Object obj = userService.getById(jwtUser.getUserId());
-        if (obj != null) {
-            userVO = BeanUtils.copy(obj, UserVO.class);
-            userVO.setPassword(null);
-        }
-        return ResponseStatusVO.ok("查询成功", userVO);
+        return getById(jwtUser.getUserId());
     }
 
     @GetMapping("admin/all")
     public ResponseStatusVO listAll() {
-        PagerDTO pagerDTO = userService.listAll();
+        PagerDTO pagerDTO = userDetailService.listAll();
         PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
-        pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), UserVO.class));
+        pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), UserDetailVO.class));
         return ResponseStatusVO.ok("查询成功", pagerVO);
     }
 
     @PostMapping("admin/all-cond")
-    public ResponseStatusVO listAllByCondition(@RequestBody UserQuery userQuery) {
-        PagerDTO pagerDTO = userService.listAllByCondition(userQuery);
+    public ResponseStatusVO listAllByCondition(@RequestBody UserDetailQuery userDetailQuery) {
+        PagerDTO pagerDTO = userDetailService.listAllByCondition(userDetailQuery);
         PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
-        pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), UserVO.class));
+        pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), UserDetailVO.class));
         return ResponseStatusVO.ok("查询成功", pagerVO);
     }
 
     @PostMapping("admin/pager-cond")
-    public ResponseStatusVO listPageByCondition(@RequestBody UserQuery userQuery) {
-        PagerDTO pagerDTO = userService.listPageByCondition(userQuery);
+    public ResponseStatusVO listPageByCondition(@RequestBody UserDetailQuery userDetailQuery) {
+        PagerDTO pagerDTO = userDetailService.listPageByCondition(userDetailQuery);
         PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
-        pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), UserVO.class));
+        pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), UserDetailVO.class));
         return ResponseStatusVO.ok("查询成功", pagerVO);
     }
 
     @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
+    public void setUserDetailService(UserDetailService userDetailService) {
+        this.userDetailService = userDetailService;
     }
 }
