@@ -6,10 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import top.zywork.annotation.SysLog;
 import top.zywork.common.DateFormatUtils;
@@ -87,15 +84,20 @@ public class WeixinAuthController {
      * <p>如果cookies中有用户信息，则不需要授权登录。</p>
      *
      * @param request
+     * @param response
      * @param code
+     * @param time 发起授权的时候
+     * @param fromUrl
+     * @param shareCode
      */
-    @GetMapping("gzh")
+    @GetMapping("gzh/{time}/{fromUrl}/{shareCode}")
     @SysLog(description = "微信公众号登录", requestParams = false)
-    public ResponseStatusVO gzhAuth(HttpServletRequest request, HttpServletResponse response, String code, String fromUrl, String shareCode) {
+    public ResponseStatusVO gzhAuth(HttpServletRequest request, HttpServletResponse response, String code,
+                                    @PathVariable("time") String time, @PathVariable("fromUrl") String fromUrl, @PathVariable("shareCode") String shareCode) {
         String openid = WebUtils.getCookieValue(request, gzhCookieName);
         if (StringUtils.isNotEmpty(openid)) {
             // 已经有登录，则什么事都不用做，直接返回已经登录的消息
-            return ResponseStatusVO.ok("已授权登录的用户", null);
+            return ResponseStatusVO.ok("已授权登录的用户", fromUrl);
         }
         if (StringUtils.isEmpty(code)) {
             // 没有登录，且也没有code
