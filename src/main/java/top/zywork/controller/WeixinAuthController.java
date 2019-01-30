@@ -93,9 +93,9 @@ public class WeixinAuthController {
     @GetMapping("gzh/{time}/{fromUrl}/{shareCode}")
     @SysLog(description = "微信公众号登录", requestParams = false)
     public ResponseStatusVO gzhAuth(HttpServletRequest request, HttpServletResponse response, String code,
-                                    @PathVariable(value = "time", required = false) String time,
-                                    @PathVariable(value = "fromUrl", required = false) String fromUrl,
-                                    @PathVariable(value = "shareCode", required = false) String shareCode) {
+                                    @PathVariable(value = "time") String time,
+                                    @PathVariable(value = "fromUrl") String fromUrl,
+                                    @PathVariable(value = "shareCode") String shareCode) {
         String openid = WebUtils.getCookieValue(request, gzhCookieName);
         if (StringUtils.isNotEmpty(openid)) {
             // 已经有登录，则什么事都不用做，直接返回已经登录的消息
@@ -117,7 +117,7 @@ public class WeixinAuthController {
             WeixinUser weixinUser = WeixinUtils.userInfo(gzhAuth);
             if (weixinUser != null) {
                 Long inviteUserId = null;
-                if (StringUtils.isNotEmpty(shareCode)) {
+                if (StringUtils.isNotEmpty(shareCode) && !WeixinUtils.SHARE_CODE.equals(shareCode)) {
                     inviteUserId = userRegService.getUserIdByShareCode(shareCode);
                 }
                 userRegService.saveWeixinUser(weixinUser.getOpenid(), weixinUser.getUnionid(), gzhAuth.getAccessToken(), null,
