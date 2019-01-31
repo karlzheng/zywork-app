@@ -6,7 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import top.zywork.annotation.SysLog;
 import top.zywork.common.DateFormatUtils;
@@ -21,7 +24,6 @@ import top.zywork.service.UserRegService;
 import top.zywork.vo.ResponseStatusVO;
 import top.zywork.weixin.*;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
@@ -39,6 +41,8 @@ import java.util.Map;
 public class WeixinAuthController {
 
     private static final Logger logger = LoggerFactory.getLogger(WeixinAuthController.class);
+
+    private static final String SHARE_CODE = "shareCode";
 
     @Value("${weixin.cookie.expiration}")
     private Integer cookieExpiration;
@@ -62,21 +66,19 @@ public class WeixinAuthController {
      * 开始微信授权，可指定微信授权后跳转回的url，也可指定分享码
      *
      * @param request
-     * @param modelAndView
-     * @param fromUrl      从哪个url发起微信授权，授权成功后跳转回此url
-     * @param shareCode    分享码
+     * @param extraParams
      * @return
      */
     @GetMapping("to-gzh")
-    public ModelAndView toGzhAuth(HttpServletRequest request, ModelAndView modelAndView, String fromUrl, String shareCode) {
+    public ModelAndView toGzhAuth(HttpServletRequest request, String extraParams) {
         String openid = WebUtils.getCookieValue(request, gzhCookieName);
+        logger.info("openid: {}", openid);
         if (StringUtils.isEmpty(openid)) {
             WeixinGzhConfig weixinGzhConfig = sysConfigService.getByName(SysConfigEnum.WEIXIN_GZH_CONFIG.getValue(), WeixinGzhConfig.class);
-            modelAndView.setViewName("redirect:" + WeixinUtils.gzhAuthorizeUrl(weixinGzhConfig.getAppId(), weixinGzhConfig.getLoginRedirectUrl(), fromUrl, shareCode));
+            return new ModelAndView("redirect:" + WeixinUtils.gzhAuthorizeUrl(weixinGzhConfig.getAppId(), weixinGzhConfig.getLoginRedirectUrl(), extraParams));
         } else {
-            modelAndView.setViewName("redirect:" + fromUrl);
+            return new ModelAndView("redirect:" + extraParams.split("_")[0]);
         }
-        return modelAndView;
     }
 
     /**
@@ -86,29 +88,30 @@ public class WeixinAuthController {
      * @param request
      * @param response
      * @param code
-     * @param time 发起授权的时候
-     * @param fromUrl
-     * @param shareCode
+     * @param extraParams
      */
-    @GetMapping("gzh/{time}/{fromUrl}/{shareCode}")
+    @GetMapping("gzh")
     @SysLog(description = "微信公众号登录", requestParams = false)
-    public ResponseStatusVO gzhAuth(HttpServletRequest request, HttpServletResponse response, String code,
-                                    @PathVariable(value = "time") String time,
-                                    @PathVariable(value = "fromUrl") String fromUrl,
-                                    @PathVariable(value = "shareCode") String shareCode) {
+    public ModelAndView gzhAuth(HttpServletRequest request, HttpServletResponse response, String code, String extraParams) {
+        logger.info("extraParams: {}, code: {}", extraParams, code);
         String openid = WebUtils.getCookieValue(request, gzhCookieName);
+        logger.info("openid: {}", openid);
+        String[] extraParamAry = extraParams.split(WeixinUtils.EXTRA_PARAMS_SEPERATOR);
+        String fromUrl = extraParamAry[0];
+        String shareCode = extraParamAry[1];
+        String notAuth = extraParamAry[2];
         if (StringUtils.isNotEmpty(openid)) {
             // 已经有登录，则什么事都不用做，直接返回已经登录的消息
-            return ResponseStatusVO.ok("已授权登录的用户", fromUrl);
+            return new ModelAndView("redirect:" + fromUrl);
         }
         if (StringUtils.isEmpty(code)) {
             // 没有登录，且也没有code
-            return ResponseStatusVO.dataError("微信授权登录缺少code", null);
+            return new ModelAndView("redirect:" + notAuth);
         }
         WeixinGzhConfig weixinGzhConfig = sysConfigService.getByName(SysConfigEnum.WEIXIN_GZH_CONFIG.getValue(), WeixinGzhConfig.class);
         GzhAuth gzhAuth = WeixinUtils.authGzh(weixinGzhConfig.getAppId(), weixinGzhConfig.getAppSecret(), code);
         if (gzhAuth == null) {
-            return ResponseStatusVO.error("微信授权登录失败，请检查参数", null);
+            return new ModelAndView("redirect:" + notAuth);
         }
         // 判断用户是否已经保存，如未保存，则保存微信用户信息到数据库
         JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(gzhAuth.getOpenid());
@@ -117,36 +120,47 @@ public class WeixinAuthController {
             WeixinUser weixinUser = WeixinUtils.userInfo(gzhAuth);
             if (weixinUser != null) {
                 Long inviteUserId = null;
-                if (StringUtils.isNotEmpty(shareCode) && !WeixinUtils.SHARE_CODE.equals(shareCode)) {
+                if (StringUtils.isNotEmpty(shareCode) && !SHARE_CODE.equals(shareCode)) {
                     inviteUserId = userRegService.getUserIdByShareCode(shareCode);
                 }
                 userRegService.saveWeixinUser(weixinUser.getOpenid(), weixinUser.getUnionid(), gzhAuth.getAccessToken(), null,
                         SocialTypeEnum.WEIXIN_GZH.getValue(), null, weixinUser.getNickname(), weixinUser.getHeadimgurl(),
                         Byte.valueOf(weixinUser.getSex()), defaultRoleQueryService.getDefaultRole(), inviteUserId);
-                return outInfoToGzh(response, gzhAuth.getOpenid(), fromUrl);
+                WebUtils.setCookie(response, gzhCookieName, gzhAuth.getOpenid(), cookieExpiration);
+                return new ModelAndView("redirect:" + fromUrl);
             } else {
-                return ResponseStatusVO.error("微信授权登录失败，无法获取用户信息", null);
+                return new ModelAndView("redirect:" + notAuth);
             }
         } else {
             // 已保存用户信息，更新access token
             userRegService.updateWeixinUserSocial(gzhAuth.getOpenid(), gzhAuth.getAccessToken(), null);
-            return outInfoToGzh(response, gzhAuth.getOpenid(), fromUrl);
+            WebUtils.setCookie(response, gzhCookieName, gzhAuth.getOpenid(), cookieExpiration);
+            return new ModelAndView("redirect:" + fromUrl);
         }
     }
 
-    private ResponseStatusVO outInfoToGzh(HttpServletResponse response, String openid, String fromUrl) {
-        // 重新根据openid获取JwtUser，生成jwt token并返回客户端
-        JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(openid);
-        // 写出用户cookie到客户端
-        writeCookie(response, gzhCookieName, openid);
-        Map<String, Object> claims = jwtUtils.generateClaims(jwtUser);
-        String token = jwtUtils.generateToken(jwtUser.getUsername(), claims);
-        // 支持用户多平台同时登录，一次平台登录产生一个jwt token
-        JwtClaims jwtClaims = JSON.parseObject((String) claims.get(JwtUtils.JWT_CLAIMS), JwtClaims.class);
-        jwtTokenRedisUtils.storeToken(jwtUser.getUserId() + "_" + jwtClaims.getCreateDate().getTime(),
-                new JwtToken(token, DateFormatUtils.format(System.currentTimeMillis(), DatePatternEnum.DATE.getValue())));
-        // 微信授权登录成功，返回openid, jwt token和开启微信授权的页面url，此url可用于微信登录成功后指定要跳转到的页面
-        return ResponseStatusVO.ok("微信用户授权登录成功", new String[]{openid, token, fromUrl});
+    /**
+     * 通过公众号cookie中的openid获取jwt token并返回
+     * @param request
+     * @return
+     */
+    @GetMapping("token")
+    public ResponseStatusVO getJwtToken(HttpServletRequest request) {
+        String openid = WebUtils.getCookieValue(request, gzhCookieName);
+        if (StringUtils.isNotEmpty(openid)) {
+            // 重新根据openid获取JwtUser，生成jwt token并返回客户端
+            JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(openid);
+            Map<String, Object> claims = jwtUtils.generateClaims(jwtUser);
+            String token = jwtUtils.generateToken(jwtUser.getUsername(), claims);
+            // 支持用户多平台同时登录，一次平台登录产生一个jwt token
+            JwtClaims jwtClaims = JSON.parseObject((String) claims.get(JwtUtils.JWT_CLAIMS), JwtClaims.class);
+            jwtTokenRedisUtils.storeToken(jwtUser.getUserId() + "_" + jwtClaims.getCreateDate().getTime(),
+                    new JwtToken(token, DateFormatUtils.format(System.currentTimeMillis(), DatePatternEnum.DATE.getValue())));
+            return ResponseStatusVO.ok("成功获取jwt token", token);
+        }
+        else {
+            return ResponseStatusVO.dataError("公众号Cookie中不存在openid", null);
+        }
     }
 
     /**
@@ -220,12 +234,6 @@ public class WeixinAuthController {
         XcxPhone xcxPhone = WeixinUtils.decryptPhoneData(userRegService.getSessionKeyByOpenid(openid), encryptedData, iv);
         userRegService.updateUserPhone(openid, xcxPhone.getPhoneNumber());
         return ResponseStatusVO.ok("成功获取微信用户手机号", xcxPhone);
-    }
-
-    private void writeCookie(HttpServletResponse response, String name, String openid) {
-        Cookie cookie = new Cookie(name, openid);
-        cookie.setMaxAge(cookieExpiration);
-        response.addCookie(cookie);
     }
 
     @Autowired
