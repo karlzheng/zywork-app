@@ -98,20 +98,20 @@ public class WeixinAuthController {
         logger.info("openid: {}", openid);
         String[] extraParamAry = extraParams.split(WeixinUtils.EXTRA_PARAMS_SEPERATOR);
         String fromUrl = extraParamAry[0];
-        String shareCode = extraParamAry[1];
-        String notAuth = extraParamAry[2];
+        String notAuthUrl = extraParamAry[1];
+        String shareCode = extraParamAry[2];
         if (StringUtils.isNotEmpty(openid)) {
             // 已经有登录，则什么事都不用做，直接返回已经登录的消息
             return new ModelAndView("redirect:" + fromUrl);
         }
         if (StringUtils.isEmpty(code)) {
             // 没有登录，且也没有code
-            return new ModelAndView("redirect:" + notAuth);
+            return new ModelAndView("redirect:" + notAuthUrl);
         }
         WeixinGzhConfig weixinGzhConfig = sysConfigService.getByName(SysConfigEnum.WEIXIN_GZH_CONFIG.getValue(), WeixinGzhConfig.class);
         GzhAuth gzhAuth = WeixinUtils.authGzh(weixinGzhConfig.getAppId(), weixinGzhConfig.getAppSecret(), code);
         if (gzhAuth == null) {
-            return new ModelAndView("redirect:" + notAuth);
+            return new ModelAndView("redirect:" + notAuthUrl);
         }
         // 判断用户是否已经保存，如未保存，则保存微信用户信息到数据库
         JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(gzhAuth.getOpenid());
@@ -129,7 +129,7 @@ public class WeixinAuthController {
                 WebUtils.setCookie(response, gzhCookieName, gzhAuth.getOpenid(), cookieExpiration);
                 return new ModelAndView("redirect:" + fromUrl);
             } else {
-                return new ModelAndView("redirect:" + notAuth);
+                return new ModelAndView("redirect:" + notAuthUrl);
             }
         } else {
             // 已保存用户信息，更新access token
