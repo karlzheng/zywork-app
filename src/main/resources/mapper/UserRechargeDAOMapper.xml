@@ -5,12 +5,12 @@
 <mapper namespace="top.zywork.dao.UserRechargeDAO">
 
     <insert id="saveRechargeThirdParty">
-        insert into t_funds_recharge(user_id, amount, recharge_type, out_trade_no, trade_no, is_success)
-        values(#{userId}, #{amount}, #{rechargeType}, #{outTradeNo}, #{tradeNo}, #{isSuccess})
+        insert into t_funds_recharge(transaction_no, user_id, amount, recharge_type, out_trade_no, trade_no, is_success)
+        values(#{transactionNo}, #{userId}, #{amount}, #{rechargeType}, #{outTradeNo}, #{tradeNo}, #{isSuccess})
     </insert>
 
     <insert id="saveRechargeHuman">
-        insert into t_funds_recharge(user_id, amount, recharge_type) values(#{userId}, #{amount}, #{rechargeType})
+        insert into t_funds_recharge(transaction_no, user_id, amount, recharge_type) values(#{transactionNo}, #{userId}, #{amount}, #{rechargeType})
     </insert>
 
 </mapper>

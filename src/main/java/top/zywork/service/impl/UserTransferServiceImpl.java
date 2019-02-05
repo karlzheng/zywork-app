@@ -3,6 +3,7 @@ package top.zywork.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import top.zywork.common.TransactionNoGenerator;
 import top.zywork.dao.AccountDetailDAO;
 import top.zywork.dao.UserTransferDAO;
 import top.zywork.dao.UserWalletDAO;
@@ -30,12 +31,14 @@ public class UserTransferServiceImpl implements UserTransferService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int saveTransfer(Long userId, Long toUserId, Long amount) {
-        int savedRows = userTransferDAO.saveTransfer(userId, toUserId, amount, FundsChangeTypeEnum.TRANSFER_OUT.getValue());
+        String transactionNo = TransactionNoGenerator.generateNo();
+        int savedRows = userTransferDAO.saveTransfer(transactionNo, userId, toUserId, amount, FundsChangeTypeEnum.TRANSFER_OUT.getValue());
         if (savedRows == 1) {
-            userTransferDAO.saveTransferTo(toUserId, userId, amount, FundsChangeTypeEnum.TRANSFER_IN.getValue());
+            String transactionNoTo = TransactionNoGenerator.generateNo();
+            userTransferDAO.saveTransferTo(transactionNoTo, toUserId, userId, amount, FundsChangeTypeEnum.TRANSFER_IN.getValue());
             updateWallet(userId, toUserId, amount);
-            saveAccountDetail(userId, amount);
-            saveAccountDetailTo(toUserId, amount);
+            saveAccountDetail(transactionNo, userId, amount);
+            saveAccountDetailTo(transactionNoTo, toUserId, amount);
         }
         return savedRows;
     }
@@ -45,8 +48,9 @@ public class UserTransferServiceImpl implements UserTransferService {
         userWalletDAO.updateWalletIn(toUserId, amount);
     }
 
-    private void saveAccountDetail(Long userId, Long amount) {
+    private void saveAccountDetail(String transactionNo, Long userId, Long amount) {
         AccountDetailDO accountDetailDO = new AccountDetailDO();
+        accountDetailDO.setTransactionNo(transactionNo);
         accountDetailDO.setUserId(userId);
         accountDetailDO.setAmount(-amount);
         accountDetailDO.setType((byte) 1);
@@ -54,8 +58,9 @@ public class UserTransferServiceImpl implements UserTransferService {
         accountDetailDAO.save(accountDetailDO);
     }
 
-    private void saveAccountDetailTo(Long userId, Long amount) {
+    private void saveAccountDetailTo(String transactionNo, Long userId, Long amount) {
         AccountDetailDO accountDetailDO = new AccountDetailDO();
+        accountDetailDO.setTransactionNo(transactionNo);
         accountDetailDO.setUserId(userId);
         accountDetailDO.setAmount(amount);
         accountDetailDO.setType((byte) 0);

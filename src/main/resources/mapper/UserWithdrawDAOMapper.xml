@@ -6,8 +6,8 @@
 
     <insert id="saveWithdraw">
         <!-- 只有当可用余额大于等于提现金额加所有未完成的提现金额时才可申请提现 -->
-        insert into t_funds_withdraw(user_id, withdraw_no, amount, bankcard_id, withdraw_status)
-        select #{userId}, #{withdrawNo}, #{amount}, #{bankcardId}, 0 from dual
+        insert into t_funds_withdraw(user_id, transaction_no, amount, bankcard_id, withdraw_status)
+        select #{userId}, #{transactionNo}, #{amount}, #{bankcardId}, 0 from dual
         where exists(
 				select t_user_wallet.usable_rmb_balance as usableRmbBalance,
 				(select ifnull(sum(t_funds_withdraw.amount), 0)
@@ -32,7 +32,7 @@
             version = version + 1,
             update_time = CURRENT_TIMESTAMP,
         </set>
-        where withdraw_no = #{withdrawNo} and version + 1 <![CDATA[<=]]> #{newVersion}
+        where transaction_no = #{transactionNo} and version + 1 <![CDATA[<=]]> #{newVersion}
         <!-- 如果审核通过，则需要判断只有当提现金额小于等于可用余额时才能通过 -->
         <if test="withdrawStatus == 1">
             and amount <![CDATA[<=]]> (select t_user_wallet.usable_rmb_balance from t_user_wallet where t_user_wallet.id = #{userId})
@@ -40,8 +40,8 @@
     </update>
 
     <insert id="saveWithdrawCheck">
-        insert into t_funds_withdraw_check(withdraw_id, withdraw_no, withdraw_status, withdraw_description, checked_user_id)
-        values(#{withdrawId}, #{withdrawNo}, #{withdrawStatus}, #{description}, #{checkedUserId})
+        insert into t_funds_withdraw_check(withdraw_id, transaction_no, withdraw_status, withdraw_description, checked_user_id)
+        values(#{withdrawId}, #{transactionNo}, #{withdrawStatus}, #{description}, #{checkedUserId})
     </insert>
 
     <update id="updateWithdraw">
@@ -50,7 +50,7 @@
         complete_time = CURRENT_TIMESTAMP,
         version = version + 1,
         update_time = CURRENT_TIMESTAMP
-        where withdraw_no = #{withdrawNo} and version + 1 <![CDATA[<=]]> #{newVersion}
+        where transaction_no = #{transactionNo} and version + 1 <![CDATA[<=]]> #{newVersion}
     </update>
 
     <select id="getAvailableWithdraw" parameterType="long" resultType="long">
@@ -60,8 +60,8 @@
 	    from t_user_wallet where t_user_wallet.id = #{userId}
     </select>
 
-    <select id="getByWithdrawNo" parameterType="string" resultType="userWithdrawDO">
-        select id, user_id, amount, withdraw_status, version from t_funds_withdraw where withdraw_no = #{withdrawNo}
+    <select id="getByTransactionNo" parameterType="string" resultType="userWithdrawDO">
+        select id, user_id, amount, withdraw_status, version from t_funds_withdraw where transaction_no = #{transactionNo}
     </select>
 
 </mapper>

@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 28/01/2019 15:30:21
+ Date: 05/02/2019 20:27:28
 */
 
 SET NAMES utf8mb4;
@@ -23,6 +23,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `t_account_detail`;
 CREATE TABLE `t_account_detail` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '账目编号',
+  `transaction_no` varchar(32) COLLATE utf8mb4_general_ci NOT NULL COMMENT '交易编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
   `amount` bigint(20) DEFAULT NULL COMMENT '金额',
   `integral` bigint(20) DEFAULT NULL COMMENT '积分',
@@ -40,14 +41,14 @@ CREATE TABLE `t_account_detail` (
 -- Records of t_account_detail
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_account_detail` VALUES (1, 31, -50, NULL, 1, '提现', NULL, 1, '2018-12-25 23:24:19', NULL, 0);
-INSERT INTO `t_account_detail` VALUES (2, 31, -50, NULL, 1, '提现', NULL, 1, '2018-12-26 17:39:45', NULL, 0);
-INSERT INTO `t_account_detail` VALUES (3, 31, 500, NULL, 0, '人工充值', NULL, 1, '2018-12-26 17:42:32', NULL, 0);
-INSERT INTO `t_account_detail` VALUES (4, 31, -100, NULL, 1, '转出', NULL, 1, '2019-01-06 20:56:44', NULL, 0);
-INSERT INTO `t_account_detail` VALUES (5, 36, 100, NULL, 0, '转入', NULL, 1, '2019-01-06 20:56:44', NULL, 0);
-INSERT INTO `t_account_detail` VALUES (6, 31, -100, NULL, 1, '转出', NULL, 1, '2019-01-15 20:51:44', NULL, 0);
-INSERT INTO `t_account_detail` VALUES (7, 36, 100, NULL, 0, '转入', NULL, 1, '2019-01-15 20:51:44', NULL, 0);
-INSERT INTO `t_account_detail` VALUES (8, 31, -10, NULL, 1, '消费', 3, 1, '2019-01-15 22:23:31', NULL, 0);
+INSERT INTO `t_account_detail` VALUES (1, '', 31, -50, NULL, 1, '提现', NULL, 1, '2018-12-25 23:24:19', NULL, 0);
+INSERT INTO `t_account_detail` VALUES (2, '', 31, -50, NULL, 1, '提现', NULL, 1, '2018-12-26 17:39:45', NULL, 0);
+INSERT INTO `t_account_detail` VALUES (3, '', 31, 500, NULL, 0, '人工充值', NULL, 1, '2018-12-26 17:42:32', NULL, 0);
+INSERT INTO `t_account_detail` VALUES (4, '', 31, -100, NULL, 1, '转出', NULL, 1, '2019-01-06 20:56:44', NULL, 0);
+INSERT INTO `t_account_detail` VALUES (5, '', 36, 100, NULL, 0, '转入', NULL, 1, '2019-01-06 20:56:44', NULL, 0);
+INSERT INTO `t_account_detail` VALUES (6, '', 31, -100, NULL, 1, '转出', NULL, 1, '2019-01-15 20:51:44', NULL, 0);
+INSERT INTO `t_account_detail` VALUES (7, '', 36, 100, NULL, 0, '转入', NULL, 1, '2019-01-15 20:51:44', NULL, 0);
+INSERT INTO `t_account_detail` VALUES (8, '', 31, -10, NULL, 1, '消费', 3, 1, '2019-01-15 22:23:31', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -55,7 +56,8 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `t_funds_frezee`;
 CREATE TABLE `t_funds_frezee` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '充值编号',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '冻结编号',
+  `transaction_no` varchar(32) COLLATE utf8mb4_general_ci NOT NULL COMMENT '交易编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
   `amount` bigint(20) NOT NULL COMMENT '金额',
   `frezee_type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '类型',
@@ -73,6 +75,7 @@ CREATE TABLE `t_funds_frezee` (
 DROP TABLE IF EXISTS `t_funds_recharge`;
 CREATE TABLE `t_funds_recharge` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '充值编号',
+  `transaction_no` varchar(32) COLLATE utf8mb4_general_ci NOT NULL COMMENT '交易编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
   `amount` bigint(20) NOT NULL COMMENT '充值金额',
   `recharge_type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '充值类型',
@@ -90,10 +93,10 @@ CREATE TABLE `t_funds_recharge` (
 -- Records of t_funds_recharge
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_funds_recharge` VALUES (1, 31, 134, '人工充值', 0, NULL, NULL, 1, '2018-12-23 13:06:57', NULL, 0);
-INSERT INTO `t_funds_recharge` VALUES (2, 31, 134, '人工充值', 0, NULL, NULL, 1, '2018-12-23 13:08:11', NULL, 0);
-INSERT INTO `t_funds_recharge` VALUES (3, 31, 134, '人工充值', 0, NULL, NULL, 1, '2018-12-23 14:06:48', NULL, 0);
-INSERT INTO `t_funds_recharge` VALUES (4, 31, 500, '人工充值', 0, NULL, NULL, 1, '2018-12-26 17:42:32', NULL, 0);
+INSERT INTO `t_funds_recharge` VALUES (1, '', 31, 134, '人工充值', 0, NULL, NULL, 1, '2018-12-23 13:06:57', NULL, 0);
+INSERT INTO `t_funds_recharge` VALUES (2, '', 31, 134, '人工充值', 0, NULL, NULL, 1, '2018-12-23 13:08:11', NULL, 0);
+INSERT INTO `t_funds_recharge` VALUES (3, '', 31, 134, '人工充值', 0, NULL, NULL, 1, '2018-12-23 14:06:48', NULL, 0);
+INSERT INTO `t_funds_recharge` VALUES (4, '', 31, 500, '人工充值', 0, NULL, NULL, 1, '2018-12-26 17:42:32', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -102,6 +105,7 @@ COMMIT;
 DROP TABLE IF EXISTS `t_funds_transfer`;
 CREATE TABLE `t_funds_transfer` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '转账编号',
+  `transaction_no` varchar(32) COLLATE utf8mb4_general_ci NOT NULL COMMENT '交易编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
   `amount` bigint(20) NOT NULL COMMENT '金额',
   `from_user_id` bigint(20) DEFAULT NULL COMMENT 'FROM',
@@ -119,10 +123,10 @@ CREATE TABLE `t_funds_transfer` (
 -- Records of t_funds_transfer
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_funds_transfer` VALUES (1, 31, 100, NULL, 36, '转出', NULL, 1, '2019-01-06 20:56:44', NULL, 0);
-INSERT INTO `t_funds_transfer` VALUES (2, 36, 100, 31, NULL, '转入', NULL, 1, '2019-01-06 20:56:44', NULL, 0);
-INSERT INTO `t_funds_transfer` VALUES (3, 31, 100, NULL, 36, '转出', NULL, 1, '2019-01-15 20:51:44', NULL, 0);
-INSERT INTO `t_funds_transfer` VALUES (4, 36, 100, 31, NULL, '转入', NULL, 1, '2019-01-15 20:51:44', NULL, 0);
+INSERT INTO `t_funds_transfer` VALUES (1, '', 31, 100, NULL, 36, '转出', NULL, 1, '2019-01-06 20:56:44', NULL, 0);
+INSERT INTO `t_funds_transfer` VALUES (2, '', 36, 100, 31, NULL, '转入', NULL, 1, '2019-01-06 20:56:44', NULL, 0);
+INSERT INTO `t_funds_transfer` VALUES (3, '', 31, 100, NULL, 36, '转出', NULL, 1, '2019-01-15 20:51:44', NULL, 0);
+INSERT INTO `t_funds_transfer` VALUES (4, '', 36, 100, 31, NULL, '转入', NULL, 1, '2019-01-15 20:51:44', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -132,7 +136,7 @@ DROP TABLE IF EXISTS `t_funds_withdraw`;
 CREATE TABLE `t_funds_withdraw` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '提现编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
-  `withdraw_no` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '提现单号',
+  `transaction_no` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '交易编号',
   `amount` bigint(20) NOT NULL COMMENT '提现金额',
   `bankcard_id` bigint(20) NOT NULL COMMENT '提现银行卡',
   `withdraw_status` tinyint(4) DEFAULT NULL COMMENT '提现状态',
@@ -166,7 +170,7 @@ DROP TABLE IF EXISTS `t_funds_withdraw_check`;
 CREATE TABLE `t_funds_withdraw_check` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '提现审核编号',
   `withdraw_id` bigint(20) NOT NULL COMMENT '提现编号',
-  `withdraw_no` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '提现单号',
+  `transaction_no` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '交易编号',
   `withdraw_status` tinyint(4) NOT NULL COMMENT '提现状态',
   `withdraw_description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '提现描述',
   `checked_user_id` bigint(20) NOT NULL COMMENT '审核人编号',
@@ -1100,7 +1104,7 @@ CREATE TABLE `t_scheduler` (
 -- Records of t_scheduler
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_scheduler` VALUES (1, 'DauSaveJob', 'top.zywork.job.DauSaveJob', '59 59 23 * * ?', 'job_group', 'trigger_name', 'trigger_group', NULL, 1, '2019-01-28 15:26:52', 1, 20, '2019-01-18 17:34:42', '2019-01-28 15:26:52', 0);
+INSERT INTO `t_scheduler` VALUES (1, 'DauSaveJob', 'top.zywork.job.DauSaveJob', '59 59 23 * * ?', 'job_group', 'trigger_name', 'trigger_group', NULL, 1, '2019-02-05 20:25:50', 1, 30, '2019-01-18 17:34:42', '2019-02-05 20:25:50', 0);
 COMMIT;
 
 -- ----------------------------
@@ -1144,7 +1148,7 @@ CREATE TABLE `t_statistics_dau` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='日活用户统计表';
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='日活用户统计表';
 
 -- ----------------------------
 -- Records of t_statistics_dau
@@ -1152,6 +1156,7 @@ CREATE TABLE `t_statistics_dau` (
 BEGIN;
 INSERT INTO `t_statistics_dau` VALUES (68, 2, '2019-01-18 17:42:00', 1, '2019-01-18 17:43:00', NULL, 0);
 INSERT INTO `t_statistics_dau` VALUES (69, 16, '2019-01-25 10:47:40', 1, '2019-01-25 10:48:40', NULL, 0);
+INSERT INTO `t_statistics_dau` VALUES (71, 8, '2019-01-29 10:31:04', 1, '2019-01-29 10:32:04', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -1300,7 +1305,7 @@ INSERT INTO `t_sys_config` VALUES (1, 'aliyun_sms_config', '{\n  \"accessKeyId\"
 INSERT INTO `t_sys_config` VALUES (2, 'aliyun_mail_config', '{\n  \"accessKeyId\": \"yourAccessKeyId\",\n  \"accessKeySecret\": \"yourAccessKeySecret\"\n}', '阿里云邮件推送', '{\n  \"accessKeyId\": \"访问ID\",\n  \"accessKeySecret\": \"访问密钥\"\n}', 1, '2018-12-17 22:17:52', NULL, 0);
 INSERT INTO `t_sys_config` VALUES (3, 'weixin_gzh_config', '{\n  \"appId\": \"appId\",\n  \"appSecret\": \"appSecret\",\n  \"baseUrl\": \"http://www.zywork.top\",\n  \"loginRedirectUrl\": \"\"\n}', '微信公众号', '{\n  \"appId\": \"公众号ID\",\n  \"appSecret\": \"公众号密钥\",\n  \"baseUrl\": \"服务器端base url\",\n  \"loginRedirectUrl\": \"服务器端登录回调接口地址\"\n}', 1, '2018-12-17 22:17:52', NULL, 0);
 INSERT INTO `t_sys_config` VALUES (4, 'weixin_xcx_config', '{\n  \"appId\": \"appId\",\n  \"appSecret\": \"appSecret\"\n}', '微信小程序', '{\n  \"appId\": \"公众号ID\",\n  \"appSecret\": \"公众号密钥\"\n}', 1, '2018-12-17 22:17:52', NULL, 0);
-INSERT INTO `t_sys_config` VALUES (5, 'wx_pay_config', '{\n  \"mchId\": \"mchId\",\n  \"apiSecret\": \"apiSecret\",\n  \"baseUrl\": \"http://www.zywork.top\",\n  \"payNotifyUrl\": \"/byjc/tickeorder/result\"\n}', '微信支付', '{\n  \"mchId\": \"商户ID\",\n  \"apiSecret\": \"商户API密钥\",\n  \"baseUrl\": \"服务器端base url\",\n  \"payNotifyUrl\": \"服务器端支付通知接口\"\n}', 1, '2018-12-17 22:17:52', NULL, 0);
+INSERT INTO `t_sys_config` VALUES (5, 'wx_pay_config', '{\n  \"mchId\": \"1523115971\",\n  \"apiSecret\": \"e2d9fdc85825493cb5ae72bdce786930\",\n  \"baseUrl\": \"http://www.zywork.top\",\n  \"payNotifyUrl\": \"/byjc/tickeorder/result\"\n}', '微信支付', '{\n  \"mchId\": \"商户ID\",\n  \"apiSecret\": \"商户API密钥\",\n  \"baseUrl\": \"服务器端base url\",\n  \"payNotifyUrl\": \"服务器端支付通知接口\"\n}', 1, '2018-12-17 22:17:52', NULL, 0);
 INSERT INTO `t_sys_config` VALUES (14, 'default_distribution_config', '{\n  \"distributionLevel\": 3,\n  \"profitPercents\": {\n    \"level1\": 3,\n    \"level2\": 5,\n    \"level3\": 8\n  }\n}', '默认分销规则', '{\n  \"distributionLevel\": \"分销级别\",\n  \"profitPercents\": {\n    \"level1\": \"一级分销返佣比例\",\n    \"level2\": \"二级分销返佣比例\",\n    \"level3\": \"三级分销返佣比例\"\n  }\n}', 1, '2018-12-28 15:31:12', NULL, 0);
 COMMIT;
 
@@ -1313,7 +1318,7 @@ CREATE TABLE `t_sys_log` (
   `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
   `user_account` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '用户账号',
   `description` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '执行说明',
-  `user_agent` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'User-Agent',
+  `user_agent` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'User-Agent',
   `request_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '请求URL',
   `request_method` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '请求方式',
   `request_params` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '请求参数',
@@ -1324,14 +1329,14 @@ CREATE TABLE `t_sys_log` (
   `execute_time` datetime DEFAULT NULL COMMENT '开始执行时间',
   `execute_cost_time` bigint(20) DEFAULT NULL COMMENT '执行耗时(ms)',
   `has_exception` tinyint(4) DEFAULT '0' COMMENT '是否异常',
-  `exception_msg` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '异常消息',
+  `exception_msg` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '异常消息',
   `execute_ip` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'IP地址',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=266 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统操作日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=269 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统操作日志表';
 
 -- ----------------------------
 -- Records of t_sys_log
@@ -1577,6 +1582,9 @@ INSERT INTO `t_sys_log` VALUES (262, 31, '13672297775', '导入权限配置', 'M
 INSERT INTO `t_sys_log` VALUES (263, 31, '13672297775', '导入权限配置', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/permission-import-export/import-permission', 'POST', NULL, 1001, '成功导入权限配置信息', 'top.zywork.controller.PermissionImportExportController', 'importPermissions', '2019-01-24 16:10:55', 1554, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-24 16:10:55', NULL, 0);
 INSERT INTO `t_sys_log` VALUES (264, 31, '13672297775', '导入权限配置', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/permission-import-export/import-permission', 'POST', NULL, 1001, '成功导入权限配置信息', 'top.zywork.controller.PermissionImportExportController', 'importPermissions', '2019-01-24 18:30:25', 1359, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-24 18:30:25', NULL, 0);
 INSERT INTO `t_sys_log` VALUES (265, 31, '13672297775', '导入权限配置', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/permission-import-export/import-permission', 'POST', NULL, 1001, '成功导入权限配置信息', 'top.zywork.controller.PermissionImportExportController', 'importPermissions', '2019-01-25 23:12:27', 1680, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-25 23:12:26', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (266, NULL, NULL, '用户邮箱注册', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/auth/reg', 'POST', NULL, 1003, '错误的邮箱地址', 'top.zywork.controller.AuthController', 'reg', '2019-01-28 15:58:02', 13, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-28 15:58:02', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (267, NULL, NULL, '用户邮箱注册', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/auth/reg', 'POST', NULL, 1003, '密码不符合要求', 'top.zywork.controller.AuthController', 'reg', '2019-01-28 15:58:11', 19, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-28 15:58:10', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (268, NULL, NULL, '用户邮箱注册', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'http://localhost:8088/auth/reg', 'POST', NULL, 1003, '邮箱验证码不正确', 'top.zywork.controller.AuthController', 'reg', '2019-01-28 15:58:22', 7, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-01-28 15:58:21', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -1594,7 +1602,7 @@ CREATE TABLE `t_user` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户基本信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户基本信息表';
 
 -- ----------------------------
 -- Records of t_user
@@ -1618,6 +1626,8 @@ INSERT INTO `t_user` VALUES (36, '13999999999', NULL, '$2a$10$yNU6CqmtHfJYeyO5zz
 INSERT INTO `t_user` VALUES (37, '', NULL, NULL, NULL, 1, '2019-01-07 19:23:49', NULL, 0);
 INSERT INTO `t_user` VALUES (38, '', NULL, NULL, NULL, 1, '2019-01-07 19:28:25', NULL, 0);
 INSERT INTO `t_user` VALUES (40, '', 'demo@zywork.top', '$2a$10$BxzUB3PvmEX9VqZIfIvsf.V4ltLJY9fF06GFX.J.d.3SFOApnFBm2', NULL, 1, '2019-01-17 10:30:21', NULL, 0);
+INSERT INTO `t_user` VALUES (46, '', 'wgssmarter@126.com', '$2a$10$e8m4v/359D8T1LcdEnnqMOCK2A7c26bfEJcmRX4nhQvy/nkjauXx6', NULL, 1, '2019-01-28 16:05:16', NULL, 0);
+INSERT INTO `t_user` VALUES (47, '18988889999', NULL, '$2a$10$gv/IVbV2ZKroayTyMj.I7.cPQqxI5UnhJNZ93rNK/J2Qa56BknKsS', NULL, 1, '2019-01-28 16:06:33', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -1697,6 +1707,8 @@ INSERT INTO `t_user_detail` VALUES (36, NULL, NULL, 0, NULL, NULL, NULL, NULL, N
 INSERT INTO `t_user_detail` VALUES (37, 'nickname', 'headicon', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'frBh72', 1, '2019-01-07 19:23:49', NULL, 0);
 INSERT INTO `t_user_detail` VALUES (38, 'nickname', 'headicon', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'mxvMT2', 1, '2019-01-07 19:28:25', NULL, 0);
 INSERT INTO `t_user_detail` VALUES (40, 'demo', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'h345CG', 1, '2019-01-17 10:30:21', NULL, 0);
+INSERT INTO `t_user_detail` VALUES (46, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'vPrAmM', 1, '2019-01-28 16:05:16', NULL, 0);
+INSERT INTO `t_user_detail` VALUES (47, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'AhhiYD', 1, '2019-01-28 16:06:33', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -1806,7 +1818,7 @@ CREATE TABLE `t_user_role` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户角色表';
 
 -- ----------------------------
 -- Records of t_user_role
@@ -1825,6 +1837,8 @@ INSERT INTO `t_user_role` VALUES (10, 37, 5, 1, '2019-01-07 19:23:49', NULL, 0);
 INSERT INTO `t_user_role` VALUES (11, 38, 5, 1, '2019-01-07 19:28:25', NULL, 0);
 INSERT INTO `t_user_role` VALUES (12, 31, 3, 1, '2019-01-10 15:38:21', NULL, 0);
 INSERT INTO `t_user_role` VALUES (13, 40, 4, 1, '2019-01-17 10:30:21', NULL, 0);
+INSERT INTO `t_user_role` VALUES (16, 46, 5, 1, '2019-01-28 16:05:16', NULL, 0);
+INSERT INTO `t_user_role` VALUES (17, 47, 5, 1, '2019-01-28 16:06:33', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -1889,6 +1903,8 @@ INSERT INTO `t_user_wallet` VALUES (36, '', 200, 200, 0, NULL, NULL, NULL, 4, '2
 INSERT INTO `t_user_wallet` VALUES (37, '', 0, 0, 0, NULL, NULL, NULL, 1, '2019-01-07 19:23:49', NULL, 0);
 INSERT INTO `t_user_wallet` VALUES (38, '', 0, 0, 0, NULL, NULL, NULL, 1, '2019-01-07 19:28:25', NULL, 0);
 INSERT INTO `t_user_wallet` VALUES (40, '', 0, 0, 0, 0, 0, 0, 1, '2019-01-17 10:30:21', NULL, 0);
+INSERT INTO `t_user_wallet` VALUES (46, '', 0, 0, 0, 0, 0, 0, 1, '2019-01-28 16:05:16', NULL, 0);
+INSERT INTO `t_user_wallet` VALUES (47, '', 0, 0, 0, 0, 0, 0, 1, '2019-01-28 16:06:33', NULL, 0);
 COMMIT;
 
 -- ----------------------------

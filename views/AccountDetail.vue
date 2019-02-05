@@ -30,7 +30,10 @@
     </Row>
     <Modal v-model="modal.add" title="添加" @on-visible-change="changeModalVisibleResetForm('addForm', $event)">
       <Form ref="addForm" :model="form" :label-width="80" :rules="validateRules">
-        <FormItem label="用户编号" prop="userId">
+        <FormItem label="交易编号" prop="transactionNo">
+	<Input v-model="form.transactionNo" placeholder="请输入交易编号"/>
+</FormItem>
+<FormItem label="用户编号" prop="userId">
 	<InputNumber v-model="form.userId" placeholder="请输入用户编号" style="width: 100%;"/>
 </FormItem>
 <FormItem label="金额" prop="amount">
@@ -57,7 +60,10 @@
     </Modal>
     <Modal v-model="modal.edit" title="修改" @on-visible-change="changeModalVisibleResetForm('editForm', $event)">
       <Form ref="editForm" :model="form" :label-width="80" :rules="validateRules">
-        <FormItem label="用户编号" prop="userId">
+        <FormItem label="交易编号" prop="transactionNo">
+	<Input v-model="form.transactionNo" placeholder="请输入交易编号"/>
+</FormItem>
+<FormItem label="用户编号" prop="userId">
 	<InputNumber v-model="form.userId" placeholder="请输入用户编号" style="width: 100%;"/>
 </FormItem>
 <FormItem label="金额" prop="amount">
@@ -97,6 +103,9 @@
 </FormItem>
 </i-col>
 </Row>
+</FormItem>
+<FormItem label="交易编号" prop="transactionNo">
+	<Input v-model="searchForm.transactionNo" placeholder="请输入交易编号"/>
 </FormItem>
 <FormItem label="用户编号"><Row>
 	<i-col span="11">
@@ -237,6 +246,7 @@
     </Modal>
     <Modal v-model="modal.detail" title="详情" @on-visible-change="changeModalVisibleResetForm('editForm', $event)">
       <p>账目编号: <span v-text="form.id"></span></p>
+<p>交易编号: <span v-text="form.transactionNo"></span></p>
 <p>用户编号: <span v-text="form.userId"></span></p>
 <p>金额: <span v-text="form.amount"></span></p>
 <p>积分: <span v-text="form.integral"></span></p>
@@ -288,6 +298,7 @@
         },
         form: {
           id: null,
+transactionNo: null,
 userId: null,
 amount: null,
 integral: null,
@@ -301,7 +312,11 @@ isActive: null,
 
         },
         validateRules: {
-          userId: [
+          transactionNo: [
+{type: 'string', required: true, message: '此项为必须项', trigger: 'blur'},
+{type: 'string', min: 1, max: 32, message: '必须1-32个字符', trigger: 'blur'}
+],
+userId: [
 {type: 'integer', required: true, message: '此项为必须项', trigger: 'blur, change'}
 ],
 subType: [
@@ -317,6 +332,7 @@ subType: [
           id: null,
 idMin: null, 
 idMax: null, 
+transactionNo: null,
 userId: null,
 userIdMin: null, 
 userIdMax: null, 
@@ -368,6 +384,12 @@ isActiveMax: null,
             {
 title: '账目编号',
 key: 'id',
+minWidth: 120,
+sortable: true
+},
+{
+title: '交易编号',
+key: 'transactionNo',
 minWidth: 120,
 sortable: true
 },

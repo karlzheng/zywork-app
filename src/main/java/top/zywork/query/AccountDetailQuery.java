@@ -8,14 +8,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * AccountDetailQuery查询对象类<br/>
  *
- * 创建于2019-01-15<br/>
+ * 创建于2019-02-05<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class AccountDetailQuery extends PageQuery {
 
-    private static final long serialVersionUID = -9223372035439965715L;
+    private static final long serialVersionUID = -9223372035656120863L;
 
     // 账目编号
 	private Long id;
@@ -23,6 +23,8 @@ public class AccountDetailQuery extends PageQuery {
 	private Long idMin;
 	// 账目编号（最大值）
 	private Long idMax;
+	// 交易编号
+	private String transactionNo;
 	// 用户编号
 	private Long userId;
 	// 用户编号（最小值）
@@ -88,10 +90,11 @@ public class AccountDetailQuery extends PageQuery {
 	
     public AccountDetailQuery () {}
 
-    public AccountDetailQuery (Long id, Long idMin, Long idMax, Long userId, Long userIdMin, Long userIdMax, Long amount, Long amountMin, Long amountMax, Long integral, Long integralMin, Long integralMax, Byte type, Byte typeMin, Byte typeMax, String subType, Byte payType, Byte payTypeMin, Byte payTypeMax, Integer version, Integer versionMin, Integer versionMax, Date createTime, Date createTimeMin, Date createTimeMax, Date updateTime, Date updateTimeMin, Date updateTimeMax, Byte isActive, Byte isActiveMin, Byte isActiveMax) {
+    public AccountDetailQuery (Long id, Long idMin, Long idMax, String transactionNo, Long userId, Long userIdMin, Long userIdMax, Long amount, Long amountMin, Long amountMax, Long integral, Long integralMin, Long integralMax, Byte type, Byte typeMin, Byte typeMax, String subType, Byte payType, Byte payTypeMin, Byte payTypeMax, Integer version, Integer versionMin, Integer versionMax, Date createTime, Date createTimeMin, Date createTimeMax, Date updateTime, Date updateTimeMin, Date updateTimeMax, Byte isActive, Byte isActiveMin, Byte isActiveMax) {
         this.id = id;
 		this.idMin = idMin;
 		this.idMax = idMax;
+		this.transactionNo = transactionNo;
 		this.userId = userId;
 		this.userIdMin = userIdMin;
 		this.userIdMax = userIdMax;
@@ -145,6 +148,14 @@ public class AccountDetailQuery extends PageQuery {
 
 	public void setIdMax(Long idMax) {
 		this.idMax = idMax;
+	}
+
+	public String getTransactionNo() {
+		return transactionNo;
+	}
+
+	public void setTransactionNo(String transactionNo) {
+		this.transactionNo = transactionNo;
 	}
 
 	public Long getUserId() {
@@ -378,6 +389,7 @@ public class AccountDetailQuery extends PageQuery {
                 "id = " + id + 
 				", idMin = " + idMin + 
 				", idMax = " + idMax + 
+				", transactionNo = " + transactionNo + 
 				", userId = " + userId + 
 				", userIdMin = " + userIdMin + 
 				", userIdMax = " + userIdMax + 

@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 28/01/2019 15:30:31
+ Date: 05/02/2019 20:27:41
 */
 
 SET NAMES utf8mb4;
@@ -23,6 +23,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `t_account_detail`;
 CREATE TABLE `t_account_detail` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '账目编号',
+  `transaction_no` varchar(32) COLLATE utf8mb4_general_ci NOT NULL COMMENT '交易编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
   `amount` bigint(20) DEFAULT NULL COMMENT '金额',
   `integral` bigint(20) DEFAULT NULL COMMENT '积分',
@@ -41,7 +42,8 @@ CREATE TABLE `t_account_detail` (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_funds_frezee`;
 CREATE TABLE `t_funds_frezee` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '充值编号',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '冻结编号',
+  `transaction_no` varchar(32) COLLATE utf8mb4_general_ci NOT NULL COMMENT '交易编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
   `amount` bigint(20) NOT NULL COMMENT '金额',
   `frezee_type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '类型',
@@ -59,6 +61,7 @@ CREATE TABLE `t_funds_frezee` (
 DROP TABLE IF EXISTS `t_funds_recharge`;
 CREATE TABLE `t_funds_recharge` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '充值编号',
+  `transaction_no` varchar(32) COLLATE utf8mb4_general_ci NOT NULL COMMENT '交易编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
   `amount` bigint(20) NOT NULL COMMENT '充值金额',
   `recharge_type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '充值类型',
@@ -78,6 +81,7 @@ CREATE TABLE `t_funds_recharge` (
 DROP TABLE IF EXISTS `t_funds_transfer`;
 CREATE TABLE `t_funds_transfer` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '转账编号',
+  `transaction_no` varchar(32) COLLATE utf8mb4_general_ci NOT NULL COMMENT '交易编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
   `amount` bigint(20) NOT NULL COMMENT '金额',
   `from_user_id` bigint(20) DEFAULT NULL COMMENT 'FROM',
@@ -98,7 +102,7 @@ DROP TABLE IF EXISTS `t_funds_withdraw`;
 CREATE TABLE `t_funds_withdraw` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '提现编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
-  `withdraw_no` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '提现单号',
+  `transaction_no` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '交易编号',
   `amount` bigint(20) NOT NULL COMMENT '提现金额',
   `bankcard_id` bigint(20) NOT NULL COMMENT '提现银行卡',
   `withdraw_status` tinyint(4) DEFAULT NULL COMMENT '提现状态',
@@ -120,7 +124,7 @@ DROP TABLE IF EXISTS `t_funds_withdraw_check`;
 CREATE TABLE `t_funds_withdraw_check` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '提现审核编号',
   `withdraw_id` bigint(20) NOT NULL COMMENT '提现编号',
-  `withdraw_no` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '提现单号',
+  `transaction_no` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '交易编号',
   `withdraw_status` tinyint(4) NOT NULL COMMENT '提现状态',
   `withdraw_description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '提现描述',
   `checked_user_id` bigint(20) NOT NULL COMMENT '审核人编号',
@@ -745,7 +749,7 @@ CREATE TABLE `t_sys_log` (
   `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
   `user_account` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '用户账号',
   `description` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '执行说明',
-  `user_agent` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'User-Agent',
+  `user_agent` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'User-Agent',
   `request_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '请求URL',
   `request_method` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '请求方式',
   `request_params` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '请求参数',
@@ -756,7 +760,7 @@ CREATE TABLE `t_sys_log` (
   `execute_time` datetime DEFAULT NULL COMMENT '开始执行时间',
   `execute_cost_time` bigint(20) DEFAULT NULL COMMENT '执行耗时(ms)',
   `has_exception` tinyint(4) DEFAULT '0' COMMENT '是否异常',
-  `exception_msg` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '异常消息',
+  `exception_msg` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '异常消息',
   `execute_ip` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'IP地址',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',

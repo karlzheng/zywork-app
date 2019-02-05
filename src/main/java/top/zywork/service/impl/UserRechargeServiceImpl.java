@@ -3,6 +3,7 @@ package top.zywork.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import top.zywork.common.TransactionNoGenerator;
 import top.zywork.dao.AccountDetailDAO;
 import top.zywork.dao.UserRechargeDAO;
 import top.zywork.dao.UserWalletDAO;
@@ -30,14 +31,17 @@ public class UserRechargeServiceImpl implements UserRechargeService {
 
     @Override
     public void rechargeByThirdParty(Long userId, Long amount, String outTradeNo, String tradeNo, String rechargeType, byte isSuccess) {
-        userRechargeDAO.saveRechargeThirdParty(userId, amount, outTradeNo, tradeNo, rechargeType, isSuccess);
+        String transactionNo = TransactionNoGenerator.generateNo();
+        userRechargeDAO.saveRechargeThirdParty(transactionNo, userId, amount, outTradeNo, tradeNo, rechargeType, isSuccess);
+        saveAccountDetail(transactionNo, userId, amount);
         updateWallet(userId, amount);
     }
 
     @Override
     public void rechargeByHuman(Long userId, Long amount) {
-        userRechargeDAO.saveRechargeHuman(userId, amount, FundsChangeTypeEnum.RECHARGE_HUMAN.getValue());
-        saveAccountDetail(userId, amount);
+        String transactionNo = TransactionNoGenerator.generateNo();
+        userRechargeDAO.saveRechargeHuman(transactionNo, userId, amount, FundsChangeTypeEnum.RECHARGE_HUMAN.getValue());
+        saveAccountDetail(transactionNo, userId, amount);
         updateWallet(userId, amount);
     }
 
@@ -45,8 +49,9 @@ public class UserRechargeServiceImpl implements UserRechargeService {
         userWalletDAO.updateWalletIn(userId, amount);
     }
 
-    private void saveAccountDetail(Long userId, Long amount) {
+    private void saveAccountDetail(String transactionNo, Long userId, Long amount) {
         AccountDetailDO accountDetailDO = new AccountDetailDO();
+        accountDetailDO.setTransactionNo(transactionNo);
         accountDetailDO.setUserId(userId);
         accountDetailDO.setAmount(amount);
         accountDetailDO.setType((byte) 0);

@@ -16,22 +16,24 @@ public interface UserTransferDAO {
 
     /**
      * 保存转账记录，转出方
+     * @param transactionNo
      * @param userId
      * @param toUserId
      * @param amount
      * @param transferType
      * @return
      */
-    int saveTransfer(@Param("userId") Long userId, @Param("toUserId") Long toUserId, @Param("amount") Long amount, @Param("transferType") String transferType);
+    int saveTransfer(@Param("transactionNo") String transactionNo, @Param("userId") Long userId, @Param("toUserId") Long toUserId, @Param("amount") Long amount, @Param("transferType") String transferType);
 
     /**
      * 保存转账记录，收款方
+     * @param transactionNo
      * @param userId
      * @param fromUserId
      * @param amount
      * @param transferType
      * @return
      */
-    int saveTransferTo(@Param("userId") Long userId, @Param("fromUserId") Long fromUserId, @Param("amount") Long amount, @Param("transferType") String transferType);
+    int saveTransferTo(@Param("transactionNo") String transactionNo, @Param("userId") Long userId, @Param("fromUserId") Long fromUserId, @Param("amount") Long amount, @Param("transferType") String transferType);
 
 }

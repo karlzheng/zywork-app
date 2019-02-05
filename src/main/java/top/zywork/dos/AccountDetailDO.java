@@ -6,17 +6,19 @@ import java.util.Date;
 /**
  * AccountDetailDO数据对象实体类<br/>
  *
- * 创建于2019-01-15<br/>
+ * 创建于2019-02-05<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class AccountDetailDO extends BaseDO {
 
-    private static final long serialVersionUID = -9223372035052399410L;
+    private static final long serialVersionUID = -9223372036725983049L;
 
     // 账目编号
 	private Long id;
+	// 交易编号
+	private String transactionNo;
 	// 用户编号
 	private Long userId;
 	// 金额
@@ -40,8 +42,9 @@ public class AccountDetailDO extends BaseDO {
 	
     public AccountDetailDO () {}
 
-    public AccountDetailDO (Long id, Long userId, Long amount, Long integral, Byte type, String subType, Byte payType, Integer version, Date createTime, Date updateTime, Byte isActive) {
+    public AccountDetailDO (Long id, String transactionNo, Long userId, Long amount, Long integral, Byte type, String subType, Byte payType, Integer version, Date createTime, Date updateTime, Byte isActive) {
         this.id = id;
+		this.transactionNo = transactionNo;
 		this.userId = userId;
 		this.amount = amount;
 		this.integral = integral;
@@ -61,6 +64,14 @@ public class AccountDetailDO extends BaseDO {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getTransactionNo() {
+		return transactionNo;
+	}
+
+	public void setTransactionNo(String transactionNo) {
+		this.transactionNo = transactionNo;
 	}
 
 	public Long getUserId() {
@@ -148,6 +159,7 @@ public class AccountDetailDO extends BaseDO {
     public String toString() {
         return "AccountDetailDO {" +
                 "id = " + id + 
+				", transactionNo = " + transactionNo + 
 				", userId = " + userId + 
 				", amount = " + amount + 
 				", integral = " + integral + 

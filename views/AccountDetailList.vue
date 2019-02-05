@@ -33,6 +33,9 @@
 </i-col>
 </Row>
 </FormItem>
+<FormItem label="交易编号" prop="transactionNo">
+	<Input v-model="searchForm.transactionNo" placeholder="请输入交易编号"/>
+</FormItem>
 <FormItem label="用户编号"><Row>
 	<i-col span="11">
 	<FormItem prop="userIdMin">
@@ -172,6 +175,7 @@
     </Modal>
     <Modal v-model="modal.detail" title="详情">
       <p>账目编号: <span v-text="form.id"></span></p>
+<p>交易编号: <span v-text="form.transactionNo"></span></p>
 <p>用户编号: <span v-text="form.userId"></span></p>
 <p>金额: <span v-text="form.amount"></span></p>
 <p>积分: <span v-text="form.integral"></span></p>
@@ -211,6 +215,7 @@
         },
         form: {
           id: null,
+transactionNo: null,
 userId: null,
 amount: null,
 integral: null,
@@ -231,6 +236,7 @@ isActive: null,
           id: null,
 idMin: null, 
 idMax: null, 
+transactionNo: null,
 userId: null,
 userIdMin: null, 
 userIdMax: null, 
@@ -282,6 +288,12 @@ isActiveMax: null,
             {
 title: '账目编号',
 key: 'id',
+minWidth: 120,
+sortable: true
+},
+{
+title: '交易编号',
+key: 'transactionNo',
 minWidth: 120,
 sortable: true
 },

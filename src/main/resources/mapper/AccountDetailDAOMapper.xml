@@ -10,7 +10,10 @@
     	</selectKey>
         insert into t_account_detail
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="userId != null">
+            <if test="transactionNo != null">
+				transaction_no,
+			</if>
+			<if test="userId != null">
 				user_id,
 			</if>
 			<if test="amount != null">
@@ -43,7 +46,10 @@
 			
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="userId != null">
+            <if test="transactionNo != null">
+				#{transactionNo},
+			</if>
+			<if test="userId != null">
 				#{userId},
 			</if>
 			<if test="amount != null">
@@ -84,7 +90,10 @@
     	<foreach collection="list" item="item" separator=";">
             insert into t_account_detail
             <trim prefix="(" suffix=")" suffixOverrides=",">
-                <if test="item.userId != null">
+                <if test="item.transactionNo != null">
+				transaction_no,
+			</if>
+			<if test="item.userId != null">
 				user_id,
 			</if>
 			<if test="item.amount != null">
@@ -117,7 +126,10 @@
 			
             </trim>
             <trim prefix="values (" suffix=")" suffixOverrides=",">
-                <if test="item.userId != null">
+                <if test="item.transactionNo != null">
+				#{item.transactionNo},
+			</if>
+			<if test="item.userId != null">
 				#{item.userId},
 			</if>
 			<if test="item.amount != null">
@@ -166,7 +178,10 @@
     <update id="update" parameterType="accountDetailDO">
         update t_account_detail
         <set>
-            <if test="userId != null">
+            <if test="transactionNo != null">
+				transaction_no = #{transactionNo},
+			</if>
+			<if test="userId != null">
 				user_id = #{userId},
 			</if>
 			<if test="amount != null">
@@ -205,7 +220,10 @@
     	<foreach collection="list" item="item" separator=";">
             update t_account_detail
             <set>
-                <if test="item.userId != null">
+                <if test="item.transactionNo != null">
+				transaction_no = #{item.transactionNo},
+			</if>
+			<if test="item.userId != null">
 				user_id = #{item.userId},
 			</if>
 			<if test="item.amount != null">
@@ -245,7 +263,7 @@
     </update>
 
     <sql id="select_columns">
-        id as id, user_id as userId, amount as amount, integral as integral, type as type, sub_type as subType, pay_type as payType, version as version, create_time as createTime, update_time as updateTime, is_active as isActive
+        id as id, transaction_no as transactionNo, user_id as userId, amount as amount, integral as integral, type as type, sub_type as subType, pay_type as payType, version as version, create_time as createTime, update_time as updateTime, is_active as isActive
     </sql>
 
     <sql id="query_where_clause">
@@ -260,6 +278,9 @@
 		</if>
 		<if test="query != null and query.idMin != null and query.idMax != null">
 			and id <![CDATA[ >= ]]> #{query.idMin} and id <![CDATA[ <= ]]> #{query.idMax}
+		</if>
+		<if test="query != null and query.transactionNo != null and query.transactionNo != ''">
+			and transaction_no like concat('%', #{query.transactionNo}, '%')
 		</if>
 		<if test="query != null and query.userId != null">
 			and user_id = #{query.userId}
@@ -392,21 +413,21 @@
         order by update_time desc, create_time desc
     </select>
 
-	<select id="listAllByCondition" resultType="accountDetailDO">
-		select
-		<include refid="select_columns"/>
-		from t_account_detail
-		<where>
-			<include refid="query_where_clause"/>
-		</where>
-		order by
-		<if test="query.sortColumn != null and query.sortColumn != ''">
-			${query.sortColumn} ${query.sortOrder}
-		</if>
-		<if test="query.sortColumn == null or query.sortColumn == ''">
-			update_time desc, create_time desc
-		</if>
-	</select>
+    <select id="listAllByCondition" resultType="accountDetailDO">
+        select
+        <include refid="select_columns"/>
+        from t_account_detail
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+        order by
+        <if test="query.sortColumn != null and query.sortColumn != ''">
+             ${query.sortColumn} ${query.sortOrder}
+        </if>
+        <if test="query.sortColumn == null or query.sortColumn == ''">
+            update_time desc, create_time desc
+        </if>
+    </select>
 
     <select id="listPageByCondition" resultType="accountDetailDO">
         select

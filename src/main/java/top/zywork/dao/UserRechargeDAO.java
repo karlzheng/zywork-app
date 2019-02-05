@@ -16,6 +16,7 @@ public interface UserRechargeDAO {
 
     /**
      * 保存第三方的充值记录
+     * @param transactionNo 交易编号
      * @param userId 用户编号
      * @param amount 金额
      * @param outTradeNo 商户订单号
@@ -23,15 +24,16 @@ public interface UserRechargeDAO {
      * @param rechargeType 充值类型
      * @param isSuccess 0表示成功
      */
-    void saveRechargeThirdParty(@Param("userId") Long userId, @Param("amount") Long amount, @Param("outTradeNo") String outTradeNo,
+    void saveRechargeThirdParty(@Param("transactionNo") String transactionNo, @Param("userId") Long userId, @Param("amount") Long amount, @Param("outTradeNo") String outTradeNo,
                                 @Param("tradeNo") String tradeNo, @Param("rechargeType") String rechargeType, @Param("isSuccess") byte isSuccess);
 
     /**
      * 保存系统工作充值的记录
+     * @param transactionNo 交易编号
      * @param userId
      * @param amount
      * @param rechargeType 充值类型
      */
-    void saveRechargeHuman(@Param("userId") Long userId, @Param("amount") Long amount, @Param("rechargeType") String rechargeType);
+    void saveRechargeHuman(@Param("transactionNo") String transactionNo, @Param("userId") Long userId, @Param("amount") Long amount, @Param("rechargeType") String rechargeType);
 
 }
