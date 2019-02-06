@@ -157,8 +157,7 @@ public class WeixinAuthController {
             jwtTokenRedisUtils.storeToken(jwtUser.getUserId() + "_" + jwtClaims.getCreateDate().getTime(),
                     new JwtToken(token, DateFormatUtils.format(System.currentTimeMillis(), DatePatternEnum.DATE.getValue())));
             return ResponseStatusVO.ok("成功获取jwt token", token);
-        }
-        else {
+        } else {
             return ResponseStatusVO.dataError("公众号Cookie中不存在openid", null);
         }
     }
