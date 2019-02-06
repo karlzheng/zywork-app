@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 05/02/2019 20:27:41
+ Date: 06/02/2019 11:45:22
 */
 
 SET NAMES utf8mb4;
@@ -35,7 +35,59 @@ CREATE TABLE `t_account_detail` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='账目明细表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户账目明细表';
+
+-- ----------------------------
+-- Table structure for t_article
+-- ----------------------------
+DROP TABLE IF EXISTS `t_article`;
+CREATE TABLE `t_article` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '文章编号',
+  `category_id` bigint(20) NOT NULL COMMENT '类别编号',
+  `title` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '文章标题',
+  `cover_img` varchar(500) COLLATE utf8mb4_general_ci NOT NULL COMMENT '封面图片',
+  `summary` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '文章摘要',
+  `content` text COLLATE utf8mb4_general_ci NOT NULL COMMENT '文章内容',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_id` bigint(20) NOT NULL COMMENT '创建人编号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '1' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='文章表';
+
+-- ----------------------------
+-- Table structure for t_article_category
+-- ----------------------------
+DROP TABLE IF EXISTS `t_article_category`;
+CREATE TABLE `t_article_category` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '类别编号',
+  `parent_id` bigint(20) NOT NULL COMMENT '父编号',
+  `title` varchar(20) COLLATE utf8mb4_general_ci NOT NULL COMMENT '类别名称',
+  `description` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '类别描述',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '1' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='文章类别表';
+
+-- ----------------------------
+-- Table structure for t_article_comment
+-- ----------------------------
+DROP TABLE IF EXISTS `t_article_comment`;
+CREATE TABLE `t_article_comment` (
+  `id` bigint(20) NOT NULL COMMENT '评论编号',
+  `article_id` bigint(20) NOT NULL COMMENT '文章编号',
+  `user_id` bigint(20) NOT NULL COMMENT '用户编号',
+  `title` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '评论标题',
+  `content` varchar(500) COLLATE utf8mb4_general_ci NOT NULL COMMENT '评论详情',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '1' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='文章评论表';
 
 -- ----------------------------
 -- Table structure for t_funds_frezee

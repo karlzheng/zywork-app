@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 05/02/2019 20:27:28
+ Date: 06/02/2019 11:45:07
 */
 
 SET NAMES utf8mb4;
@@ -50,6 +50,58 @@ INSERT INTO `t_account_detail` VALUES (6, '', 31, -100, NULL, 1, '转出', NULL,
 INSERT INTO `t_account_detail` VALUES (7, '', 36, 100, NULL, 0, '转入', NULL, 1, '2019-01-15 20:51:44', NULL, 0);
 INSERT INTO `t_account_detail` VALUES (8, '', 31, -10, NULL, 1, '消费', 3, 1, '2019-01-15 22:23:31', NULL, 0);
 COMMIT;
+
+-- ----------------------------
+-- Table structure for t_article
+-- ----------------------------
+DROP TABLE IF EXISTS `t_article`;
+CREATE TABLE `t_article` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '文章编号',
+  `category_id` bigint(20) NOT NULL COMMENT '类别编号',
+  `title` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '文章标题',
+  `cover_img` varchar(500) COLLATE utf8mb4_general_ci NOT NULL COMMENT '封面图片',
+  `summary` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '文章摘要',
+  `content` text COLLATE utf8mb4_general_ci NOT NULL COMMENT '文章内容',
+  `create_id` bigint(20) NOT NULL COMMENT '创建人编号',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '1' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='文章表';
+
+-- ----------------------------
+-- Table structure for t_article_category
+-- ----------------------------
+DROP TABLE IF EXISTS `t_article_category`;
+CREATE TABLE `t_article_category` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '类别编号',
+  `parent_id` bigint(20) NOT NULL COMMENT '父编号',
+  `title` varchar(20) COLLATE utf8mb4_general_ci NOT NULL COMMENT '类别名称',
+  `description` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '类别描述',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '1' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='文章类别表';
+
+-- ----------------------------
+-- Table structure for t_article_comment
+-- ----------------------------
+DROP TABLE IF EXISTS `t_article_comment`;
+CREATE TABLE `t_article_comment` (
+  `id` bigint(20) NOT NULL COMMENT '评论编号',
+  `article_id` bigint(20) NOT NULL COMMENT '文章编号',
+  `user_id` bigint(20) NOT NULL COMMENT '用户编号',
+  `title` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '评论标题',
+  `content` varchar(500) COLLATE utf8mb4_general_ci NOT NULL COMMENT '评论详情',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) DEFAULT '1' COMMENT '是否激活',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='文章评论表';
 
 -- ----------------------------
 -- Table structure for t_funds_frezee
@@ -1104,7 +1156,7 @@ CREATE TABLE `t_scheduler` (
 -- Records of t_scheduler
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_scheduler` VALUES (1, 'DauSaveJob', 'top.zywork.job.DauSaveJob', '59 59 23 * * ?', 'job_group', 'trigger_name', 'trigger_group', NULL, 1, '2019-02-05 20:25:50', 1, 30, '2019-01-18 17:34:42', '2019-02-05 20:25:50', 0);
+INSERT INTO `t_scheduler` VALUES (1, 'DauSaveJob', 'top.zywork.job.DauSaveJob', '59 59 23 * * ?', 'job_group', 'trigger_name', 'trigger_group', NULL, 1, '2019-02-05 21:01:50', 1, 32, '2019-01-18 17:34:42', '2019-02-05 21:01:49', 0);
 COMMIT;
 
 -- ----------------------------
@@ -1148,7 +1200,7 @@ CREATE TABLE `t_statistics_dau` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='日活用户统计表';
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='日活用户统计表';
 
 -- ----------------------------
 -- Records of t_statistics_dau
@@ -1157,6 +1209,7 @@ BEGIN;
 INSERT INTO `t_statistics_dau` VALUES (68, 2, '2019-01-18 17:42:00', 1, '2019-01-18 17:43:00', NULL, 0);
 INSERT INTO `t_statistics_dau` VALUES (69, 16, '2019-01-25 10:47:40', 1, '2019-01-25 10:48:40', NULL, 0);
 INSERT INTO `t_statistics_dau` VALUES (71, 8, '2019-01-29 10:31:04', 1, '2019-01-29 10:32:04', NULL, 0);
+INSERT INTO `t_statistics_dau` VALUES (72, 1, '2019-02-06 10:34:34', 1, '2019-02-06 10:35:33', NULL, 0);
 COMMIT;
 
 -- ----------------------------
