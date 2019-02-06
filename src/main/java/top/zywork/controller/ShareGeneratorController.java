@@ -38,19 +38,60 @@ public class ShareGeneratorController {
     @Value("${user.reg-share-url}")
     private String regShareUrl;
 
+    @Value("${user.weixin-gzh-share-url}")
+    private String gzhShareUrl;
+
     private UserUserDetailService userUserDetailService;
 
     /**
-     * 生成用户邀请二维码
+     * 生成用户普通邀请二维码
      */
     @GetMapping("qrcode")
     public ResponseStatusVO generateQrCode(HttpServletResponse response) {
+        return generateQrCode(response, gzhShareUrl);
+    }
+
+    /**
+     * 生成用户普通邀请链接
+     *
+     * @return
+     */
+    @GetMapping("link")
+    public ResponseStatusVO generateLink() {
+        return generateLink(regShareUrl);
+    }
+
+    /**
+     * 生成用户公众号邀请二维码
+     */
+    @GetMapping("gzh-qrcode")
+    public ResponseStatusVO generateGzhQrCode(HttpServletResponse response) {
+        return generateQrCode(response, gzhShareUrl);
+    }
+
+    /**
+     * 生成用户公众号邀请链接
+     *
+     * @return
+     */
+    @GetMapping("gzh-link")
+    public ResponseStatusVO generateGzhLink() {
+        return generateLink(gzhShareUrl);
+    }
+
+    /**
+     * 生成邀请二维码
+     * @param response
+     * @param shareUrl
+     * @return
+     */
+    public ResponseStatusVO generateQrCode(HttpServletResponse response, String shareUrl) {
         JwtUser jwtUser = SecurityUtils.getJwtUser();
         if (jwtUser == null) {
             return ResponseStatusVO.authenticationError();
         }
         UserUserDetailDTO userUserDetailDTO = (UserUserDetailDTO) userUserDetailService.listById(jwtUser.getUserId()).getRows().get(0);
-        BufferedImage bufferedImage = QrCodeUtils.generateQrCode(regShareUrl + userUserDetailDTO.getUserDetailShareCode(), 200, 200);
+        BufferedImage bufferedImage = QrCodeUtils.generateQrCode(shareUrl + userUserDetailDTO.getUserDetailShareCode(), 200, 200);
         response.setContentType(ContentTypeEnum.PNG.getValue());
         if (bufferedImage != null) {
             try {
@@ -63,18 +104,17 @@ public class ShareGeneratorController {
     }
 
     /**
-     * 生成用户邀请链接
-     *
+     * 生成邀请链接
+     * @param shareUrl
      * @return
      */
-    @GetMapping("link")
-    public ResponseStatusVO generateLink() {
+    private ResponseStatusVO generateLink(String shareUrl) {
         JwtUser jwtUser = SecurityUtils.getJwtUser();
         if (jwtUser == null) {
             return ResponseStatusVO.authenticationError();
         }
         UserUserDetailDTO userUserDetailDTO = (UserUserDetailDTO) userUserDetailService.listById(jwtUser.getUserId()).getRows().get(0);
-        return ResponseStatusVO.ok("成功获取邀请链接", regShareUrl + userUserDetailDTO.getUserDetailShareCode());
+        return ResponseStatusVO.ok("成功获取邀请链接", shareUrl + userUserDetailDTO.getUserDetailShareCode());
     }
 
     @Autowired

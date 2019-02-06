@@ -112,5 +112,6 @@ user:
     #用户分享码长度
     length: 6
   reg-share-url: "http://zywork.top/user-reg?shareCode="
+  weixin-gzh-share-url: "http://zywork.top/wx-auth/to-gzh/?extraParams=http://zywork.top/index.html__http://zywork.top/notAuth.html__"
 exception:
   printStackTrace: false
