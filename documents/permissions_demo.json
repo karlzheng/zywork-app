@@ -326,7 +326,6 @@
             }
         ]
     },
-    ,
     {
         "moduleTitle": "用户组织部门查询模块",
         "permissions": [
