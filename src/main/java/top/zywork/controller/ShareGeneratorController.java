@@ -48,7 +48,7 @@ public class ShareGeneratorController {
      */
     @GetMapping("qrcode")
     public ResponseStatusVO generateQrCode(HttpServletResponse response) {
-        return generateQrCode(response, gzhShareUrl);
+        return generateQrCode(response, regShareUrl);
     }
 
     /**
