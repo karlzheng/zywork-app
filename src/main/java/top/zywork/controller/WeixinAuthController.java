@@ -77,7 +77,7 @@ public class WeixinAuthController {
             WeixinGzhConfig weixinGzhConfig = sysConfigService.getByName(SysConfigEnum.WEIXIN_GZH_CONFIG.getValue(), WeixinGzhConfig.class);
             return new ModelAndView("redirect:" + WeixinUtils.gzhAuthorizeUrl(weixinGzhConfig.getAppId(), weixinGzhConfig.getLoginRedirectUrl(), extraParams));
         } else {
-            return new ModelAndView("redirect:" + extraParams.split("_")[0]);
+            return new ModelAndView("redirect:" + extraParams.split(WeixinUtils.EXTRA_PARAMS_SEPERATOR)[0]);
         }
     }
 
