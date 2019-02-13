@@ -12,14 +12,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * UserRoleVO值对象类<br/>
  *
- * 创建于2018-12-19<br/>
+ * 创建于2019-02-13<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class UserRoleVO extends BaseVO {
 
-    private static final long serialVersionUID = -9223372034922732841L;
+    private static final long serialVersionUID = -9223372034985386376L;
 
     //t_user表的字段对应的属性
 	// 用户编号
@@ -31,6 +31,9 @@ public class UserRoleVO extends BaseVO {
 	@Size(min = 0, max = 100, message = "必须小于100个字符")
 	private String userEmail;
 	//t_role表的字段对应的属性
+	// 角色编号
+	@NotNull(message = "此项是必须项")
+	private Long roleId;
 	// 角色标题
 	@NotBlank(message = "此项是必须项")
 	@Size(min = 1, max = 50, message = "必须是1-50个字符")
@@ -45,10 +48,11 @@ public class UserRoleVO extends BaseVO {
 	
     public UserRoleVO () {}
 
-    public UserRoleVO (Long userId, String userPhone, String userEmail, String roleTitle, String roleDescription, Date userRoleCreateTime) {
+    public UserRoleVO (Long userId, String userPhone, String userEmail, Long roleId, String roleTitle, String roleDescription, Date userRoleCreateTime) {
         this.userId = userId;
 		this.userPhone = userPhone;
 		this.userEmail = userEmail;
+		this.roleId = roleId;
 		this.roleTitle = roleTitle;
 		this.roleDescription = roleDescription;
 		this.userRoleCreateTime = userRoleCreateTime;
@@ -77,6 +81,14 @@ public class UserRoleVO extends BaseVO {
 
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
+	}
+
+	public Long getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(Long roleId) {
+		this.roleId = roleId;
 	}
 
 	public String getRoleTitle() {
@@ -110,6 +122,7 @@ public class UserRoleVO extends BaseVO {
                 "userId = " + userId + 
 				", userPhone = " + userPhone + 
 				", userEmail = " + userEmail + 
+				", roleId = " + roleId + 
 				", roleTitle = " + roleTitle + 
 				", roleDescription = " + roleDescription + 
 				", userRoleCreateTime = " + userRoleCreateTime + 

@@ -21,39 +21,53 @@
         <FormItem label="用户编号"><Row>
 	<i-col span="11">
 	<FormItem prop="userIdMin">
-	<InputNumber v-model="searchForm.userIdMin" style="width: 100%;"/>
+	<InputNumber v-model="searchForm.userIdMin" placeholder="请输入开始用户编号" style="width: 100%;"/>
 </FormItem>
 </i-col>
 	<i-col span="2" style="text-align: center">-</i-col>
 	<i-col span="11">
 	<FormItem prop="userIdMax">
-	<InputNumber v-model="searchForm.userIdMax" style="width: 100%;"/>
+	<InputNumber v-model="searchForm.userIdMax" placeholder="请输入结束用户编号" style="width: 100%;"/>
 </FormItem>
 </i-col>
 </Row>
 </FormItem>
 <FormItem label="手机号" prop="userPhone">
-	<Input v-model="searchForm.userPhone"/>
+	<Input v-model="searchForm.userPhone" placeholder="请输入手机号"/>
 </FormItem>
 <FormItem label="用户邮箱" prop="userEmail">
-	<Input v-model="searchForm.userEmail"/>
+	<Input v-model="searchForm.userEmail" placeholder="请输入用户邮箱"/>
+</FormItem>
+<FormItem label="角色编号"><Row>
+	<i-col span="11">
+	<FormItem prop="roleIdMin">
+	<InputNumber v-model="searchForm.roleIdMin" placeholder="请输入开始角色编号" style="width: 100%;"/>
+</FormItem>
+</i-col>
+	<i-col span="2" style="text-align: center">-</i-col>
+	<i-col span="11">
+	<FormItem prop="roleIdMax">
+	<InputNumber v-model="searchForm.roleIdMax" placeholder="请输入结束角色编号" style="width: 100%;"/>
+</FormItem>
+</i-col>
+</Row>
 </FormItem>
 <FormItem label="角色标题" prop="roleTitle">
-	<Input v-model="searchForm.roleTitle"/>
+	<Input v-model="searchForm.roleTitle" placeholder="请输入角色标题"/>
 </FormItem>
 <FormItem label="角色描述" prop="roleDescription">
-	<Input v-model="searchForm.roleDescription"/>
+	<Input v-model="searchForm.roleDescription" placeholder="请输入角色描述"/>
 </FormItem>
 <FormItem label="创建时间"><Row>
 	<i-col span="11">
 	<FormItem prop="userRoleCreateTimeMin">
-	<DatePicker @on-change="searchForm.userRoleCreateTimeMin=$event" :value="searchForm.userRoleCreateTimeMin" type="datetime" format="yyyy-MM-dd HH:mm:ss" style="width: 100%;"></DatePicker>
+	<DatePicker @on-change="searchForm.userRoleCreateTimeMin=$event" :value="searchForm.userRoleCreateTimeMin" placeholder="请输入开始创建时间" type="datetime" format="yyyy-MM-dd HH:mm:ss" style="width: 100%;"></DatePicker>
 </FormItem>
 </i-col>
 	<i-col span="2" style="text-align: center">-</i-col>
 	<i-col span="11">
 	<FormItem prop="userRoleCreateTimeMax">
-	<DatePicker @on-change="searchForm.userRoleCreateTimeMax=$event" :value="searchForm.userRoleCreateTimeMax" type="datetime" format="yyyy-MM-dd HH:mm:ss" style="width: 100%;"></DatePicker>
+	<DatePicker @on-change="searchForm.userRoleCreateTimeMax=$event" :value="searchForm.userRoleCreateTimeMax" placeholder="请输入结束创建时间" type="datetime" format="yyyy-MM-dd HH:mm:ss" style="width: 100%;"></DatePicker>
 </FormItem>
 </i-col>
 </Row>
@@ -70,6 +84,7 @@
       <p>用户编号: <span v-text="form.userId"></span></p>
 <p>手机号: <span v-text="form.userPhone"></span></p>
 <p>用户邮箱: <span v-text="form.userEmail"></span></p>
+<p>角色编号: <span v-text="form.roleId"></span></p>
 <p>角色标题: <span v-text="form.roleTitle"></span></p>
 <p>角色描述: <span v-text="form.roleDescription"></span></p>
 <p>创建时间: <span v-text="form.userRoleCreateTime"></span></p>
@@ -91,9 +106,9 @@
           search: false,
           detail: false
         },
-          loading: {
-              search: false
-          },
+        loading: {
+          search: false
+        },
         urls: {
           searchUrl: '/user-role/admin/pager-cond',
           allUrl: '/user-role/admin/all',
@@ -107,6 +122,7 @@
           userId: null,
 userPhone: null,
 userEmail: null,
+roleId: null,
 roleTitle: null,
 roleDescription: null,
 userRoleCreateTime: null,
@@ -122,6 +138,9 @@ userIdMin: null,
 userIdMax: null, 
 userPhone: null,
 userEmail: null,
+roleId: null,
+roleIdMin: null, 
+roleIdMax: null, 
 roleTitle: null,
 roleDescription: null,
 userRoleCreateTime: null,
@@ -162,6 +181,12 @@ sortable: true
 {
 title: '用户邮箱',
 key: 'userEmail',
+minWidth: 120,
+sortable: true
+},
+{
+title: '角色编号',
+key: 'roleId',
 minWidth: 120,
 sortable: true
 },

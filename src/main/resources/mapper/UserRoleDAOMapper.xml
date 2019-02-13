@@ -5,7 +5,7 @@
 <mapper namespace="top.zywork.dao.UserRoleDAO">
 
     <sql id="select_columns">
-        t_user.id as userId, t_user.phone as userPhone, t_user.email as userEmail, t_role.title as roleTitle, t_role.description as roleDescription, t_user_role.create_time as userRoleCreateTime
+        t_user.id as userId, t_user.phone as userPhone, t_user.email as userEmail, t_role.id as roleId, t_role.title as roleTitle, t_role.description as roleDescription, t_user_role.create_time as userRoleCreateTime
     </sql>
 
     <sql id="query_where_clause">
@@ -26,6 +26,18 @@
 		</if>
 		<if test="query != null and query.userEmail != null and query.userEmail != ''">
 			and t_user.email like concat('%', #{query.userEmail}, '%')
+		</if>
+		<if test="query != null and query.roleId != null">
+			and t_role.id = #{query.roleId}
+		</if>
+		<if test="query != null and query.roleIdMin != null and query.roleIdMax == null">
+			and t_role.id <![CDATA[ >= ]]> #{query.roleIdMin}
+		</if>
+		<if test="query != null and query.roleIdMin == null and query.roleIdMax != null">
+			and t_role.id <![CDATA[ <= ]]> #{query.roleIdMax}
+		</if>
+		<if test="query != null and query.roleIdMin != null and query.roleIdMax != null">
+			and t_role.id <![CDATA[ >= ]]> #{query.roleIdMin} and t_role.id <![CDATA[ <= ]]> #{query.roleIdMax}
 		</if>
 		<if test="query != null and query.roleTitle != null and query.roleTitle != ''">
 			and t_role.title like concat('%', #{query.roleTitle}, '%')

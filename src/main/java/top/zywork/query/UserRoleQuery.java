@@ -8,14 +8,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * UserRoleQuery查询对象类<br/>
  *
- * 创建于2018-12-19<br/>
+ * 创建于2019-02-13<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class UserRoleQuery extends PageQuery {
 
-    private static final long serialVersionUID = -9223372034840550266L;
+    private static final long serialVersionUID = -9223372036025832235L;
 
     //t_user表的字段对应的属性
 	// 用户编号
@@ -29,6 +29,12 @@ public class UserRoleQuery extends PageQuery {
 	// 用户邮箱
 	private String userEmail;
 	//t_role表的字段对应的属性
+	// 角色编号
+	private Long roleId;
+	// 角色编号（最小值）
+	private Long roleIdMin;
+	// 角色编号（最大值）
+	private Long roleIdMax;
 	// 角色标题
 	private String roleTitle;
 	// 角色描述
@@ -46,12 +52,15 @@ public class UserRoleQuery extends PageQuery {
 	
     public UserRoleQuery () {}
 
-    public UserRoleQuery (Long userId, Long userIdMin, Long userIdMax, String userPhone, String userEmail, String roleTitle, String roleDescription, Date userRoleCreateTime, Date userRoleCreateTimeMin, Date userRoleCreateTimeMax) {
+    public UserRoleQuery (Long userId, Long userIdMin, Long userIdMax, String userPhone, String userEmail, Long roleId, Long roleIdMin, Long roleIdMax, String roleTitle, String roleDescription, Date userRoleCreateTime, Date userRoleCreateTimeMin, Date userRoleCreateTimeMax) {
         this.userId = userId;
 		this.userIdMin = userIdMin;
 		this.userIdMax = userIdMax;
 		this.userPhone = userPhone;
 		this.userEmail = userEmail;
+		this.roleId = roleId;
+		this.roleIdMin = roleIdMin;
+		this.roleIdMax = roleIdMax;
 		this.roleTitle = roleTitle;
 		this.roleDescription = roleDescription;
 		this.userRoleCreateTime = userRoleCreateTime;
@@ -98,6 +107,30 @@ public class UserRoleQuery extends PageQuery {
 
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
+	}
+
+	public Long getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(Long roleId) {
+		this.roleId = roleId;
+	}
+
+	public Long getRoleIdMin() {
+		return roleIdMin;
+	}
+
+	public void setRoleIdMin(Long roleIdMin) {
+		this.roleIdMin = roleIdMin;
+	}
+
+	public Long getRoleIdMax() {
+		return roleIdMax;
+	}
+
+	public void setRoleIdMax(Long roleIdMax) {
+		this.roleIdMax = roleIdMax;
 	}
 
 	public String getRoleTitle() {
@@ -149,6 +182,9 @@ public class UserRoleQuery extends PageQuery {
 				", userIdMax = " + userIdMax + 
 				", userPhone = " + userPhone + 
 				", userEmail = " + userEmail + 
+				", roleId = " + roleId + 
+				", roleIdMin = " + roleIdMin + 
+				", roleIdMax = " + roleIdMax + 
 				", roleTitle = " + roleTitle + 
 				", roleDescription = " + roleDescription + 
 				", userRoleCreateTime = " + userRoleCreateTime + 

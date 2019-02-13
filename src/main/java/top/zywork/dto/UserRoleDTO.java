@@ -6,14 +6,14 @@ import java.util.Date;
 /**
  * UserRoleDTO数据传输对象类<br/>
  *
- * 创建于2018-12-19<br/>
+ * 创建于2019-02-13<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class UserRoleDTO extends BaseDTO {
 
-    private static final long serialVersionUID = -9223372035856142696L;
+    private static final long serialVersionUID = -9223372035221111228L;
 
     //t_user表的字段对应的属性
 	// 用户编号
@@ -23,6 +23,8 @@ public class UserRoleDTO extends BaseDTO {
 	// 用户邮箱
 	private String userEmail;
 	//t_role表的字段对应的属性
+	// 角色编号
+	private Long roleId;
 	// 角色标题
 	private String roleTitle;
 	// 角色描述
@@ -33,10 +35,11 @@ public class UserRoleDTO extends BaseDTO {
 	
     public UserRoleDTO () {}
 
-    public UserRoleDTO (Long userId, String userPhone, String userEmail, String roleTitle, String roleDescription, Date userRoleCreateTime) {
+    public UserRoleDTO (Long userId, String userPhone, String userEmail, Long roleId, String roleTitle, String roleDescription, Date userRoleCreateTime) {
         this.userId = userId;
 		this.userPhone = userPhone;
 		this.userEmail = userEmail;
+		this.roleId = roleId;
 		this.roleTitle = roleTitle;
 		this.roleDescription = roleDescription;
 		this.userRoleCreateTime = userRoleCreateTime;
@@ -65,6 +68,14 @@ public class UserRoleDTO extends BaseDTO {
 
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
+	}
+
+	public Long getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(Long roleId) {
+		this.roleId = roleId;
 	}
 
 	public String getRoleTitle() {
@@ -98,6 +109,7 @@ public class UserRoleDTO extends BaseDTO {
                 "userId = " + userId + 
 				", userPhone = " + userPhone + 
 				", userEmail = " + userEmail + 
+				", roleId = " + roleId + 
 				", roleTitle = " + roleTitle + 
 				", roleDescription = " + roleDescription + 
 				", userRoleCreateTime = " + userRoleCreateTime + 
