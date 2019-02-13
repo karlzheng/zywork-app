@@ -898,6 +898,118 @@
         ]
     },
     {
+        "moduleTitle": "商品类目管理",
+        "permissions": [
+            {
+                "title": "后台-商品类目管理",
+                "permission": "/goods-category/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "用户-商品类目查询",
+                "permission": "/goods-category/user/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin",
+                    "sys_user",
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-商品类目管理-查询单个",
+                "permission": "/goods-category/admin/one/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-商品类目管理-查询所有",
+                "permission": "/goods-category/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-商品类目管理-分页查询",
+                "permission": "/goods-category/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "商品属性管理",
+        "permissions": [
+            {
+                "title": "后台-商品属性管理",
+                "permission": "/goods-attribute/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "演示-商品属性管理-查询单个",
+                "permission": "/goods-attribute/admin/one/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-商品属性管理-查询所有",
+                "permission": "/goods-attribute/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-商品属性管理-分页查询",
+                "permission": "/goods-attribute/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "商品类目属性管理",
+        "permissions": [
+            {
+                "title": "后台-商品类目属性管理",
+                "permission": "/goods-category-attr/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "演示-商品类目属性管理-查询单个",
+                "permission": "/goods-category-attr/admin/multi/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-商品类目属性管理-查询所有",
+                "permission": "/goods-category-attr/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-商品类目属性管理-分页查询",
+                "permission": "/goods-category-attr/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
         "moduleTitle": "消息管理",
         "permissions": [
             {
