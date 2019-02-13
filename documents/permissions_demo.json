@@ -757,6 +757,147 @@
         ]
     },
     {
+        "moduleTitle": "文章类别管理",
+        "permissions": [
+            {
+                "title": "后台-文章类别管理",
+                "permission": "/article-category/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "用户-文章类别查询",
+                "permission": "/article-category/user/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin",
+                    "sys_user",
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-文章类别管理-查询单个",
+                "permission": "/article-category/admin/one/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-文章类别管理-查询所有",
+                "permission": "/article-category/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-文章类别管理-分页查询",
+                "permission": "/article-category/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "文章管理",
+        "permissions": [
+            {
+                "title": "后台-文章管理",
+                "permission": "/article/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "用户-文章查询",
+                "permission": "/article/user/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin",
+                    "sys_user"
+                ]
+            },
+            {
+                "title": "用户-文章类别查询",
+                "permission": "/article/user/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin",
+                    "sys_user",
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-文章管理-查询单个",
+                "permission": "/article/admin/one/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-文章管理-查询所有",
+                "permission": "/article/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-文章管理-分页查询",
+                "permission": "/article/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "文章评论管理",
+        "permissions": [
+            {
+                "title": "后台-文章评论管理",
+                "permission": "/article-comment/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "用户-文章评论管理",
+                "permission": "/article-comment/user/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin",
+                    "sys_user",
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-文章评论管理-查询单个",
+                "permission": "/article-comment/admin/one/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-文章评论管理-查询所有",
+                "permission": "/article-comment/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-文章评论管理-分页查询",
+                "permission": "/article-comment/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
         "moduleTitle": "消息管理",
         "permissions": [
             {

@@ -385,6 +385,72 @@
         ]
     },
     {
+        "moduleTitle": "文章类别管理",
+        "permissions": [
+            {
+                "title": "后台-文章类别管理",
+                "permission": "/article-category/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "用户-文章类别查询",
+                "permission": "/article-category/user/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin",
+                    "sys_user"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "文章管理",
+        "permissions": [
+            {
+                "title": "后台-文章管理",
+                "permission": "/article/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "用户-文章查询",
+                "permission": "/article/user/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin",
+                    "sys_user"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "文章评论管理",
+        "permissions": [
+            {
+                "title": "后台-文章评论管理",
+                "permission": "/article-comment/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "用户-文章评论管理",
+                "permission": "/article-comment/user/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin",
+                    "sys_user"
+                ]
+            }
+        ]
+    },
+    {
         "moduleTitle": "消息管理",
         "permissions": [
             {
