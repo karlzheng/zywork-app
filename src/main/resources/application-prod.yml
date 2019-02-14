@@ -41,6 +41,8 @@ spring:
         password: zywork-app.123654
         instance:
           service-base-url: "http://localhost:8088"
+  activiti:
+    check-process-definitions: false
 management:
   endpoints:
     web:
@@ -115,3 +117,8 @@ user:
   weixin-gzh-share-url: "http://zywork.top/wx-auth/to-gzh/?extraParams=http://zywork.top/index.html__http://zywork.top/notAuth.html__"
 exception:
   printStackTrace: false
+activiti:
+  processDir: "./process"
+  allowedExts: ".zip"
+  #流程文件最大大小，单位MB
+  maxSize: 20

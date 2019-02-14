@@ -35,6 +35,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.OutputStream;
 
 /**
  * SpringSecurity的用户认证控制器<br/>
@@ -148,7 +149,9 @@ public class AuthController {
                 response.addCookie(new Cookie(verifyCodeCookieName, sessionId));
             }
             verifyCodeRedisUtils.storeCode(VerifyCodeRedisUtils.CODE_LOGIN_PREFIX, sessionId, verifyCode);
-            ImageIO.write(bufferedImage, MIMETypeEnum.PNG.getValue(), response.getOutputStream());
+            OutputStream outputStream = response.getOutputStream();
+            ImageIO.write(bufferedImage, MIMETypeEnum.PNG.getValue(), outputStream);
+            outputStream.close();
         } catch (IOException e) {
             logger.error("返回验证码图片出错： {}", e.getMessage());
         }

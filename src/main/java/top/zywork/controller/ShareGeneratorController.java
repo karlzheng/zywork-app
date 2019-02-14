@@ -20,6 +20,7 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.OutputStream;
 
 /**
  * 用户邀请生成控制器<br/>
@@ -95,7 +96,9 @@ public class ShareGeneratorController {
         response.setContentType(ContentTypeEnum.PNG.getValue());
         if (bufferedImage != null) {
             try {
-                ImageIO.write(bufferedImage, MIMETypeEnum.PNG.getValue(), response.getOutputStream());
+                OutputStream outputStream = response.getOutputStream();
+                ImageIO.write(bufferedImage, MIMETypeEnum.PNG.getValue(), outputStream);
+                outputStream.close();
             } catch (IOException e) {
                 logger.error("generate share qr code error： {}", e.getMessage());
             }
