@@ -6,21 +6,21 @@ import java.util.Date;
 /**
  * ProcessDO数据对象实体类<br/>
  *
- * 创建于2019-02-14<br/>
+ * 创建于2019-02-15<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class ProcessDO extends BaseDO {
 
-    private static final long serialVersionUID = -9223372036081318854L;
+    private static final long serialVersionUID = -9223372035988052821L;
 
     // 流程编号
 	private Long id;
 	// 流程Name
-	private String name;
+	private String processName;
 	// 流程Key
-	private String key;
+	private String processKey;
 	// 流程文件路径
 	private String filePath;
 	// 流程描述
@@ -40,10 +40,10 @@ public class ProcessDO extends BaseDO {
 	
     public ProcessDO () {}
 
-    public ProcessDO (Long id, String name, String key, String filePath, String description, Byte isDeploy, Date deployTime, Integer version, Date createTime, Date updateTime, Byte isActive) {
+    public ProcessDO (Long id, String processName, String processKey, String filePath, String description, Byte isDeploy, Date deployTime, Integer version, Date createTime, Date updateTime, Byte isActive) {
         this.id = id;
-		this.name = name;
-		this.key = key;
+		this.processName = processName;
+		this.processKey = processKey;
 		this.filePath = filePath;
 		this.description = description;
 		this.isDeploy = isDeploy;
@@ -63,20 +63,20 @@ public class ProcessDO extends BaseDO {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getProcessName() {
+		return processName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setProcessName(String processName) {
+		this.processName = processName;
 	}
 
-	public String getKey() {
-		return key;
+	public String getProcessKey() {
+		return processKey;
 	}
 
-	public void setKey(String key) {
-		this.key = key;
+	public void setProcessKey(String processKey) {
+		this.processKey = processKey;
 	}
 
 	public String getFilePath() {
@@ -148,8 +148,8 @@ public class ProcessDO extends BaseDO {
     public String toString() {
         return "ProcessDO {" +
                 "id = " + id + 
-				", name = " + name + 
-				", key = " + key + 
+				", processName = " + processName + 
+				", processKey = " + processKey + 
 				", filePath = " + filePath + 
 				", description = " + description + 
 				", isDeploy = " + isDeploy + 

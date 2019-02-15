@@ -8,14 +8,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * ProcessQuery查询对象类<br/>
  *
- * 创建于2019-02-14<br/>
+ * 创建于2019-02-15<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class ProcessQuery extends PageQuery {
 
-    private static final long serialVersionUID = -9223372036775697309L;
+    private static final long serialVersionUID = -9223372035545950720L;
 
     // 流程编号
 	private Long id;
@@ -24,9 +24,9 @@ public class ProcessQuery extends PageQuery {
 	// 流程编号（最大值）
 	private Long idMax;
 	// 流程Name
-	private String name;
+	private String processName;
 	// 流程Key
-	private String key;
+	private String processKey;
 	// 流程文件路径
 	private String filePath;
 	// 流程描述
@@ -79,12 +79,12 @@ public class ProcessQuery extends PageQuery {
 	
     public ProcessQuery () {}
 
-    public ProcessQuery (Long id, Long idMin, Long idMax, String name, String key, String filePath, String description, Byte isDeploy, Byte isDeployMin, Byte isDeployMax, Date deployTime, Date deployTimeMin, Date deployTimeMax, Integer version, Integer versionMin, Integer versionMax, Date createTime, Date createTimeMin, Date createTimeMax, Date updateTime, Date updateTimeMin, Date updateTimeMax, Byte isActive, Byte isActiveMin, Byte isActiveMax) {
+    public ProcessQuery (Long id, Long idMin, Long idMax, String processName, String processKey, String filePath, String description, Byte isDeploy, Byte isDeployMin, Byte isDeployMax, Date deployTime, Date deployTimeMin, Date deployTimeMax, Integer version, Integer versionMin, Integer versionMax, Date createTime, Date createTimeMin, Date createTimeMax, Date updateTime, Date updateTimeMin, Date updateTimeMax, Byte isActive, Byte isActiveMin, Byte isActiveMax) {
         this.id = id;
 		this.idMin = idMin;
 		this.idMax = idMax;
-		this.name = name;
-		this.key = key;
+		this.processName = processName;
+		this.processKey = processKey;
 		this.filePath = filePath;
 		this.description = description;
 		this.isDeploy = isDeploy;
@@ -132,20 +132,20 @@ public class ProcessQuery extends PageQuery {
 		this.idMax = idMax;
 	}
 
-	public String getName() {
-		return name;
+	public String getProcessName() {
+		return processName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setProcessName(String processName) {
+		this.processName = processName;
 	}
 
-	public String getKey() {
-		return key;
+	public String getProcessKey() {
+		return processKey;
 	}
 
-	public void setKey(String key) {
-		this.key = key;
+	public void setProcessKey(String processKey) {
+		this.processKey = processKey;
 	}
 
 	public String getFilePath() {
@@ -315,8 +315,8 @@ public class ProcessQuery extends PageQuery {
                 "id = " + id + 
 				", idMin = " + idMin + 
 				", idMax = " + idMax + 
-				", name = " + name + 
-				", key = " + key + 
+				", processName = " + processName + 
+				", processKey = " + processKey + 
 				", filePath = " + filePath + 
 				", description = " + description + 
 				", isDeploy = " + isDeploy + 

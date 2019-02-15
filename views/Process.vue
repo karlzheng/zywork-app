@@ -30,11 +30,11 @@
     </Row>
     <Modal v-model="modal.add" title="添加" @on-visible-change="changeModalVisibleResetForm('addForm', $event)">
       <Form ref="addForm" :model="form" :label-width="80" :rules="validateRules">
-        <FormItem label="流程Name" prop="name">
-	<Input v-model="form.name" placeholder="请输入流程Name"/>
+        <FormItem label="流程Name" prop="processName">
+	<Input v-model="form.processName" placeholder="请输入流程Name"/>
 </FormItem>
-<FormItem label="流程Key" prop="key">
-	<Input v-model="form.key" placeholder="请输入流程Key"/>
+<FormItem label="流程Key" prop="processKey">
+	<Input v-model="form.processKey" placeholder="请输入流程Key"/>
 </FormItem>
 <FormItem label="流程文件路径" prop="filePath">
 	<Input v-model="form.filePath" placeholder="请输入流程文件路径"/>
@@ -57,11 +57,11 @@
     </Modal>
     <Modal v-model="modal.edit" title="修改" @on-visible-change="changeModalVisibleResetForm('editForm', $event)">
       <Form ref="editForm" :model="form" :label-width="80" :rules="validateRules">
-        <FormItem label="流程Name" prop="name">
-	<Input v-model="form.name" placeholder="请输入流程Name"/>
+        <FormItem label="流程Name" prop="processName">
+	<Input v-model="form.processName" placeholder="请输入流程Name"/>
 </FormItem>
-<FormItem label="流程Key" prop="key">
-	<Input v-model="form.key" placeholder="请输入流程Key"/>
+<FormItem label="流程Key" prop="processKey">
+	<Input v-model="form.processKey" placeholder="请输入流程Key"/>
 </FormItem>
 <FormItem label="流程文件路径" prop="filePath">
 	<Input v-model="form.filePath" placeholder="请输入流程文件路径"/>
@@ -98,11 +98,11 @@
 </i-col>
 </Row>
 </FormItem>
-<FormItem label="流程Name" prop="name">
-	<Input v-model="searchForm.name" placeholder="请输入流程Name"/>
+<FormItem label="流程Name" prop="processName">
+	<Input v-model="searchForm.processName" placeholder="请输入流程Name"/>
 </FormItem>
-<FormItem label="流程Key" prop="key">
-	<Input v-model="searchForm.key" placeholder="请输入流程Key"/>
+<FormItem label="流程Key" prop="processKey">
+	<Input v-model="searchForm.processKey" placeholder="请输入流程Key"/>
 </FormItem>
 <FormItem label="流程文件路径" prop="filePath">
 	<Input v-model="searchForm.filePath" placeholder="请输入流程文件路径"/>
@@ -204,8 +204,8 @@
     </Modal>
     <Modal v-model="modal.detail" title="详情" @on-visible-change="changeModalVisibleResetForm('editForm', $event)">
       <p>流程编号: <span v-text="form.id"></span></p>
-<p>流程Name: <span v-text="form.name"></span></p>
-<p>流程Key: <span v-text="form.key"></span></p>
+<p>流程Name: <span v-text="form.processName"></span></p>
+<p>流程Key: <span v-text="form.processKey"></span></p>
 <p>流程文件路径: <span v-text="form.filePath"></span></p>
 <p>流程描述: <span v-text="form.description"></span></p>
 <p>是否部署: <span v-text="form.isDeploy"></span></p>
@@ -255,8 +255,8 @@
         },
         form: {
           id: null,
-name: null,
-key: null,
+processName: null,
+processKey: null,
 filePath: null,
 description: null,
 isDeploy: null,
@@ -268,11 +268,11 @@ isActive: null,
 
         },
         validateRules: {
-          name: [
+          processName: [
 {type: 'string', required: true, message: '此项为必须项', trigger: 'blur'},
 {type: 'string', min: 1, max: 200, message: '必须1-200个字符', trigger: 'blur'}
 ],
-key: [
+processKey: [
 {type: 'string', required: true, message: '此项为必须项', trigger: 'blur'},
 {type: 'string', min: 1, max: 200, message: '必须1-200个字符', trigger: 'blur'}
 ],
@@ -292,8 +292,8 @@ description: [
           id: null,
 idMin: null, 
 idMax: null, 
-name: null,
-key: null,
+processName: null,
+processKey: null,
 filePath: null,
 description: null,
 isDeploy: null,
@@ -342,13 +342,13 @@ sortable: true
 },
 {
 title: '流程Name',
-key: 'name',
+key: 'processName',
 minWidth: 120,
 sortable: true
 },
 {
 title: '流程Key',
-key: 'key',
+key: 'processKey',
 minWidth: 120,
 sortable: true
 },

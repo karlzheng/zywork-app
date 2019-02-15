@@ -8,18 +8,17 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import top.zywork.common.BeanUtils;
-import top.zywork.common.BindingResultUtils;
-import top.zywork.common.StringUtils;
-import top.zywork.common.UploadUtils;
+import top.zywork.common.*;
 import top.zywork.dto.PagerDTO;
 import top.zywork.dto.ProcessDTO;
+import top.zywork.enums.ResponseStatusEnum;
 import top.zywork.query.ProcessQuery;
 import top.zywork.service.ProcessService;
 import top.zywork.vo.PagerVO;
 import top.zywork.vo.ProcessVO;
 import top.zywork.vo.ResponseStatusVO;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -58,12 +57,26 @@ public class ProcessController extends BaseController {
 
     /**
      * 上传流程zip文件
-     * @param multipartFile
+     * @param id
+     * @param file
      * @return
      */
-    @PostMapping("admin/upload")
-    public ResponseStatusVO uploadProcessFile(MultipartFile multipartFile) {
-        return UploadUtils.uploadFile(multipartFile, allowedExts, maxSize * 1024 * 1024, processDir, "");
+    @PostMapping("admin/upload/{id}")
+    public ResponseStatusVO uploadProcessFile(@PathVariable("id") Long id, MultipartFile file) {
+        Object object = processService.getById(id);
+        if (object == null) {
+            return ResponseStatusVO.dataError("不存在的流程编号", null);
+        }
+        ProcessDTO processDTO = (ProcessDTO) object;
+        if (org.apache.commons.lang.StringUtils.isNotEmpty(processDTO.getFilePath())) {
+            FileUtils.deleteFile(processDTO.getFilePath());
+        }
+        ResponseStatusVO responseStatusVO = UploadUtils.uploadFile(file, allowedExts, maxSize * 1024 * 1024, processDir, "");
+        if (responseStatusVO.getCode().intValue() == ResponseStatusEnum.OK.getCode().intValue()) {
+            processDTO.setFilePath(processDir + File.separator + ((List) responseStatusVO.getData()).get(0));
+            processService.update(processDTO);
+        }
+        return responseStatusVO;
     }
 
     @PostMapping("admin/batch-save")

@@ -10,11 +10,11 @@
     	</selectKey>
         insert into t_process
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="name != null">
-				name,
+            <if test="processName != null">
+				process_name,
 			</if>
-			<if test="key != null">
-				key,
+			<if test="processKey != null">
+				process_key,
 			</if>
 			<if test="filePath != null">
 				file_path,
@@ -43,11 +43,11 @@
 			
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="name != null">
-				#{name},
+            <if test="processName != null">
+				#{processName},
 			</if>
-			<if test="key != null">
-				#{key},
+			<if test="processKey != null">
+				#{processKey},
 			</if>
 			<if test="filePath != null">
 				#{filePath},
@@ -84,11 +84,11 @@
     	<foreach collection="list" item="item" separator=";">
             insert into t_process
             <trim prefix="(" suffix=")" suffixOverrides=",">
-                <if test="item.name != null">
-				name,
+                <if test="item.processName != null">
+				process_name,
 			</if>
-			<if test="item.key != null">
-				key,
+			<if test="item.processKey != null">
+				process_key,
 			</if>
 			<if test="item.filePath != null">
 				file_path,
@@ -117,11 +117,11 @@
 			
             </trim>
             <trim prefix="values (" suffix=")" suffixOverrides=",">
-                <if test="item.name != null">
-				#{item.name},
+                <if test="item.processName != null">
+				#{item.processName},
 			</if>
-			<if test="item.key != null">
-				#{item.key},
+			<if test="item.processKey != null">
+				#{item.processKey},
 			</if>
 			<if test="item.filePath != null">
 				#{item.filePath},
@@ -166,11 +166,11 @@
     <update id="update" parameterType="processDO">
         update t_process
         <set>
-            <if test="name != null">
-				name = #{name},
+            <if test="processName != null">
+				process_name = #{processName},
 			</if>
-			<if test="key != null">
-				key = #{key},
+			<if test="processKey != null">
+				process_key = #{processKey},
 			</if>
 			<if test="filePath != null">
 				file_path = #{filePath},
@@ -205,11 +205,11 @@
     	<foreach collection="list" item="item" separator=";">
             update t_process
             <set>
-                <if test="item.name != null">
-				name = #{item.name},
+                <if test="item.processName != null">
+				process_name = #{item.processName},
 			</if>
-			<if test="item.key != null">
-				key = #{item.key},
+			<if test="item.processKey != null">
+				process_key = #{item.processKey},
 			</if>
 			<if test="item.filePath != null">
 				file_path = #{item.filePath},
@@ -245,7 +245,7 @@
     </update>
 
     <sql id="select_columns">
-        id as id, name as name, key as key, file_path as filePath, description as description, is_deploy as isDeploy, deploy_time as deployTime, version as version, create_time as createTime, update_time as updateTime, is_active as isActive
+        id as id, process_name as processName, process_key as processKey, file_path as filePath, description as description, is_deploy as isDeploy, deploy_time as deployTime, version as version, create_time as createTime, update_time as updateTime, is_active as isActive
     </sql>
 
     <sql id="query_where_clause">
@@ -261,11 +261,11 @@
 		<if test="query != null and query.idMin != null and query.idMax != null">
 			and id <![CDATA[ >= ]]> #{query.idMin} and id <![CDATA[ <= ]]> #{query.idMax}
 		</if>
-		<if test="query != null and query.name != null and query.name != ''">
-			and name like concat('%', #{query.name}, '%')
+		<if test="query != null and query.processName != null and query.processName != ''">
+			and process_name like concat('%', #{query.processName}, '%')
 		</if>
-		<if test="query != null and query.key != null and query.key != ''">
-			and key like concat('%', #{query.key}, '%')
+		<if test="query != null and query.processKey != null and query.processKey != ''">
+			and process_key like concat('%', #{query.processKey}, '%')
 		</if>
 		<if test="query != null and query.filePath != null and query.filePath != ''">
 			and file_path like concat('%', #{query.filePath}, '%')
