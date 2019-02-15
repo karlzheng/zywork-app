@@ -24,6 +24,7 @@ zywork-common项目依赖了zywork-sdk（[https://github.com/gz-zywork/zywork-sd
 6. Druid
 7. MySQL
 8. Redis
+9. Activiti
 9. Slf4j & Logback
 10. Swagger2
 11. 微信支付SDK
@@ -82,6 +83,7 @@ zywork-common项目依赖了zywork-sdk（[https://github.com/gz-zywork/zywork-sd
 13. 系统消息管理（消息发送给指定的用户），用户消息查询，系统公告管理（所有用户可看）
 14. 文件上传工具类及文件上传示例，可支持图片压缩
 15. 内容管理，包括文章类别管理，文章管理，文章评论管理等；用户可发表，修改，删除评论
+16. 工作流管理，流程部署，流程查询，流程待办任务及执行任务等
 16. 商城管理之基础信息管理：商品类目管理，商品属性管理，类目属性管理
 
 #### zywork-app在线体验发布日志

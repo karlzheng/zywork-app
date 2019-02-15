@@ -4,31 +4,23 @@ import org.activiti.engine.*;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import top.zywork.common.ActivitiUtils;
-import top.zywork.common.BeanUtils;
-import top.zywork.common.ImageUtils;
+import org.springframework.web.bind.annotation.*;
+import top.zywork.common.*;
+import top.zywork.dto.ProcessDTO;
 import top.zywork.enums.ContentTypeEnum;
 import top.zywork.enums.MIMETypeEnum;
 import top.zywork.query.PageQuery;
-import top.zywork.query.activiti.ActivitiDeploymentQuery;
-import top.zywork.query.activiti.ActivitiProcessDefinitionQuery;
-import top.zywork.query.activiti.ActivitiProcessInstanceQuery;
 import top.zywork.security.JwtUser;
 import top.zywork.security.SecurityUtils;
+import top.zywork.service.ProcessService;
 import top.zywork.vo.PagerVO;
 import top.zywork.vo.ResponseStatusVO;
-import top.zywork.vo.activiti.ActivitiDeploymentVO;
-import top.zywork.vo.activiti.ActivitiProcessDefinitionVO;
-import top.zywork.vo.activiti.ActivitiProcessInstanceVO;
-import top.zywork.vo.activiti.ActivitiTaskVO;
+import top.zywork.vo.activiti.*;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
@@ -63,52 +55,55 @@ public class ProcessActivitiController {
 
     private TaskService taskService;
 
+    private HistoryService historyService;
+
     private ProcessEngine processEngine;
 
+    private ProcessService processService;
+
     /**
-     * 根据流程名来部署流程
+     * 根据流程路径部署流程
+     * @param id
      * @param processPath
      * @param processName
      * @param processKey
      * @return
      */
-    @PostMapping("admin/deploy")
-    public ResponseStatusVO deploy(String processPath, String processName, String processKey) {
+    @PostMapping("admin/do/deploy")
+    public ResponseStatusVO deploy(Long id, String processPath, String processName, String processKey) {
         Deployment deployment = ActivitiUtils.deployByPath(repositoryService, processPath, processName, processKey);
         if (deployment == null) {
             return ResponseStatusVO.dataError("流程文件路径错误", null);
         }
+        ProcessDTO processDTO = new ProcessDTO();
+        processDTO.setId(id);
+        processDTO.setIsDeploy((byte) 1);
+        processDTO.setDeployTime(DateUtils.currentDate());
+        processService.update(processDTO);
         return ResponseStatusVO.ok(processName + "流程已成功部署", BeanUtils.copy(deployment, ActivitiDeploymentVO.class));
     }
 
     /**
      * 查询所有流程部署
-     * @param pageQuery
+     * @param processName
+     * @param pageNo
+     * @param pageSize
      * @return
      */
-    @PostMapping("admin/all-deploy")
+    @PostMapping("admin/query/all-deployment")
     @SuppressWarnings({"unchecked"})
-    public ResponseStatusVO listDeployments(@RequestBody PageQuery pageQuery) {
-        PagerVO pagerVO = ActivitiUtils.listDeployments(repositoryService, pageQuery.getBeginIndex(), pageQuery.getPageSize());
+    public ResponseStatusVO listDeploymentsByName(@RequestParam(value = "processName", required = false) String processName, Integer pageNo, Integer pageSize) {
+        PageQuery pageQuery = PageQueryUtils.getPageQuery(pageNo, pageSize);
+        PagerVO pagerVO;
+        if (StringUtils.isEmpty(processName)) {
+            pagerVO = ActivitiUtils.listDeployments(repositoryService, pageQuery.getBeginIndex(), pageQuery.getPageSize());
+        } else {
+            pagerVO = ActivitiUtils.listDeployments(repositoryService, processName, pageQuery.getBeginIndex(), pageQuery.getPageSize());
+        }
         if (pagerVO.getRows() != null) {
             pagerVO.setRows((List) BeanUtils.copy(pagerVO.getRows(), ActivitiDeploymentVO.class));
         }
-        return ResponseStatusVO.ok("所有流程部署", pagerVO);
-    }
-
-    /**
-     * 查询指定流程的所有部署
-     * @param activitiDeploymentQuery
-     * @return
-     */
-    @PostMapping("admin/all-deploy-name")
-    @SuppressWarnings({"unchecked"})
-    public ResponseStatusVO listDeploymentsByName(@RequestBody ActivitiDeploymentQuery activitiDeploymentQuery) {
-        PagerVO pagerVO = ActivitiUtils.listDeployments(repositoryService, activitiDeploymentQuery.getName(), activitiDeploymentQuery.getBeginIndex(), activitiDeploymentQuery.getPageSize());
-        if (pagerVO.getRows() != null) {
-            pagerVO.setRows((List) BeanUtils.copy(pagerVO.getRows(), ActivitiDeploymentVO.class));
-        }
-        return ResponseStatusVO.ok(activitiDeploymentQuery.getName() + "的所有流程部署", pagerVO);
+        return ResponseStatusVO.ok(processName + "的所有流程部署", pagerVO);
     }
 
     /**
@@ -116,7 +111,7 @@ public class ProcessActivitiController {
      * @param processKey
      * @return
      */
-    @PostMapping("admin/latest-deploy")
+    @PostMapping("admin/query/latest-deployment")
     public ResponseStatusVO getLatestDeployments(String processKey) {
         Deployment deployment = ActivitiUtils.getLatestDeployment(repositoryService, processKey);
         return ResponseStatusVO.ok(processKey + "的最新流程部署", deployment == null ? null : BeanUtils.copy(deployment, ActivitiDeploymentVO.class));
@@ -127,7 +122,7 @@ public class ProcessActivitiController {
      * @param processKey
      * @return
      */
-    @PostMapping("admin/remove-all")
+    @PostMapping("admin/do/remove-all-deployment")
     public ResponseStatusVO removeAllDeployment(String processKey) {
         int count = ActivitiUtils.removeAllDeployment(repositoryService, processKey);
         return ResponseStatusVO.ok("删除" + processKey + "流程的" + count + "个部署", null);
@@ -138,7 +133,7 @@ public class ProcessActivitiController {
      * @param processKey
      * @return
      */
-    @PostMapping("admin/remove-old")
+    @PostMapping("admin/do/remove-old-deployment")
     public ResponseStatusVO removeOldDeployment(String processKey) {
         int count = ActivitiUtils.removeOldDeployment(repositoryService, processKey);
         return ResponseStatusVO.ok("删除" + processKey + "流程的" + count + "个非最新部署", null);
@@ -146,32 +141,25 @@ public class ProcessActivitiController {
 
     /**
      * 获取所有流程定义
-     * @param pageQuery
+     * @param processName
+     * @param pageNo
+     * @param pageSize
      * @return
      */
-    @PostMapping("admin/all-definitions")
+    @PostMapping("admin/query/all-definitions")
     @SuppressWarnings({"unchecked"})
-    public ResponseStatusVO listProcessDefinitions(@RequestBody PageQuery pageQuery) {
-        PagerVO pagerVO = ActivitiUtils.listProcessDefinitions(repositoryService, pageQuery.getBeginIndex(), pageQuery.getPageSize());
+    public ResponseStatusVO listProcessDefinitions(@RequestParam(value = "processName", required = false) String processName, Integer pageNo, Integer pageSize) {
+        PageQuery pageQuery = PageQueryUtils.getPageQuery(pageNo, pageSize);
+        PagerVO pagerVO;
+        if (StringUtils.isEmpty(processName)) {
+            pagerVO = ActivitiUtils.listProcessDefinitions(repositoryService, pageQuery.getBeginIndex(), pageQuery.getPageSize());
+        } else {
+            pagerVO = ActivitiUtils.listProcessDefinitions(repositoryService, processName, pageQuery.getBeginIndex(), pageQuery.getPageSize());
+        }
         if (pagerVO.getRows() != null) {
             pagerVO.setRows((List) BeanUtils.copy(pagerVO.getRows(), ActivitiProcessDefinitionVO.class));
         }
-        return ResponseStatusVO.ok("所有流程定义", pagerVO);
-    }
-
-    /**
-     * 获取指定名称的所有流程定义
-     * @param activitiProcessDefinitionQuery
-     * @return
-     */
-    @PostMapping("admin/all-definitions-name")
-    @SuppressWarnings({"unchecked"})
-    public ResponseStatusVO listProcessDefinitions(@RequestBody ActivitiProcessDefinitionQuery activitiProcessDefinitionQuery) {
-        PagerVO pagerVO = ActivitiUtils.listProcessDefinitions(repositoryService, activitiProcessDefinitionQuery.getName(), activitiProcessDefinitionQuery.getBeginIndex(), activitiProcessDefinitionQuery.getPageSize());
-        if (pagerVO.getRows() != null) {
-            pagerVO.setRows((List) BeanUtils.copy(pagerVO.getRows(), ActivitiProcessDefinitionVO.class));
-        }
-        return ResponseStatusVO.ok(activitiProcessDefinitionQuery.getName() + "的所有流程定义", pagerVO);
+        return ResponseStatusVO.ok(processName + "的所有流程定义", pagerVO);
     }
 
     /**
@@ -179,24 +167,58 @@ public class ProcessActivitiController {
      * @param processKey
      * @return
      */
-    @PostMapping("admin/latest-definition")
+    @PostMapping("admin/query/latest-definition")
     public ResponseStatusVO getLatestProcessDefinition(String processKey) {
         ProcessDefinition processDefinition = ActivitiUtils.getLatestProcessDefinition(repositoryService, processKey);
         return ResponseStatusVO.ok(processKey + "的最新流程定义", processDefinition == null ? null : BeanUtils.copy(processDefinition, ActivitiProcessDefinitionVO.class));
     }
 
     /**
-     * 启动流程
+     * 启动一个流程
      * @param processKey
+     * @param variables
      * @return
      */
-    @PostMapping("admin/start-one")
-    public ResponseStatusVO startOneProcess(String processKey) {
+    @PostMapping("admin/do/start-one/{processKey}")
+    public ResponseStatusVO startOneProcess(@PathVariable("processKey") String processKey, @RequestBody(required = false) Map<String, Object> variables) {
         ProcessDefinition processDefinition = ActivitiUtils.getLatestProcessDefinition(repositoryService, processKey);
         if (processDefinition == null) {
             return ResponseStatusVO.dataError(processKey + "流程定义不存在", null);
         }
-        ProcessInstance processInstance = ActivitiUtils.startOneProcess(runtimeService, processKey);
+        ProcessInstance processInstance;
+        if (variables == null) {
+            processInstance = ActivitiUtils.startOneProcess(runtimeService, processKey);
+        } else {
+            processInstance = ActivitiUtils.startOneProcess(runtimeService, processKey, variables);
+        }
+        if (processInstance == null) {
+            return ResponseStatusVO.dataError(processKey+ "流程只能同时启动一个或流程启动失败", null);
+        }
+        return ResponseStatusVO.ok("成功启动流程：" + processKey, BeanUtils.copy(processInstance, ActivitiProcessInstanceVO.class));
+    }
+
+    /**
+     * 启动一个流程
+     * @param processKey
+     * @param variables
+     * @return
+     */
+    @PostMapping("admin/do/start-one-user/{processKey}")
+    public ResponseStatusVO startOneProcessByUser(@PathVariable("processKey") String processKey, @RequestBody(required = false) Map<String, Object> variables) {
+        JwtUser jwtUser = SecurityUtils.getJwtUser();
+        if (jwtUser == null) {
+            return ResponseStatusVO.authenticationError();
+        }
+        ProcessDefinition processDefinition = ActivitiUtils.getLatestProcessDefinition(repositoryService, processKey);
+        if (processDefinition == null) {
+            return ResponseStatusVO.dataError(processKey + "流程定义不存在", null);
+        }
+        ProcessInstance processInstance;
+        if (variables == null) {
+            processInstance = ActivitiUtils.startOneProcess(identityService, runtimeService, jwtUser.getUserId() + "", processKey);
+        } else {
+            processInstance = ActivitiUtils.startOneProcess(identityService, runtimeService, jwtUser.getUserId() + "", processKey, variables);
+        }
         if (processInstance == null) {
             return ResponseStatusVO.dataError(processKey+ "流程只能同时启动一个或流程启动失败", null);
         }
@@ -209,76 +231,18 @@ public class ProcessActivitiController {
      * @param variables
      * @return
      */
-    @PostMapping("admin/start-one-var")
-    public ResponseStatusVO startOneProcessVar(String processKey, Map<String, Object> variables) {
+    @PostMapping("admin/do/start/{processKey}")
+    public ResponseStatusVO startProcess(@PathVariable("processKey") String processKey, @RequestBody(required = false) Map<String, Object> variables) {
         ProcessDefinition processDefinition = ActivitiUtils.getLatestProcessDefinition(repositoryService, processKey);
         if (processDefinition == null) {
             return ResponseStatusVO.dataError(processKey + "流程定义不存在", null);
         }
-        ProcessInstance processInstance = ActivitiUtils.startOneProcess(runtimeService, processKey, variables);
-        if (processInstance == null) {
-            return ResponseStatusVO.dataError(processKey+ "流程只能同时启动一个或流程启动失败", null);
+        ProcessInstance processInstance;
+        if (variables == null) {
+            processInstance = ActivitiUtils.startProcess(runtimeService, processKey);
+        } else {
+            processInstance = ActivitiUtils.startProcess(runtimeService, processKey, variables);
         }
-        return ResponseStatusVO.ok("成功启动流程：" + processKey, BeanUtils.copy(processInstance, ActivitiProcessInstanceVO.class));
-    }
-
-    /**
-     * 启动流程
-     * @param processKey
-     * @return
-     */
-    @PostMapping("admin/start-one-user")
-    public ResponseStatusVO startOneProcessByUser(String processKey) {
-        JwtUser jwtUser = SecurityUtils.getJwtUser();
-        if (jwtUser == null) {
-            return ResponseStatusVO.authenticationError();
-        }
-        ProcessDefinition processDefinition = ActivitiUtils.getLatestProcessDefinition(repositoryService, processKey);
-        if (processDefinition == null) {
-            return ResponseStatusVO.dataError(processKey + "流程定义不存在", null);
-        }
-        ProcessInstance processInstance = ActivitiUtils.startOneProcess(identityService, runtimeService, jwtUser.getUserId() + "", processKey);
-        if (processInstance == null) {
-            return ResponseStatusVO.dataError(processKey+ "流程只能同时启动一个或流程启动失败", null);
-        }
-        return ResponseStatusVO.ok("成功启动流程：" + processKey, BeanUtils.copy(processInstance, ActivitiProcessInstanceVO.class));
-    }
-
-    /**
-     * 启动流程
-     * @param processKey
-     * @param variables
-     * @return
-     */
-    @PostMapping("admin/start-one-var-user")
-    public ResponseStatusVO startOneProcessVarByUser(String processKey, Map<String, Object> variables) {
-        JwtUser jwtUser = SecurityUtils.getJwtUser();
-        if (jwtUser == null) {
-            return ResponseStatusVO.authenticationError();
-        }
-        ProcessDefinition processDefinition = ActivitiUtils.getLatestProcessDefinition(repositoryService, processKey);
-        if (processDefinition == null) {
-            return ResponseStatusVO.dataError(processKey + "流程定义不存在", null);
-        }
-        ProcessInstance processInstance = ActivitiUtils.startOneProcess(identityService, runtimeService, jwtUser.getUserId() + "", processKey, variables);
-        if (processInstance == null) {
-            return ResponseStatusVO.dataError(processKey+ "流程只能同时启动一个或流程启动失败", null);
-        }
-        return ResponseStatusVO.ok("成功启动流程：" + processKey, BeanUtils.copy(processInstance, ActivitiProcessInstanceVO.class));
-    }
-
-    /**
-     * 启动流程
-     * @param processKey
-     * @return
-     */
-    @PostMapping("admin/start")
-    public ResponseStatusVO startProcess(String processKey) {
-        ProcessDefinition processDefinition = ActivitiUtils.getLatestProcessDefinition(repositoryService, processKey);
-        if (processDefinition == null) {
-            return ResponseStatusVO.dataError(processKey + "流程定义不存在", null);
-        }
-        ProcessInstance processInstance = ActivitiUtils.startProcess(runtimeService, processKey);
         if (processInstance == null) {
             return ResponseStatusVO.dataError(processKey+ "流程启动失败", null);
         }
@@ -291,26 +255,8 @@ public class ProcessActivitiController {
      * @param variables
      * @return
      */
-    @PostMapping("admin/start-var")
-    public ResponseStatusVO startProcessVar(String processKey, Map<String, Object> variables) {
-        ProcessDefinition processDefinition = ActivitiUtils.getLatestProcessDefinition(repositoryService, processKey);
-        if (processDefinition == null) {
-            return ResponseStatusVO.dataError(processKey + "流程定义不存在", null);
-        }
-        ProcessInstance processInstance = ActivitiUtils.startProcess(runtimeService, processKey, variables);
-        if (processInstance == null) {
-            return ResponseStatusVO.dataError(processKey+ "流程启动失败", null);
-        }
-        return ResponseStatusVO.ok("成功启动流程：" + processKey, BeanUtils.copy(processInstance, ActivitiProcessInstanceVO.class));
-    }
-
-    /**
-     * 启动流程
-     * @param processKey
-     * @return
-     */
-    @PostMapping("admin/start-user")
-    public ResponseStatusVO startProcessByUser(String processKey) {
+    @PostMapping("admin/do/start-user/{processKey}")
+    public ResponseStatusVO startProcessByUser(@PathVariable("processKey") String processKey, @RequestBody(required = false) Map<String, Object> variables) {
         JwtUser jwtUser = SecurityUtils.getJwtUser();
         if (jwtUser == null) {
             return ResponseStatusVO.authenticationError();
@@ -319,7 +265,12 @@ public class ProcessActivitiController {
         if (processDefinition == null) {
             return ResponseStatusVO.dataError(processKey + "流程定义不存在", null);
         }
-        ProcessInstance processInstance = ActivitiUtils.startProcess(identityService, runtimeService, jwtUser.getUserId() + "", processKey);
+        ProcessInstance processInstance;
+        if (variables == null) {
+            processInstance = ActivitiUtils.startProcess(identityService, runtimeService, jwtUser.getUserId() + "", processKey);
+        } else {
+            processInstance = ActivitiUtils.startProcess(identityService, runtimeService, jwtUser.getUserId() + "", processKey, variables);
+        }
         if (processInstance == null) {
             return ResponseStatusVO.dataError(processKey+ "流程启动失败", null);
         }
@@ -332,99 +283,84 @@ public class ProcessActivitiController {
      * @param variables
      * @return
      */
-    @PostMapping("admin/start-var-user")
-    public ResponseStatusVO startProcessVarByUser(String processKey, Map<String, Object> variables) {
-        JwtUser jwtUser = SecurityUtils.getJwtUser();
-        if (jwtUser == null) {
-            return ResponseStatusVO.authenticationError();
-        }
-        ProcessDefinition processDefinition = ActivitiUtils.getLatestProcessDefinition(repositoryService, processKey);
-        if (processDefinition == null) {
-            return ResponseStatusVO.dataError(processKey + "流程定义不存在", null);
-        }
-        ProcessInstance processInstance = ActivitiUtils.startProcess(identityService, runtimeService, jwtUser.getUserId() + "", processKey, variables);
-        if (processInstance == null) {
-            return ResponseStatusVO.dataError(processKey+ "流程启动失败", null);
-        }
-        return ResponseStatusVO.ok("成功启动流程：" + processKey, BeanUtils.copy(processInstance, ActivitiProcessInstanceVO.class));
+    @PostMapping("user/do/start-user/{processKey}")
+    public ResponseStatusVO userStartProcessByUser(@PathVariable("processKey") String processKey, @RequestBody(required = false) Map<String, Object> variables) {
+        return startProcessByUser(processKey, variables);
     }
 
     /**
      * 列出指定流程的所有流程实例
-     * @param pageQuery
+     * @param processKey
+     * @param pageNo
+     * @param pageSize
      * @return
      */
-    @PostMapping("admin/all-process-instance")
+    @PostMapping("admin/query/all-process-instance")
     @SuppressWarnings({"unchecked"})
-    public ResponseStatusVO listProcessInstance(@RequestBody PageQuery pageQuery) {
-        PagerVO pagerVO = ActivitiUtils.listProcessInstances(runtimeService, pageQuery.getBeginIndex(), pageQuery.getPageSize());
+    public ResponseStatusVO listProcessInstance(@RequestParam(value = "processKey", required = false) String processKey, Integer pageNo, Integer pageSize) {
+        PageQuery pageQuery = PageQueryUtils.getPageQuery(pageNo, pageSize);
+        PagerVO pagerVO;
+        if (StringUtils.isEmpty(processKey)) {
+            pagerVO = ActivitiUtils.listProcessInstances(runtimeService, pageQuery.getBeginIndex(), pageQuery.getPageSize());
+        } else {
+            pagerVO = ActivitiUtils.listProcessInstances(runtimeService, processKey, pageQuery.getBeginIndex(), pageQuery.getPageSize());
+        }
         if (pagerVO.getRows() != null) {
             pagerVO.setRows((List) BeanUtils.copy(pagerVO.getRows(), ActivitiProcessInstanceVO.class));
         }
-        return ResponseStatusVO.ok("所有流程实例", pagerVO);
+        return ResponseStatusVO.ok(processKey + "的所有流程实例", pagerVO);
     }
 
     /**
-     * 列出指定流程的所有流程实例
-     * @param activitiProcessInstanceQuery
+     * 列出指定用户的所有流程实例
+     * @param processKey
+     * @param pageNo
+     * @param pageSize
      * @return
      */
-    @PostMapping("admin/process-instance-by-name")
+    @PostMapping("admin/query/process-instance-user")
     @SuppressWarnings({"unchecked"})
-    public ResponseStatusVO listProcessInstance(@RequestBody ActivitiProcessInstanceQuery activitiProcessInstanceQuery) {
-        PagerVO pagerVO = ActivitiUtils.listProcessInstances(runtimeService, activitiProcessInstanceQuery.getProcessDefinitionKey(),  activitiProcessInstanceQuery.getBeginIndex(), activitiProcessInstanceQuery.getPageSize());
-        if (pagerVO.getRows() != null) {
-            pagerVO.setRows((List) BeanUtils.copy(pagerVO.getRows(), ActivitiProcessInstanceVO.class));
-        }
-        return ResponseStatusVO.ok(activitiProcessInstanceQuery.getProcessDefinitionKey() + "的所有流程实例", pagerVO);
-    }
-
-    /**
-     * 列出指定用户的指定流程的所有流程实例
-     * @param pageQuery
-     * @return
-     */
-    @PostMapping("admin/process-instance-user")
-    @SuppressWarnings({"unchecked"})
-    public ResponseStatusVO listProcessInstanceUser(@RequestBody PageQuery pageQuery) {
+    public ResponseStatusVO listUserProcessInstance(@RequestParam(value = "processKey", required = false) String processKey, Integer pageNo, Integer pageSize) {
         JwtUser jwtUser = SecurityUtils.getJwtUser();
         if (jwtUser == null) {
             return ResponseStatusVO.authenticationError();
         }
-        PagerVO pagerVO = ActivitiUtils.listUserProcessInstances(runtimeService, jwtUser.getUserId() + "", pageQuery.getBeginIndex(), pageQuery.getPageSize());
+        PageQuery pageQuery = PageQueryUtils.getPageQuery(pageNo, pageSize);
+        PagerVO pagerVO;
+        if (StringUtils.isEmpty(processKey)) {
+            pagerVO = ActivitiUtils.listUserProcessInstances(runtimeService, jwtUser.getUserId() + "", pageQuery.getBeginIndex(), pageQuery.getPageSize());
+        } else {
+            pagerVO = ActivitiUtils.listUserProcessInstances(runtimeService, jwtUser.getUserId() + "", processKey, pageQuery.getBeginIndex(), pageQuery.getPageSize());
+        }
         if (pagerVO.getRows() != null) {
             pagerVO.setRows((List) BeanUtils.copy(pagerVO.getRows(), ActivitiProcessInstanceVO.class));
         }
-        return ResponseStatusVO.ok("所有流程实例", pagerVO);
+        return ResponseStatusVO.ok(processKey + "的所有流程实例", pagerVO);
     }
 
     /**
      * 列出指定用户的指定流程的所有流程实例
-     * @param activitiProcessInstanceQuery
+     * @param processKey
+     * @param pageNo
+     * @param pageSize
      * @return
      */
-    @PostMapping("admin/process-instance-name-user")
+    @PostMapping("user/query/process-instance-user")
     @SuppressWarnings({"unchecked"})
-    public ResponseStatusVO listProcessInstanceUser(@RequestBody ActivitiProcessInstanceQuery activitiProcessInstanceQuery) {
-        JwtUser jwtUser = SecurityUtils.getJwtUser();
-        if (jwtUser == null) {
-            return ResponseStatusVO.authenticationError();
-        }
-        PagerVO pagerVO = ActivitiUtils.listUserProcessInstances(runtimeService, jwtUser.getUserId() + "", activitiProcessInstanceQuery.getProcessDefinitionKey(),  activitiProcessInstanceQuery.getBeginIndex(), activitiProcessInstanceQuery.getPageSize());
-        if (pagerVO.getRows() != null) {
-            pagerVO.setRows((List) BeanUtils.copy(pagerVO.getRows(), ActivitiProcessInstanceVO.class));
-        }
-        return ResponseStatusVO.ok(activitiProcessInstanceQuery.getProcessDefinitionKey() + "的所有流程实例", pagerVO);
+    public ResponseStatusVO userListUserProcessInstance(@RequestParam(value = "processKey", required = false) String processKey, Integer pageNo, Integer pageSize) {
+        return listUserProcessInstance(processKey, pageNo, pageSize);
     }
 
     /**
      * 所有待办任务
-     * @param pageQuery
+     * @param pageNo
+     * @param pageSize
      * @return
      */
-    @PostMapping("admin/tasks")
+    @PostMapping("admin/query/all-tasks")
     @SuppressWarnings({"unchecked"})
-    public ResponseStatusVO listTasks(@RequestBody PageQuery pageQuery) {
+    public ResponseStatusVO listTasks(Integer pageNo, Integer pageSize) {
+        PageQuery pageQuery = PageQueryUtils.getPageQuery(pageNo, pageSize);
         PagerVO pagerVO = ActivitiUtils.listTasks(taskService, pageQuery.getBeginIndex(), pageQuery.getPageSize());
         if (pagerVO.getRows() != null) {
             pagerVO.setRows((List) BeanUtils.copy(pagerVO.getRows(), ActivitiTaskVO.class));
@@ -434,16 +370,18 @@ public class ProcessActivitiController {
 
     /**
      * 指派人任务
-     * @param pageQuery
+     * @param pageNo
+     * @param pageSize
      * @return
      */
-    @PostMapping("admin/assignee-tasks")
+    @PostMapping("admin/query/assignee-tasks")
     @SuppressWarnings({"unchecked"})
-    public ResponseStatusVO listAssigneeTasks(@RequestBody PageQuery pageQuery) {
+    public ResponseStatusVO listAssigneeTasks(Integer pageNo, Integer pageSize) {
         JwtUser jwtUser = SecurityUtils.getJwtUser();
         if (jwtUser == null) {
             return ResponseStatusVO.authenticationError();
         }
+        PageQuery pageQuery = PageQueryUtils.getPageQuery(pageNo, pageSize);
         PagerVO pagerVO = ActivitiUtils.listAssigneeTasks(taskService, jwtUser.getUserId() + "", pageQuery.getBeginIndex(), pageQuery.getPageSize());
         if (pagerVO.getRows() != null) {
             pagerVO.setRows((List) BeanUtils.copy(pagerVO.getRows(), ActivitiTaskVO.class));
@@ -452,17 +390,31 @@ public class ProcessActivitiController {
     }
 
     /**
-     * 候选人任务
-     * @param pageQuery
+     * 指派人任务
+     * @param pageNo
+     * @param pageSize
      * @return
      */
-    @PostMapping("admin/candidate-tasks")
+    @PostMapping("user/query/assignee-tasks")
     @SuppressWarnings({"unchecked"})
-    public ResponseStatusVO listCandidateUserTasks(@RequestBody PageQuery pageQuery) {
+    public ResponseStatusVO userListAssigneeTasks(Integer pageNo, Integer pageSize) {
+        return listAssigneeTasks(pageNo, pageSize);
+    }
+
+    /**
+     * 候选人任务
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @PostMapping("admin/query/candidate-tasks")
+    @SuppressWarnings({"unchecked"})
+    public ResponseStatusVO listCandidateUserTasks(Integer pageNo, Integer pageSize) {
         JwtUser jwtUser = SecurityUtils.getJwtUser();
         if (jwtUser == null) {
             return ResponseStatusVO.authenticationError();
         }
+        PageQuery pageQuery = PageQueryUtils.getPageQuery(pageNo, pageSize);
         PagerVO pagerVO = ActivitiUtils.listCandidateUserTasks(taskService, jwtUser.getUserId() + "", pageQuery.getBeginIndex(), pageQuery.getPageSize());
         if (pagerVO.getRows() != null) {
             pagerVO.setRows((List) BeanUtils.copy(pagerVO.getRows(), ActivitiTaskVO.class));
@@ -471,13 +423,26 @@ public class ProcessActivitiController {
     }
 
     /**
-     * 候选组任务
-     * @param pageQuery
+     * 候选人任务
+     * @param pageNo
+     * @param pageSize
      * @return
      */
-    @PostMapping("admin/group-tasks")
+    @PostMapping("user/query/candidate-tasks")
     @SuppressWarnings({"unchecked"})
-    public ResponseStatusVO listCandidateGroupTasks(@RequestBody PageQuery pageQuery) {
+    public ResponseStatusVO userListCandidateUserTasks(Integer pageNo, Integer pageSize) {
+        return listCandidateGroupTasks(pageNo, pageSize);
+    }
+
+    /**
+     * 候选组任务
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @PostMapping("admin/query/group-tasks")
+    @SuppressWarnings({"unchecked"})
+    public ResponseStatusVO listCandidateGroupTasks(Integer pageNo, Integer pageSize) {
         JwtUser jwtUser = SecurityUtils.getJwtUser();
         if (jwtUser == null) {
             return ResponseStatusVO.authenticationError();
@@ -487,6 +452,7 @@ public class ProcessActivitiController {
         for (SimpleGrantedAuthority simpleGrantedAuthority : authorityCollection) {
             roles.add(simpleGrantedAuthority.getAuthority());
         }
+        PageQuery pageQuery = PageQueryUtils.getPageQuery(pageNo, pageSize);
         PagerVO pagerVO = ActivitiUtils.listCandidateGroupTasks(taskService, roles, pageQuery.getBeginIndex(), pageQuery.getPageSize());
         if (pagerVO.getRows() != null) {
             pagerVO.setRows((List) BeanUtils.copy(pagerVO.getRows(), ActivitiTaskVO.class));
@@ -495,13 +461,35 @@ public class ProcessActivitiController {
     }
 
     /**
+     * 候选组任务
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @PostMapping("user/query/group-tasks")
+    @SuppressWarnings({"unchecked"})
+    public ResponseStatusVO userListCandidateGroupTasks(Integer pageNo, Integer pageSize) {
+        return listCandidateGroupTasks(pageNo, pageSize);
+    }
+
+    /**
      * 获取任务参数
      * @param taskId
      * @return
      */
-    @PostMapping("admin/task-vars")
+    @PostMapping("admin/query/task-vars")
     public ResponseStatusVO taskData(String taskId) {
         return ResponseStatusVO.ok("任务参数", taskService.getVariables(taskId));
+    }
+
+    /**
+     * 获取任务参数
+     * @param taskId
+     * @return
+     */
+    @PostMapping("user/query/task-vars")
+    public ResponseStatusVO userTaskData(String taskId) {
+        return taskData(taskId);
     }
 
     /**
@@ -509,7 +497,7 @@ public class ProcessActivitiController {
      * @param taskId
      * @return
      */
-    @PostMapping("admin/complete")
+    @PostMapping("admin/do/complete-task")
     public ResponseStatusVO completeTask(String taskId) {
         ActivitiUtils.executeTask(taskService, taskId);
         return ResponseStatusVO.ok("完成任务", null);
@@ -518,13 +506,96 @@ public class ProcessActivitiController {
     /**
      * 完成任务
      * @param taskId
+     * @return
+     */
+    @PostMapping("user/do/complete-task")
+    public ResponseStatusVO userCompleteTask(String taskId) {
+        return completeTask(taskId);
+    }
+
+    /**
+     * 完成任务
+     * @param taskId
      * @param variables
      * @return
      */
-    @PostMapping("admin/complete-vars")
+    @PostMapping("admin/do/complete-task-vars")
     public ResponseStatusVO completeTask(String taskId, Map<String, Object> variables) {
         ActivitiUtils.executeTask(taskService, taskId, variables);
         return ResponseStatusVO.ok("完成任务", null);
+    }
+    /**
+     * 完成任务
+     * @param taskId
+     * @param variables
+     * @return
+     */
+    @PostMapping("user/do/complete-task-vars")
+    public ResponseStatusVO userCompleteTask(String taskId, Map<String, Object> variables) {
+        return completeTask(taskId, variables);
+    }
+
+    /**
+     * 列出指定流程的历史流程实例
+     * @param processKey
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @PostMapping("admin/query/all-his-process-instance")
+    @SuppressWarnings({"unchecked"})
+    public ResponseStatusVO listHistoricProcessInstances(@RequestParam(value = "processKey", required = false) String processKey, Integer pageNo, Integer pageSize) {
+        PageQuery pageQuery = PageQueryUtils.getPageQuery(pageNo, pageSize);
+        PagerVO pagerVO;
+        if (StringUtils.isEmpty(processKey)) {
+            pagerVO = ActivitiUtils.listHistoricProcessInstances(historyService, pageQuery.getBeginIndex(), pageQuery.getPageSize());
+        } else {
+            pagerVO = ActivitiUtils.listHistoricProcessInstances(historyService, processKey, pageQuery.getBeginIndex(), pageQuery.getPageSize());
+        }
+        if (pagerVO.getRows() != null) {
+            pagerVO.setRows((List) BeanUtils.copy(pagerVO.getRows(), ActivitiHistoricProcessInstanceVO.class));
+        }
+        return ResponseStatusVO.ok(processKey + "的所有历史流程", pagerVO);
+    }
+
+    /**
+     * 列出指定用户的指定流程的所有历史流程实例
+     * @param processKey
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @PostMapping("admin/query/all-his-process-instance-user")
+    @SuppressWarnings({"unchecked"})
+    public ResponseStatusVO listUserHistoricProcessInstances(@RequestParam(value = "processKey", required = false) String processKey, Integer pageNo, Integer pageSize) {
+        JwtUser jwtUser = SecurityUtils.getJwtUser();
+        if (jwtUser == null) {
+            return ResponseStatusVO.authenticationError();
+        }
+        PageQuery pageQuery = PageQueryUtils.getPageQuery(pageNo, pageSize);
+        PagerVO pagerVO;
+        if (StringUtils.isEmpty(processKey)) {
+            pagerVO = ActivitiUtils.listUserHistoricProcessInstances(historyService, jwtUser.getUserId() + "", pageQuery.getBeginIndex(), pageQuery.getPageSize());
+        } else {
+            pagerVO = ActivitiUtils.listUserHistoricProcessInstances(historyService, processKey, jwtUser.getUserId() + "", pageQuery.getBeginIndex(), pageQuery.getPageSize());
+        }
+        if (pagerVO.getRows() != null) {
+            pagerVO.setRows((List) BeanUtils.copy(pagerVO.getRows(), ActivitiHistoricProcessInstanceVO.class));
+        }
+        return ResponseStatusVO.ok(processKey + "的所有历史流程", pagerVO);
+    }
+
+    /**
+     * 列出指定用户的指定流程的所有历史流程实例
+     * @param processKey
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @PostMapping("user/query/all-his-process-instance-user")
+    @SuppressWarnings({"unchecked"})
+    public ResponseStatusVO userListUserHistoricProcessInstances(@RequestParam(value = "processKey", required = false) String processKey, Integer pageNo, Integer pageSize) {
+        return listUserHistoricProcessInstances(processKey, pageNo, pageSize);
     }
 
     /**
@@ -533,7 +604,7 @@ public class ProcessActivitiController {
      * @param processKey
      * @return
      */
-    @PostMapping("bpmn-png")
+    @PostMapping("admin/query/bpmn-png")
     public ResponseStatusVO bpmnPng(HttpServletResponse response, String processKey) {
         InputStream inputStream = ActivitiUtils.getDiagramPNG(repositoryService, processKey);
         if (inputStream == null) {
@@ -552,13 +623,24 @@ public class ProcessActivitiController {
     }
 
     /**
+     * 获取流程静态图
+     * @param response
+     * @param processKey
+     * @return
+     */
+    @PostMapping("user/query/bpmn-png")
+    public ResponseStatusVO userBpmnPng(HttpServletResponse response, String processKey) {
+        return bpmnPng(response, processKey);
+    }
+
+    /**
      * 生成动态流程图
      * @param response
      * @param processInstanceId
      * @param processKey
      * @return
      */
-    @PostMapping("bpmn-activity-png")
+    @PostMapping("admin/query/bpmn-activity-png")
     public ResponseStatusVO bpmnActivityPng(HttpServletResponse response, String processInstanceId, String processKey) {
         InputStream inputStream = ActivitiUtils.generateDiagramPNG(processEngine, runtimeService, repositoryService, processInstanceId, processKey);
         if (inputStream == null) {
@@ -577,6 +659,18 @@ public class ProcessActivitiController {
             }
         }
         return null;
+    }
+
+    /**
+     * 生成动态流程图
+     * @param response
+     * @param processInstanceId
+     * @param processKey
+     * @return
+     */
+    @PostMapping("user/query/bpmn-activity-png")
+    public ResponseStatusVO userBpmnActivityPng(HttpServletResponse response, String processInstanceId, String processKey) {
+        return bpmnActivityPng(response, processInstanceId, processKey);
     }
 
     @Autowired
@@ -600,7 +694,17 @@ public class ProcessActivitiController {
     }
 
     @Autowired
+    public void setHistoryService(HistoryService historyService) {
+        this.historyService = historyService;
+    }
+
+    @Autowired
     public void setProcessEngine(ProcessEngine processEngine) {
         this.processEngine = processEngine;
+    }
+
+    @Autowired
+    public void setProcessService(ProcessService processService) {
+        this.processService = processService;
     }
 }

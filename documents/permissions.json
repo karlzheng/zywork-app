@@ -451,6 +451,58 @@
         ]
     },
     {
+        "moduleTitle": "流程文件管理",
+        "permissions": [
+            {
+                "title": "后台-流程文件管理",
+                "permission": "/process/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "流程管理",
+        "permissions": [
+            {
+                "title": "后台-流程管理",
+                "permission": "/process-activiti/admin/do/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "后台-流程查询",
+                "permission": "/process-activiti/admin/query/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "用户-流程管理",
+                "permission": "/process-activiti/user/do/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin",
+                    "sys_user"
+                ]
+            },
+            {
+                "title": "用户-流程查询",
+                "permission": "/process-activiti/user/query/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin",
+                    "sys_user"
+                ]
+            }
+        ]
+    },
+    {
         "moduleTitle": "商品类目管理",
         "permissions": [
             {

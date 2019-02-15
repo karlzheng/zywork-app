@@ -898,6 +898,100 @@
         ]
     },
     {
+        "moduleTitle": "流程文件管理",
+        "permissions": [
+            {
+                "title": "后台-流程文件管理",
+                "permission": "/process/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "演示-流程文件管理-查询单个",
+                "permission": "/process/admin/one/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-流程文件管理-查询所有",
+                "permission": "/process/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-流程文件管理-分页查询",
+                "permission": "/process/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "流程管理",
+        "permissions": [
+            {
+                "title": "后台-流程管理",
+                "permission": "/process-activiti/admin/do/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "后台-流程查询",
+                "permission": "/process-activiti/admin/query/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "用户-流程管理",
+                "permission": "/process-activiti/user/do/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin",
+                    "sys_user"
+                ]
+            },
+            {
+                "title": "用户-流程查询",
+                "permission": "/process-activiti/user/query/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin",
+                    "sys_user"
+                ]
+            },
+            {
+                "title": "演示-流程查询",
+                "permission": "/process-activiti/admin/query/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-流程管理",
+                "permission": "/process-activiti/user/do/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-流程查询",
+                "permission": "/process-activiti/user/query/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
         "moduleTitle": "商品类目管理",
         "permissions": [
             {

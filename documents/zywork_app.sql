@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 06/02/2019 11:45:22
+ Date: 15/02/2019 14:39:07
 */
 
 SET NAMES utf8mb4;
@@ -658,8 +658,9 @@ CREATE TABLE `t_permission` (
 DROP TABLE IF EXISTS `t_process`;
 CREATE TABLE `t_process` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '流程编号',
-  `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '流程标题',
-  `file_path` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '流程文件路径',
+  `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '流程Name',
+  `key` varchar(200) COLLATE utf8mb4_general_ci NOT NULL COMMENT '流程Key',
+  `file_path` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '流程文件路径',
   `description` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '流程描述',
   `is_deploy` tinyint(4) DEFAULT '0' COMMENT '是否部署',
   `deploy_time` datetime DEFAULT NULL COMMENT '部署时间',
