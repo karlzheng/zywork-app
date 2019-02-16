@@ -11,7 +11,9 @@ zywork-app依赖于zywork-common（[https://github.com/gz-zywork/zywork-common](
 zywork-common项目依赖了zywork-sdk（[https://github.com/gz-zywork/zywork-sdk](https://github.com/gz-zywork/zywork-sdk)）中的微信支付SDK，微信支付SDK需要自行mvn install。
 
 #### 官方网站及在线体验
-[赣州智悦科技-zywork.top](http://zywork.top)
+[赣州智悦科技-zywork.top](http://zywork.top/app/index.html)
+
+[直接体验zywork-app](http://39.108.116.103:8080)
 
 #### 使用的技术
 1. Maven
@@ -82,8 +84,8 @@ zywork-common项目依赖了zywork-sdk（[https://github.com/gz-zywork/zywork-sd
 12. 实现了部分分销代码，可支持```N级分销```，并可配置。功能包括获取顶级分销商，获取指定分销商的上下K级分销商，获取指定用户所在的用户路径等
 13. 系统消息管理（消息发送给指定的用户），用户消息查询，系统公告管理（所有用户可看）
 14. 文件上传工具类及文件上传示例，可支持图片压缩
-15. 内容管理，包括文章类别管理，文章管理，文章评论管理等；用户可发表，修改，删除评论
-16. 工作流管理，流程部署，流程查询，流程待办任务及执行任务等
+15. 内容管理：包括文章类别管理，文章管理，文章评论管理等；用户可发表，修改，删除评论
+16. 工作流管理：流程文件管理，流程部署，流程查询，流程待办任务及执行任务等
 16. 商城管理之基础信息管理：商品类目管理，商品属性管理，类目属性管理
 
 #### zywork-app在线体验发布日志
@@ -91,6 +93,7 @@ zywork-common项目依赖了zywork-sdk（[https://github.com/gz-zywork/zywork-sd
 2. V1.0.1，2019-01-26 13:30 增加更多页面，包括管理页面与查询页面，如组织部门管理，并优化菜单显示
 3. V1.0.2，2019-01-28 12:00 增加DruidSQL监控与SpringBoot Admin链接，并修复部分Bug
 4. V1.0.3，2019-02-06 12:00 更新个人中心页面，增加用户分配角色的界面
+5. V1.0.4，2019-02-16 10:00 增加内容管理，增加流程管理及商城管理部分功能
 
 #### 支持与赞赏
 ![支持与赞赏](documents/wxpay.jpg)
