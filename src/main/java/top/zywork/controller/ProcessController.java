@@ -8,7 +8,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import top.zywork.common.*;
+import top.zywork.common.BeanUtils;
+import top.zywork.common.BindingResultUtils;
+import top.zywork.common.FileUtils;
+import top.zywork.common.UploadUtils;
 import top.zywork.dto.PagerDTO;
 import top.zywork.dto.ProcessDTO;
 import top.zywork.enums.ResponseStatusEnum;
@@ -68,13 +71,18 @@ public class ProcessController extends BaseController {
             return ResponseStatusVO.dataError("不存在的流程编号", null);
         }
         ProcessDTO processDTO = (ProcessDTO) object;
-        if (org.apache.commons.lang.StringUtils.isNotEmpty(processDTO.getFilePath())) {
-            FileUtils.deleteFile(processDTO.getFilePath());
-        }
+        String filePath = processDTO.getFilePath();
         ResponseStatusVO responseStatusVO = UploadUtils.uploadFile(file, allowedExts, maxSize * 1024 * 1024, processDir, "");
         if (responseStatusVO.getCode().intValue() == ResponseStatusEnum.OK.getCode().intValue()) {
             processDTO.setFilePath(processDir + File.separator + ((List) responseStatusVO.getData()).get(0));
-            processService.update(processDTO);
+            int updateRows = processService.update(processDTO);
+            if (updateRows == 1) {
+                if (org.apache.commons.lang.StringUtils.isNotEmpty(filePath)) {
+                    FileUtils.deleteFile(filePath);
+                }
+            } else {
+                return ResponseStatusVO.error("上传及更新流程失败", null);
+            }
         }
         return responseStatusVO;
     }
@@ -90,13 +98,35 @@ public class ProcessController extends BaseController {
 
     @GetMapping("admin/remove/{id}")
     public ResponseStatusVO removeById(@PathVariable("id") Long id) {
-        processService.removeById(id);
+        Object object = processService.getById(id);
+        if (object == null) {
+            return ResponseStatusVO.dataError("不存在的流程编号", null);
+        }
+        ProcessDTO processDTO = (ProcessDTO) object;
+        int removeRows = processService.removeById(id);
+        if (removeRows == 1) {
+            if (org.apache.commons.lang.StringUtils.isNotEmpty(processDTO.getFilePath())) {
+                FileUtils.deleteFile(processDTO.getFilePath());
+            }
+        }
         return ResponseStatusVO.ok("删除成功", null);
     }
 
     @PostMapping("admin/batch-remove")
     public ResponseStatusVO removeByIds(@RequestBody String[] ids) {
-        processService.removeByIds(StringUtils.strArrayToLongArray(ids));
+        for (String id : ids) {
+            Object object = processService.getById(id);
+            if (object == null) {
+                continue;
+            }
+            ProcessDTO processDTO = (ProcessDTO) object;
+            int removeRows = processService.removeById(id);
+            if (removeRows == 1) {
+                if (org.apache.commons.lang.StringUtils.isNotEmpty(processDTO.getFilePath())) {
+                    FileUtils.deleteFile(processDTO.getFilePath());
+                }
+            }
+        }
         return ResponseStatusVO.ok("批量删除成功", null);
     }
 
