@@ -602,11 +602,12 @@ public class ProcessActivitiController {
      * 获取流程静态图
      * @param response
      * @param processKey
+     * @param version
      * @return
      */
     @PostMapping("admin/query/bpmn-png")
-    public ResponseStatusVO bpmnPng(HttpServletResponse response, String processKey) {
-        InputStream inputStream = ActivitiUtils.getDiagramPNG(repositoryService, processKey);
+    public ResponseStatusVO bpmnPng(HttpServletResponse response, String processKey, Integer version) {
+        InputStream inputStream = ActivitiUtils.getDiagramPNG(repositoryService, processKey, version);
         if (inputStream == null) {
             return ResponseStatusVO.dataError(processKey + "流程图片不存在", null);
         }
@@ -626,11 +627,12 @@ public class ProcessActivitiController {
      * 获取流程静态图
      * @param response
      * @param processKey
+     * @param version
      * @return
      */
     @PostMapping("user/query/bpmn-png")
-    public ResponseStatusVO userBpmnPng(HttpServletResponse response, String processKey) {
-        return bpmnPng(response, processKey);
+    public ResponseStatusVO userBpmnPng(HttpServletResponse response, String processKey, Integer version) {
+        return bpmnPng(response, processKey, version);
     }
 
     /**
@@ -642,9 +644,9 @@ public class ProcessActivitiController {
      */
     @PostMapping("admin/query/bpmn-activity-png")
     public ResponseStatusVO bpmnActivityPng(HttpServletResponse response, String processInstanceId, String processKey) {
-        InputStream inputStream = ActivitiUtils.generateDiagramPNG(processEngine, runtimeService, repositoryService, processInstanceId, processKey);
+        InputStream inputStream = ActivitiUtils.generateDiagramPNG(processEngine, runtimeService, repositoryService, processInstanceId);
         if (inputStream == null) {
-            return ResponseStatusVO.dataError(processKey + "流程节点图片未能生成，流程实例id或processKey错误", null);
+            return ResponseStatusVO.dataError(processKey + "流程节点图片未能生成，流程实例id错误", null);
         }
         BufferedImage bufferedImage = ImageUtils.getBufferedImage(inputStream);
         response.setContentType(ContentTypeEnum.PNG.getValue());
