@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 15/02/2019 17:04:58
+ Date: 19/02/2019 15:21:08
 */
 
 SET NAMES utf8mb4;
@@ -989,7 +989,7 @@ CREATE TABLE `t_process` (
 -- Records of t_process
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_process` VALUES (1, 'leave_process', 'leave_process', './process/2019021516022939624.zip', NULL, 1, '2019-02-15 16:36:33', 12, '2019-02-15 15:06:38', '2019-02-15 16:36:32', 0);
+INSERT INTO `t_process` VALUES (1, 'leave_process', 'leave_process', './process/2019021516022939624.zip', NULL, 1, '2019-02-15 17:18:43', 15, '2019-02-15 15:06:38', '2019-02-15 17:18:45', 0);
 COMMIT;
 
 -- ----------------------------
@@ -1309,7 +1309,7 @@ CREATE TABLE `t_scheduler` (
 -- Records of t_scheduler
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_scheduler` VALUES (1, 'DauSaveJob', 'top.zywork.job.DauSaveJob', '59 59 23 * * ?', 'job_group', 'trigger_name', 'trigger_group', NULL, 1, '2019-02-15 16:01:44', 1, 94, '2019-01-18 17:34:42', '2019-02-15 16:01:43', 0);
+INSERT INTO `t_scheduler` VALUES (1, 'DauSaveJob', 'top.zywork.job.DauSaveJob', '59 59 23 * * ?', 'job_group', 'trigger_name', 'trigger_group', NULL, 1, '2019-02-19 14:56:43', 1, 99, '2019-01-18 17:34:42', '2019-02-19 14:56:42', 0);
 COMMIT;
 
 -- ----------------------------
@@ -1353,7 +1353,7 @@ CREATE TABLE `t_statistics_dau` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='日活用户统计表';
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='日活用户统计表';
 
 -- ----------------------------
 -- Records of t_statistics_dau
@@ -1366,6 +1366,8 @@ INSERT INTO `t_statistics_dau` VALUES (72, 1, '2019-02-06 10:34:34', 1, '2019-02
 INSERT INTO `t_statistics_dau` VALUES (73, 1, '2019-02-13 10:15:25', 1, '2019-02-13 10:16:25', NULL, 0);
 INSERT INTO `t_statistics_dau` VALUES (74, 5, '2019-02-14 10:20:51', 1, '2019-02-14 10:21:51', NULL, 0);
 INSERT INTO `t_statistics_dau` VALUES (75, 2, '2019-02-15 09:51:11', 1, '2019-02-15 09:52:17', NULL, 0);
+INSERT INTO `t_statistics_dau` VALUES (76, 5, '2019-02-16 09:35:50', 1, '2019-02-16 09:36:50', NULL, 0);
+INSERT INTO `t_statistics_dau` VALUES (77, 1, '2019-02-19 13:23:57', 1, '2019-02-19 13:24:57', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -1823,26 +1825,9 @@ CREATE TABLE `t_user` (
 -- Records of t_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_user` VALUES (1, '13672297776', '123456@qq.com', '$2a$10$wok8Kiq3/wCM2uGqGSiFGeYeP9oZ7lKLgmSPXpy9mrkiEg2kWzIe2', NULL, 1, '2018-12-07 18:50:51', NULL, 0);
-INSERT INTO `t_user` VALUES (2, NULL, 'wgs@126.com', '$2a$10$NRBlx5wTAV5j6yt3ocqOJuSEI760KmUrvtaP/QcsIsKXLLWNzsyq2', NULL, 1, '2018-12-12 16:29:31', NULL, 0);
-INSERT INTO `t_user` VALUES (4, '13366666666', 'abc@126.com', '$2a$10$xWTNNu3RfrJqnhItrD0cGexQb1vZyfnQxTl/Y5CrHp89HbpKmIYcC', NULL, 8, '2018-12-12 16:31:39', '2019-01-19 23:01:03', 0);
-INSERT INTO `t_user` VALUES (19, NULL, NULL, '$2a$10$3d/ps2pQ2RQ3Xe4TzpOu7u97m14kUkZVBwHLsjNnw555TrlYNOXF2', NULL, 1, '2018-12-12 17:34:50', NULL, 0);
-INSERT INTO `t_user` VALUES (20, NULL, NULL, '$2a$10$SeDwW9A7ft0kgSLgBN698OsKQeY9Sqmf6w5RhXIqeYCXXsUPXRONm', NULL, 1, '2018-12-12 17:36:19', NULL, 0);
-INSERT INTO `t_user` VALUES (21, NULL, NULL, '$2a$10$ePlfOylmN6DOa0KlkZmtq.4So7dXNimMqHBEdNzrVJLzGMbRg6G7O', NULL, 1, '2018-12-12 17:37:09', NULL, 0);
-INSERT INTO `t_user` VALUES (22, NULL, 'wggss@126.com', '$2a$10$FeqZqJIQPIAuR5fWM9VDOeDVoYI9AMXK//C1GIRqbTbYNM6LhUIYO', NULL, 1, '2018-12-18 12:28:45', NULL, 0);
-INSERT INTO `t_user` VALUES (23, '18888888899', NULL, '$2a$10$fb/Yu2tx71cs1AbrVfXjWuJn4Hyhprj5r6biD0d0cXfjFHQ8sGvKK', NULL, 1, '2018-12-18 12:30:17', NULL, 0);
-INSERT INTO `t_user` VALUES (24, NULL, NULL, '$2a$10$NHv4sQCfTLRg9teU4GG3oOTSoQMcGJ8N2ZM2tJhTHX0jwCU5fEBxO', NULL, 1, '2018-12-18 12:30:27', NULL, 0);
-INSERT INTO `t_user` VALUES (26, NULL, 'testcc@126.com', '$2a$10$mMdC9tAosEr5jHXP9ZU4XemA5zbfoJ/lCNwjenVWZ0Vi2A8YiwX0O', NULL, 1, '2018-12-21 19:45:04', NULL, 0);
-INSERT INTO `t_user` VALUES (27, '13666666666', NULL, NULL, NULL, 1, '2018-12-22 13:41:53', NULL, 0);
-INSERT INTO `t_user` VALUES (28, '15888888888', NULL, NULL, NULL, 1, '2018-12-22 13:42:57', NULL, 0);
-INSERT INTO `t_user` VALUES (29, '18888888886', NULL, NULL, NULL, 1, '2018-12-22 13:43:59', NULL, 0);
-INSERT INTO `t_user` VALUES (31, '13672297775', NULL, '$2a$10$7YNSwyW.FfL2iPBOqSEnD.8fNnM65QjumF2CD3glyQb9zdQBzXSr2', NULL, 1, '2018-12-22 15:46:43', NULL, 0);
-INSERT INTO `t_user` VALUES (36, '13999999999', NULL, '$2a$10$yNU6CqmtHfJYeyO5zziOT.u3vgFNhSnz0/qy8Zadh4BfRgFFoV1na', NULL, 1, '2018-12-28 12:00:36', NULL, 0);
-INSERT INTO `t_user` VALUES (37, '', NULL, NULL, NULL, 1, '2019-01-07 19:23:49', NULL, 0);
-INSERT INTO `t_user` VALUES (38, '', NULL, NULL, NULL, 1, '2019-01-07 19:28:25', NULL, 0);
+INSERT INTO `t_user` VALUES (31, '18888888888', NULL, '$2a$10$7YNSwyW.FfL2iPBOqSEnD.8fNnM65QjumF2CD3glyQb9zdQBzXSr2', NULL, 1, '2018-12-22 15:46:43', NULL, 0);
+INSERT INTO `t_user` VALUES (36, '13666666666', NULL, '$2a$10$7YNSwyW.FfL2iPBOqSEnD.8fNnM65QjumF2CD3glyQb9zdQBzXSr2', NULL, 1, '2018-12-28 12:00:36', NULL, 0);
 INSERT INTO `t_user` VALUES (40, '', 'demo@zywork.top', '$2a$10$BxzUB3PvmEX9VqZIfIvsf.V4ltLJY9fF06GFX.J.d.3SFOApnFBm2', NULL, 1, '2019-01-17 10:30:21', NULL, 0);
-INSERT INTO `t_user` VALUES (46, '', 'wgssmarter@126.com', '$2a$10$e8m4v/359D8T1LcdEnnqMOCK2A7c26bfEJcmRX4nhQvy/nkjauXx6', NULL, 1, '2019-01-28 16:05:16', NULL, 0);
-INSERT INTO `t_user` VALUES (47, '18988889999', NULL, '$2a$10$gv/IVbV2ZKroayTyMj.I7.cPQqxI5UnhJNZ93rNK/J2Qa56BknKsS', NULL, 1, '2019-01-28 16:06:33', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -1912,18 +1897,9 @@ CREATE TABLE `t_user_detail` (
 -- Records of t_user_detail
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_user_detail` VALUES (19, 'nickname', 'headicon', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2018-12-12 17:34:51', NULL, 0);
-INSERT INTO `t_user_detail` VALUES (20, 'nickname', 'headicon', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2018-12-12 17:36:19', NULL, 0);
-INSERT INTO `t_user_detail` VALUES (21, 'nickname', 'headicon', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2018-12-12 17:37:09', NULL, 0);
-INSERT INTO `t_user_detail` VALUES (24, 'nickname', 'headicon', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2018-12-18 12:30:28', NULL, 0);
-INSERT INTO `t_user_detail` VALUES (26, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8V4txJ', 1, '2018-12-21 19:45:04', NULL, 0);
-INSERT INTO `t_user_detail` VALUES (31, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'nxrLRk', 1, '2018-12-22 15:46:43', NULL, 0);
-INSERT INTO `t_user_detail` VALUES (36, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '62TNSs', 1, '2018-12-28 12:00:36', NULL, 0);
-INSERT INTO `t_user_detail` VALUES (37, 'nickname', 'headicon', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'frBh72', 1, '2019-01-07 19:23:49', NULL, 0);
-INSERT INTO `t_user_detail` VALUES (38, 'nickname', 'headicon', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'mxvMT2', 1, '2019-01-07 19:28:25', NULL, 0);
-INSERT INTO `t_user_detail` VALUES (40, 'demo', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'h345CG', 1, '2019-01-17 10:30:21', NULL, 0);
-INSERT INTO `t_user_detail` VALUES (46, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'vPrAmM', 1, '2019-01-28 16:05:16', NULL, 0);
-INSERT INTO `t_user_detail` VALUES (47, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'AhhiYD', 1, '2019-01-28 16:06:33', NULL, 0);
+INSERT INTO `t_user_detail` VALUES (31, 'Sys Super Admin', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'nxrLRk', 1, '2018-12-22 15:46:43', NULL, 0);
+INSERT INTO `t_user_detail` VALUES (36, 'Sys User', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '62TNSs', 1, '2018-12-28 12:00:36', NULL, 0);
+INSERT INTO `t_user_detail` VALUES (40, 'Sys User Demo', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'h345CG', 1, '2019-01-17 10:30:21', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -2033,27 +2009,17 @@ CREATE TABLE `t_user_role` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户角色表';
 
 -- ----------------------------
 -- Records of t_user_role
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_user_role` VALUES (1, 1, 1, 1, '2018-12-07 19:10:32', NULL, 0);
-INSERT INTO `t_user_role` VALUES (2, 1, 2, 1, '2018-12-07 19:10:52', NULL, 0);
-INSERT INTO `t_user_role` VALUES (3, 22, 5, 1, '2018-12-18 12:28:45', NULL, 0);
-INSERT INTO `t_user_role` VALUES (4, 23, 5, 1, '2018-12-18 12:30:17', NULL, 0);
-INSERT INTO `t_user_role` VALUES (5, 24, 5, 1, '2018-12-18 12:30:28', NULL, 0);
-INSERT INTO `t_user_role` VALUES (6, 26, 5, 1, '2018-12-21 19:45:04', NULL, 0);
 INSERT INTO `t_user_role` VALUES (7, 31, 1, 1, '2018-12-22 15:46:43', NULL, 0);
 INSERT INTO `t_user_role` VALUES (8, 36, 5, 1, '2018-12-28 12:00:36', NULL, 0);
 INSERT INTO `t_user_role` VALUES (9, 31, 2, 1, '2019-01-06 13:32:46', NULL, 0);
-INSERT INTO `t_user_role` VALUES (10, 37, 5, 1, '2019-01-07 19:23:49', NULL, 0);
-INSERT INTO `t_user_role` VALUES (11, 38, 5, 1, '2019-01-07 19:28:25', NULL, 0);
 INSERT INTO `t_user_role` VALUES (12, 31, 3, 1, '2019-01-10 15:38:21', NULL, 0);
 INSERT INTO `t_user_role` VALUES (13, 40, 4, 1, '2019-01-17 10:30:21', NULL, 0);
-INSERT INTO `t_user_role` VALUES (16, 46, 5, 1, '2019-01-28 16:05:16', NULL, 0);
-INSERT INTO `t_user_role` VALUES (17, 47, 5, 1, '2019-01-28 16:06:33', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -2080,13 +2046,7 @@ CREATE TABLE `t_user_social` (
 -- Records of t_user_social
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_user_social` VALUES (1, 1, '12345678', NULL, NULL, NULL, NULL, '微信公众号', 1, '2018-12-07 18:54:34', NULL, 0);
-INSERT INTO `t_user_social` VALUES (2, 19, 'openid', NULL, NULL, NULL, NULL, '微信公众号', 1, '2018-12-12 17:34:51', NULL, 0);
-INSERT INTO `t_user_social` VALUES (3, 20, 'openid', NULL, NULL, NULL, NULL, '微信公众号', 1, '2018-12-12 17:36:19', NULL, 0);
-INSERT INTO `t_user_social` VALUES (4, 21, 'openid', NULL, NULL, NULL, NULL, '微信公众号', 1, '2018-12-12 17:37:09', NULL, 0);
-INSERT INTO `t_user_social` VALUES (5, 24, 'openid_wechat', NULL, NULL, NULL, NULL, '微信公众号', 1, '2018-12-18 12:30:28', NULL, 0);
-INSERT INTO `t_user_social` VALUES (6, 37, 'openid_wechat', '123456', 'access_token', 'session_key', NULL, '微信小程序', 1, '2019-01-07 19:23:49', NULL, 0);
-INSERT INTO `t_user_social` VALUES (7, 38, 'openid_wechat', '123456', 'access_token', 'session_key', NULL, '微信小程序', 1, '2019-01-07 19:28:25', NULL, 0);
+INSERT INTO `t_user_social` VALUES (7, 31, 'openid_wechat', '123456', 'access_token', 'session_key', NULL, '微信小程序', 1, '2019-01-07 19:28:25', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -2115,11 +2075,7 @@ CREATE TABLE `t_user_wallet` (
 BEGIN;
 INSERT INTO `t_user_wallet` VALUES (31, '$2a$10$ApWvvBHw0IMFIHCAT5vHxu9dlE3Kw1j0JBmzDTUTJoQQk1UHPKYBO', 392, 392, 0, NULL, NULL, NULL, 14, NULL, '2019-01-15 22:23:31', 0);
 INSERT INTO `t_user_wallet` VALUES (36, '', 200, 200, 0, NULL, NULL, NULL, 4, '2018-12-28 12:00:36', '2019-01-15 20:51:44', 1);
-INSERT INTO `t_user_wallet` VALUES (37, '', 0, 0, 0, NULL, NULL, NULL, 1, '2019-01-07 19:23:49', NULL, 0);
-INSERT INTO `t_user_wallet` VALUES (38, '', 0, 0, 0, NULL, NULL, NULL, 1, '2019-01-07 19:28:25', NULL, 0);
 INSERT INTO `t_user_wallet` VALUES (40, '', 0, 0, 0, 0, 0, 0, 1, '2019-01-17 10:30:21', NULL, 0);
-INSERT INTO `t_user_wallet` VALUES (46, '', 0, 0, 0, 0, 0, 0, 1, '2019-01-28 16:05:16', NULL, 0);
-INSERT INTO `t_user_wallet` VALUES (47, '', 0, 0, 0, 0, 0, 0, 1, '2019-01-28 16:06:33', NULL, 0);
 COMMIT;
 
 -- ----------------------------
