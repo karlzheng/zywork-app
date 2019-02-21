@@ -31,4 +31,8 @@
         </foreach>
     </insert>
 
+    <delete id="removeUserRoleByUserId" parameterType="long">
+        delete from t_user_role where user_id = #{userId}
+    </delete>
+
 </mapper>
