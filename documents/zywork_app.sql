@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 15/02/2019 17:06:14
+ Date: 21/02/2019 19:46:07
 */
 
 SET NAMES utf8mb4;
@@ -48,6 +48,7 @@ CREATE TABLE `t_article` (
   `cover_img` varchar(500) COLLATE utf8mb4_general_ci NOT NULL COMMENT '封面图片',
   `summary` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '文章摘要',
   `content` text COLLATE utf8mb4_general_ci NOT NULL COMMENT '文章内容',
+  `view_count` int(11) DEFAULT '0' COMMENT '阅读量',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_id` bigint(20) NOT NULL COMMENT '创建人编号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -263,7 +264,7 @@ CREATE TABLE `t_goods_category_attribute` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '类目属性编号',
   `category_id` bigint(20) NOT NULL COMMENT '商品类目编号',
   `attr_id` bigint(20) NOT NULL COMMENT '属性编号',
-  `attr_order` int(11) NOT NULL COMMENT '属性排序',
+  `attr_order` int(11) NOT NULL DEFAULT '0' COMMENT '属性排序',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',

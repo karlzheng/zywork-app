@@ -6,14 +6,14 @@ import java.util.Date;
 /**
  * ArticleDO数据对象实体类<br/>
  *
- * 创建于2019-02-13<br/>
+ * 创建于2019-02-21<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class ArticleDO extends BaseDO {
 
-    private static final long serialVersionUID = -9223372034954454730L;
+    private static final long serialVersionUID = -9223372036070876191L;
 
     // 文章编号
 	private Long id;
@@ -27,6 +27,8 @@ public class ArticleDO extends BaseDO {
 	private String summary;
 	// 文章内容
 	private String content;
+	// 阅读量
+	private Integer viewCount;
 	// 版本号
 	private Integer version;
 	// 创建人编号
@@ -40,13 +42,14 @@ public class ArticleDO extends BaseDO {
 	
     public ArticleDO () {}
 
-    public ArticleDO (Long id, Long categoryId, String title, String coverImg, String summary, String content, Integer version, Long createId, Date createTime, Date updateTime, Byte isActive) {
+    public ArticleDO (Long id, Long categoryId, String title, String coverImg, String summary, String content, Integer viewCount, Integer version, Long createId, Date createTime, Date updateTime, Byte isActive) {
         this.id = id;
 		this.categoryId = categoryId;
 		this.title = title;
 		this.coverImg = coverImg;
 		this.summary = summary;
 		this.content = content;
+		this.viewCount = viewCount;
 		this.version = version;
 		this.createId = createId;
 		this.createTime = createTime;
@@ -103,6 +106,14 @@ public class ArticleDO extends BaseDO {
 		this.content = content;
 	}
 
+	public Integer getViewCount() {
+		return viewCount;
+	}
+
+	public void setViewCount(Integer viewCount) {
+		this.viewCount = viewCount;
+	}
+
 	public Integer getVersion() {
 		return version;
 	}
@@ -153,6 +164,7 @@ public class ArticleDO extends BaseDO {
 				", coverImg = " + coverImg + 
 				", summary = " + summary + 
 				", content = " + content + 
+				", viewCount = " + viewCount + 
 				", version = " + version + 
 				", createId = " + createId + 
 				", createTime = " + createTime + 

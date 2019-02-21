@@ -59,6 +59,20 @@
 <FormItem label="文章内容" prop="content">
 	<Input v-model="searchForm.content" placeholder="请输入文章内容"/>
 </FormItem>
+<FormItem label="阅读量"><Row>
+	<i-col span="11">
+	<FormItem prop="viewCountMin">
+	<InputNumber v-model="searchForm.viewCountMin" placeholder="请输入开始阅读量" style="width: 100%;"/>
+</FormItem>
+</i-col>
+	<i-col span="2" style="text-align: center">-</i-col>
+	<i-col span="11">
+	<FormItem prop="viewCountMax">
+	<InputNumber v-model="searchForm.viewCountMax" placeholder="请输入结束阅读量" style="width: 100%;"/>
+</FormItem>
+</i-col>
+</Row>
+</FormItem>
 <FormItem label="版本号"><Row>
 	<i-col span="11">
 	<FormItem prop="versionMin">
@@ -144,6 +158,7 @@
 <p>封面图片: <span v-text="form.coverImg"></span></p>
 <p>文章摘要: <span v-text="form.summary"></span></p>
 <p>文章内容: <span v-text="form.content"></span></p>
+<p>阅读量: <span v-text="form.viewCount"></span></p>
 <p>版本号: <span v-text="form.version"></span></p>
 <p>创建人编号: <span v-text="form.createId"></span></p>
 <p>创建时间: <span v-text="form.createTime"></span></p>
@@ -170,8 +185,7 @@
         urls: {
           searchUrl: '/article/admin/pager-cond',
           allUrl: '/article/admin/all',
-          detailUrl: '/article/admin/one/',
-          multiUrl: '/article/admin/multi/'
+          detailUrl: '/article/admin/one/'
         },
         page: {
           total: 0
@@ -183,6 +197,7 @@ title: null,
 coverImg: null,
 summary: null,
 content: null,
+viewCount: null,
 version: null,
 createId: null,
 createTime: null,
@@ -205,6 +220,9 @@ title: null,
 coverImg: null,
 summary: null,
 content: null,
+viewCount: null,
+viewCountMin: null, 
+viewCountMax: null, 
 version: null,
 versionMin: null, 
 versionMax: null, 
@@ -273,6 +291,12 @@ sortable: true
 {
 title: '文章内容',
 key: 'content',
+minWidth: 120,
+sortable: true
+},
+{
+title: '阅读量',
+key: 'viewCount',
 minWidth: 120,
 sortable: true
 },

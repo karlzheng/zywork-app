@@ -25,4 +25,11 @@ public interface GoodsCategoryAttributeDAO extends BaseDAO {
 
     @Override
     Long countByCondition(@Param("query") Object queryObj);
+
+    /**
+     * 根据类目编号删除类目下的所有属性
+     * @param categoryId
+     * @return
+     */
+    int removeAttributeByCategoryId(Long categoryId);
 }

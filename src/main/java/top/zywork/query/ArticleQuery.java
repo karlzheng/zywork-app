@@ -8,14 +8,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * ArticleQuery查询对象类<br/>
  *
- * 创建于2019-02-13<br/>
+ * 创建于2019-02-21<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class ArticleQuery extends PageQuery {
 
-    private static final long serialVersionUID = -9223372036702778231L;
+    private static final long serialVersionUID = -9223372035843478324L;
 
     // 文章编号
 	private Long id;
@@ -37,6 +37,12 @@ public class ArticleQuery extends PageQuery {
 	private String summary;
 	// 文章内容
 	private String content;
+	// 阅读量
+	private Integer viewCount;
+	// 阅读量（最小值）
+	private Integer viewCountMin;
+	// 阅读量（最大值）
+	private Integer viewCountMax;
 	// 版本号
 	private Integer version;
 	// 版本号（最小值）
@@ -76,7 +82,7 @@ public class ArticleQuery extends PageQuery {
 	
     public ArticleQuery () {}
 
-    public ArticleQuery (Long id, Long idMin, Long idMax, Long categoryId, Long categoryIdMin, Long categoryIdMax, String title, String coverImg, String summary, String content, Integer version, Integer versionMin, Integer versionMax, Long createId, Long createIdMin, Long createIdMax, Date createTime, Date createTimeMin, Date createTimeMax, Date updateTime, Date updateTimeMin, Date updateTimeMax, Byte isActive, Byte isActiveMin, Byte isActiveMax) {
+    public ArticleQuery (Long id, Long idMin, Long idMax, Long categoryId, Long categoryIdMin, Long categoryIdMax, String title, String coverImg, String summary, String content, Integer viewCount, Integer viewCountMin, Integer viewCountMax, Integer version, Integer versionMin, Integer versionMax, Long createId, Long createIdMin, Long createIdMax, Date createTime, Date createTimeMin, Date createTimeMax, Date updateTime, Date updateTimeMin, Date updateTimeMax, Byte isActive, Byte isActiveMin, Byte isActiveMax) {
         this.id = id;
 		this.idMin = idMin;
 		this.idMax = idMax;
@@ -87,6 +93,9 @@ public class ArticleQuery extends PageQuery {
 		this.coverImg = coverImg;
 		this.summary = summary;
 		this.content = content;
+		this.viewCount = viewCount;
+		this.viewCountMin = viewCountMin;
+		this.viewCountMax = viewCountMax;
 		this.version = version;
 		this.versionMin = versionMin;
 		this.versionMax = versionMax;
@@ -183,6 +192,30 @@ public class ArticleQuery extends PageQuery {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public Integer getViewCount() {
+		return viewCount;
+	}
+
+	public void setViewCount(Integer viewCount) {
+		this.viewCount = viewCount;
+	}
+
+	public Integer getViewCountMin() {
+		return viewCountMin;
+	}
+
+	public void setViewCountMin(Integer viewCountMin) {
+		this.viewCountMin = viewCountMin;
+	}
+
+	public Integer getViewCountMax() {
+		return viewCountMax;
+	}
+
+	public void setViewCountMax(Integer viewCountMax) {
+		this.viewCountMax = viewCountMax;
 	}
 
 	public Integer getVersion() {
@@ -319,6 +352,9 @@ public class ArticleQuery extends PageQuery {
 				", coverImg = " + coverImg + 
 				", summary = " + summary + 
 				", content = " + content + 
+				", viewCount = " + viewCount + 
+				", viewCountMin = " + viewCountMin + 
+				", viewCountMax = " + viewCountMax + 
 				", version = " + version + 
 				", versionMin = " + versionMin + 
 				", versionMax = " + versionMax + 

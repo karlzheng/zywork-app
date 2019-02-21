@@ -12,14 +12,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * ArticleVO值对象类<br/>
  *
- * 创建于2019-02-13<br/>
+ * 创建于2019-02-21<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class ArticleVO extends BaseVO {
 
-    private static final long serialVersionUID = -9223372035804200156L;
+    private static final long serialVersionUID = -9223372035462041144L;
 
     // 文章编号
 	private Long id;
@@ -41,6 +41,8 @@ public class ArticleVO extends BaseVO {
 	@NotBlank(message = "此项是必须项")
 	@Size(min = 1, max = 65535, message = "必须是1-65535个字符")
 	private String content;
+	// 阅读量
+	private Integer viewCount;
 	// 版本号
 	private Integer version;
 	// 创建人编号
@@ -57,13 +59,14 @@ public class ArticleVO extends BaseVO {
 	
     public ArticleVO () {}
 
-    public ArticleVO (Long id, Long categoryId, String title, String coverImg, String summary, String content, Integer version, Long createId, Date createTime, Date updateTime, Byte isActive) {
+    public ArticleVO (Long id, Long categoryId, String title, String coverImg, String summary, String content, Integer viewCount, Integer version, Long createId, Date createTime, Date updateTime, Byte isActive) {
         this.id = id;
 		this.categoryId = categoryId;
 		this.title = title;
 		this.coverImg = coverImg;
 		this.summary = summary;
 		this.content = content;
+		this.viewCount = viewCount;
 		this.version = version;
 		this.createId = createId;
 		this.createTime = createTime;
@@ -120,6 +123,14 @@ public class ArticleVO extends BaseVO {
 		this.content = content;
 	}
 
+	public Integer getViewCount() {
+		return viewCount;
+	}
+
+	public void setViewCount(Integer viewCount) {
+		this.viewCount = viewCount;
+	}
+
 	public Integer getVersion() {
 		return version;
 	}
@@ -170,6 +181,7 @@ public class ArticleVO extends BaseVO {
 				", coverImg = " + coverImg + 
 				", summary = " + summary + 
 				", content = " + content + 
+				", viewCount = " + viewCount + 
 				", version = " + version + 
 				", createId = " + createId + 
 				", createTime = " + createTime + 

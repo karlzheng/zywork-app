@@ -26,6 +26,11 @@ public interface UserRoleDAO extends BaseDAO {
     @Override
     Long countByCondition(@Param("query") Object queryObj);
 
+    /**
+     * 根据用户编号删除用户所有角色
+     * @param userId
+     * @return
+     */
     int removeUserRoleByUserId(Long userId);
 
 }

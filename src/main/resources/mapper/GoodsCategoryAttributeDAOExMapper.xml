@@ -1,0 +1,38 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.zywork.dao.GoodsCategoryAttributeDAO">
+
+    <insert id="saveBatch" parameterType="java.util.List">
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        <foreach collection="list" item="item" separator=";">
+            insert into t_goods_category_attribute
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="item.goodsCategoryId != null">
+                    category_id,
+                </if>
+                <if test="item.goodsAttributeId != null">
+                    attr_id,
+                </if>
+
+            </trim>
+            <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="item.goodsCategoryId != null">
+                    #{item.goodsCategoryId},
+                </if>
+                <if test="item.goodsAttributeId != null">
+                    #{item.goodsAttributeId},
+                </if>
+
+            </trim>
+        </foreach>
+    </insert>
+
+    <delete id="removeAttributeByCategoryId" parameterType="long">
+        delete from t_goods_category_attribute where category_id = #{categoryId}
+    </delete>
+
+</mapper>
