@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 22/02/2019 10:39:26
+ Date: 22/02/2019 14:32:42
 */
 
 SET NAMES utf8mb4;
@@ -576,20 +576,27 @@ CREATE TABLE `t_goods_shop` (
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
   `category_id` bigint(20) NOT NULL COMMENT '类目编号',
   `subject_type` tinyint(4) NOT NULL COMMENT '主体类型',
-  `logo` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '店铺Logo',
+  `logo` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '店铺Logo',
   `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '店铺标题',
   `intro` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '店铺简介',
   `level` tinyint(4) DEFAULT '1' COMMENT '店铺等级',
-  `check_status` tinyint(4) DEFAULT NULL COMMENT '审核状态',
+  `check_status` tinyint(4) DEFAULT '0' COMMENT '审核状态',
   `check_description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '审核描述',
   `checked_user_id` tinyint(4) DEFAULT NULL COMMENT '审核人编号',
   `checked_time` datetime DEFAULT NULL COMMENT '审核时间',
-  `version` int(11) DEFAULT NULL COMMENT '版本号',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='店铺信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='店铺信息表';
+
+-- ----------------------------
+-- Records of t_goods_shop
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_goods_shop` VALUES (1, 31, 1, 1, 'logo', '智悦服装', '智悦服装', 1, 0, NULL, NULL, NULL, 2, '2019-02-22 12:03:45', '2019-02-22 13:41:11', 0);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for t_goods_shop_certification
@@ -604,7 +611,14 @@ CREATE TABLE `t_goods_shop_certification` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='店铺认证信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='店铺认证信息表';
+
+-- ----------------------------
+-- Records of t_goods_shop_certification
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_goods_shop_certification` VALUES (1, 1, '{\n    \"identity\": \"360723************\",\n    \"realName\": \"王振宇\",\n    \"validDate\": \"2028-10-10\",\n    \"idcardFront\": \"str\",\n    \"idcardReverse\": \"str\",\n    \"idcardHand\": \"str\",\n    \"companyName\": \"赣州智悦科技有限公司\",\n    \"creditNumber\": \"str\",\n    \"businessScope\": \"str\",\n    \"businessLicense\": \"str\"\n}', 1, '2019-02-22 14:04:18', NULL, 0);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for t_goods_shop_check
@@ -621,7 +635,14 @@ CREATE TABLE `t_goods_shop_check` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='店铺审核历史表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='店铺审核历史表';
+
+-- ----------------------------
+-- Records of t_goods_shop_check
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_goods_shop_check` VALUES (1, 1, 1, '证件齐全，通过', 31, 1, '2019-02-22 14:22:30', NULL, 0);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for t_goods_sku
@@ -1022,17 +1043,18 @@ CREATE TABLE `t_role` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统角色表';
 
 -- ----------------------------
 -- Records of t_role
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_role` VALUES (1, 'super_sys_admin', '超级系统管理员', 0, 1, '2019-02-15 16:52:56', NULL, 0);
-INSERT INTO `t_role` VALUES (2, 'sys_admin', '系统管理员', 0, 1, '2019-02-15 16:52:56', NULL, 0);
-INSERT INTO `t_role` VALUES (3, 'sys_dev', '系统研发人员', 0, 1, '2019-02-15 16:52:56', NULL, 0);
-INSERT INTO `t_role` VALUES (4, 'sys_user_demo', '系统演示用户', 0, 1, '2019-02-15 16:52:56', NULL, 0);
-INSERT INTO `t_role` VALUES (5, 'sys_user', '系统用户', 1, 1, '2019-02-15 16:52:56', NULL, 0);
+INSERT INTO `t_role` VALUES (1, 'super_sys_admin', '超级系统管理员', 0, 1, '2019-02-22 14:32:27', NULL, 0);
+INSERT INTO `t_role` VALUES (2, 'sys_admin', '系统管理员', 0, 1, '2019-02-22 14:32:27', NULL, 0);
+INSERT INTO `t_role` VALUES (3, 'sys_dev', '系统研发人员', 0, 1, '2019-02-22 14:32:27', NULL, 0);
+INSERT INTO `t_role` VALUES (4, 'sys_user_demo', '系统演示用户', 0, 1, '2019-02-22 14:32:27', NULL, 0);
+INSERT INTO `t_role` VALUES (5, 'sys_user', '系统用户', 1, 1, '2019-02-22 14:32:27', NULL, 0);
+INSERT INTO `t_role` VALUES (6, 'sys_shop_owner', '店铺拥有者', 0, 1, '2019-02-22 14:32:27', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -1325,7 +1347,7 @@ CREATE TABLE `t_scheduler` (
 -- Records of t_scheduler
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_scheduler` VALUES (1, 'DauSaveJob', 'top.zywork.job.DauSaveJob', '59 59 23 * * ?', 'job_group', 'trigger_name', 'trigger_group', NULL, 1, '2019-02-22 10:35:24', 1, 118, '2019-01-18 17:34:42', '2019-02-22 10:35:24', 0);
+INSERT INTO `t_scheduler` VALUES (1, 'DauSaveJob', 'top.zywork.job.DauSaveJob', '59 59 23 * * ?', 'job_group', 'trigger_name', 'trigger_group', NULL, 1, '2019-02-22 14:18:29', 1, 121, '2019-01-18 17:34:42', '2019-02-22 14:18:29', 0);
 COMMIT;
 
 -- ----------------------------
@@ -3466,7 +3488,7 @@ CREATE TABLE `t_sys_log` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=275 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统操作日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=276 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统操作日志表';
 
 -- ----------------------------
 -- Records of t_sys_log
@@ -3721,6 +3743,7 @@ INSERT INTO `t_sys_log` VALUES (271, 31, '13672297775', '导入权限配置', 'M
 INSERT INTO `t_sys_log` VALUES (272, 31, '13672297775', '导入权限配置', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.109 Safari/537.36', 'http://localhost:8088/permission-import-export/import-permission', 'POST', NULL, 1001, '成功导入权限配置信息', 'top.zywork.controller.PermissionImportExportController', 'importPermissions', '2019-02-15 16:48:05', 1063, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-02-15 16:48:04', NULL, 0);
 INSERT INTO `t_sys_log` VALUES (273, 31, '13672297775', '导出角色信息', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.109 Safari/537.36', 'http://localhost:8088/permission-import-export/export-roles', 'GET', NULL, 0, '', 'top.zywork.controller.PermissionImportExportController', 'exportRoles', '2019-02-15 16:52:40', 16, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-02-15 16:52:40', NULL, 0);
 INSERT INTO `t_sys_log` VALUES (274, 31, '13672297775', '导入角色', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.109 Safari/537.36', 'http://localhost:8088/permission-import-export/import-role', 'POST', NULL, 1001, '成功导入角色信息', 'top.zywork.controller.PermissionImportExportController', 'importRoles', '2019-02-15 16:52:56', 69, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-02-15 16:52:56', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (275, 31, '18888888888', '导入角色', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.109 Safari/537.36', 'http://localhost:8088/permission-import-export/import-role', 'POST', NULL, 1001, '成功导入角色信息', 'top.zywork.controller.PermissionImportExportController', 'importRoles', '2019-02-22 14:32:28', 579, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-02-22 14:32:27', NULL, 0);
 COMMIT;
 
 -- ----------------------------

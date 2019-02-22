@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 21/02/2019 19:46:07
+ Date: 22/02/2019 14:28:32
 */
 
 SET NAMES utf8mb4;
@@ -477,15 +477,15 @@ CREATE TABLE `t_goods_shop` (
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
   `category_id` bigint(20) NOT NULL COMMENT '类目编号',
   `subject_type` tinyint(4) NOT NULL COMMENT '主体类型',
-  `logo` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '店铺Logo',
+  `logo` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '店铺Logo',
   `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '店铺标题',
   `intro` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '店铺简介',
   `level` tinyint(4) DEFAULT '1' COMMENT '店铺等级',
-  `check_status` tinyint(4) DEFAULT NULL COMMENT '审核状态',
+  `check_status` tinyint(4) DEFAULT '0' COMMENT '审核状态',
   `check_description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '审核描述',
   `checked_user_id` tinyint(4) DEFAULT NULL COMMENT '审核人编号',
   `checked_time` datetime DEFAULT NULL COMMENT '审核时间',
-  `version` int(11) DEFAULT NULL COMMENT '版本号',
+  `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',

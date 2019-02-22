@@ -1,0 +1,175 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.zywork.dao.GoodsShopCertificationCheckDAO">
+
+    <sql id="select_columns">
+        t_goods_shop_check.id as goodsShopCheckId, t_goods_shop_check.check_status as goodsShopCheckCheckStatus, t_goods_shop_check.check_description as goodsShopCheckCheckDescription, t_goods_shop_check.checked_user_id as goodsShopCheckCheckedUserId, t_goods_shop_check.create_time as goodsShopCheckCreateTime, t_goods_shop.id as goodsShopId, t_goods_shop.category_id as goodsShopCategoryId, t_goods_shop.subject_type as goodsShopSubjectType, t_goods_shop_certification.id as goodsShopCertificationId, t_goods_shop_certification.detail as goodsShopCertificationDetail
+    </sql>
+
+    <sql id="query_where_clause">
+        <if test="query != null and query.goodsShopCheckId != null">
+			and t_goods_shop_check.id = #{query.goodsShopCheckId}
+		</if>
+		<if test="query != null and query.goodsShopCheckIdMin != null and query.goodsShopCheckIdMax == null">
+			and t_goods_shop_check.id <![CDATA[ >= ]]> #{query.goodsShopCheckIdMin}
+		</if>
+		<if test="query != null and query.goodsShopCheckIdMin == null and query.goodsShopCheckIdMax != null">
+			and t_goods_shop_check.id <![CDATA[ <= ]]> #{query.goodsShopCheckIdMax}
+		</if>
+		<if test="query != null and query.goodsShopCheckIdMin != null and query.goodsShopCheckIdMax != null">
+			and t_goods_shop_check.id <![CDATA[ >= ]]> #{query.goodsShopCheckIdMin} and t_goods_shop_check.id <![CDATA[ <= ]]> #{query.goodsShopCheckIdMax}
+		</if>
+		<if test="query != null and query.goodsShopCheckCheckStatus != null">
+			and t_goods_shop_check.check_status = #{query.goodsShopCheckCheckStatus}
+		</if>
+		<if test="query != null and query.goodsShopCheckCheckStatusMin != null and query.goodsShopCheckCheckStatusMax == null">
+			and t_goods_shop_check.check_status <![CDATA[ >= ]]> #{query.goodsShopCheckCheckStatusMin}
+		</if>
+		<if test="query != null and query.goodsShopCheckCheckStatusMin == null and query.goodsShopCheckCheckStatusMax != null">
+			and t_goods_shop_check.check_status <![CDATA[ <= ]]> #{query.goodsShopCheckCheckStatusMax}
+		</if>
+		<if test="query != null and query.goodsShopCheckCheckStatusMin != null and query.goodsShopCheckCheckStatusMax != null">
+			and t_goods_shop_check.check_status <![CDATA[ >= ]]> #{query.goodsShopCheckCheckStatusMin} and t_goods_shop_check.check_status <![CDATA[ <= ]]> #{query.goodsShopCheckCheckStatusMax}
+		</if>
+		<if test="query != null and query.goodsShopCheckCheckDescription != null and query.goodsShopCheckCheckDescription != ''">
+			and t_goods_shop_check.check_description like concat('%', #{query.goodsShopCheckCheckDescription}, '%')
+		</if>
+		<if test="query != null and query.goodsShopCheckCheckedUserId != null">
+			and t_goods_shop_check.checked_user_id = #{query.goodsShopCheckCheckedUserId}
+		</if>
+		<if test="query != null and query.goodsShopCheckCheckedUserIdMin != null and query.goodsShopCheckCheckedUserIdMax == null">
+			and t_goods_shop_check.checked_user_id <![CDATA[ >= ]]> #{query.goodsShopCheckCheckedUserIdMin}
+		</if>
+		<if test="query != null and query.goodsShopCheckCheckedUserIdMin == null and query.goodsShopCheckCheckedUserIdMax != null">
+			and t_goods_shop_check.checked_user_id <![CDATA[ <= ]]> #{query.goodsShopCheckCheckedUserIdMax}
+		</if>
+		<if test="query != null and query.goodsShopCheckCheckedUserIdMin != null and query.goodsShopCheckCheckedUserIdMax != null">
+			and t_goods_shop_check.checked_user_id <![CDATA[ >= ]]> #{query.goodsShopCheckCheckedUserIdMin} and t_goods_shop_check.checked_user_id <![CDATA[ <= ]]> #{query.goodsShopCheckCheckedUserIdMax}
+		</if>
+		<if test="query != null and query.goodsShopCheckCreateTime != null">
+			and t_goods_shop_check.create_time = #{query.goodsShopCheckCreateTime}
+		</if>
+		<if test="query != null and query.goodsShopCheckCreateTimeMin != null and query.goodsShopCheckCreateTimeMax == null">
+			and t_goods_shop_check.create_time <![CDATA[ >= ]]> #{query.goodsShopCheckCreateTimeMin}
+		</if>
+		<if test="query != null and query.goodsShopCheckCreateTimeMin == null and query.goodsShopCheckCreateTimeMax != null">
+			and t_goods_shop_check.create_time <![CDATA[ <= ]]> #{query.goodsShopCheckCreateTimeMax}
+		</if>
+		<if test="query != null and query.goodsShopCheckCreateTimeMin != null and query.goodsShopCheckCreateTimeMax != null">
+			and t_goods_shop_check.create_time <![CDATA[ >= ]]> #{query.goodsShopCheckCreateTimeMin} and t_goods_shop_check.create_time <![CDATA[ <= ]]> #{query.goodsShopCheckCreateTimeMax}
+		</if>
+		<if test="query != null and query.goodsShopId != null">
+			and t_goods_shop.id = #{query.goodsShopId}
+		</if>
+		<if test="query != null and query.goodsShopIdMin != null and query.goodsShopIdMax == null">
+			and t_goods_shop.id <![CDATA[ >= ]]> #{query.goodsShopIdMin}
+		</if>
+		<if test="query != null and query.goodsShopIdMin == null and query.goodsShopIdMax != null">
+			and t_goods_shop.id <![CDATA[ <= ]]> #{query.goodsShopIdMax}
+		</if>
+		<if test="query != null and query.goodsShopIdMin != null and query.goodsShopIdMax != null">
+			and t_goods_shop.id <![CDATA[ >= ]]> #{query.goodsShopIdMin} and t_goods_shop.id <![CDATA[ <= ]]> #{query.goodsShopIdMax}
+		</if>
+		<if test="query != null and query.goodsShopCategoryId != null">
+			and t_goods_shop.category_id = #{query.goodsShopCategoryId}
+		</if>
+		<if test="query != null and query.goodsShopCategoryIdMin != null and query.goodsShopCategoryIdMax == null">
+			and t_goods_shop.category_id <![CDATA[ >= ]]> #{query.goodsShopCategoryIdMin}
+		</if>
+		<if test="query != null and query.goodsShopCategoryIdMin == null and query.goodsShopCategoryIdMax != null">
+			and t_goods_shop.category_id <![CDATA[ <= ]]> #{query.goodsShopCategoryIdMax}
+		</if>
+		<if test="query != null and query.goodsShopCategoryIdMin != null and query.goodsShopCategoryIdMax != null">
+			and t_goods_shop.category_id <![CDATA[ >= ]]> #{query.goodsShopCategoryIdMin} and t_goods_shop.category_id <![CDATA[ <= ]]> #{query.goodsShopCategoryIdMax}
+		</if>
+		<if test="query != null and query.goodsShopSubjectType != null">
+			and t_goods_shop.subject_type = #{query.goodsShopSubjectType}
+		</if>
+		<if test="query != null and query.goodsShopSubjectTypeMin != null and query.goodsShopSubjectTypeMax == null">
+			and t_goods_shop.subject_type <![CDATA[ >= ]]> #{query.goodsShopSubjectTypeMin}
+		</if>
+		<if test="query != null and query.goodsShopSubjectTypeMin == null and query.goodsShopSubjectTypeMax != null">
+			and t_goods_shop.subject_type <![CDATA[ <= ]]> #{query.goodsShopSubjectTypeMax}
+		</if>
+		<if test="query != null and query.goodsShopSubjectTypeMin != null and query.goodsShopSubjectTypeMax != null">
+			and t_goods_shop.subject_type <![CDATA[ >= ]]> #{query.goodsShopSubjectTypeMin} and t_goods_shop.subject_type <![CDATA[ <= ]]> #{query.goodsShopSubjectTypeMax}
+		</if>
+		<if test="query != null and query.goodsShopCertificationId != null">
+			and t_goods_shop_certification.id = #{query.goodsShopCertificationId}
+		</if>
+		<if test="query != null and query.goodsShopCertificationIdMin != null and query.goodsShopCertificationIdMax == null">
+			and t_goods_shop_certification.id <![CDATA[ >= ]]> #{query.goodsShopCertificationIdMin}
+		</if>
+		<if test="query != null and query.goodsShopCertificationIdMin == null and query.goodsShopCertificationIdMax != null">
+			and t_goods_shop_certification.id <![CDATA[ <= ]]> #{query.goodsShopCertificationIdMax}
+		</if>
+		<if test="query != null and query.goodsShopCertificationIdMin != null and query.goodsShopCertificationIdMax != null">
+			and t_goods_shop_certification.id <![CDATA[ >= ]]> #{query.goodsShopCertificationIdMin} and t_goods_shop_certification.id <![CDATA[ <= ]]> #{query.goodsShopCertificationIdMax}
+		</if>
+		<if test="query != null and query.goodsShopCertificationDetail != null and query.goodsShopCertificationDetail != ''">
+			and t_goods_shop_certification.detail like concat('%', #{query.goodsShopCertificationDetail}, '%')
+		</if>
+		
+        and
+        t_goods_shop.id = t_goods_shop_certification.shop_id and t_goods_shop.id = t_goods_shop_check.shop_id
+    </sql>
+
+    <select id="listById" parameterType="long" resultType="goodsShopCertificationCheckDO">
+        select
+        <include refid="select_columns"/>
+        from t_goods_shop, t_goods_shop_certification, t_goods_shop_check where t_goods_shop.id = #{id} and
+        t_goods_shop.id = t_goods_shop_certification.shop_id and t_goods_shop.id = t_goods_shop_check.shop_id
+    </select>
+
+    <select id="listAll" resultType="goodsShopCertificationCheckDO">
+        select
+        <include refid="select_columns"/>
+        from t_goods_shop, t_goods_shop_certification, t_goods_shop_check
+        where
+        t_goods_shop.id = t_goods_shop_certification.shop_id and t_goods_shop.id = t_goods_shop_check.shop_id
+        order by t_goods_shop.update_time desc, t_goods_shop.create_time desc
+    </select>
+
+    <select id="listAllByCondition" resultType="goodsShopCertificationCheckDO">
+        select
+        <include refid="select_columns"/>
+        from t_goods_shop, t_goods_shop_certification, t_goods_shop_check
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+        order by
+        <if test="query.sortColumn != null and query.sortColumn != ''">
+            ${query.sortColumn} ${query.sortOrder}
+        </if>
+        <if test="query.sortColumn == null or query.sortColumn == ''">
+            t_goods_shop.update_time desc, t_goods_shop.create_time desc
+        </if>
+    </select>
+
+    <select id="listPageByCondition" resultType="goodsShopCertificationCheckDO">
+        select
+        <include refid="select_columns"/>
+        from t_goods_shop, t_goods_shop_certification, t_goods_shop_check
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+        order by
+        <if test="query.sortColumn != null and query.sortColumn != ''">
+            ${query.sortColumn} ${query.sortOrder}
+        </if>
+        <if test="query.sortColumn == null or query.sortColumn == ''">
+            t_goods_shop.update_time desc, t_goods_shop.create_time desc
+        </if>
+        limit #{query.beginIndex}, #{query.pageSize}
+    </select>
+
+    <select id="countByCondition" resultType="long">
+        select count(*) from t_goods_shop, t_goods_shop_certification, t_goods_shop_check
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+    </select>
+
+</mapper>

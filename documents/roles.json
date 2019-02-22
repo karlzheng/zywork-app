@@ -23,5 +23,10 @@
         "title": "sys_user",
         "description": "系统用户",
         "isDefault": 1
+    },
+    {
+        "title": "sys_shop_owner",
+        "description": "店铺拥有者",
+        "isDefault": 0
     }
 ]
