@@ -264,7 +264,7 @@ CREATE TABLE `t_goods_category_attribute` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '类目属性编号',
   `category_id` bigint(20) NOT NULL COMMENT '商品类目编号',
   `attr_id` bigint(20) NOT NULL COMMENT '属性编号',
-  `attr_order` int(11) NOT NULL DEFAULT '0' COMMENT '属性排序',
+  `attr_order` int(11) NOT NULL DEFAULT '1000' COMMENT '属性排序',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',

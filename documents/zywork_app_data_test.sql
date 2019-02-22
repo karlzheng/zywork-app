@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 21/02/2019 19:45:52
+ Date: 22/02/2019 10:39:26
 */
 
 SET NAMES utf8mb4;
@@ -258,7 +258,7 @@ CREATE TABLE `t_goods_attribute` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品属性信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品属性信息表';
 
 -- ----------------------------
 -- Records of t_goods_attribute
@@ -266,7 +266,10 @@ CREATE TABLE `t_goods_attribute` (
 BEGIN;
 INSERT INTO `t_goods_attribute` VALUES (1, '售卖标题', 'title', 'String', 50, 0, 2, '2019-02-13 17:47:09', '2019-02-13 17:54:43', 0);
 INSERT INTO `t_goods_attribute` VALUES (2, '品牌', 'brand', 'String', 20, 0, 1, '2019-02-13 17:51:41', NULL, 0);
-INSERT INTO `t_goods_attribute` VALUES (3, '商品名称', 'name', 'String', 50, 0, 2, '2019-02-13 17:54:27', '2019-02-13 17:55:01', 0);
+INSERT INTO `t_goods_attribute` VALUES (3, '商品名称', 'name', 'String', 50, 0, 4, '2019-02-13 17:54:27', '2019-02-21 23:00:34', 0);
+INSERT INTO `t_goods_attribute` VALUES (4, '毛重', 'grossWeight', 'Double', 20, 0, 2, '2019-02-21 22:56:47', '2019-02-21 22:57:35', 0);
+INSERT INTO `t_goods_attribute` VALUES (5, '净重', 'netWeight', 'Double', 20, 0, 1, '2019-02-21 22:57:25', NULL, 0);
+INSERT INTO `t_goods_attribute` VALUES (6, '价格', 'price', 'Long', 20, 0, 1, '2019-02-21 22:56:47', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -339,24 +342,33 @@ CREATE TABLE `t_goods_category_attribute` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '类目属性编号',
   `category_id` bigint(20) NOT NULL COMMENT '商品类目编号',
   `attr_id` bigint(20) NOT NULL COMMENT '属性编号',
-  `attr_order` int(11) NOT NULL DEFAULT '0' COMMENT '属性排序',
+  `attr_order` int(11) NOT NULL DEFAULT '1000' COMMENT '属性排序',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品类目属性信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品类目属性信息表';
 
 -- ----------------------------
 -- Records of t_goods_category_attribute
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_goods_category_attribute` VALUES (1, 3, 1, 1, 1, '2019-02-13 17:57:56', NULL, 0);
-INSERT INTO `t_goods_category_attribute` VALUES (2, 3, 3, 2, 1, '2019-02-13 17:58:23', NULL, 0);
-INSERT INTO `t_goods_category_attribute` VALUES (3, 3, 2, 3, 1, '2019-02-13 17:58:29', NULL, 0);
-INSERT INTO `t_goods_category_attribute` VALUES (9, 6, 3, 0, 1, '2019-02-21 19:40:58', NULL, 0);
-INSERT INTO `t_goods_category_attribute` VALUES (10, 6, 1, 0, 1, '2019-02-21 19:40:58', NULL, 0);
-INSERT INTO `t_goods_category_attribute` VALUES (11, 6, 2, 0, 1, '2019-02-21 19:40:58', NULL, 0);
+INSERT INTO `t_goods_category_attribute` VALUES (12, 3, 4, 4, 2, '2019-02-21 22:58:14', '2019-02-22 10:27:03', 0);
+INSERT INTO `t_goods_category_attribute` VALUES (13, 3, 3, 3, 2, '2019-02-21 22:58:14', '2019-02-22 10:27:03', 0);
+INSERT INTO `t_goods_category_attribute` VALUES (14, 3, 1, 1, 2, '2019-02-21 22:58:14', '2019-02-22 10:27:02', 0);
+INSERT INTO `t_goods_category_attribute` VALUES (15, 3, 5, 5, 2, '2019-02-21 22:58:14', '2019-02-22 10:27:03', 0);
+INSERT INTO `t_goods_category_attribute` VALUES (16, 3, 6, 6, 2, '2019-02-21 22:58:14', '2019-02-22 10:27:03', 0);
+INSERT INTO `t_goods_category_attribute` VALUES (17, 3, 2, 2, 2, '2019-02-21 22:58:14', '2019-02-22 10:27:03', 0);
+INSERT INTO `t_goods_category_attribute` VALUES (18, 4, 4, 1000, 1, '2019-02-22 10:17:23', NULL, 0);
+INSERT INTO `t_goods_category_attribute` VALUES (19, 4, 1, 1000, 1, '2019-02-22 10:17:23', NULL, 0);
+INSERT INTO `t_goods_category_attribute` VALUES (20, 4, 5, 1000, 1, '2019-02-22 10:17:23', NULL, 0);
+INSERT INTO `t_goods_category_attribute` VALUES (25, 6, 3, 2, 2, '2019-02-22 10:36:41', '2019-02-22 10:38:47', 0);
+INSERT INTO `t_goods_category_attribute` VALUES (26, 6, 4, 5, 2, '2019-02-22 10:36:41', '2019-02-22 10:38:47', 0);
+INSERT INTO `t_goods_category_attribute` VALUES (27, 6, 1, 1, 2, '2019-02-22 10:36:41', '2019-02-22 10:38:47', 0);
+INSERT INTO `t_goods_category_attribute` VALUES (28, 6, 5, 6, 2, '2019-02-22 10:36:41', '2019-02-22 10:38:47', 0);
+INSERT INTO `t_goods_category_attribute` VALUES (29, 6, 6, 4, 2, '2019-02-22 10:36:41', '2019-02-22 10:38:47', 0);
+INSERT INTO `t_goods_category_attribute` VALUES (30, 6, 2, 3, 2, '2019-02-22 10:36:41', '2019-02-22 10:38:47', 0);
 COMMIT;
 
 -- ----------------------------
@@ -1313,7 +1325,7 @@ CREATE TABLE `t_scheduler` (
 -- Records of t_scheduler
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_scheduler` VALUES (1, 'DauSaveJob', 'top.zywork.job.DauSaveJob', '59 59 23 * * ?', 'job_group', 'trigger_name', 'trigger_group', NULL, 1, '2019-02-21 18:26:49', 1, 111, '2019-01-18 17:34:42', '2019-02-21 18:26:48', 0);
+INSERT INTO `t_scheduler` VALUES (1, 'DauSaveJob', 'top.zywork.job.DauSaveJob', '59 59 23 * * ?', 'job_group', 'trigger_name', 'trigger_group', NULL, 1, '2019-02-22 10:35:24', 1, 118, '2019-01-18 17:34:42', '2019-02-22 10:35:24', 0);
 COMMIT;
 
 -- ----------------------------
@@ -1357,7 +1369,7 @@ CREATE TABLE `t_statistics_dau` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='日活用户统计表';
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='日活用户统计表';
 
 -- ----------------------------
 -- Records of t_statistics_dau
@@ -1374,6 +1386,7 @@ INSERT INTO `t_statistics_dau` VALUES (76, 5, '2019-02-16 09:35:50', 1, '2019-02
 INSERT INTO `t_statistics_dau` VALUES (77, 1, '2019-02-19 13:23:57', 1, '2019-02-19 13:24:57', NULL, 0);
 INSERT INTO `t_statistics_dau` VALUES (78, 10, '2019-02-20 10:13:16', 1, '2019-02-20 10:14:14', NULL, 0);
 INSERT INTO `t_statistics_dau` VALUES (79, 3, '2019-02-21 09:58:40', 1, '2019-02-21 09:59:40', NULL, 0);
+INSERT INTO `t_statistics_dau` VALUES (80, 5, '2019-02-22 00:16:11', 1, '2019-02-22 00:17:10', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -3915,7 +3928,7 @@ CREATE TABLE `t_user_role` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户角色表';
 
 -- ----------------------------
 -- Records of t_user_role
@@ -3925,7 +3938,7 @@ INSERT INTO `t_user_role` VALUES (7, 31, 1, 1, '2018-12-22 15:46:43', NULL, 0);
 INSERT INTO `t_user_role` VALUES (8, 36, 5, 1, '2018-12-28 12:00:36', NULL, 0);
 INSERT INTO `t_user_role` VALUES (9, 31, 2, 1, '2019-01-06 13:32:46', NULL, 0);
 INSERT INTO `t_user_role` VALUES (12, 31, 3, 1, '2019-01-10 15:38:21', NULL, 0);
-INSERT INTO `t_user_role` VALUES (24, 40, 4, 1, '2019-02-21 18:04:28', NULL, 0);
+INSERT INTO `t_user_role` VALUES (25, 40, 4, 1, '2019-02-22 10:24:03', NULL, 0);
 COMMIT;
 
 -- ----------------------------

@@ -50,6 +50,21 @@ public class GoodsCategoryAttributeController extends BaseController {
         return ResponseStatusVO.ok("批量添加成功", null);
     }
 
+    /**
+     * 批量更新类目与属性关系
+     * @param goodsCategoryAttributeVOList
+     * @param bindingResult
+     * @return
+     */
+    @PostMapping("admin/batch-update")
+    public ResponseStatusVO updateBatch(@RequestBody @Validated List<GoodsCategoryAttributeVO> goodsCategoryAttributeVOList, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ResponseStatusVO.dataError(BindingResultUtils.errorString(bindingResult), null);
+        }
+        goodsCategoryAttributeService.updateBatch(BeanUtils.copyListObj(goodsCategoryAttributeVOList, GoodsCategoryAttributeDTO.class));
+        return ResponseStatusVO.ok("批量更新成功", null);
+    }
+
     @GetMapping("admin/multi/{id}")
     public ResponseStatusVO listById(@PathVariable("id") Long id) {
         PagerDTO pagerDTO = goodsCategoryAttributeService.listById(id);
@@ -61,6 +76,14 @@ public class GoodsCategoryAttributeController extends BaseController {
     @GetMapping("admin/all")
     public ResponseStatusVO listAll() {
         PagerDTO pagerDTO = goodsCategoryAttributeService.listAll();
+        PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
+        pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), GoodsCategoryAttributeVO.class));
+        return ResponseStatusVO.ok("查询成功", pagerVO);
+    }
+
+    @PostMapping("admin/all-cond")
+    public ResponseStatusVO listAllByCondition(@RequestBody GoodsCategoryAttributeQuery goodsCategoryAttributeQuery) {
+        PagerDTO pagerDTO = goodsCategoryAttributeService.listAllByCondition(goodsCategoryAttributeQuery);
         PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
         pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), GoodsCategoryAttributeVO.class));
         return ResponseStatusVO.ok("查询成功", pagerVO);

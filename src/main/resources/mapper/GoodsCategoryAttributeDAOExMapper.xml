@@ -17,6 +17,9 @@
                 <if test="item.goodsAttributeId != null">
                     attr_id,
                 </if>
+                <if test="item.goodsCategoryAttributeAttrOrder != null">
+                    attr_order,
+                </if>
 
             </trim>
             <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -26,10 +29,27 @@
                 <if test="item.goodsAttributeId != null">
                     #{item.goodsAttributeId},
                 </if>
+                <if test="item.goodsCategoryAttributeAttrOrder != null">
+                    #{item.goodsCategoryAttributeAttrOrder},
+                </if>
 
             </trim>
         </foreach>
     </insert>
+
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" separator=";">
+            update t_goods_category_attribute
+            <set>
+                <if test="item.goodsCategoryAttributeAttrOrder != null">
+                    attr_order = #{item.goodsCategoryAttributeAttrOrder},
+                </if>
+                update_time = CURRENT_TIMESTAMP,
+                version = version + 1,
+            </set>
+            where category_id = #{item.goodsCategoryId} and attr_id = #{item.goodsAttributeId}
+        </foreach>
+    </update>
 
     <delete id="removeAttributeByCategoryId" parameterType="long">
         delete from t_goods_category_attribute where category_id = #{categoryId}
