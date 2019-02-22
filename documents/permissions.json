@@ -551,6 +551,45 @@
         ]
     },
     {
+        "moduleTitle": "店铺信息管理",
+        "permissions": [
+            {
+                "title": "后台-店铺信息管理",
+                "permission": "/goods-shop/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "店铺认证信息管理",
+        "permissions": [
+            {
+                "title": "后台-店铺认证信息管理",
+                "permission": "/goods-shop-certification/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "店铺审核历史查询",
+        "permissions": [
+            {
+                "title": "后台-店铺审核历史查询",
+                "permission": "/shop-certification-check/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            }
+        ]
+    },
+    {
         "moduleTitle": "消息管理",
         "permissions": [
             {

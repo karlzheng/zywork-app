@@ -64,6 +64,13 @@
                 ]
             },
             {
+                "title": "演示-模块管理-条件查询所有",
+                "permission": "/module/admin/all-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
                 "title": "演示-模块管理-分页查询",
                 "permission": "/module/admin/pager-cond",
                 "roles": [
@@ -98,6 +105,13 @@
                 ]
             },
             {
+                "title": "演示-权限管理-条件查询所有",
+                "permission": "/permission/admin/all-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
                 "title": "演示-权限管理-分页查询",
                 "permission": "/permission/admin/pager-cond",
                 "roles": [
@@ -127,6 +141,13 @@
             {
                 "title": "演示-角色管理-查询所有",
                 "permission": "/role/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-角色管理-条件查询所有",
+                "permission": "/role/admin/all-cond",
                 "roles": [
                     "sys_user_demo"
                 ]
@@ -175,6 +196,13 @@
                 ]
             },
             {
+                "title": "演示-模块权限查询-条件查询所有",
+                "permission": "/module-permission/admin/all-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
                 "title": "演示-模块权限查询-分页查询",
                 "permission": "/module-permission/admin/pager-cond",
                 "roles": [
@@ -204,6 +232,13 @@
             {
                 "title": "演示-角色权限管理-查询所有",
                 "permission": "/role-permission/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-角色权限管理-条件查询所有",
+                "permission": "/role-permission/admin/all-cond",
                 "roles": [
                     "sys_user_demo"
                 ]
@@ -243,6 +278,13 @@
                 ]
             },
             {
+                "title": "演示-系统配置管理-条件查询所有",
+                "permission": "/sys-config/admin/all-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
                 "title": "演示-系统配置管理-分页查询",
                 "permission": "/sys-config/admin/pager-cond",
                 "roles": [
@@ -272,6 +314,13 @@
             {
                 "title": "演示-系统日志管理-查询所有",
                 "permission": "/sys-log/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-系统日志管理-条件查询所有",
+                "permission": "/sys-log/admin/all-cond",
                 "roles": [
                     "sys_user_demo"
                 ]
@@ -361,6 +410,13 @@
                 ]
             },
             {
+                "title": "演示-用户组织部门查询-条件查询所有",
+                "permission": "/user-organization/admin/all-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
                 "title": "演示-用户组织部门查询-分页查询",
                 "permission": "/user-organization/admin/pager-cond",
                 "roles": [
@@ -390,6 +446,13 @@
             {
                 "title": "演示-用户管理-查询所有",
                 "permission": "/user/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-用户管理-条件查询所有",
+                "permission": "/user/admin/all-cond",
                 "roles": [
                     "sys_user_demo"
                 ]
@@ -433,6 +496,13 @@
             {
                 "title": "演示-用户角色查询-查询所有",
                 "permission": "/user-role/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-用户角色查询-条件查询所有",
+                "permission": "/user-role/admin/all-cond",
                 "roles": [
                     "sys_user_demo"
                 ]
@@ -488,6 +558,13 @@
                 ]
             },
             {
+                "title": "演示-用户详情查询-条件查询所有",
+                "permission": "/user-userdetail/admin/all-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
                 "title": "演示-用户详情查询-分页查询",
                 "permission": "/user-userdetail/admin/pager-cond",
                 "roles": [
@@ -522,6 +599,13 @@
                 ]
             },
             {
+                "title": "演示-用户第三方登录管理-条件查询所有",
+                "permission": "/user-usersocial/admin/all-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
                 "title": "演示-用户第三方登录管理-分页查询",
                 "permission": "/user-usersocial/admin/pager-cond",
                 "roles": [
@@ -551,6 +635,13 @@
             {
                 "title": "演示-用户钱包管理-查询所有",
                 "permission": "/user-wallet/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-用户钱包管理-条件查询所有",
+                "permission": "/user-wallet/admin/all-cond",
                 "roles": [
                     "sys_user_demo"
                 ]
@@ -594,6 +685,13 @@
             {
                 "title": "演示-用户银行卡管理-查询所有",
                 "permission": "/user-bankcard/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-用户银行卡管理-条件查询所有",
+                "permission": "/user-bankcard/admin/all-cond",
                 "roles": [
                     "sys_user_demo"
                 ]
@@ -691,6 +789,13 @@
                 ]
             },
             {
+                "title": "演示-用户收货地址管理-条件查询所有",
+                "permission": "/shipping-address/admin/all-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
                 "title": "演示-用户收货地址管理-分页查询",
                 "permission": "/shipping-address/admin/pager-cond",
                 "roles": [
@@ -720,6 +825,13 @@
             {
                 "title": "演示-用户账目详情管理-查询所有",
                 "permission": "/accoundetail/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-用户账目详情管理-条件查询所有",
+                "permission": "/accoundetail/admin/all-cond",
                 "roles": [
                     "sys_user_demo"
                 ]
@@ -792,6 +904,13 @@
                 ]
             },
             {
+                "title": "演示-文章类别管理-条件查询所有",
+                "permission": "/article-category/admin/all-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
                 "title": "演示-文章类别管理-分页查询",
                 "permission": "/article-category/admin/pager-cond",
                 "roles": [
@@ -845,6 +964,13 @@
                 ]
             },
             {
+                "title": "演示-文章管理-条件查询所有",
+                "permission": "/article/admin/all-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
                 "title": "演示-文章管理-分页查询",
                 "permission": "/article/admin/pager-cond",
                 "roles": [
@@ -889,6 +1015,13 @@
                 ]
             },
             {
+                "title": "演示-文章评论管理-条件查询所有",
+                "permission": "/article-comment/admin/all-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
                 "title": "演示-文章评论管理-分页查询",
                 "permission": "/article-comment/admin/pager-cond",
                 "roles": [
@@ -918,6 +1051,13 @@
             {
                 "title": "演示-流程文件管理-查询所有",
                 "permission": "/process/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-流程文件管理-条件查询所有",
+                "permission": "/process/admin/all-cond",
                 "roles": [
                     "sys_user_demo"
                 ]
@@ -1027,6 +1167,13 @@
                 ]
             },
             {
+                "title": "演示-商品类目管理-条件查询所有",
+                "permission": "/goods-category/admin/all-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
                 "title": "演示-商品类目管理-分页查询",
                 "permission": "/goods-category/admin/pager-cond",
                 "roles": [
@@ -1056,6 +1203,13 @@
             {
                 "title": "演示-商品属性管理-查询所有",
                 "permission": "/goods-attribute/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-商品属性管理-条件查询所有",
+                "permission": "/goods-attribute/admin/all-cond",
                 "roles": [
                     "sys_user_demo"
                 ]
@@ -1095,8 +1249,138 @@
                 ]
             },
             {
+                "title": "演示-商品类目属性管理-条件查询所有",
+                "permission": "/goods-category-attr/admin/all-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
                 "title": "演示-商品类目属性管理-分页查询",
                 "permission": "/goods-category-attr/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "店铺信息管理",
+        "permissions": [
+            {
+                "title": "后台-店铺信息管理",
+                "permission": "/goods-shop/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "演示-店铺信息管理-查询单个",
+                "permission": "/goods-shop/admin/one/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-店铺信息管理-查询所有",
+                "permission": "/goods-shop/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-店铺信息管理-条件查询所有",
+                "permission": "/goods-shop/admin/all-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-店铺信息管理-分页查询",
+                "permission": "/goods-shop/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "店铺认证信息管理",
+        "permissions": [
+            {
+                "title": "后台-店铺认证信息管理",
+                "permission": "/goods-shop-certification/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "演示-店铺认证信息管理-查询单个",
+                "permission": "/goods-shop-certification/admin/one/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-店铺认证信息管理-查询所有",
+                "permission": "/goods-shop-certification/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-店铺认证信息管理-条件查询所有",
+                "permission": "/goods-shop-certification/admin/all-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-店铺认证信息管理-分页查询",
+                "permission": "/goods-shop-certification/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "店铺审核历史查询",
+        "permissions": [
+            {
+                "title": "后台-店铺审核历史查询",
+                "permission": "/shop-certification-check/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "演示-店铺审核历史查询-查询单个",
+                "permission": "/shop-certification-check/admin/multi/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-店铺审核历史查询-查询所有",
+                "permission": "/shop-certification-check/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-店铺审核历史查询-条件查询所有",
+                "permission": "/shop-certification-check/admin/all-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-店铺审核历史查询-分页查询",
+                "permission": "/shop-certification-check/admin/pager-cond",
                 "roles": [
                     "sys_user_demo"
                 ]
@@ -1124,6 +1408,13 @@
             {
                 "title": "演示-消息管理-查询所有",
                 "permission": "/message/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-消息管理-条件查询所有",
+                "permission": "/message/admin/all-cond",
                 "roles": [
                     "sys_user_demo"
                 ]
@@ -1191,6 +1482,13 @@
             {
                 "title": "演示-公告查询-查询所有",
                 "permission": "/notice/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-公告查询-条件查询所有",
+                "permission": "/notice/admin/all-cond",
                 "roles": [
                     "sys_user_demo"
                 ]
@@ -1280,6 +1578,13 @@
                 ]
             },
             {
+                "title": "演示-定时任务管理-条件查询所有",
+                "permission": "/scheduler/admin/all-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
                 "title": "演示-定时任务管理-分页查询",
                 "permission": "/scheduler/admin/pager-cond",
                 "roles": [
@@ -1316,6 +1621,13 @@
             {
                 "title": "演示-DAU管理-查询所有",
                 "permission": "/statistics-dau/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-DAU管理-条件查询所有",
+                "permission": "/statistics-dau/admin/all-cond",
                 "roles": [
                     "sys_user_demo"
                 ]

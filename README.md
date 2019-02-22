@@ -11,7 +11,7 @@ zywork-app依赖于zywork-common（[https://github.com/gz-zywork/zywork-common](
 zywork-common项目依赖了zywork-sdk（[https://github.com/gz-zywork/zywork-sdk](https://github.com/gz-zywork/zywork-sdk)）中的微信支付SDK，微信支付SDK需要自行mvn install。
 
 #### 官方网站及在线体验
-[赣州智悦科技-zywork.top](http://zywork.top/app/index.html)
+[赣州智悦科技-zywork.top](http://zywork.top)
 
 [直接体验zywork-app](http://39.108.116.103:8080)
 
