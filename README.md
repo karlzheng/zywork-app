@@ -11,7 +11,7 @@ zywork-app依赖于zywork-common（[https://github.com/gz-zywork/zywork-common](
 zywork-common项目依赖了zywork-sdk（[https://github.com/gz-zywork/zywork-sdk](https://github.com/gz-zywork/zywork-sdk)）中的微信支付SDK，微信支付SDK需要自行mvn install。
 
 #### 官方网站及在线体验
-[赣州智悦科技-zywork.top](http://zywork.top)
+[赣州智悦科技-zywork.top](http://zywork.top/app/index.html)
 
 [直接体验zywork-app](http://39.108.116.103:8080)
 
@@ -86,7 +86,7 @@ zywork-common项目依赖了zywork-sdk（[https://github.com/gz-zywork/zywork-sd
 14. 文件上传工具类及文件上传示例，可支持图片压缩
 15. 内容管理：包括文章类别管理，文章管理，文章评论管理等；用户可发表，修改，删除评论
 16. 工作流管理：流程文件管理，流程部署，流程查询，流程待办任务及执行任务，流程在线设计等
-16. 商城管理之基础信息管理：商品类目管理，商品属性管理，类目属性管理
+16. 商城管理之基础信息管理：商品类目管理，商品属性管理，类目属性管理，商品类目属性分配与排序，店铺信息管理，店铺信息审核，店铺审核历史
 
 #### zywork-app在线体验发布日志
 1. V1.0.0，2019-01-22 22:45 基础功能，用户，权限，系统配置等
@@ -95,6 +95,7 @@ zywork-common项目依赖了zywork-sdk（[https://github.com/gz-zywork/zywork-sd
 4. V1.0.3，2019-02-06 12:00 更新个人中心页面，增加用户分配角色的界面
 5. V1.0.4，2019-02-16 10:00 增加内容管理，增加流程管理及商城管理部分功能
 6. V1.0.5，2019-02-20 18:00 更新首页显示，增加流程管理的所有功能，更新Redis缓存页面，定时任务管理页面，增加报表统计管理菜单
+7. V1.0.6，2019-02-23 10:30 商城管理中增加商品类目属性分配与排序，店铺信息管理，店铺信息审核及审核历史
 
 #### 支持与赞赏
 ![支持与赞赏](documents/wxpay.jpg)
