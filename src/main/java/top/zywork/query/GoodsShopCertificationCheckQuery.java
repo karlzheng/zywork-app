@@ -8,14 +8,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * GoodsShopCertificationCheckQuery查询对象类<br/>
  *
- * 创建于2019-02-22<br/>
+ * 创建于2019-02-27<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class GoodsShopCertificationCheckQuery extends PageQuery {
 
-    private static final long serialVersionUID = -9223372036769346639L;
+    private static final long serialVersionUID = -9223372035303731930L;
 
     //t_goods_shop_check表的字段对应的属性
 	// 店铺审核编号
@@ -66,19 +66,17 @@ public class GoodsShopCertificationCheckQuery extends PageQuery {
 	private Byte goodsShopSubjectTypeMin;
 	// 主体类型（最大值）
 	private Byte goodsShopSubjectTypeMax;
+	// 店铺Logo
+	private String goodsShopLogo;
+	// 店铺标题
+	private String goodsShopTitle;
 	//t_goods_shop_certification表的字段对应的属性
-	// 店铺认证编号
-	private Long goodsShopCertificationId;
-	// 店铺认证编号（最小值）
-	private Long goodsShopCertificationIdMin;
-	// 店铺认证编号（最大值）
-	private Long goodsShopCertificationIdMax;
 	// 认证详情JSON
 	private String goodsShopCertificationDetail;
 	
     public GoodsShopCertificationCheckQuery () {}
 
-    public GoodsShopCertificationCheckQuery (Long goodsShopCheckId, Long goodsShopCheckIdMin, Long goodsShopCheckIdMax, Byte goodsShopCheckCheckStatus, Byte goodsShopCheckCheckStatusMin, Byte goodsShopCheckCheckStatusMax, String goodsShopCheckCheckDescription, Byte goodsShopCheckCheckedUserId, Byte goodsShopCheckCheckedUserIdMin, Byte goodsShopCheckCheckedUserIdMax, Date goodsShopCheckCreateTime, Date goodsShopCheckCreateTimeMin, Date goodsShopCheckCreateTimeMax, Long goodsShopId, Long goodsShopIdMin, Long goodsShopIdMax, Long goodsShopCategoryId, Long goodsShopCategoryIdMin, Long goodsShopCategoryIdMax, Byte goodsShopSubjectType, Byte goodsShopSubjectTypeMin, Byte goodsShopSubjectTypeMax, Long goodsShopCertificationId, Long goodsShopCertificationIdMin, Long goodsShopCertificationIdMax, String goodsShopCertificationDetail) {
+    public GoodsShopCertificationCheckQuery (Long goodsShopCheckId, Long goodsShopCheckIdMin, Long goodsShopCheckIdMax, Byte goodsShopCheckCheckStatus, Byte goodsShopCheckCheckStatusMin, Byte goodsShopCheckCheckStatusMax, String goodsShopCheckCheckDescription, Byte goodsShopCheckCheckedUserId, Byte goodsShopCheckCheckedUserIdMin, Byte goodsShopCheckCheckedUserIdMax, Date goodsShopCheckCreateTime, Date goodsShopCheckCreateTimeMin, Date goodsShopCheckCreateTimeMax, Long goodsShopId, Long goodsShopIdMin, Long goodsShopIdMax, Long goodsShopCategoryId, Long goodsShopCategoryIdMin, Long goodsShopCategoryIdMax, Byte goodsShopSubjectType, Byte goodsShopSubjectTypeMin, Byte goodsShopSubjectTypeMax, String goodsShopLogo, String goodsShopTitle, String goodsShopCertificationDetail) {
         this.goodsShopCheckId = goodsShopCheckId;
 		this.goodsShopCheckIdMin = goodsShopCheckIdMin;
 		this.goodsShopCheckIdMax = goodsShopCheckIdMax;
@@ -101,9 +99,8 @@ public class GoodsShopCertificationCheckQuery extends PageQuery {
 		this.goodsShopSubjectType = goodsShopSubjectType;
 		this.goodsShopSubjectTypeMin = goodsShopSubjectTypeMin;
 		this.goodsShopSubjectTypeMax = goodsShopSubjectTypeMax;
-		this.goodsShopCertificationId = goodsShopCertificationId;
-		this.goodsShopCertificationIdMin = goodsShopCertificationIdMin;
-		this.goodsShopCertificationIdMax = goodsShopCertificationIdMax;
+		this.goodsShopLogo = goodsShopLogo;
+		this.goodsShopTitle = goodsShopTitle;
 		this.goodsShopCertificationDetail = goodsShopCertificationDetail;
 		
     }
@@ -284,28 +281,20 @@ public class GoodsShopCertificationCheckQuery extends PageQuery {
 		this.goodsShopSubjectTypeMax = goodsShopSubjectTypeMax;
 	}
 
-	public Long getGoodsShopCertificationId() {
-		return goodsShopCertificationId;
+	public String getGoodsShopLogo() {
+		return goodsShopLogo;
 	}
 
-	public void setGoodsShopCertificationId(Long goodsShopCertificationId) {
-		this.goodsShopCertificationId = goodsShopCertificationId;
+	public void setGoodsShopLogo(String goodsShopLogo) {
+		this.goodsShopLogo = goodsShopLogo;
 	}
 
-	public Long getGoodsShopCertificationIdMin() {
-		return goodsShopCertificationIdMin;
+	public String getGoodsShopTitle() {
+		return goodsShopTitle;
 	}
 
-	public void setGoodsShopCertificationIdMin(Long goodsShopCertificationIdMin) {
-		this.goodsShopCertificationIdMin = goodsShopCertificationIdMin;
-	}
-
-	public Long getGoodsShopCertificationIdMax() {
-		return goodsShopCertificationIdMax;
-	}
-
-	public void setGoodsShopCertificationIdMax(Long goodsShopCertificationIdMax) {
-		this.goodsShopCertificationIdMax = goodsShopCertificationIdMax;
+	public void setGoodsShopTitle(String goodsShopTitle) {
+		this.goodsShopTitle = goodsShopTitle;
 	}
 
 	public String getGoodsShopCertificationDetail() {
@@ -342,9 +331,8 @@ public class GoodsShopCertificationCheckQuery extends PageQuery {
 				", goodsShopSubjectType = " + goodsShopSubjectType + 
 				", goodsShopSubjectTypeMin = " + goodsShopSubjectTypeMin + 
 				", goodsShopSubjectTypeMax = " + goodsShopSubjectTypeMax + 
-				", goodsShopCertificationId = " + goodsShopCertificationId + 
-				", goodsShopCertificationIdMin = " + goodsShopCertificationIdMin + 
-				", goodsShopCertificationIdMax = " + goodsShopCertificationIdMax + 
+				", goodsShopLogo = " + goodsShopLogo + 
+				", goodsShopTitle = " + goodsShopTitle + 
 				", goodsShopCertificationDetail = " + goodsShopCertificationDetail + 
 				" }";
     }

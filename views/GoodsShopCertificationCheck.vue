@@ -60,6 +60,12 @@
 </i-col>
 </Row>
 </FormItem>
+<FormItem label="店铺Logo" prop="goodsShopLogo">
+	<Input v-model="searchForm.goodsShopLogo" placeholder="请输入店铺Logo"/>
+</FormItem>
+<FormItem label="店铺标题" prop="goodsShopTitle">
+	<Input v-model="searchForm.goodsShopTitle" placeholder="请输入店铺标题"/>
+</FormItem>
 <FormItem label="店铺审核编号"><Row>
 	<i-col span="11">
 	<FormItem prop="goodsShopCheckIdMin">
@@ -119,20 +125,6 @@
 </i-col>
 </Row>
 </FormItem>
-<FormItem label="店铺认证编号"><Row>
-	<i-col span="11">
-	<FormItem prop="goodsShopCertificationIdMin">
-	<InputNumber v-model="searchForm.goodsShopCertificationIdMin" placeholder="请输入开始店铺认证编号" style="width: 100%;"/>
-</FormItem>
-</i-col>
-	<i-col span="2" style="text-align: center">-</i-col>
-	<i-col span="11">
-	<FormItem prop="goodsShopCertificationIdMax">
-	<InputNumber v-model="searchForm.goodsShopCertificationIdMax" placeholder="请输入结束店铺认证编号" style="width: 100%;"/>
-</FormItem>
-</i-col>
-</Row>
-</FormItem>
 <FormItem label="认证详情JSON" prop="goodsShopCertificationDetail">
 	<Input v-model="searchForm.goodsShopCertificationDetail" placeholder="请输入认证详情JSON"/>
 </FormItem>
@@ -148,12 +140,13 @@
       <p>店铺编号: <span v-text="form.goodsShopId"></span></p>
 <p>类目编号: <span v-text="form.goodsShopCategoryId"></span></p>
 <p>主体类型: <span v-text="form.goodsShopSubjectType"></span></p>
+<p>店铺Logo: <span v-text="form.goodsShopLogo"></span></p>
+<p>店铺标题: <span v-text="form.goodsShopTitle"></span></p>
 <p>店铺审核编号: <span v-text="form.goodsShopCheckId"></span></p>
 <p>审核状态: <span v-text="form.goodsShopCheckCheckStatus"></span></p>
 <p>审核描述: <span v-text="form.goodsShopCheckCheckDescription"></span></p>
 <p>审核人编号: <span v-text="form.goodsShopCheckCheckedUserId"></span></p>
 <p>创建时间: <span v-text="form.goodsShopCheckCreateTime"></span></p>
-<p>店铺认证编号: <span v-text="form.goodsShopCertificationId"></span></p>
 <p>认证详情JSON: <span v-text="form.goodsShopCertificationDetail"></span></p>
 
     </Modal>
@@ -189,12 +182,13 @@
           goodsShopId: null,
 goodsShopCategoryId: null,
 goodsShopSubjectType: null,
+goodsShopLogo: null,
+goodsShopTitle: null,
 goodsShopCheckId: null,
 goodsShopCheckCheckStatus: null,
 goodsShopCheckCheckDescription: null,
 goodsShopCheckCheckedUserId: null,
 goodsShopCheckCreateTime: null,
-goodsShopCertificationId: null,
 goodsShopCertificationDetail: null,
 
         },
@@ -212,6 +206,8 @@ goodsShopCategoryIdMax: null,
 goodsShopSubjectType: null,
 goodsShopSubjectTypeMin: null, 
 goodsShopSubjectTypeMax: null, 
+goodsShopLogo: null,
+goodsShopTitle: null,
 goodsShopCheckId: null,
 goodsShopCheckIdMin: null, 
 goodsShopCheckIdMax: null, 
@@ -225,9 +221,6 @@ goodsShopCheckCheckedUserIdMax: null,
 goodsShopCheckCreateTime: null,
 goodsShopCheckCreateTimeMin: null, 
 goodsShopCheckCreateTimeMax: null, 
-goodsShopCertificationId: null,
-goodsShopCertificationIdMin: null, 
-goodsShopCertificationIdMax: null, 
 goodsShopCertificationDetail: null,
 
         },
@@ -268,6 +261,18 @@ minWidth: 120,
 sortable: true
 },
 {
+title: '店铺Logo',
+key: 'goodsShopLogo',
+minWidth: 120,
+sortable: true
+},
+{
+title: '店铺标题',
+key: 'goodsShopTitle',
+minWidth: 120,
+sortable: true
+},
+{
 title: '店铺审核编号',
 key: 'goodsShopCheckId',
 minWidth: 120,
@@ -294,12 +299,6 @@ sortable: true
 {
 title: '创建时间',
 key: 'goodsShopCheckCreateTime',
-minWidth: 120,
-sortable: true
-},
-{
-title: '店铺认证编号',
-key: 'goodsShopCertificationId',
 minWidth: 120,
 sortable: true
 },

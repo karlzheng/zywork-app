@@ -5,7 +5,7 @@
 <mapper namespace="top.zywork.dao.GoodsShopCertificationCheckDAO">
 
     <sql id="select_columns">
-        t_goods_shop_check.id as goodsShopCheckId, t_goods_shop_check.check_status as goodsShopCheckCheckStatus, t_goods_shop_check.check_description as goodsShopCheckCheckDescription, t_goods_shop_check.checked_user_id as goodsShopCheckCheckedUserId, t_goods_shop_check.create_time as goodsShopCheckCreateTime, t_goods_shop.id as goodsShopId, t_goods_shop.category_id as goodsShopCategoryId, t_goods_shop.subject_type as goodsShopSubjectType, t_goods_shop_certification.id as goodsShopCertificationId, t_goods_shop_certification.detail as goodsShopCertificationDetail
+        t_goods_shop_check.id as goodsShopCheckId, t_goods_shop_check.check_status as goodsShopCheckCheckStatus, t_goods_shop_check.check_description as goodsShopCheckCheckDescription, t_goods_shop_check.checked_user_id as goodsShopCheckCheckedUserId, t_goods_shop_check.create_time as goodsShopCheckCreateTime, t_goods_shop.id as goodsShopId, t_goods_shop.category_id as goodsShopCategoryId, t_goods_shop.subject_type as goodsShopSubjectType, t_goods_shop.logo as goodsShopLogo, t_goods_shop.title as goodsShopTitle, t_goods_shop_certification.detail as goodsShopCertificationDetail
     </sql>
 
     <sql id="query_where_clause">
@@ -96,17 +96,11 @@
 		<if test="query != null and query.goodsShopSubjectTypeMin != null and query.goodsShopSubjectTypeMax != null">
 			and t_goods_shop.subject_type <![CDATA[ >= ]]> #{query.goodsShopSubjectTypeMin} and t_goods_shop.subject_type <![CDATA[ <= ]]> #{query.goodsShopSubjectTypeMax}
 		</if>
-		<if test="query != null and query.goodsShopCertificationId != null">
-			and t_goods_shop_certification.id = #{query.goodsShopCertificationId}
+		<if test="query != null and query.goodsShopLogo != null and query.goodsShopLogo != ''">
+			and t_goods_shop.logo like concat('%', #{query.goodsShopLogo}, '%')
 		</if>
-		<if test="query != null and query.goodsShopCertificationIdMin != null and query.goodsShopCertificationIdMax == null">
-			and t_goods_shop_certification.id <![CDATA[ >= ]]> #{query.goodsShopCertificationIdMin}
-		</if>
-		<if test="query != null and query.goodsShopCertificationIdMin == null and query.goodsShopCertificationIdMax != null">
-			and t_goods_shop_certification.id <![CDATA[ <= ]]> #{query.goodsShopCertificationIdMax}
-		</if>
-		<if test="query != null and query.goodsShopCertificationIdMin != null and query.goodsShopCertificationIdMax != null">
-			and t_goods_shop_certification.id <![CDATA[ >= ]]> #{query.goodsShopCertificationIdMin} and t_goods_shop_certification.id <![CDATA[ <= ]]> #{query.goodsShopCertificationIdMax}
+		<if test="query != null and query.goodsShopTitle != null and query.goodsShopTitle != ''">
+			and t_goods_shop.title like concat('%', #{query.goodsShopTitle}, '%')
 		</if>
 		<if test="query != null and query.goodsShopCertificationDetail != null and query.goodsShopCertificationDetail != ''">
 			and t_goods_shop_certification.detail like concat('%', #{query.goodsShopCertificationDetail}, '%')

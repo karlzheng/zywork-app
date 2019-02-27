@@ -12,14 +12,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * GoodsShopCertificationCheckVO值对象类<br/>
  *
- * 创建于2019-02-22<br/>
+ * 创建于2019-02-27<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class GoodsShopCertificationCheckVO extends BaseVO {
 
-    private static final long serialVersionUID = -9223372035829657941L;
+    private static final long serialVersionUID = -9223372036042796818L;
 
     //t_goods_shop_check表的字段对应的属性
 	// 店铺审核编号
@@ -44,10 +44,14 @@ public class GoodsShopCertificationCheckVO extends BaseVO {
 	// 主体类型
 	@NotNull(message = "此项是必须项")
 	private Byte goodsShopSubjectType;
+	// 店铺Logo
+	@Size(min = 0, max = 500, message = "必须小于500个字符")
+	private String goodsShopLogo;
+	// 店铺标题
+	@NotBlank(message = "此项是必须项")
+	@Size(min = 1, max = 50, message = "必须是1-50个字符")
+	private String goodsShopTitle;
 	//t_goods_shop_certification表的字段对应的属性
-	// 店铺认证编号
-	@NotNull(message = "此项是必须项")
-	private Long goodsShopCertificationId;
 	// 认证详情JSON
 	@NotBlank(message = "此项是必须项")
 	@Size(min = 1, max = 1000, message = "必须是1-1000个字符")
@@ -55,7 +59,7 @@ public class GoodsShopCertificationCheckVO extends BaseVO {
 	
     public GoodsShopCertificationCheckVO () {}
 
-    public GoodsShopCertificationCheckVO (Long goodsShopCheckId, Byte goodsShopCheckCheckStatus, String goodsShopCheckCheckDescription, Byte goodsShopCheckCheckedUserId, Date goodsShopCheckCreateTime, Long goodsShopId, Long goodsShopCategoryId, Byte goodsShopSubjectType, Long goodsShopCertificationId, String goodsShopCertificationDetail) {
+    public GoodsShopCertificationCheckVO (Long goodsShopCheckId, Byte goodsShopCheckCheckStatus, String goodsShopCheckCheckDescription, Byte goodsShopCheckCheckedUserId, Date goodsShopCheckCreateTime, Long goodsShopId, Long goodsShopCategoryId, Byte goodsShopSubjectType, String goodsShopLogo, String goodsShopTitle, String goodsShopCertificationDetail) {
         this.goodsShopCheckId = goodsShopCheckId;
 		this.goodsShopCheckCheckStatus = goodsShopCheckCheckStatus;
 		this.goodsShopCheckCheckDescription = goodsShopCheckCheckDescription;
@@ -64,7 +68,8 @@ public class GoodsShopCertificationCheckVO extends BaseVO {
 		this.goodsShopId = goodsShopId;
 		this.goodsShopCategoryId = goodsShopCategoryId;
 		this.goodsShopSubjectType = goodsShopSubjectType;
-		this.goodsShopCertificationId = goodsShopCertificationId;
+		this.goodsShopLogo = goodsShopLogo;
+		this.goodsShopTitle = goodsShopTitle;
 		this.goodsShopCertificationDetail = goodsShopCertificationDetail;
 		
     }
@@ -133,12 +138,20 @@ public class GoodsShopCertificationCheckVO extends BaseVO {
 		this.goodsShopSubjectType = goodsShopSubjectType;
 	}
 
-	public Long getGoodsShopCertificationId() {
-		return goodsShopCertificationId;
+	public String getGoodsShopLogo() {
+		return goodsShopLogo;
 	}
 
-	public void setGoodsShopCertificationId(Long goodsShopCertificationId) {
-		this.goodsShopCertificationId = goodsShopCertificationId;
+	public void setGoodsShopLogo(String goodsShopLogo) {
+		this.goodsShopLogo = goodsShopLogo;
+	}
+
+	public String getGoodsShopTitle() {
+		return goodsShopTitle;
+	}
+
+	public void setGoodsShopTitle(String goodsShopTitle) {
+		this.goodsShopTitle = goodsShopTitle;
 	}
 
 	public String getGoodsShopCertificationDetail() {
@@ -161,7 +174,8 @@ public class GoodsShopCertificationCheckVO extends BaseVO {
 				", goodsShopId = " + goodsShopId + 
 				", goodsShopCategoryId = " + goodsShopCategoryId + 
 				", goodsShopSubjectType = " + goodsShopSubjectType + 
-				", goodsShopCertificationId = " + goodsShopCertificationId + 
+				", goodsShopLogo = " + goodsShopLogo + 
+				", goodsShopTitle = " + goodsShopTitle + 
 				", goodsShopCertificationDetail = " + goodsShopCertificationDetail + 
 				" }";
     }
