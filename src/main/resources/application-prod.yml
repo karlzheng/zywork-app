@@ -122,3 +122,8 @@ activiti:
   allowedExts: ".zip"
   #流程文件最大大小，单位MB
   maxSize: 20
+goods:
+  #后台保存商品图片的路径
+  imgDir: "./image"
+  #前端显示商品图片的url路径
+  imgUrl: "upload/image"

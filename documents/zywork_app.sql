@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 22/02/2019 14:28:32
+ Date: 28/02/2019 11:02:22
 */
 
 SET NAMES utf8mb4;
@@ -342,21 +342,8 @@ CREATE TABLE `t_goods_info` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '商品编号',
   `shop_id` bigint(20) NOT NULL COMMENT '店铺编号',
   `category_id` bigint(20) NOT NULL COMMENT '类目编号',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品记录表，包含多个商品SKU';
-
--- ----------------------------
--- Table structure for t_goods_intro
--- ----------------------------
-DROP TABLE IF EXISTS `t_goods_intro`;
-CREATE TABLE `t_goods_intro` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '图文介绍编号',
-  `goods_id` bigint(20) NOT NULL COMMENT '商品编号',
-  `intro` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '图文介绍',
+  `intro` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '图文详情',
+  `shelf_status` tinyint(4) DEFAULT '0' COMMENT '上架状态',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
@@ -460,7 +447,7 @@ CREATE TABLE `t_goods_pic` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '商品图片编号',
   `goods_id` bigint(20) NOT NULL COMMENT '商品编号',
   `pic_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '图片URL',
-  `pic_order` int(11) NOT NULL COMMENT '图片顺序',
+  `pic_order` int(11) DEFAULT '1000' COMMENT '图片顺序',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
@@ -531,6 +518,7 @@ DROP TABLE IF EXISTS `t_goods_sku`;
 CREATE TABLE `t_goods_sku` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'SKU编号',
   `goods_id` bigint(20) NOT NULL COMMENT '商品编号',
+  `pic_id` bigint(20) DEFAULT NULL COMMENT '商品图片编号',
   `shelf_status` tinyint(4) NOT NULL COMMENT '上架状态',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -538,21 +526,6 @@ CREATE TABLE `t_goods_sku` (
   `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品SKU信息表';
-
--- ----------------------------
--- Table structure for t_goods_sku_pic
--- ----------------------------
-DROP TABLE IF EXISTS `t_goods_sku_pic`;
-CREATE TABLE `t_goods_sku_pic` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'SKU图片编号',
-  `goods_sku_id` bigint(20) NOT NULL COMMENT 'SKU编号',
-  `pic_id` bigint(20) NOT NULL COMMENT '商品图片编号',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品SKU图片信息表';
 
 -- ----------------------------
 -- Table structure for t_goods_user_coupon

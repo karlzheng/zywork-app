@@ -1,0 +1,375 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.zywork.dao.GoodsInfoDAO">
+
+    <insert id="save" parameterType="goodsInfoDO">
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+    		SELECT LAST_INSERT_ID()
+    	</selectKey>
+        insert into t_goods_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="shopId != null">
+				shop_id,
+			</if>
+			<if test="categoryId != null">
+				category_id,
+			</if>
+			<if test="intro != null">
+				intro,
+			</if>
+			<if test="shelfStatus != null">
+				shelf_status,
+			</if>
+			<if test="version != null">
+				version,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="isActive != null">
+				is_active,
+			</if>
+			
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="shopId != null">
+				#{shopId},
+			</if>
+			<if test="categoryId != null">
+				#{categoryId},
+			</if>
+			<if test="intro != null">
+				#{intro},
+			</if>
+			<if test="shelfStatus != null">
+				#{shelfStatus},
+			</if>
+			<if test="version != null">
+				#{version},
+			</if>
+			<if test="createTime != null">
+				#{createTime},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime},
+			</if>
+			<if test="isActive != null">
+				#{isActive},
+			</if>
+			
+        </trim>
+    </insert>
+
+    <insert id="saveBatch" parameterType="java.util.List">
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+    		SELECT LAST_INSERT_ID()
+    	</selectKey>
+    	<foreach collection="list" item="item" separator=";">
+            insert into t_goods_info
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="item.shopId != null">
+				shop_id,
+			</if>
+			<if test="item.categoryId != null">
+				category_id,
+			</if>
+			<if test="item.intro != null">
+				intro,
+			</if>
+			<if test="item.shelfStatus != null">
+				shelf_status,
+			</if>
+			<if test="item.version != null">
+				version,
+			</if>
+			<if test="item.createTime != null">
+				create_time,
+			</if>
+			<if test="item.updateTime != null">
+				update_time,
+			</if>
+			<if test="item.isActive != null">
+				is_active,
+			</if>
+			
+            </trim>
+            <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="item.shopId != null">
+				#{item.shopId},
+			</if>
+			<if test="item.categoryId != null">
+				#{item.categoryId},
+			</if>
+			<if test="item.intro != null">
+				#{item.intro},
+			</if>
+			<if test="item.shelfStatus != null">
+				#{item.shelfStatus},
+			</if>
+			<if test="item.version != null">
+				#{item.version},
+			</if>
+			<if test="item.createTime != null">
+				#{item.createTime},
+			</if>
+			<if test="item.updateTime != null">
+				#{item.updateTime},
+			</if>
+			<if test="item.isActive != null">
+				#{item.isActive},
+			</if>
+			
+            </trim>
+        </foreach>
+    </insert>
+
+    <delete id="removeById" parameterType="long">
+        delete from t_goods_info where id = #{id}
+    </delete>
+
+    <delete id="removeByIds">
+        delete from t_goods_info where id in
+        <foreach item="id" collection="array" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="update" parameterType="goodsInfoDO">
+        update t_goods_info
+        <set>
+            <if test="shopId != null">
+				shop_id = #{shopId},
+			</if>
+			<if test="categoryId != null">
+				category_id = #{categoryId},
+			</if>
+			<if test="intro != null">
+				intro = #{intro},
+			</if>
+			<if test="shelfStatus != null">
+				shelf_status = #{shelfStatus},
+			</if>
+			<if test="version != null">
+				version = #{version},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime},
+			</if>
+			<if test="isActive != null">
+				is_active = #{isActive},
+			</if>
+			update_time = CURRENT_TIMESTAMP,
+        </set>
+        where id = #{id} and version + 1 <![CDATA[<=]]> #{version}
+    </update>
+
+    <update id="updateBatch" parameterType="java.util.List">
+    	<foreach collection="list" item="item" separator=";">
+            update t_goods_info
+            <set>
+                <if test="item.shopId != null">
+				shop_id = #{item.shopId},
+			</if>
+			<if test="item.categoryId != null">
+				category_id = #{item.categoryId},
+			</if>
+			<if test="item.intro != null">
+				intro = #{item.intro},
+			</if>
+			<if test="item.shelfStatus != null">
+				shelf_status = #{item.shelfStatus},
+			</if>
+			<if test="item.version != null">
+				version = #{item.version},
+			</if>
+			<if test="item.createTime != null">
+				create_time = #{item.createTime},
+			</if>
+			<if test="item.updateTime != null">
+				update_time = #{item.updateTime},
+			</if>
+			<if test="item.isActive != null">
+				is_active = #{item.isActive},
+			</if>
+			update_time = CURRENT_TIMESTAMP,
+                <if test="item.version == null">
+                    version = version + 1,
+                </if>
+            </set>
+            where id = #{item.id}
+        </foreach>
+    </update>
+
+    <sql id="select_columns">
+        id as id, shop_id as shopId, category_id as categoryId, intro as intro, shelf_status as shelfStatus, version as version, create_time as createTime, update_time as updateTime, is_active as isActive
+    </sql>
+
+    <sql id="query_where_clause">
+        <if test="query != null and query.id != null">
+			and id = #{query.id}
+		</if>
+		<if test="query != null and query.idMin != null and query.idMax == null">
+			and id <![CDATA[ >= ]]> #{query.idMin}
+		</if>
+		<if test="query != null and query.idMin == null and query.idMax != null">
+			and id <![CDATA[ <= ]]> #{query.idMax}
+		</if>
+		<if test="query != null and query.idMin != null and query.idMax != null">
+			and id <![CDATA[ >= ]]> #{query.idMin} and id <![CDATA[ <= ]]> #{query.idMax}
+		</if>
+		<if test="query != null and query.shopId != null">
+			and shop_id = #{query.shopId}
+		</if>
+		<if test="query != null and query.shopIdMin != null and query.shopIdMax == null">
+			and shop_id <![CDATA[ >= ]]> #{query.shopIdMin}
+		</if>
+		<if test="query != null and query.shopIdMin == null and query.shopIdMax != null">
+			and shop_id <![CDATA[ <= ]]> #{query.shopIdMax}
+		</if>
+		<if test="query != null and query.shopIdMin != null and query.shopIdMax != null">
+			and shop_id <![CDATA[ >= ]]> #{query.shopIdMin} and shop_id <![CDATA[ <= ]]> #{query.shopIdMax}
+		</if>
+		<if test="query != null and query.categoryId != null">
+			and category_id = #{query.categoryId}
+		</if>
+		<if test="query != null and query.categoryIdMin != null and query.categoryIdMax == null">
+			and category_id <![CDATA[ >= ]]> #{query.categoryIdMin}
+		</if>
+		<if test="query != null and query.categoryIdMin == null and query.categoryIdMax != null">
+			and category_id <![CDATA[ <= ]]> #{query.categoryIdMax}
+		</if>
+		<if test="query != null and query.categoryIdMin != null and query.categoryIdMax != null">
+			and category_id <![CDATA[ >= ]]> #{query.categoryIdMin} and category_id <![CDATA[ <= ]]> #{query.categoryIdMax}
+		</if>
+		<if test="query != null and query.intro != null and query.intro != ''">
+			and intro like concat('%', #{query.intro}, '%')
+		</if>
+		<if test="query != null and query.shelfStatus != null">
+			and shelf_status = #{query.shelfStatus}
+		</if>
+		<if test="query != null and query.shelfStatusMin != null and query.shelfStatusMax == null">
+			and shelf_status <![CDATA[ >= ]]> #{query.shelfStatusMin}
+		</if>
+		<if test="query != null and query.shelfStatusMin == null and query.shelfStatusMax != null">
+			and shelf_status <![CDATA[ <= ]]> #{query.shelfStatusMax}
+		</if>
+		<if test="query != null and query.shelfStatusMin != null and query.shelfStatusMax != null">
+			and shelf_status <![CDATA[ >= ]]> #{query.shelfStatusMin} and shelf_status <![CDATA[ <= ]]> #{query.shelfStatusMax}
+		</if>
+		<if test="query != null and query.version != null">
+			and version = #{query.version}
+		</if>
+		<if test="query != null and query.versionMin != null and query.versionMax == null">
+			and version <![CDATA[ >= ]]> #{query.versionMin}
+		</if>
+		<if test="query != null and query.versionMin == null and query.versionMax != null">
+			and version <![CDATA[ <= ]]> #{query.versionMax}
+		</if>
+		<if test="query != null and query.versionMin != null and query.versionMax != null">
+			and version <![CDATA[ >= ]]> #{query.versionMin} and version <![CDATA[ <= ]]> #{query.versionMax}
+		</if>
+		<if test="query != null and query.createTime != null">
+			and create_time = #{query.createTime}
+		</if>
+		<if test="query != null and query.createTimeMin != null and query.createTimeMax == null">
+			and create_time <![CDATA[ >= ]]> #{query.createTimeMin}
+		</if>
+		<if test="query != null and query.createTimeMin == null and query.createTimeMax != null">
+			and create_time <![CDATA[ <= ]]> #{query.createTimeMax}
+		</if>
+		<if test="query != null and query.createTimeMin != null and query.createTimeMax != null">
+			and create_time <![CDATA[ >= ]]> #{query.createTimeMin} and create_time <![CDATA[ <= ]]> #{query.createTimeMax}
+		</if>
+		<if test="query != null and query.updateTime != null">
+			and update_time = #{query.updateTime}
+		</if>
+		<if test="query != null and query.updateTimeMin != null and query.updateTimeMax == null">
+			and update_time <![CDATA[ >= ]]> #{query.updateTimeMin}
+		</if>
+		<if test="query != null and query.updateTimeMin == null and query.updateTimeMax != null">
+			and update_time <![CDATA[ <= ]]> #{query.updateTimeMax}
+		</if>
+		<if test="query != null and query.updateTimeMin != null and query.updateTimeMax != null">
+			and update_time <![CDATA[ >= ]]> #{query.updateTimeMin} and update_time <![CDATA[ <= ]]> #{query.updateTimeMax}
+		</if>
+		<if test="query != null and query.isActive != null">
+			and is_active = #{query.isActive}
+		</if>
+		<if test="query != null and query.isActiveMin != null and query.isActiveMax == null">
+			and is_active <![CDATA[ >= ]]> #{query.isActiveMin}
+		</if>
+		<if test="query != null and query.isActiveMin == null and query.isActiveMax != null">
+			and is_active <![CDATA[ <= ]]> #{query.isActiveMax}
+		</if>
+		<if test="query != null and query.isActiveMin != null and query.isActiveMax != null">
+			and is_active <![CDATA[ >= ]]> #{query.isActiveMin} and is_active <![CDATA[ <= ]]> #{query.isActiveMax}
+		</if>
+		
+    </sql>
+
+    <select id="getById" parameterType="long" resultType="goodsInfoDO">
+        select
+        <include refid="select_columns"/>
+        from t_goods_info where id = #{id}
+    </select>
+
+    <select id="getVersionById" parameterType="long" resultType="integer">
+        select version from t_goods_info where id = #{id}
+    </select>
+
+    <select id="listAll" resultType="goodsInfoDO">
+        select
+        <include refid="select_columns"/>
+        from t_goods_info
+        order by update_time desc, create_time desc
+    </select>
+
+    <select id="listAllByCondition" resultType="goodsInfoDO">
+        select
+        <include refid="select_columns"/>
+        from t_goods_info
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+        order by
+        <if test="query.sortColumn != null and query.sortColumn != ''">
+             ${query.sortColumn} ${query.sortOrder}
+        </if>
+        <if test="query.sortColumn == null or query.sortColumn == ''">
+            update_time desc, create_time desc
+        </if>
+    </select>
+
+    <select id="listPageByCondition" resultType="goodsInfoDO">
+        select
+        <include refid="select_columns"/>
+        from t_goods_info
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+        order by
+        <if test="query.sortColumn != null and query.sortColumn != ''">
+            ${query.sortColumn} ${query.sortOrder}
+        </if>
+        <if test="query.sortColumn == null or query.sortColumn == ''">
+            update_time desc, create_time desc
+        </if>
+        limit #{query.beginIndex}, #{query.pageSize}
+    </select>
+
+    <select id="countByCondition" resultType="long">
+        select count(*) from t_goods_info
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+    </select>
+
+</mapper>

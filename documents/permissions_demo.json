@@ -1388,6 +1388,104 @@
         ]
     },
     {
+        "moduleTitle": "商品基础信息管理",
+        "permissions": [
+            {
+                "title": "后台-商品基础信息管理",
+                "permission": "/goods-info/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "用户-商品基础信息管理",
+                "permission": "/goods-info/user/**",
+                "roles": [
+                    "sys_shop_owner"
+                ]
+            },
+            ,
+            {
+                "title": "演示-商品基础信息管理-查询单个",
+                "permission": "/goods-info/admin/one/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-商品基础信息管理-查询所有",
+                "permission": "/goods-info/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-商品基础信息管理-条件查询所有",
+                "permission": "/goods-info/admin/all-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-商品基础信息管理-分页查询",
+                "permission": "/goods-info/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "商品图片管理",
+        "permissions": [
+            {
+                "title": "后台-商品图片管理",
+                "permission": "/goods-pic/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "用户-商品图片管理",
+                "permission": "/goods-pic/user/**",
+                "roles": [
+                    "sys_shop_owner"
+                ]
+            },
+            ,
+            {
+                "title": "演示-商品图片管理-查询单个",
+                "permission": "/goods-pic/admin/one/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-商品图片管理-查询所有",
+                "permission": "/goods-pic/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-商品图片管理-条件查询所有",
+                "permission": "/goods-pic/admin/all-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-商品图片管理-分页查询",
+                "permission": "/goods-pic/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
         "moduleTitle": "消息管理",
         "permissions": [
             {

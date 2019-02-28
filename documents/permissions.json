@@ -590,6 +590,46 @@
         ]
     },
     {
+        "moduleTitle": "商品基础信息管理",
+        "permissions": [
+            {
+                "title": "后台-商品基础信息管理",
+                "permission": "/goods-info/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "用户-商品基础信息管理",
+                "permission": "/goods-info/user/**",
+                "roles": [
+                    "sys_shop_owner"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "商品图片管理",
+        "permissions": [
+            {
+                "title": "后台-商品图片管理",
+                "permission": "/goods-pic/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "用户-商品图片管理",
+                "permission": "/goods-pic/user/**",
+                "roles": [
+                    "sys_shop_owner"
+                ]
+            }
+        ]
+    },
+    {
         "moduleTitle": "消息管理",
         "permissions": [
             {
