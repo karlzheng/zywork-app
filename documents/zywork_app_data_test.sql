@@ -3886,6 +3886,7 @@ BEGIN;
 INSERT INTO `t_user` VALUES (31, '18888888888', NULL, '$2a$10$7YNSwyW.FfL2iPBOqSEnD.8fNnM65QjumF2CD3glyQb9zdQBzXSr2', NULL, 1, '2018-12-22 15:46:43', NULL, 0);
 INSERT INTO `t_user` VALUES (36, '13666666666', NULL, '$2a$10$7YNSwyW.FfL2iPBOqSEnD.8fNnM65QjumF2CD3glyQb9zdQBzXSr2', NULL, 1, '2018-12-28 12:00:36', NULL, 0);
 INSERT INTO `t_user` VALUES (40, '', 'demo@zywork.top', '$2a$10$BxzUB3PvmEX9VqZIfIvsf.V4ltLJY9fF06GFX.J.d.3SFOApnFBm2', NULL, 1, '2019-01-17 10:30:21', NULL, 0);
+INSERT INTO `t_user` VALUES (44, '18279700225', 'test@zywork.top', '$2a$10$wok8Kiq3/wCM2uGqGSiFGeYeP9oZ7lKLgmSPXpy9mrkiEg2kWzIe2', NULL, 1, '2019-01-17 10:30:21', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -3958,6 +3959,7 @@ BEGIN;
 INSERT INTO `t_user_detail` VALUES (31, 'Sys Super Admin', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'nxrLRk', 1, '2018-12-22 15:46:43', NULL, 0);
 INSERT INTO `t_user_detail` VALUES (36, 'Sys User', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '62TNSs', 1, '2018-12-28 12:00:36', NULL, 0);
 INSERT INTO `t_user_detail` VALUES (40, 'Sys User Demo', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'h345CG', 1, '2019-01-17 10:30:21', NULL, 0);
+INSERT INTO `t_user_detail` VALUES (44, 'Sys User Admin', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'h345CG', 1, '2019-01-17 10:30:21', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -4078,6 +4080,9 @@ INSERT INTO `t_user_role` VALUES (8, 36, 5, 1, '2018-12-28 12:00:36', NULL, 0);
 INSERT INTO `t_user_role` VALUES (9, 31, 2, 1, '2019-01-06 13:32:46', NULL, 0);
 INSERT INTO `t_user_role` VALUES (12, 31, 3, 1, '2019-01-10 15:38:21', NULL, 0);
 INSERT INTO `t_user_role` VALUES (25, 40, 4, 1, '2019-02-22 10:24:03', NULL, 0);
+INSERT INTO `t_user_role` VALUES (26, 41, 1, 1, '2019-02-22 10:24:03', NULL, 0);
+INSERT INTO `t_user_role` VALUES (27, 41, 2, 1, '2019-02-22 10:24:03', NULL, 0);
+INSERT INTO `t_user_role` VALUES (28, 41, 3, 1, '2019-02-22 10:24:03', NULL, 0);
 COMMIT;
 
 -- ----------------------------
