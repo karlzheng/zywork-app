@@ -163,6 +163,22 @@ public class WeixinAuthController {
     }
 
     /**
+     * 清除公众号cookie中的openid
+     * @param request
+     * @return
+     */
+    @GetMapping("clear-openid")
+    public ResponseStatusVO clearOpenidInCookie(HttpServletRequest request, HttpServletResponse response) {
+        String openid = WebUtils.getCookieValue(request, gzhCookieName);
+        if (StringUtils.isNotEmpty(openid)) {
+            WebUtils.setCookie(response, gzhCookieName, "", 0);
+            return ResponseStatusVO.ok("成功清除公众号cookie中的openid", null);
+        } else {
+            return ResponseStatusVO.dataError("公众号Cookie中不存在openid，无需清除", null);
+        }
+    }
+
+    /**
      * 通过微信小程序端wx.login函数获取的code授权登录，可获取到openid, session_key和unionid
      *
      * @param code 此code由小程序端调用api获得
