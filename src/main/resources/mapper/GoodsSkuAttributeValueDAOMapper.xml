@@ -1,0 +1,217 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.zywork.dao.GoodsSkuAttributeValueDAO">
+
+    <sql id="select_columns">
+        t_goods_info.id as goodsInfoId, t_goods_info.shop_id as goodsInfoShopId, t_goods_info.category_id as goodsInfoCategoryId, t_goods_info.shelf_status as goodsInfoShelfStatus, t_goods_sku.id as goodsSkuId, t_goods_sku.shelf_status as goodsSkuShelfStatus, t_goods_category_attribute.attr_id as goodsCategoryAttributeAttrId, t_goods_category_attribute.attr_order as goodsCategoryAttributeAttrOrder, t_goods_attribute.attr_name as goodsAttributeAttrName, t_goods_attribute.attr_code as goodsAttributeAttrCode, t_goods_attribute.attr_type as goodsAttributeAttrType, t_goods_attribute.attr_length as goodsAttributeAttrLength, t_goods_attribute.attr_required as goodsAttributeAttrRequired, t_goods_attribute.attr_display as goodsAttributeAttrDisplay, t_goods_attribute_value.attr_value as goodsAttributeValueAttrValue
+    </sql>
+
+    <sql id="query_where_clause">
+        <if test="query != null and query.goodsInfoId != null">
+			and t_goods_info.id = #{query.goodsInfoId}
+		</if>
+		<if test="query != null and query.goodsInfoIdMin != null and query.goodsInfoIdMax == null">
+			and t_goods_info.id <![CDATA[ >= ]]> #{query.goodsInfoIdMin}
+		</if>
+		<if test="query != null and query.goodsInfoIdMin == null and query.goodsInfoIdMax != null">
+			and t_goods_info.id <![CDATA[ <= ]]> #{query.goodsInfoIdMax}
+		</if>
+		<if test="query != null and query.goodsInfoIdMin != null and query.goodsInfoIdMax != null">
+			and t_goods_info.id <![CDATA[ >= ]]> #{query.goodsInfoIdMin} and t_goods_info.id <![CDATA[ <= ]]> #{query.goodsInfoIdMax}
+		</if>
+		<if test="query != null and query.goodsInfoShopId != null">
+			and t_goods_info.shop_id = #{query.goodsInfoShopId}
+		</if>
+		<if test="query != null and query.goodsInfoShopIdMin != null and query.goodsInfoShopIdMax == null">
+			and t_goods_info.shop_id <![CDATA[ >= ]]> #{query.goodsInfoShopIdMin}
+		</if>
+		<if test="query != null and query.goodsInfoShopIdMin == null and query.goodsInfoShopIdMax != null">
+			and t_goods_info.shop_id <![CDATA[ <= ]]> #{query.goodsInfoShopIdMax}
+		</if>
+		<if test="query != null and query.goodsInfoShopIdMin != null and query.goodsInfoShopIdMax != null">
+			and t_goods_info.shop_id <![CDATA[ >= ]]> #{query.goodsInfoShopIdMin} and t_goods_info.shop_id <![CDATA[ <= ]]> #{query.goodsInfoShopIdMax}
+		</if>
+		<if test="query != null and query.goodsInfoCategoryId != null">
+			and t_goods_info.category_id = #{query.goodsInfoCategoryId}
+		</if>
+		<if test="query != null and query.goodsInfoCategoryIdMin != null and query.goodsInfoCategoryIdMax == null">
+			and t_goods_info.category_id <![CDATA[ >= ]]> #{query.goodsInfoCategoryIdMin}
+		</if>
+		<if test="query != null and query.goodsInfoCategoryIdMin == null and query.goodsInfoCategoryIdMax != null">
+			and t_goods_info.category_id <![CDATA[ <= ]]> #{query.goodsInfoCategoryIdMax}
+		</if>
+		<if test="query != null and query.goodsInfoCategoryIdMin != null and query.goodsInfoCategoryIdMax != null">
+			and t_goods_info.category_id <![CDATA[ >= ]]> #{query.goodsInfoCategoryIdMin} and t_goods_info.category_id <![CDATA[ <= ]]> #{query.goodsInfoCategoryIdMax}
+		</if>
+		<if test="query != null and query.goodsInfoShelfStatus != null">
+			and t_goods_info.shelf_status = #{query.goodsInfoShelfStatus}
+		</if>
+		<if test="query != null and query.goodsInfoShelfStatusMin != null and query.goodsInfoShelfStatusMax == null">
+			and t_goods_info.shelf_status <![CDATA[ >= ]]> #{query.goodsInfoShelfStatusMin}
+		</if>
+		<if test="query != null and query.goodsInfoShelfStatusMin == null and query.goodsInfoShelfStatusMax != null">
+			and t_goods_info.shelf_status <![CDATA[ <= ]]> #{query.goodsInfoShelfStatusMax}
+		</if>
+		<if test="query != null and query.goodsInfoShelfStatusMin != null and query.goodsInfoShelfStatusMax != null">
+			and t_goods_info.shelf_status <![CDATA[ >= ]]> #{query.goodsInfoShelfStatusMin} and t_goods_info.shelf_status <![CDATA[ <= ]]> #{query.goodsInfoShelfStatusMax}
+		</if>
+		<if test="query != null and query.goodsSkuId != null">
+			and t_goods_sku.id = #{query.goodsSkuId}
+		</if>
+		<if test="query != null and query.goodsSkuIdMin != null and query.goodsSkuIdMax == null">
+			and t_goods_sku.id <![CDATA[ >= ]]> #{query.goodsSkuIdMin}
+		</if>
+		<if test="query != null and query.goodsSkuIdMin == null and query.goodsSkuIdMax != null">
+			and t_goods_sku.id <![CDATA[ <= ]]> #{query.goodsSkuIdMax}
+		</if>
+		<if test="query != null and query.goodsSkuIdMin != null and query.goodsSkuIdMax != null">
+			and t_goods_sku.id <![CDATA[ >= ]]> #{query.goodsSkuIdMin} and t_goods_sku.id <![CDATA[ <= ]]> #{query.goodsSkuIdMax}
+		</if>
+		<if test="query != null and query.goodsSkuShelfStatus != null">
+			and t_goods_sku.shelf_status = #{query.goodsSkuShelfStatus}
+		</if>
+		<if test="query != null and query.goodsSkuShelfStatusMin != null and query.goodsSkuShelfStatusMax == null">
+			and t_goods_sku.shelf_status <![CDATA[ >= ]]> #{query.goodsSkuShelfStatusMin}
+		</if>
+		<if test="query != null and query.goodsSkuShelfStatusMin == null and query.goodsSkuShelfStatusMax != null">
+			and t_goods_sku.shelf_status <![CDATA[ <= ]]> #{query.goodsSkuShelfStatusMax}
+		</if>
+		<if test="query != null and query.goodsSkuShelfStatusMin != null and query.goodsSkuShelfStatusMax != null">
+			and t_goods_sku.shelf_status <![CDATA[ >= ]]> #{query.goodsSkuShelfStatusMin} and t_goods_sku.shelf_status <![CDATA[ <= ]]> #{query.goodsSkuShelfStatusMax}
+		</if>
+		<if test="query != null and query.goodsCategoryAttributeAttrId != null">
+			and t_goods_category_attribute.attr_id = #{query.goodsCategoryAttributeAttrId}
+		</if>
+		<if test="query != null and query.goodsCategoryAttributeAttrIdMin != null and query.goodsCategoryAttributeAttrIdMax == null">
+			and t_goods_category_attribute.attr_id <![CDATA[ >= ]]> #{query.goodsCategoryAttributeAttrIdMin}
+		</if>
+		<if test="query != null and query.goodsCategoryAttributeAttrIdMin == null and query.goodsCategoryAttributeAttrIdMax != null">
+			and t_goods_category_attribute.attr_id <![CDATA[ <= ]]> #{query.goodsCategoryAttributeAttrIdMax}
+		</if>
+		<if test="query != null and query.goodsCategoryAttributeAttrIdMin != null and query.goodsCategoryAttributeAttrIdMax != null">
+			and t_goods_category_attribute.attr_id <![CDATA[ >= ]]> #{query.goodsCategoryAttributeAttrIdMin} and t_goods_category_attribute.attr_id <![CDATA[ <= ]]> #{query.goodsCategoryAttributeAttrIdMax}
+		</if>
+		<if test="query != null and query.goodsCategoryAttributeAttrOrder != null">
+			and t_goods_category_attribute.attr_order = #{query.goodsCategoryAttributeAttrOrder}
+		</if>
+		<if test="query != null and query.goodsCategoryAttributeAttrOrderMin != null and query.goodsCategoryAttributeAttrOrderMax == null">
+			and t_goods_category_attribute.attr_order <![CDATA[ >= ]]> #{query.goodsCategoryAttributeAttrOrderMin}
+		</if>
+		<if test="query != null and query.goodsCategoryAttributeAttrOrderMin == null and query.goodsCategoryAttributeAttrOrderMax != null">
+			and t_goods_category_attribute.attr_order <![CDATA[ <= ]]> #{query.goodsCategoryAttributeAttrOrderMax}
+		</if>
+		<if test="query != null and query.goodsCategoryAttributeAttrOrderMin != null and query.goodsCategoryAttributeAttrOrderMax != null">
+			and t_goods_category_attribute.attr_order <![CDATA[ >= ]]> #{query.goodsCategoryAttributeAttrOrderMin} and t_goods_category_attribute.attr_order <![CDATA[ <= ]]> #{query.goodsCategoryAttributeAttrOrderMax}
+		</if>
+		<if test="query != null and query.goodsAttributeAttrName != null and query.goodsAttributeAttrName != ''">
+			and t_goods_attribute.attr_name like concat('%', #{query.goodsAttributeAttrName}, '%')
+		</if>
+		<if test="query != null and query.goodsAttributeAttrCode != null and query.goodsAttributeAttrCode != ''">
+			and t_goods_attribute.attr_code like concat('%', #{query.goodsAttributeAttrCode}, '%')
+		</if>
+		<if test="query != null and query.goodsAttributeAttrType != null and query.goodsAttributeAttrType != ''">
+			and t_goods_attribute.attr_type like concat('%', #{query.goodsAttributeAttrType}, '%')
+		</if>
+		<if test="query != null and query.goodsAttributeAttrLength != null">
+			and t_goods_attribute.attr_length = #{query.goodsAttributeAttrLength}
+		</if>
+		<if test="query != null and query.goodsAttributeAttrLengthMin != null and query.goodsAttributeAttrLengthMax == null">
+			and t_goods_attribute.attr_length <![CDATA[ >= ]]> #{query.goodsAttributeAttrLengthMin}
+		</if>
+		<if test="query != null and query.goodsAttributeAttrLengthMin == null and query.goodsAttributeAttrLengthMax != null">
+			and t_goods_attribute.attr_length <![CDATA[ <= ]]> #{query.goodsAttributeAttrLengthMax}
+		</if>
+		<if test="query != null and query.goodsAttributeAttrLengthMin != null and query.goodsAttributeAttrLengthMax != null">
+			and t_goods_attribute.attr_length <![CDATA[ >= ]]> #{query.goodsAttributeAttrLengthMin} and t_goods_attribute.attr_length <![CDATA[ <= ]]> #{query.goodsAttributeAttrLengthMax}
+		</if>
+		<if test="query != null and query.goodsAttributeAttrRequired != null">
+			and t_goods_attribute.attr_required = #{query.goodsAttributeAttrRequired}
+		</if>
+		<if test="query != null and query.goodsAttributeAttrRequiredMin != null and query.goodsAttributeAttrRequiredMax == null">
+			and t_goods_attribute.attr_required <![CDATA[ >= ]]> #{query.goodsAttributeAttrRequiredMin}
+		</if>
+		<if test="query != null and query.goodsAttributeAttrRequiredMin == null and query.goodsAttributeAttrRequiredMax != null">
+			and t_goods_attribute.attr_required <![CDATA[ <= ]]> #{query.goodsAttributeAttrRequiredMax}
+		</if>
+		<if test="query != null and query.goodsAttributeAttrRequiredMin != null and query.goodsAttributeAttrRequiredMax != null">
+			and t_goods_attribute.attr_required <![CDATA[ >= ]]> #{query.goodsAttributeAttrRequiredMin} and t_goods_attribute.attr_required <![CDATA[ <= ]]> #{query.goodsAttributeAttrRequiredMax}
+		</if>
+		<if test="query != null and query.goodsAttributeAttrDisplay != null">
+			and t_goods_attribute.attr_display = #{query.goodsAttributeAttrDisplay}
+		</if>
+		<if test="query != null and query.goodsAttributeAttrDisplayMin != null and query.goodsAttributeAttrDisplayMax == null">
+			and t_goods_attribute.attr_display <![CDATA[ >= ]]> #{query.goodsAttributeAttrDisplayMin}
+		</if>
+		<if test="query != null and query.goodsAttributeAttrDisplayMin == null and query.goodsAttributeAttrDisplayMax != null">
+			and t_goods_attribute.attr_display <![CDATA[ <= ]]> #{query.goodsAttributeAttrDisplayMax}
+		</if>
+		<if test="query != null and query.goodsAttributeAttrDisplayMin != null and query.goodsAttributeAttrDisplayMax != null">
+			and t_goods_attribute.attr_display <![CDATA[ >= ]]> #{query.goodsAttributeAttrDisplayMin} and t_goods_attribute.attr_display <![CDATA[ <= ]]> #{query.goodsAttributeAttrDisplayMax}
+		</if>
+		<if test="query != null and query.goodsAttributeValueAttrValue != null and query.goodsAttributeValueAttrValue != ''">
+			and t_goods_attribute_value.attr_value like concat('%', #{query.goodsAttributeValueAttrValue}, '%')
+		</if>
+		
+        and
+        t_goods_info.id = t_goods_sku.goods_id and t_goods_info.category_id = t_goods_category_attribute.category_id and t_goods_category_attribute.attr_id = t_goods_attribute.id and t_goods_attribute.id = t_goods_attribute_value.attr_id and t_goods_sku.id = t_goods_attribute_value.goods_sku_id
+    </sql>
+
+    <select id="listById" parameterType="long" resultType="goodsSkuAttributeValueDO">
+        select
+        <include refid="select_columns"/>
+        from t_goods_sku, t_goods_info, t_goods_category_attribute, t_goods_attribute, t_goods_attribute_value where t_goods_info.id = #{id} and
+        t_goods_info.id = t_goods_sku.goods_id and t_goods_info.category_id = t_goods_category_attribute.category_id and t_goods_category_attribute.attr_id = t_goods_attribute.id and t_goods_attribute.id = t_goods_attribute_value.attr_id and t_goods_sku.id = t_goods_attribute_value.goods_sku_id
+    </select>
+
+    <select id="listAll" resultType="goodsSkuAttributeValueDO">
+        select
+        <include refid="select_columns"/>
+        from t_goods_sku, t_goods_info, t_goods_category_attribute, t_goods_attribute, t_goods_attribute_value
+        where
+        t_goods_info.id = t_goods_sku.goods_id and t_goods_info.category_id = t_goods_category_attribute.category_id and t_goods_category_attribute.attr_id = t_goods_attribute.id and t_goods_attribute.id = t_goods_attribute_value.attr_id and t_goods_sku.id = t_goods_attribute_value.goods_sku_id
+        order by t_goods_info.update_time desc, t_goods_info.create_time desc
+    </select>
+
+    <select id="listAllByCondition" resultType="goodsSkuAttributeValueDO">
+        select
+        <include refid="select_columns"/>
+        from t_goods_sku, t_goods_info, t_goods_category_attribute, t_goods_attribute, t_goods_attribute_value
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+        order by
+        <if test="query.sortColumn != null and query.sortColumn != ''">
+            ${query.sortColumn} ${query.sortOrder}
+        </if>
+        <if test="query.sortColumn == null or query.sortColumn == ''">
+            t_goods_info.update_time desc, t_goods_info.create_time desc
+        </if>
+    </select>
+
+    <select id="listPageByCondition" resultType="goodsSkuAttributeValueDO">
+        select
+        <include refid="select_columns"/>
+        from t_goods_sku, t_goods_info, t_goods_category_attribute, t_goods_attribute, t_goods_attribute_value
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+        order by
+        <if test="query.sortColumn != null and query.sortColumn != ''">
+            ${query.sortColumn} ${query.sortOrder}
+        </if>
+        <if test="query.sortColumn == null or query.sortColumn == ''">
+            t_goods_info.update_time desc, t_goods_info.create_time desc
+        </if>
+        limit #{query.beginIndex}, #{query.pageSize}
+    </select>
+
+    <select id="countByCondition" resultType="long">
+        select count(*) from t_goods_sku, t_goods_info, t_goods_category_attribute, t_goods_attribute, t_goods_attribute_value
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+    </select>
+
+</mapper>

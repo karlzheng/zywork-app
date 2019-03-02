@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 28/02/2019 11:02:22
+ Date: 02/03/2019 16:16:20
 */
 
 SET NAMES utf8mb4;
@@ -198,6 +198,7 @@ CREATE TABLE `t_goods_attribute` (
   `attr_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '属性代码',
   `attr_type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '数据类型',
   `attr_length` int(11) NOT NULL COMMENT '数据长度',
+  `attr_required` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否必填',
   `attr_display` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否前端显示',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -214,7 +215,6 @@ CREATE TABLE `t_goods_attribute_value` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '商品属性值编号',
   `goods_sku_id` bigint(20) NOT NULL COMMENT 'SKU编号',
   `attr_id` bigint(20) NOT NULL COMMENT '属性编号',
-  `attr_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '属性代码',
   `attr_value` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '属性值',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -519,7 +519,7 @@ CREATE TABLE `t_goods_sku` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'SKU编号',
   `goods_id` bigint(20) NOT NULL COMMENT '商品编号',
   `pic_id` bigint(20) DEFAULT NULL COMMENT '商品图片编号',
-  `shelf_status` tinyint(4) NOT NULL COMMENT '上架状态',
+  `shelf_status` tinyint(4) DEFAULT '0' COMMENT '上架状态',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',

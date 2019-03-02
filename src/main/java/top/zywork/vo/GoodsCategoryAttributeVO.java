@@ -12,14 +12,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * GoodsCategoryAttributeVO值对象类<br/>
  *
- * 创建于2019-02-13<br/>
+ * 创建于2019-02-28<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class GoodsCategoryAttributeVO extends BaseVO {
 
-    private static final long serialVersionUID = -9223372035373166673L;
+    private static final long serialVersionUID = -9223372036609430989L;
 
     //t_goods_category表的字段对应的属性
 	// 类目编号
@@ -47,6 +47,9 @@ public class GoodsCategoryAttributeVO extends BaseVO {
 	// 数据长度
 	@NotNull(message = "此项是必须项")
 	private Integer goodsAttributeAttrLength;
+	// 是否必填
+	@NotNull(message = "此项是必须项")
+	private Byte goodsAttributeAttrRequired;
 	// 是否前端显示
 	@NotNull(message = "此项是必须项")
 	private Byte goodsAttributeAttrDisplay;
@@ -60,7 +63,7 @@ public class GoodsCategoryAttributeVO extends BaseVO {
 	
     public GoodsCategoryAttributeVO () {}
 
-    public GoodsCategoryAttributeVO (Long goodsCategoryId, String goodsCategoryTitle, Long goodsAttributeId, String goodsAttributeAttrName, String goodsAttributeAttrCode, String goodsAttributeAttrType, Integer goodsAttributeAttrLength, Byte goodsAttributeAttrDisplay, Integer goodsCategoryAttributeAttrOrder, Date goodsCategoryAttributeCreateTime) {
+    public GoodsCategoryAttributeVO (Long goodsCategoryId, String goodsCategoryTitle, Long goodsAttributeId, String goodsAttributeAttrName, String goodsAttributeAttrCode, String goodsAttributeAttrType, Integer goodsAttributeAttrLength, Byte goodsAttributeAttrRequired, Byte goodsAttributeAttrDisplay, Integer goodsCategoryAttributeAttrOrder, Date goodsCategoryAttributeCreateTime) {
         this.goodsCategoryId = goodsCategoryId;
 		this.goodsCategoryTitle = goodsCategoryTitle;
 		this.goodsAttributeId = goodsAttributeId;
@@ -68,6 +71,7 @@ public class GoodsCategoryAttributeVO extends BaseVO {
 		this.goodsAttributeAttrCode = goodsAttributeAttrCode;
 		this.goodsAttributeAttrType = goodsAttributeAttrType;
 		this.goodsAttributeAttrLength = goodsAttributeAttrLength;
+		this.goodsAttributeAttrRequired = goodsAttributeAttrRequired;
 		this.goodsAttributeAttrDisplay = goodsAttributeAttrDisplay;
 		this.goodsCategoryAttributeAttrOrder = goodsCategoryAttributeAttrOrder;
 		this.goodsCategoryAttributeCreateTime = goodsCategoryAttributeCreateTime;
@@ -130,6 +134,14 @@ public class GoodsCategoryAttributeVO extends BaseVO {
 		this.goodsAttributeAttrLength = goodsAttributeAttrLength;
 	}
 
+	public Byte getGoodsAttributeAttrRequired() {
+		return goodsAttributeAttrRequired;
+	}
+
+	public void setGoodsAttributeAttrRequired(Byte goodsAttributeAttrRequired) {
+		this.goodsAttributeAttrRequired = goodsAttributeAttrRequired;
+	}
+
 	public Byte getGoodsAttributeAttrDisplay() {
 		return goodsAttributeAttrDisplay;
 	}
@@ -165,6 +177,7 @@ public class GoodsCategoryAttributeVO extends BaseVO {
 				", goodsAttributeAttrCode = " + goodsAttributeAttrCode + 
 				", goodsAttributeAttrType = " + goodsAttributeAttrType + 
 				", goodsAttributeAttrLength = " + goodsAttributeAttrLength + 
+				", goodsAttributeAttrRequired = " + goodsAttributeAttrRequired + 
 				", goodsAttributeAttrDisplay = " + goodsAttributeAttrDisplay + 
 				", goodsCategoryAttributeAttrOrder = " + goodsCategoryAttributeAttrOrder + 
 				", goodsCategoryAttributeCreateTime = " + goodsCategoryAttributeCreateTime + 

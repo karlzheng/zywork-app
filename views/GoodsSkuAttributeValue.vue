@@ -18,33 +18,114 @@
     </Row>
     <Modal v-model="modal.search" title="高级搜索">
       <Form ref="searchForm" :model="searchForm" :label-width="80">
-        <FormItem label="类目编号"><Row>
+        <FormItem label="商品编号"><Row>
 	<i-col span="11">
-	<FormItem prop="goodsCategoryIdMin">
-	<InputNumber v-model="searchForm.goodsCategoryIdMin" placeholder="请输入开始类目编号" style="width: 100%;"/>
+	<FormItem prop="goodsInfoIdMin">
+	<InputNumber v-model="searchForm.goodsInfoIdMin" placeholder="请输入开始商品编号" style="width: 100%;"/>
 </FormItem>
 </i-col>
 	<i-col span="2" style="text-align: center">-</i-col>
 	<i-col span="11">
-	<FormItem prop="goodsCategoryIdMax">
-	<InputNumber v-model="searchForm.goodsCategoryIdMax" placeholder="请输入结束类目编号" style="width: 100%;"/>
+	<FormItem prop="goodsInfoIdMax">
+	<InputNumber v-model="searchForm.goodsInfoIdMax" placeholder="请输入结束商品编号" style="width: 100%;"/>
 </FormItem>
 </i-col>
 </Row>
 </FormItem>
-<FormItem label="类目名称" prop="goodsCategoryTitle">
-	<Input v-model="searchForm.goodsCategoryTitle" placeholder="请输入类目名称"/>
-</FormItem>
-<FormItem label="商品属性编号"><Row>
+<FormItem label="店铺编号"><Row>
 	<i-col span="11">
-	<FormItem prop="goodsAttributeIdMin">
-	<InputNumber v-model="searchForm.goodsAttributeIdMin" placeholder="请输入开始商品属性编号" style="width: 100%;"/>
+	<FormItem prop="goodsInfoShopIdMin">
+	<InputNumber v-model="searchForm.goodsInfoShopIdMin" placeholder="请输入开始店铺编号" style="width: 100%;"/>
 </FormItem>
 </i-col>
 	<i-col span="2" style="text-align: center">-</i-col>
 	<i-col span="11">
-	<FormItem prop="goodsAttributeIdMax">
-	<InputNumber v-model="searchForm.goodsAttributeIdMax" placeholder="请输入结束商品属性编号" style="width: 100%;"/>
+	<FormItem prop="goodsInfoShopIdMax">
+	<InputNumber v-model="searchForm.goodsInfoShopIdMax" placeholder="请输入结束店铺编号" style="width: 100%;"/>
+</FormItem>
+</i-col>
+</Row>
+</FormItem>
+<FormItem label="类目编号"><Row>
+	<i-col span="11">
+	<FormItem prop="goodsInfoCategoryIdMin">
+	<InputNumber v-model="searchForm.goodsInfoCategoryIdMin" placeholder="请输入开始类目编号" style="width: 100%;"/>
+</FormItem>
+</i-col>
+	<i-col span="2" style="text-align: center">-</i-col>
+	<i-col span="11">
+	<FormItem prop="goodsInfoCategoryIdMax">
+	<InputNumber v-model="searchForm.goodsInfoCategoryIdMax" placeholder="请输入结束类目编号" style="width: 100%;"/>
+</FormItem>
+</i-col>
+</Row>
+</FormItem>
+<FormItem label="上架状态"><Row>
+	<i-col span="11">
+	<FormItem prop="goodsInfoShelfStatusMin">
+	<InputNumber v-model="searchForm.goodsInfoShelfStatusMin" placeholder="请输入开始上架状态" style="width: 100%;"/>
+</FormItem>
+</i-col>
+	<i-col span="2" style="text-align: center">-</i-col>
+	<i-col span="11">
+	<FormItem prop="goodsInfoShelfStatusMax">
+	<InputNumber v-model="searchForm.goodsInfoShelfStatusMax" placeholder="请输入结束上架状态" style="width: 100%;"/>
+</FormItem>
+</i-col>
+</Row>
+</FormItem>
+<FormItem label="SKU编号"><Row>
+	<i-col span="11">
+	<FormItem prop="goodsSkuIdMin">
+	<InputNumber v-model="searchForm.goodsSkuIdMin" placeholder="请输入开始SKU编号" style="width: 100%;"/>
+</FormItem>
+</i-col>
+	<i-col span="2" style="text-align: center">-</i-col>
+	<i-col span="11">
+	<FormItem prop="goodsSkuIdMax">
+	<InputNumber v-model="searchForm.goodsSkuIdMax" placeholder="请输入结束SKU编号" style="width: 100%;"/>
+</FormItem>
+</i-col>
+</Row>
+</FormItem>
+<FormItem label="上架状态"><Row>
+	<i-col span="11">
+	<FormItem prop="goodsSkuShelfStatusMin">
+	<InputNumber v-model="searchForm.goodsSkuShelfStatusMin" placeholder="请输入开始上架状态" style="width: 100%;"/>
+</FormItem>
+</i-col>
+	<i-col span="2" style="text-align: center">-</i-col>
+	<i-col span="11">
+	<FormItem prop="goodsSkuShelfStatusMax">
+	<InputNumber v-model="searchForm.goodsSkuShelfStatusMax" placeholder="请输入结束上架状态" style="width: 100%;"/>
+</FormItem>
+</i-col>
+</Row>
+</FormItem>
+<FormItem label="属性编号"><Row>
+	<i-col span="11">
+	<FormItem prop="goodsCategoryAttributeAttrIdMin">
+	<InputNumber v-model="searchForm.goodsCategoryAttributeAttrIdMin" placeholder="请输入开始属性编号" style="width: 100%;"/>
+</FormItem>
+</i-col>
+	<i-col span="2" style="text-align: center">-</i-col>
+	<i-col span="11">
+	<FormItem prop="goodsCategoryAttributeAttrIdMax">
+	<InputNumber v-model="searchForm.goodsCategoryAttributeAttrIdMax" placeholder="请输入结束属性编号" style="width: 100%;"/>
+</FormItem>
+</i-col>
+</Row>
+</FormItem>
+<FormItem label="属性排序"><Row>
+	<i-col span="11">
+	<FormItem prop="goodsCategoryAttributeAttrOrderMin">
+	<InputNumber v-model="searchForm.goodsCategoryAttributeAttrOrderMin" placeholder="请输入开始属性排序" style="width: 100%;"/>
+</FormItem>
+</i-col>
+	<i-col span="2" style="text-align: center">-</i-col>
+	<i-col span="11">
+	<FormItem prop="goodsCategoryAttributeAttrOrderMax">
+	<InputNumber v-model="searchForm.goodsCategoryAttributeAttrOrderMax" placeholder="请输入结束属性排序" style="width: 100%;"/>
 </FormItem>
 </i-col>
 </Row>
@@ -100,33 +181,8 @@
 </i-col>
 </Row>
 </FormItem>
-<FormItem label="属性排序"><Row>
-	<i-col span="11">
-	<FormItem prop="goodsCategoryAttributeAttrOrderMin">
-	<InputNumber v-model="searchForm.goodsCategoryAttributeAttrOrderMin" placeholder="请输入开始属性排序" style="width: 100%;"/>
-</FormItem>
-</i-col>
-	<i-col span="2" style="text-align: center">-</i-col>
-	<i-col span="11">
-	<FormItem prop="goodsCategoryAttributeAttrOrderMax">
-	<InputNumber v-model="searchForm.goodsCategoryAttributeAttrOrderMax" placeholder="请输入结束属性排序" style="width: 100%;"/>
-</FormItem>
-</i-col>
-</Row>
-</FormItem>
-<FormItem label="创建时间"><Row>
-	<i-col span="11">
-	<FormItem prop="goodsCategoryAttributeCreateTimeMin">
-	<DatePicker @on-change="searchForm.goodsCategoryAttributeCreateTimeMin=$event" :value="searchForm.goodsCategoryAttributeCreateTimeMin" placeholder="请输入开始创建时间" type="datetime" format="yyyy-MM-dd HH:mm:ss" style="width: 100%;"></DatePicker>
-</FormItem>
-</i-col>
-	<i-col span="2" style="text-align: center">-</i-col>
-	<i-col span="11">
-	<FormItem prop="goodsCategoryAttributeCreateTimeMax">
-	<DatePicker @on-change="searchForm.goodsCategoryAttributeCreateTimeMax=$event" :value="searchForm.goodsCategoryAttributeCreateTimeMax" placeholder="请输入结束创建时间" type="datetime" format="yyyy-MM-dd HH:mm:ss" style="width: 100%;"></DatePicker>
-</FormItem>
-</i-col>
-</Row>
+<FormItem label="属性值" prop="goodsAttributeValueAttrValue">
+	<Input v-model="searchForm.goodsAttributeValueAttrValue" placeholder="请输入属性值"/>
 </FormItem>
 
       </Form>
@@ -137,17 +193,21 @@
       </div>
     </Modal>
     <Modal v-model="modal.detail" title="详情">
-      <p>类目编号: <span v-text="form.goodsCategoryId"></span></p>
-<p>类目名称: <span v-text="form.goodsCategoryTitle"></span></p>
-<p>商品属性编号: <span v-text="form.goodsAttributeId"></span></p>
+      <p>商品编号: <span v-text="form.goodsInfoId"></span></p>
+<p>店铺编号: <span v-text="form.goodsInfoShopId"></span></p>
+<p>类目编号: <span v-text="form.goodsInfoCategoryId"></span></p>
+<p>上架状态: <span v-text="form.goodsInfoShelfStatus"></span></p>
+<p>SKU编号: <span v-text="form.goodsSkuId"></span></p>
+<p>上架状态: <span v-text="form.goodsSkuShelfStatus"></span></p>
+<p>属性编号: <span v-text="form.goodsCategoryAttributeAttrId"></span></p>
+<p>属性排序: <span v-text="form.goodsCategoryAttributeAttrOrder"></span></p>
 <p>属性名称: <span v-text="form.goodsAttributeAttrName"></span></p>
 <p>属性代码: <span v-text="form.goodsAttributeAttrCode"></span></p>
 <p>数据类型: <span v-text="form.goodsAttributeAttrType"></span></p>
 <p>数据长度: <span v-text="form.goodsAttributeAttrLength"></span></p>
 <p>是否必填: <span v-text="form.goodsAttributeAttrRequired"></span></p>
 <p>是否前端显示: <span v-text="form.goodsAttributeAttrDisplay"></span></p>
-<p>属性排序: <span v-text="form.goodsCategoryAttributeAttrOrder"></span></p>
-<p>创建时间: <span v-text="form.goodsCategoryAttributeCreateTime"></span></p>
+<p>属性值: <span v-text="form.goodsAttributeValueAttrValue"></span></p>
 
     </Modal>
   </div>
@@ -157,7 +217,7 @@
   import * as utils from '@/api/utils'
 
   export default {
-    name: 'GoodsCategoryAttribute',
+    name: 'GoodsSkuAttributeValue',
     data() {
       return {
         modal: {
@@ -170,26 +230,30 @@
           search: false
         },
         urls: {
-          searchUrl: '/goods-category-attr/admin/pager-cond',
-          allUrl: '/goods-category-attr/admin/all',
-          detailUrl: '/goods-category-attr/admin/one/',
-          multiUrl: '/goods-category-attr/admin/multi/'
+          searchUrl: '/goods-sku-attr-val/admin/pager-cond',
+          allUrl: '/goods-sku-attr-val/admin/all',
+          detailUrl: '/goods-sku-attr-val/admin/one/',
+          multiUrl: '/goods-sku-attr-val/admin/multi/'
         },
         page: {
           total: 0
         },
         form: {
-          goodsCategoryId: null,
-goodsCategoryTitle: null,
-goodsAttributeId: null,
+          goodsInfoId: null,
+goodsInfoShopId: null,
+goodsInfoCategoryId: null,
+goodsInfoShelfStatus: null,
+goodsSkuId: null,
+goodsSkuShelfStatus: null,
+goodsCategoryAttributeAttrId: null,
+goodsCategoryAttributeAttrOrder: null,
 goodsAttributeAttrName: null,
 goodsAttributeAttrCode: null,
 goodsAttributeAttrType: null,
 goodsAttributeAttrLength: null,
 goodsAttributeAttrRequired: null,
 goodsAttributeAttrDisplay: null,
-goodsCategoryAttributeAttrOrder: null,
-goodsCategoryAttributeCreateTime: null,
+goodsAttributeValueAttrValue: null,
 
         },
         searchForm: {
@@ -197,13 +261,30 @@ goodsCategoryAttributeCreateTime: null,
           pageSize: 10,
           sortColumn: null,
           sortOrder: null,
-          goodsCategoryId: null,
-goodsCategoryIdMin: null, 
-goodsCategoryIdMax: null, 
-goodsCategoryTitle: null,
-goodsAttributeId: null,
-goodsAttributeIdMin: null, 
-goodsAttributeIdMax: null, 
+          goodsInfoId: null,
+goodsInfoIdMin: null, 
+goodsInfoIdMax: null, 
+goodsInfoShopId: null,
+goodsInfoShopIdMin: null, 
+goodsInfoShopIdMax: null, 
+goodsInfoCategoryId: null,
+goodsInfoCategoryIdMin: null, 
+goodsInfoCategoryIdMax: null, 
+goodsInfoShelfStatus: null,
+goodsInfoShelfStatusMin: null, 
+goodsInfoShelfStatusMax: null, 
+goodsSkuId: null,
+goodsSkuIdMin: null, 
+goodsSkuIdMax: null, 
+goodsSkuShelfStatus: null,
+goodsSkuShelfStatusMin: null, 
+goodsSkuShelfStatusMax: null, 
+goodsCategoryAttributeAttrId: null,
+goodsCategoryAttributeAttrIdMin: null, 
+goodsCategoryAttributeAttrIdMax: null, 
+goodsCategoryAttributeAttrOrder: null,
+goodsCategoryAttributeAttrOrderMin: null, 
+goodsCategoryAttributeAttrOrderMax: null, 
 goodsAttributeAttrName: null,
 goodsAttributeAttrCode: null,
 goodsAttributeAttrType: null,
@@ -216,12 +297,7 @@ goodsAttributeAttrRequiredMax: null,
 goodsAttributeAttrDisplay: null,
 goodsAttributeAttrDisplayMin: null, 
 goodsAttributeAttrDisplayMax: null, 
-goodsCategoryAttributeAttrOrder: null,
-goodsCategoryAttributeAttrOrderMin: null, 
-goodsCategoryAttributeAttrOrderMax: null, 
-goodsCategoryAttributeCreateTime: null,
-goodsCategoryAttributeCreateTimeMin: null, 
-goodsCategoryAttributeCreateTimeMax: null, 
+goodsAttributeValueAttrValue: null,
 
         },
         table: {
@@ -243,20 +319,50 @@ goodsCategoryAttributeCreateTimeMax: null,
               }
             },
             {
+title: '商品编号',
+key: 'goodsInfoId',
+minWidth: 120,
+sortable: true
+},
+{
+title: '店铺编号',
+key: 'goodsInfoShopId',
+minWidth: 120,
+sortable: true
+},
+{
 title: '类目编号',
-key: 'goodsCategoryId',
+key: 'goodsInfoCategoryId',
 minWidth: 120,
 sortable: true
 },
 {
-title: '类目名称',
-key: 'goodsCategoryTitle',
+title: '上架状态',
+key: 'goodsInfoShelfStatus',
 minWidth: 120,
 sortable: true
 },
 {
-title: '商品属性编号',
-key: 'goodsAttributeId',
+title: 'SKU编号',
+key: 'goodsSkuId',
+minWidth: 120,
+sortable: true
+},
+{
+title: '上架状态',
+key: 'goodsSkuShelfStatus',
+minWidth: 120,
+sortable: true
+},
+{
+title: '属性编号',
+key: 'goodsCategoryAttributeAttrId',
+minWidth: 120,
+sortable: true
+},
+{
+title: '属性排序',
+key: 'goodsCategoryAttributeAttrOrder',
 minWidth: 120,
 sortable: true
 },
@@ -297,14 +403,8 @@ minWidth: 120,
 sortable: true
 },
 {
-title: '属性排序',
-key: 'goodsCategoryAttributeAttrOrder',
-minWidth: 120,
-sortable: true
-},
-{
-title: '创建时间',
-key: 'goodsCategoryAttributeCreateTime',
+title: '属性值',
+key: 'goodsAttributeValueAttrValue',
 minWidth: 120,
 sortable: true
 },

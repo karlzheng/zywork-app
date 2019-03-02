@@ -5,7 +5,7 @@
 <mapper namespace="top.zywork.dao.GoodsCategoryAttributeDAO">
 
     <sql id="select_columns">
-        t_goods_category.id as goodsCategoryId, t_goods_category.title as goodsCategoryTitle, t_goods_attribute.id as goodsAttributeId, t_goods_attribute.attr_name as goodsAttributeAttrName, t_goods_attribute.attr_code as goodsAttributeAttrCode, t_goods_attribute.attr_type as goodsAttributeAttrType, t_goods_attribute.attr_length as goodsAttributeAttrLength, t_goods_attribute.attr_display as goodsAttributeAttrDisplay, t_goods_category_attribute.attr_order as goodsCategoryAttributeAttrOrder, t_goods_category_attribute.create_time as goodsCategoryAttributeCreateTime
+        t_goods_category.id as goodsCategoryId, t_goods_category.title as goodsCategoryTitle, t_goods_attribute.id as goodsAttributeId, t_goods_attribute.attr_name as goodsAttributeAttrName, t_goods_attribute.attr_code as goodsAttributeAttrCode, t_goods_attribute.attr_type as goodsAttributeAttrType, t_goods_attribute.attr_length as goodsAttributeAttrLength, t_goods_attribute.attr_required as goodsAttributeAttrRequired, t_goods_attribute.attr_display as goodsAttributeAttrDisplay, t_goods_category_attribute.attr_order as goodsCategoryAttributeAttrOrder, t_goods_category_attribute.create_time as goodsCategoryAttributeCreateTime
     </sql>
 
     <sql id="query_where_clause">
@@ -57,6 +57,18 @@
 		<if test="query != null and query.goodsAttributeAttrLengthMin != null and query.goodsAttributeAttrLengthMax != null">
 			and t_goods_attribute.attr_length <![CDATA[ >= ]]> #{query.goodsAttributeAttrLengthMin} and t_goods_attribute.attr_length <![CDATA[ <= ]]> #{query.goodsAttributeAttrLengthMax}
 		</if>
+		<if test="query != null and query.goodsAttributeAttrRequired != null">
+			and t_goods_attribute.attr_required = #{query.goodsAttributeAttrRequired}
+		</if>
+		<if test="query != null and query.goodsAttributeAttrRequiredMin != null and query.goodsAttributeAttrRequiredMax == null">
+			and t_goods_attribute.attr_required <![CDATA[ >= ]]> #{query.goodsAttributeAttrRequiredMin}
+		</if>
+		<if test="query != null and query.goodsAttributeAttrRequiredMin == null and query.goodsAttributeAttrRequiredMax != null">
+			and t_goods_attribute.attr_required <![CDATA[ <= ]]> #{query.goodsAttributeAttrRequiredMax}
+		</if>
+		<if test="query != null and query.goodsAttributeAttrRequiredMin != null and query.goodsAttributeAttrRequiredMax != null">
+			and t_goods_attribute.attr_required <![CDATA[ >= ]]> #{query.goodsAttributeAttrRequiredMin} and t_goods_attribute.attr_required <![CDATA[ <= ]]> #{query.goodsAttributeAttrRequiredMax}
+		</if>
 		<if test="query != null and query.goodsAttributeAttrDisplay != null">
 			and t_goods_attribute.attr_display = #{query.goodsAttributeAttrDisplay}
 		</if>
@@ -101,14 +113,14 @@
     <select id="listById" parameterType="long" resultType="goodsCategoryAttributeDO">
         select
         <include refid="select_columns"/>
-        from t_goods_category, t_goods_attribute, t_goods_category_attribute where t_goods_category.id = #{id} and
+        from t_goods_category_attribute, t_goods_attribute, t_goods_category where t_goods_category.id = #{id} and
         t_goods_category.id = t_goods_category_attribute.category_id and t_goods_attribute.id = t_goods_category_attribute.attr_id
     </select>
 
     <select id="listAll" resultType="goodsCategoryAttributeDO">
         select
         <include refid="select_columns"/>
-        from t_goods_category, t_goods_attribute, t_goods_category_attribute
+        from t_goods_category_attribute, t_goods_attribute, t_goods_category
         where
         t_goods_category.id = t_goods_category_attribute.category_id and t_goods_attribute.id = t_goods_category_attribute.attr_id
         order by t_goods_category.update_time desc, t_goods_category.create_time desc
@@ -117,7 +129,7 @@
     <select id="listAllByCondition" resultType="goodsCategoryAttributeDO">
         select
         <include refid="select_columns"/>
-        from t_goods_category, t_goods_attribute, t_goods_category_attribute
+        from t_goods_category_attribute, t_goods_attribute, t_goods_category
         <where>
             <include refid="query_where_clause"/>
         </where>
@@ -133,7 +145,7 @@
     <select id="listPageByCondition" resultType="goodsCategoryAttributeDO">
         select
         <include refid="select_columns"/>
-        from t_goods_category, t_goods_attribute, t_goods_category_attribute
+        from t_goods_category_attribute, t_goods_attribute, t_goods_category
         <where>
             <include refid="query_where_clause"/>
         </where>
@@ -148,7 +160,7 @@
     </select>
 
     <select id="countByCondition" resultType="long">
-        select count(*) from t_goods_category, t_goods_attribute, t_goods_category_attribute
+        select count(*) from t_goods_category_attribute, t_goods_attribute, t_goods_category
         <where>
             <include refid="query_where_clause"/>
         </where>

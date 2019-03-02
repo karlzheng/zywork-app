@@ -6,14 +6,14 @@ import java.util.Date;
 /**
  * GoodsCategoryAttributeDO数据对象实体类<br/>
  *
- * 创建于2019-02-13<br/>
+ * 创建于2019-02-28<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class GoodsCategoryAttributeDO extends BaseDO {
 
-    private static final long serialVersionUID = -9223372036577879045L;
+    private static final long serialVersionUID = -9223372034730224217L;
 
     //t_goods_category表的字段对应的属性
 	// 类目编号
@@ -31,6 +31,8 @@ public class GoodsCategoryAttributeDO extends BaseDO {
 	private String goodsAttributeAttrType;
 	// 数据长度
 	private Integer goodsAttributeAttrLength;
+	// 是否必填
+	private Byte goodsAttributeAttrRequired;
 	// 是否前端显示
 	private Byte goodsAttributeAttrDisplay;
 	//t_goods_category_attribute表的字段对应的属性
@@ -41,7 +43,7 @@ public class GoodsCategoryAttributeDO extends BaseDO {
 	
     public GoodsCategoryAttributeDO () {}
 
-    public GoodsCategoryAttributeDO (Long goodsCategoryId, String goodsCategoryTitle, Long goodsAttributeId, String goodsAttributeAttrName, String goodsAttributeAttrCode, String goodsAttributeAttrType, Integer goodsAttributeAttrLength, Byte goodsAttributeAttrDisplay, Integer goodsCategoryAttributeAttrOrder, Date goodsCategoryAttributeCreateTime) {
+    public GoodsCategoryAttributeDO (Long goodsCategoryId, String goodsCategoryTitle, Long goodsAttributeId, String goodsAttributeAttrName, String goodsAttributeAttrCode, String goodsAttributeAttrType, Integer goodsAttributeAttrLength, Byte goodsAttributeAttrRequired, Byte goodsAttributeAttrDisplay, Integer goodsCategoryAttributeAttrOrder, Date goodsCategoryAttributeCreateTime) {
         this.goodsCategoryId = goodsCategoryId;
 		this.goodsCategoryTitle = goodsCategoryTitle;
 		this.goodsAttributeId = goodsAttributeId;
@@ -49,6 +51,7 @@ public class GoodsCategoryAttributeDO extends BaseDO {
 		this.goodsAttributeAttrCode = goodsAttributeAttrCode;
 		this.goodsAttributeAttrType = goodsAttributeAttrType;
 		this.goodsAttributeAttrLength = goodsAttributeAttrLength;
+		this.goodsAttributeAttrRequired = goodsAttributeAttrRequired;
 		this.goodsAttributeAttrDisplay = goodsAttributeAttrDisplay;
 		this.goodsCategoryAttributeAttrOrder = goodsCategoryAttributeAttrOrder;
 		this.goodsCategoryAttributeCreateTime = goodsCategoryAttributeCreateTime;
@@ -111,6 +114,14 @@ public class GoodsCategoryAttributeDO extends BaseDO {
 		this.goodsAttributeAttrLength = goodsAttributeAttrLength;
 	}
 
+	public Byte getGoodsAttributeAttrRequired() {
+		return goodsAttributeAttrRequired;
+	}
+
+	public void setGoodsAttributeAttrRequired(Byte goodsAttributeAttrRequired) {
+		this.goodsAttributeAttrRequired = goodsAttributeAttrRequired;
+	}
+
 	public Byte getGoodsAttributeAttrDisplay() {
 		return goodsAttributeAttrDisplay;
 	}
@@ -146,6 +157,7 @@ public class GoodsCategoryAttributeDO extends BaseDO {
 				", goodsAttributeAttrCode = " + goodsAttributeAttrCode + 
 				", goodsAttributeAttrType = " + goodsAttributeAttrType + 
 				", goodsAttributeAttrLength = " + goodsAttributeAttrLength + 
+				", goodsAttributeAttrRequired = " + goodsAttributeAttrRequired + 
 				", goodsAttributeAttrDisplay = " + goodsAttributeAttrDisplay + 
 				", goodsCategoryAttributeAttrOrder = " + goodsCategoryAttributeAttrOrder + 
 				", goodsCategoryAttributeCreateTime = " + goodsCategoryAttributeCreateTime + 

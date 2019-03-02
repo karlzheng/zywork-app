@@ -630,6 +630,32 @@
         ]
     },
     {
+      "moduleTitle": "商品SKU管理",
+      "permissions": [
+        {
+          "title": "后台-商品SKU管理",
+          "permission": "/goods-sku/admin/**",
+          "roles": [
+            "super_sys_admin",
+            "sys_admin"
+          ]
+        }
+      ]
+    },
+    {
+      "moduleTitle": "商品SKU属性查询",
+      "permissions": [
+        {
+          "title": "后台-商品SKU属性查询",
+          "permission": "/goods-sku-attr-val/admin/**",
+          "roles": [
+            "super_sys_admin",
+            "sys_admin"
+          ]
+        }
+      ]
+    },
+    {
         "moduleTitle": "消息管理",
         "permissions": [
             {

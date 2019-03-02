@@ -8,14 +8,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * GoodsCategoryAttributeQuery查询对象类<br/>
  *
- * 创建于2019-02-13<br/>
+ * 创建于2019-02-28<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
 public class GoodsCategoryAttributeQuery extends PageQuery {
 
-    private static final long serialVersionUID = -9223372035387709484L;
+    private static final long serialVersionUID = -9223372036512012799L;
 
     //t_goods_category表的字段对应的属性
 	// 类目编号
@@ -45,6 +45,12 @@ public class GoodsCategoryAttributeQuery extends PageQuery {
 	private Integer goodsAttributeAttrLengthMin;
 	// 数据长度（最大值）
 	private Integer goodsAttributeAttrLengthMax;
+	// 是否必填
+	private Byte goodsAttributeAttrRequired;
+	// 是否必填（最小值）
+	private Byte goodsAttributeAttrRequiredMin;
+	// 是否必填（最大值）
+	private Byte goodsAttributeAttrRequiredMax;
 	// 是否前端显示
 	private Byte goodsAttributeAttrDisplay;
 	// 是否前端显示（最小值）
@@ -70,7 +76,7 @@ public class GoodsCategoryAttributeQuery extends PageQuery {
 	
     public GoodsCategoryAttributeQuery () {}
 
-    public GoodsCategoryAttributeQuery (Long goodsCategoryId, Long goodsCategoryIdMin, Long goodsCategoryIdMax, String goodsCategoryTitle, Long goodsAttributeId, Long goodsAttributeIdMin, Long goodsAttributeIdMax, String goodsAttributeAttrName, String goodsAttributeAttrCode, String goodsAttributeAttrType, Integer goodsAttributeAttrLength, Integer goodsAttributeAttrLengthMin, Integer goodsAttributeAttrLengthMax, Byte goodsAttributeAttrDisplay, Byte goodsAttributeAttrDisplayMin, Byte goodsAttributeAttrDisplayMax, Integer goodsCategoryAttributeAttrOrder, Integer goodsCategoryAttributeAttrOrderMin, Integer goodsCategoryAttributeAttrOrderMax, Date goodsCategoryAttributeCreateTime, Date goodsCategoryAttributeCreateTimeMin, Date goodsCategoryAttributeCreateTimeMax) {
+    public GoodsCategoryAttributeQuery (Long goodsCategoryId, Long goodsCategoryIdMin, Long goodsCategoryIdMax, String goodsCategoryTitle, Long goodsAttributeId, Long goodsAttributeIdMin, Long goodsAttributeIdMax, String goodsAttributeAttrName, String goodsAttributeAttrCode, String goodsAttributeAttrType, Integer goodsAttributeAttrLength, Integer goodsAttributeAttrLengthMin, Integer goodsAttributeAttrLengthMax, Byte goodsAttributeAttrRequired, Byte goodsAttributeAttrRequiredMin, Byte goodsAttributeAttrRequiredMax, Byte goodsAttributeAttrDisplay, Byte goodsAttributeAttrDisplayMin, Byte goodsAttributeAttrDisplayMax, Integer goodsCategoryAttributeAttrOrder, Integer goodsCategoryAttributeAttrOrderMin, Integer goodsCategoryAttributeAttrOrderMax, Date goodsCategoryAttributeCreateTime, Date goodsCategoryAttributeCreateTimeMin, Date goodsCategoryAttributeCreateTimeMax) {
         this.goodsCategoryId = goodsCategoryId;
 		this.goodsCategoryIdMin = goodsCategoryIdMin;
 		this.goodsCategoryIdMax = goodsCategoryIdMax;
@@ -84,6 +90,9 @@ public class GoodsCategoryAttributeQuery extends PageQuery {
 		this.goodsAttributeAttrLength = goodsAttributeAttrLength;
 		this.goodsAttributeAttrLengthMin = goodsAttributeAttrLengthMin;
 		this.goodsAttributeAttrLengthMax = goodsAttributeAttrLengthMax;
+		this.goodsAttributeAttrRequired = goodsAttributeAttrRequired;
+		this.goodsAttributeAttrRequiredMin = goodsAttributeAttrRequiredMin;
+		this.goodsAttributeAttrRequiredMax = goodsAttributeAttrRequiredMax;
 		this.goodsAttributeAttrDisplay = goodsAttributeAttrDisplay;
 		this.goodsAttributeAttrDisplayMin = goodsAttributeAttrDisplayMin;
 		this.goodsAttributeAttrDisplayMax = goodsAttributeAttrDisplayMax;
@@ -200,6 +209,30 @@ public class GoodsCategoryAttributeQuery extends PageQuery {
 		this.goodsAttributeAttrLengthMax = goodsAttributeAttrLengthMax;
 	}
 
+	public Byte getGoodsAttributeAttrRequired() {
+		return goodsAttributeAttrRequired;
+	}
+
+	public void setGoodsAttributeAttrRequired(Byte goodsAttributeAttrRequired) {
+		this.goodsAttributeAttrRequired = goodsAttributeAttrRequired;
+	}
+
+	public Byte getGoodsAttributeAttrRequiredMin() {
+		return goodsAttributeAttrRequiredMin;
+	}
+
+	public void setGoodsAttributeAttrRequiredMin(Byte goodsAttributeAttrRequiredMin) {
+		this.goodsAttributeAttrRequiredMin = goodsAttributeAttrRequiredMin;
+	}
+
+	public Byte getGoodsAttributeAttrRequiredMax() {
+		return goodsAttributeAttrRequiredMax;
+	}
+
+	public void setGoodsAttributeAttrRequiredMax(Byte goodsAttributeAttrRequiredMax) {
+		this.goodsAttributeAttrRequiredMax = goodsAttributeAttrRequiredMax;
+	}
+
 	public Byte getGoodsAttributeAttrDisplay() {
 		return goodsAttributeAttrDisplay;
 	}
@@ -289,6 +322,9 @@ public class GoodsCategoryAttributeQuery extends PageQuery {
 				", goodsAttributeAttrLength = " + goodsAttributeAttrLength + 
 				", goodsAttributeAttrLengthMin = " + goodsAttributeAttrLengthMin + 
 				", goodsAttributeAttrLengthMax = " + goodsAttributeAttrLengthMax + 
+				", goodsAttributeAttrRequired = " + goodsAttributeAttrRequired + 
+				", goodsAttributeAttrRequiredMin = " + goodsAttributeAttrRequiredMin + 
+				", goodsAttributeAttrRequiredMax = " + goodsAttributeAttrRequiredMax + 
 				", goodsAttributeAttrDisplay = " + goodsAttributeAttrDisplay + 
 				", goodsAttributeAttrDisplayMin = " + goodsAttributeAttrDisplayMin + 
 				", goodsAttributeAttrDisplayMax = " + goodsAttributeAttrDisplayMax + 
