@@ -1043,7 +1043,7 @@ INSERT INTO `t_permission` VALUES (179, 36, '演示-商品SKU管理-查询所有
 INSERT INTO `t_permission` VALUES (180, 36, '演示-商品SKU管理-条件查询所有', '/goods-sku/admin/all-cond', NULL, 1, '2019-03-02 16:15:37', NULL, 0);
 INSERT INTO `t_permission` VALUES (181, 36, '演示-商品SKU管理-分页查询', '/goods-sku/admin/pager-cond', NULL, 1, '2019-03-02 16:15:37', NULL, 0);
 INSERT INTO `t_permission` VALUES (182, 37, '后台-商品SKU属性查询', '/goods-sku-attr-val/admin/**', NULL, 1, '2019-03-02 16:15:37', NULL, 0);
-INSERT INTO `t_permission` VALUES (183, 37, '演示-商品SKU属性查询', '/goods-sku/admin/**', NULL, 1, '2019-03-02 16:15:37', NULL, 0);
+INSERT INTO `t_permission` VALUES (183, 37, '演示-商品SKU属性查询', '/goods-sku-attr-val/admin/**', NULL, 1, '2019-03-02 16:15:37', NULL, 0);
 INSERT INTO `t_permission` VALUES (184, 38, '后台-消息管理', '/message/admin/**', NULL, 1, '2019-03-02 16:15:37', NULL, 0);
 INSERT INTO `t_permission` VALUES (185, 38, '演示-消息管理-查询单个', '/message/admin/one/**', NULL, 1, '2019-03-02 16:15:37', NULL, 0);
 INSERT INTO `t_permission` VALUES (186, 38, '演示-消息管理-查询所有', '/message/admin/all', NULL, 1, '2019-03-02 16:15:37', NULL, 0);

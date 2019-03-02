@@ -1537,7 +1537,7 @@
         },
         {
           "title": "演示-商品SKU属性查询",
-          "permission": "/goods-sku/admin/**",
+          "permission": "/goods-sku-attr-val/admin/**",
           "roles": [
             "sys_user_demo"
           ]
