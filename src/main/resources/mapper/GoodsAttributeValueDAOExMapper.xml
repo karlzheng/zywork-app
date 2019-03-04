@@ -1,0 +1,12 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.zywork.dao.GoodsAttributeValueDAO">
+
+
+    <delete id="removeBySkuId" parameterType="long">
+        delete from t_goods_attribute_value where goods_sku_id = #{skuId}
+    </delete>
+
+</mapper>
