@@ -1558,6 +1558,61 @@
       ]
     },
     {
+        "moduleTitle": "购物车管理",
+        "permissions": [
+            {
+                "title": "后台-购物车管理",
+                "permission": "/goods-cart/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "演示-购物车管理-查询单个",
+                "permission": "/goods-cart/admin/one/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-购物车管理-查询所有",
+                "permission": "/goods-cart/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-购物车管理-条件查询所有",
+                "permission": "/goods-cart/admin/all-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-购物车管理-分页查询",
+                "permission": "/goods-cart/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "购物车查询",
+        "permissions": [
+            {
+                "title": "后台-购物车查询",
+                "permission": "/user-goods-cart/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin",
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
         "moduleTitle": "消息管理",
         "permissions": [
             {

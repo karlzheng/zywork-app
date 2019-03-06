@@ -1,0 +1,160 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.zywork.dao.UserGoodsCartDAO">
+
+    <sql id="select_columns">
+        t_user_detail.nickname as userDetailNickname, t_user_detail.headicon as userDetailHeadicon, t_user.id as userId, t_user.phone as userPhone, t_user.email as userEmail, t_goods_sku.id as goodsSkuId, t_goods_sku.goods_id as goodsSkuGoodsId, t_goods_pic.pic_url as goodsPicPicUrl, t_goods_cart.quantity as goodsCartQuantity, t_goods_cart.create_time as goodsCartCreateTime, t_goods_cart.update_time as goodsCartUpdateTime
+    </sql>
+
+    <sql id="query_where_clause">
+        <if test="query != null and query.userDetailNickname != null and query.userDetailNickname != ''">
+			and t_user_detail.nickname like concat('%', #{query.userDetailNickname}, '%')
+		</if>
+		<if test="query != null and query.userDetailHeadicon != null and query.userDetailHeadicon != ''">
+			and t_user_detail.headicon like concat('%', #{query.userDetailHeadicon}, '%')
+		</if>
+		<if test="query != null and query.userId != null">
+			and t_user.id = #{query.userId}
+		</if>
+		<if test="query != null and query.userIdMin != null and query.userIdMax == null">
+			and t_user.id <![CDATA[ >= ]]> #{query.userIdMin}
+		</if>
+		<if test="query != null and query.userIdMin == null and query.userIdMax != null">
+			and t_user.id <![CDATA[ <= ]]> #{query.userIdMax}
+		</if>
+		<if test="query != null and query.userIdMin != null and query.userIdMax != null">
+			and t_user.id <![CDATA[ >= ]]> #{query.userIdMin} and t_user.id <![CDATA[ <= ]]> #{query.userIdMax}
+		</if>
+		<if test="query != null and query.userPhone != null and query.userPhone != ''">
+			and t_user.phone like concat('%', #{query.userPhone}, '%')
+		</if>
+		<if test="query != null and query.userEmail != null and query.userEmail != ''">
+			and t_user.email like concat('%', #{query.userEmail}, '%')
+		</if>
+		<if test="query != null and query.goodsSkuId != null">
+			and t_goods_sku.id = #{query.goodsSkuId}
+		</if>
+		<if test="query != null and query.goodsSkuIdMin != null and query.goodsSkuIdMax == null">
+			and t_goods_sku.id <![CDATA[ >= ]]> #{query.goodsSkuIdMin}
+		</if>
+		<if test="query != null and query.goodsSkuIdMin == null and query.goodsSkuIdMax != null">
+			and t_goods_sku.id <![CDATA[ <= ]]> #{query.goodsSkuIdMax}
+		</if>
+		<if test="query != null and query.goodsSkuIdMin != null and query.goodsSkuIdMax != null">
+			and t_goods_sku.id <![CDATA[ >= ]]> #{query.goodsSkuIdMin} and t_goods_sku.id <![CDATA[ <= ]]> #{query.goodsSkuIdMax}
+		</if>
+		<if test="query != null and query.goodsSkuGoodsId != null">
+			and t_goods_sku.goods_id = #{query.goodsSkuGoodsId}
+		</if>
+		<if test="query != null and query.goodsSkuGoodsIdMin != null and query.goodsSkuGoodsIdMax == null">
+			and t_goods_sku.goods_id <![CDATA[ >= ]]> #{query.goodsSkuGoodsIdMin}
+		</if>
+		<if test="query != null and query.goodsSkuGoodsIdMin == null and query.goodsSkuGoodsIdMax != null">
+			and t_goods_sku.goods_id <![CDATA[ <= ]]> #{query.goodsSkuGoodsIdMax}
+		</if>
+		<if test="query != null and query.goodsSkuGoodsIdMin != null and query.goodsSkuGoodsIdMax != null">
+			and t_goods_sku.goods_id <![CDATA[ >= ]]> #{query.goodsSkuGoodsIdMin} and t_goods_sku.goods_id <![CDATA[ <= ]]> #{query.goodsSkuGoodsIdMax}
+		</if>
+		<if test="query != null and query.goodsPicPicUrl != null and query.goodsPicPicUrl != ''">
+			and t_goods_pic.pic_url like concat('%', #{query.goodsPicPicUrl}, '%')
+		</if>
+		<if test="query != null and query.goodsCartQuantity != null">
+			and t_goods_cart.quantity = #{query.goodsCartQuantity}
+		</if>
+		<if test="query != null and query.goodsCartQuantityMin != null and query.goodsCartQuantityMax == null">
+			and t_goods_cart.quantity <![CDATA[ >= ]]> #{query.goodsCartQuantityMin}
+		</if>
+		<if test="query != null and query.goodsCartQuantityMin == null and query.goodsCartQuantityMax != null">
+			and t_goods_cart.quantity <![CDATA[ <= ]]> #{query.goodsCartQuantityMax}
+		</if>
+		<if test="query != null and query.goodsCartQuantityMin != null and query.goodsCartQuantityMax != null">
+			and t_goods_cart.quantity <![CDATA[ >= ]]> #{query.goodsCartQuantityMin} and t_goods_cart.quantity <![CDATA[ <= ]]> #{query.goodsCartQuantityMax}
+		</if>
+		<if test="query != null and query.goodsCartCreateTime != null">
+			and t_goods_cart.create_time = #{query.goodsCartCreateTime}
+		</if>
+		<if test="query != null and query.goodsCartCreateTimeMin != null and query.goodsCartCreateTimeMax == null">
+			and t_goods_cart.create_time <![CDATA[ >= ]]> #{query.goodsCartCreateTimeMin}
+		</if>
+		<if test="query != null and query.goodsCartCreateTimeMin == null and query.goodsCartCreateTimeMax != null">
+			and t_goods_cart.create_time <![CDATA[ <= ]]> #{query.goodsCartCreateTimeMax}
+		</if>
+		<if test="query != null and query.goodsCartCreateTimeMin != null and query.goodsCartCreateTimeMax != null">
+			and t_goods_cart.create_time <![CDATA[ >= ]]> #{query.goodsCartCreateTimeMin} and t_goods_cart.create_time <![CDATA[ <= ]]> #{query.goodsCartCreateTimeMax}
+		</if>
+		<if test="query != null and query.goodsCartUpdateTime != null">
+			and t_goods_cart.update_time = #{query.goodsCartUpdateTime}
+		</if>
+		<if test="query != null and query.goodsCartUpdateTimeMin != null and query.goodsCartUpdateTimeMax == null">
+			and t_goods_cart.update_time <![CDATA[ >= ]]> #{query.goodsCartUpdateTimeMin}
+		</if>
+		<if test="query != null and query.goodsCartUpdateTimeMin == null and query.goodsCartUpdateTimeMax != null">
+			and t_goods_cart.update_time <![CDATA[ <= ]]> #{query.goodsCartUpdateTimeMax}
+		</if>
+		<if test="query != null and query.goodsCartUpdateTimeMin != null and query.goodsCartUpdateTimeMax != null">
+			and t_goods_cart.update_time <![CDATA[ >= ]]> #{query.goodsCartUpdateTimeMin} and t_goods_cart.update_time <![CDATA[ <= ]]> #{query.goodsCartUpdateTimeMax}
+		</if>
+		
+        and
+        t_user.id = t_user_detail.id and t_user.id = t_goods_cart.user_id and t_goods_cart.goods_sku_id = t_goods_sku.id and t_goods_sku.pic_id = t_goods_pic.id
+    </sql>
+
+    <select id="listById" parameterType="long" resultType="userGoodsCartDO">
+        select
+        <include refid="select_columns"/>
+        from t_user_detail, t_goods_sku, t_goods_pic, t_goods_cart, t_user where t_user.id = #{id} and
+        t_user.id = t_user_detail.id and t_user.id = t_goods_cart.user_id and t_goods_cart.goods_sku_id = t_goods_sku.id and t_goods_sku.pic_id = t_goods_pic.id
+    </select>
+
+    <select id="listAll" resultType="userGoodsCartDO">
+        select
+        <include refid="select_columns"/>
+        from t_user_detail, t_goods_sku, t_goods_pic, t_goods_cart, t_user
+        where
+        t_user.id = t_user_detail.id and t_user.id = t_goods_cart.user_id and t_goods_cart.goods_sku_id = t_goods_sku.id and t_goods_sku.pic_id = t_goods_pic.id
+        order by t_user.update_time desc, t_user.create_time desc
+    </select>
+
+    <select id="listAllByCondition" resultType="userGoodsCartDO">
+        select
+        <include refid="select_columns"/>
+        from t_user_detail, t_goods_sku, t_goods_pic, t_goods_cart, t_user
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+        order by
+        <if test="query.sortColumn != null and query.sortColumn != ''">
+            ${query.sortColumn} ${query.sortOrder}
+        </if>
+        <if test="query.sortColumn == null or query.sortColumn == ''">
+            t_user.update_time desc, t_user.create_time desc
+        </if>
+    </select>
+
+    <select id="listPageByCondition" resultType="userGoodsCartDO">
+        select
+        <include refid="select_columns"/>
+        from t_user_detail, t_goods_sku, t_goods_pic, t_goods_cart, t_user
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+        order by
+        <if test="query.sortColumn != null and query.sortColumn != ''">
+            ${query.sortColumn} ${query.sortOrder}
+        </if>
+        <if test="query.sortColumn == null or query.sortColumn == ''">
+            t_user.update_time desc, t_user.create_time desc
+        </if>
+        limit #{query.beginIndex}, #{query.pageSize}
+    </select>
+
+    <select id="countByCondition" resultType="long">
+        select count(*) from t_user_detail, t_goods_sku, t_goods_pic, t_goods_cart, t_user
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+    </select>
+
+</mapper>

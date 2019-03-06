@@ -669,6 +669,32 @@
       ]
     },
     {
+        "moduleTitle": "购物车管理",
+        "permissions": [
+            {
+                "title": "后台-购物车管理",
+                "permission": "/goods-cart/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "购物车查询",
+        "permissions": [
+            {
+                "title": "后台-购物车查询",
+                "permission": "/user-goods-cart/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            }
+        ]
+    },
+    {
         "moduleTitle": "消息管理",
         "permissions": [
             {
