@@ -21,7 +21,7 @@ public interface DistributionDAO {
      * 查询所有顶级分销商，及上面没有分销商
      * @return
      */
-    List<Object> listAllTop();
+    List<Object> listAllTop(@Param("query") PageQuery pageQuery);
 
     /**
      * 所有顶级分销商计数

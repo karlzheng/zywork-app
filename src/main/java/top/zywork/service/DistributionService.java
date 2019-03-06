@@ -17,7 +17,7 @@ public interface DistributionService {
      * 查询所有顶级分销商，及上面没有分销商
      * @return
      */
-    PagerDTO listAllTop();
+    PagerDTO listAllTop(PageQuery pageQuery);
 
     /**
      * 分页查询指定用户上面的几级经销商

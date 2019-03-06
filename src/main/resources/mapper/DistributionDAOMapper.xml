@@ -7,12 +7,12 @@
     <select id="listAllTop" resultType="distributionUserDO">
         select * from
         (
-        select t_user.id as userId, t_user.phone as phone, t_user_hierarchy.create_time as createTime
-        from t_user, t_user_hierarchy
-        where t_user.id = t_user_hierarchy.user_id
+        select t_user.id as userId, t_user.phone as phone, t_user.email, t_user_detail.nickname as nickname, t_user_detail.headicon as headicon, t_user_hierarchy.create_time as createTime
+        from t_user, t_user_detail, t_user_hierarchy
+        where t_user.id = t_user_detail.id and t_user.id = t_user_hierarchy.user_id
         group by t_user.id, t_user.phone, t_user_hierarchy.create_time
         having(count(t_user_hierarchy.user_id) = 1)
-        ) limit #{query.beginIndex}, #{query.pageSize}
+        ) as uh limit #{query.beginIndex}, #{query.pageSize}
     </select>
 
     <select id="countAllTop" resultType="long">
@@ -24,7 +24,8 @@
     </select>
 
     <select id="listAboveUsers" resultType="distributionUserDO">
-        select t_user.id as userId, t_user.phone as phone, uh.create_time as createTime, #{distributionLevel} - uh.user_level + 1 as level from t_user,
+        select t_user.id as userId, t_user.phone as phone, t_user_detail.nickname as nickname, t_user_detail.headicon as headicon,
+        uh.create_time as createTime, #{distributionLevel} - uh.user_level + 1 as level from t_user, t_user_detail,
         (
 	      select t_user_hierarchy.ancestor_id, t_user_hierarchy.user_level, t_user_hierarchy.create_time from t_user, t_user_hierarchy
 	      where t_user.id = t_user_hierarchy.ancestor_id
@@ -36,7 +37,7 @@
             </foreach>
           )
         ) as uh
-        where t_user.id = uh.ancestor_id
+        where t_user.id = t_user_detail.id and t_user.id = uh.ancestor_id
         order by uh.user_level desc limit #{query.beginIndex}, #{query.pageSize}
     </select>
 
@@ -57,7 +58,8 @@
     </select>
 
     <select id="listBelowUsers" resultType="distributionUserDO">
-        select t_user.id as userId, t_user.phone as phone, uh.create_time as createTime, uh.user_level as level from t_user,
+        select t_user.id as userId, t_user.phone as phone, t_user_detail.nickname as nickname, t_user_detail.headicon as headicon,
+        uh.create_time as createTime, uh.user_level as level from t_user, t_user_detail,
         (
 	      select t_user_hierarchy.user_id, t_user_hierarchy.user_level, t_user_hierarchy.create_time from t_user, t_user_hierarchy
 	      where t_user.id = t_user_hierarchy.ancestor_id
@@ -69,7 +71,7 @@
             </foreach>
 	      )
         ) as uh
-        where t_user.id = uh.user_id
+        where t_user.id = t_user_detail.id and t_user.id = uh.user_id
         order by uh.user_level limit #{query.beginIndex}, #{query.pageSize}
     </select>
 

@@ -16,16 +16,22 @@ public class DistributionUserVO {
 
     private Long userId;
     private String phone;
+    private String email;
     private Integer level;
+    private String nickname;
+    private String headicon;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 
     public DistributionUserVO() {}
 
-    public DistributionUserVO(Long userId, String phone, Integer level, Date createTime) {
+    public DistributionUserVO(Long userId, String phone, String email, Integer level, String nickname, String headicon, Date createTime) {
         this.userId = userId;
         this.phone = phone;
+        this.email = email;
         this.level = level;
+        this.nickname = nickname;
+        this.headicon = headicon;
         this.createTime = createTime;
     }
 
@@ -45,12 +51,36 @@ public class DistributionUserVO {
         this.phone = phone;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public Integer getLevel() {
         return level;
     }
 
     public void setLevel(Integer level) {
         this.level = level;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getHeadicon() {
+        return headicon;
+    }
+
+    public void setHeadicon(String headicon) {
+        this.headicon = headicon;
     }
 
     public Date getCreateTime() {

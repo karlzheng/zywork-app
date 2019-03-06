@@ -14,15 +14,21 @@ public class DistributionUserDO {
 
     private Long userId;
     private String phone;
+    private String email;
     private Integer level;
+    private String nickname;
+    private String headicon;
     private Date createTime;
 
     public DistributionUserDO() {}
 
-    public DistributionUserDO(Long userId, String phone, Integer level, Date createTime) {
+    public DistributionUserDO(Long userId, String phone, String email, Integer level, String nickname, String headicon, Date createTime) {
         this.userId = userId;
         this.phone = phone;
+        this.email = email;
         this.level = level;
+        this.nickname = nickname;
+        this.headicon = headicon;
         this.createTime = createTime;
     }
 
@@ -42,12 +48,36 @@ public class DistributionUserDO {
         this.phone = phone;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public Integer getLevel() {
         return level;
     }
 
     public void setLevel(Integer level) {
         this.level = level;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getHeadicon() {
+        return headicon;
+    }
+
+    public void setHeadicon(String headicon) {
+        this.headicon = headicon;
     }
 
     public Date getCreateTime() {

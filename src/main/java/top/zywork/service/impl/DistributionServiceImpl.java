@@ -23,12 +23,12 @@ public class DistributionServiceImpl implements DistributionService {
     private DistributionDAO distributionDAO;
 
     @Override
-    public PagerDTO listAllTop() {
+    public PagerDTO listAllTop(PageQuery pageQuery) {
         PagerDTO pagerDTO = new PagerDTO();
         Long count = distributionDAO.countAllTop();
         if (count > 0) {
             pagerDTO.setTotal(count);
-            pagerDTO.setRows(distributionDAO.listAllTop());
+            pagerDTO.setRows(distributionDAO.listAllTop(pageQuery));
         } else {
             pagerDTO.setRows(new ArrayList<>());
         }

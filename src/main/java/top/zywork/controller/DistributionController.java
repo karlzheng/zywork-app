@@ -45,8 +45,8 @@ public class DistributionController {
      * @return
      */
     @GetMapping("admin/all-top")
-    public ResponseStatusVO listAllTop() {
-        PagerDTO pagerDTO = distributionService.listAllTop();
+    public ResponseStatusVO listAllTop(Integer pageNo, Integer pageSize) {
+        PagerDTO pagerDTO = distributionService.listAllTop(PageQueryUtils.getPageQuery(pageNo, pageSize));
         PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
         pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), DistributionUserVO.class));
         return ResponseStatusVO.ok("查询成功", pagerVO);
