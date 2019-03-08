@@ -5,14 +5,54 @@
 <mapper namespace="top.zywork.dao.DistributionDAO">
 
     <select id="listAllTop" resultType="distributionUserDO">
-        select * from
-        (
-        select t_user.id as userId, t_user.phone as phone, t_user.email, t_user_detail.nickname as nickname, t_user_detail.headicon as headicon, t_user_hierarchy.create_time as createTime
-        from t_user, t_user_detail, t_user_hierarchy
-        where t_user.id = t_user_detail.id and t_user.id = t_user_hierarchy.user_id
-        group by t_user.id, t_user.phone, t_user_hierarchy.create_time
+        select t_user.id as userId, t_user.phone as phone, t_user.email as email,
+        t_user_detail.nickname as nickname, t_user_detail.headicon as headicon, t_user_hierarchy.create_time as createTime
+        from t_user, t_user_detail, t_user_hierarchy,
+        (select t_user.id as uid from t_user, t_user_hierarchy
+        where t_user.id = t_user_hierarchy.user_id
+        group by t_user.id
         having(count(t_user_hierarchy.user_id) = 1)
-        ) as uh limit #{query.beginIndex}, #{query.pageSize}
+        ) as uh
+        <where>
+            t_user.id = t_user_detail.id and t_user.id = uh.uid and t_user_hierarchy.user_id = uh.uid
+            <if test="query != null and query.userId != null">
+                and t_user.id = #{query.userId}
+            </if>
+            <if test="query != null and query.userIdMin != null and query.userIdMax == null">
+                and t_user.id <![CDATA[ >= ]]> #{query.userIdMin}
+            </if>
+            <if test="query != null and query.userIdMin == null and query.userIdMax != null">
+                and t_user.id <![CDATA[ <= ]]> #{query.userIdMax}
+            </if>
+            <if test="query != null and query.userIdMin != null and query.userIdMax != null">
+                and t_user.id <![CDATA[ >= ]]> #{query.userIdMin} and t_user.id <![CDATA[ <= ]]> #{query.userIdMax}
+            </if>
+            <if test="query != null and query.phone != null and query.phone != ''">
+                and t_user.phone like concat('%', #{query.phone}, '%')
+            </if>
+            <if test="query != null and query.email != null and query.email != ''">
+                and t_user.email like concat('%', #{query.email}, '%')
+            </if>
+            <if test="query != null and query.nickname != null and query.nickname != ''">
+                and t_user.nickname like concat('%', #{query.nickname}, '%')
+            </if>
+            <if test="query != null and query.headicon != null and query.headicon != ''">
+                and t_user.headicon like concat('%', #{query.headicon}, '%')
+            </if>
+            <if test="query != null and query.createTime != null">
+                and t_user_hierarchy.create_time = #{query.createTime}
+            </if>
+            <if test="query != null and query.createTimeMin != null and query.createTimeMax == null">
+                and t_user_hierarchy.create_time <![CDATA[ >= ]]> #{query.createTimeMin}
+            </if>
+            <if test="query != null and query.createTimeMin == null and query.createTimeMax != null">
+                and t_user_hierarchy.create_time <![CDATA[ <= ]]> #{query.createTimeMax}
+            </if>
+            <if test="query != null and query.createTimeMin != null and query.createTimeMax != null">
+                and t_user_hierarchy.create_time <![CDATA[ >= ]]> #{query.createTimeMin} and t_user_hierarchy.create_time <![CDATA[ <= ]]> #{query.createTimeMax}
+            </if>
+            limit #{query.beginIndex}, #{query.pageSize}
+        </where>
     </select>
 
     <select id="countAllTop" resultType="long">
@@ -38,7 +78,7 @@
           )
         ) as uh
         where t_user.id = t_user_detail.id and t_user.id = uh.ancestor_id
-        order by uh.user_level desc limit #{query.beginIndex}, #{query.pageSize}
+        order by uh.user_level desc, uh.create_time desc limit #{query.beginIndex}, #{query.pageSize}
     </select>
 
     <select id="countAboveUsers" resultType="long">
@@ -55,6 +95,19 @@
         )
         ) as uh
         where t_user.id = uh.ancestor_id
+    </select>
+
+    <select id="allDirectAboveUsers" resultType="distributionUserDO">
+        select t_user.id as userId, t_user.phone as phone, t_user_detail.nickname as nickname, t_user_detail.headicon as headicon,
+        uh.create_time as createTime, #{distributionLevel} - uh.user_level + 1 as level from t_user, t_user_detail,
+        (
+        select t_user_hierarchy.ancestor_id, t_user_hierarchy.user_level, t_user_hierarchy.create_time from t_user, t_user_hierarchy
+        where t_user.id = t_user_hierarchy.ancestor_id
+        and t_user_hierarchy.user_id = #{userId}
+        and  t_user_hierarchy.user_level = #{distributionLevel} - #{level} + 1
+        ) as uh
+        where t_user.id = t_user_detail.id and t_user.id = uh.ancestor_id
+        order by uh.create_time desc
     </select>
 
     <select id="listBelowUsers" resultType="distributionUserDO">
@@ -91,6 +144,19 @@
         where t_user.id = uh.user_id
     </select>
 
+    <select id="allDirectBelowUsers" resultType="distributionUserDO">
+        select t_user.id as userId, t_user.phone as phone, t_user_detail.nickname as nickname, t_user_detail.headicon as headicon,
+        uh.create_time as createTime, uh.user_level as level from t_user, t_user_detail,
+        (
+        select t_user_hierarchy.user_id, t_user_hierarchy.user_level, t_user_hierarchy.create_time from t_user, t_user_hierarchy
+        where t_user.id = t_user_hierarchy.ancestor_id
+        and t_user.id = #{userId}
+        and t_user_hierarchy.user_level = #{level}
+        ) as uh
+        where t_user.id = t_user_detail.id and t_user.id = uh.user_id
+        order by uh.create_time desc
+    </select>
+
     <select id="listUserPathsByUserId" resultType="distributionUserPathDO">
         select t_user_path.id as id, t_user_path.user_path as userPath, t_user_path.create_time as createTime
         from t_user_path where t_user_path.user_path like concat('%', #{userId}, '%') limit #{query.beginIndex}, #{query.pageSize}
@@ -98,6 +164,102 @@
 
     <select id="countUserPathsByUserId" resultType="long">
         select count(t_user_path.id) from t_user_path where t_user_path.user_path like concat('%', #{userId}, '%')
+    </select>
+
+    <sql id="user_hierarchy_where">
+        ancestorUser.id = ancestor.id and ancestor.id = t_user_hierarchy.ancestor_id and usersUser.id = users.id and users.id = t_user_hierarchy.user_id
+        <if test="query != null and query.id != null">
+            and t_user_hierarchy.id = #{query.id}
+        </if>
+        <if test="query != null and query.idMin != null and query.idMax == null">
+            and t_user_hierarchy.id <![CDATA[ >= ]]> #{query.idMin}
+        </if>
+        <if test="query != null and query.idMin == null and query.idMax != null">
+            and t_user_hierarchy.id <![CDATA[ <= ]]> #{query.iMax}
+        </if>
+        <if test="query != null and query.idMin != null and query.idMax != null">
+            and t_user_hierarchy.id <![CDATA[ >= ]]> #{query.idMin} and t_user_hierarchy.id <![CDATA[ <= ]]> #{query.idMax}
+        </if>
+        <if test="query != null and query.ancestorId != null">
+            and ancestor.id = #{query.ancestorId}
+        </if>
+        <if test="query != null and query.ancestorIdMin != null and query.ancestorIdMax == null">
+            and ancestor.id <![CDATA[ >= ]]> #{query.ancestorIdMin}
+        </if>
+        <if test="query != null and query.ancestorIdMin == null and query.ancestorIdMax != null">
+            and ancestor.id <![CDATA[ <= ]]> #{query.ancestorIdMax}
+        </if>
+        <if test="query != null and query.ancestorIdMin != null and query.ancestorIdMax != null">
+            and ancestor.id <![CDATA[ >= ]]> #{query.ancestorIdMin} and ancestor.id <![CDATA[ <= ]]> #{query.ancestorIdMax}
+        </if>
+        <if test="query != null and query.ancestorNickname != null and query.ancestorNickname != ''">
+            and ancestor.nickname like concat('%', #{query.ancestorNickname}, '%')
+        </if>
+        <if test="query != null and query.ancestorHeadicon != null and query.ancestorHeadicon != ''">
+            and ancestor.headicon like concat('%', #{query.ancestorHeadicon}, '%')
+        </if>
+        <if test="query != null and query.usersId != null">
+            and users.id = #{query.usersId}
+        </if>
+        <if test="query != null and query.usersIdMin != null and query.usersIdMax == null">
+            and users.id <![CDATA[ >= ]]> #{query.usersIdMin}
+        </if>
+        <if test="query != null and query.ancestorIdMin == null and query.usersIdMax != null">
+            and users.id <![CDATA[ <= ]]> #{query.usersIdMax}
+        </if>
+        <if test="query != null and query.usersIdMin != null and query.usersIdMax != null">
+            and users.id <![CDATA[ >= ]]> #{query.usersIdMin} and users.id <![CDATA[ <= ]]> #{query.usersIdMax}
+        </if>
+        <if test="query != null and query.usersNickname != null and query.usersNickname != ''">
+            and users.nickname like concat('%', #{query.usersNickname}, '%')
+        </if>
+        <if test="query != null and query.usersHeadicon != null and query.usersHeadicon != ''">
+            and users.headicon like concat('%', #{query.usersHeadicon}, '%')
+        </if>
+        <if test="query != null and query.level != null">
+            and t_user_hierarchy.level = #{query.level}
+        </if>
+        <if test="query != null and query.levelMin != null and query.levelMax == null">
+            and t_user_hierarchy.level <![CDATA[ >= ]]> #{query.levelMin}
+        </if>
+        <if test="query != null and query.levelMin == null and query.levelMax != null">
+            and t_user_hierarchy.level <![CDATA[ <= ]]> #{query.levelMax}
+        </if>
+        <if test="query != null and query.levelMin != null and query.levelMax != null">
+            and t_user_hierarchy.level <![CDATA[ >= ]]> #{query.levelMin} and t_user_hierarchy.level <![CDATA[ <= ]]> #{query.levelMax}
+        </if>
+        <if test="query != null and query.createTime != null">
+            and t_user_hierarchy.create_time = #{query.createTime}
+        </if>
+        <if test="query != null and query.createTimeMin != null and query.createTimeMax == null">
+            and t_user_hierarchy.create_time <![CDATA[ >= ]]> #{query.createTimeMin}
+        </if>
+        <if test="query != null and query.createTimeMin == null and query.createTimeMax != null">
+            and t_user_hierarchy.create_time <![CDATA[ <= ]]> #{query.createTimeMax}
+        </if>
+        <if test="query != null and query.createTimeMin != null and query.createTimeMax != null">
+            and t_user_hierarchy.create_time <![CDATA[ >= ]]> #{query.createTimeMin} and t_user_hierarchy.create_time <![CDATA[ <= ]]> #{query.createTimeMax}
+        </if>
+    </sql>
+
+    <select id="listUserHierarchy" resultType="DistributionUserHierarchyDO">
+        select t_user_hierarchy.id as id, ancestor.id as ancestorId, ancestorUser.phone as ancestorPhone,
+        ancestor.nickname as ancestorNickname, ancestor.headicon as ancestorHeadicon,
+        users.id as usersId, usersUser.phone as usersPhone, users.nickname as usersNickname, users.headicon as usersHeadicon,
+        t_user_hierarchy.user_level as level, t_user_hierarchy.create_time as createTime
+        from t_user ancestorUser, t_user_detail ancestor, t_user usersUser, t_user_detail users, t_user_hierarchy
+        <where>
+            <include refid="user_hierarchy_where"/>
+            order by createTime desc limit #{query.beginIndex}, #{query.pageSize}
+        </where>
+    </select>
+
+    <select id="countUserHierarchy" resultType="long">
+        select count(t_user_hierarchy.id)
+        from t_user ancestorUser, t_user_detail ancestor, t_user usersUser, t_user_detail users, t_user_hierarchy
+        <where>
+            <include refid="user_hierarchy_where"/>
+        </where>
     </select>
 
 </mapper>

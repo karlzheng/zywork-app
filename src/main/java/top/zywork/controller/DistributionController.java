@@ -3,8 +3,8 @@ package top.zywork.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.zywork.common.BeanUtils;
@@ -12,14 +12,15 @@ import top.zywork.common.PageQueryUtils;
 import top.zywork.dos.DefaultDistributionConfig;
 import top.zywork.dto.PagerDTO;
 import top.zywork.enums.SysConfigEnum;
+import top.zywork.query.DistributionUserHierarchyQuery;
+import top.zywork.query.DistributionUserQuery;
 import top.zywork.security.JwtUser;
 import top.zywork.security.SecurityUtils;
 import top.zywork.service.DistributionService;
 import top.zywork.service.SysConfigService;
-import top.zywork.vo.DistributionUserPathVO;
-import top.zywork.vo.DistributionUserVO;
-import top.zywork.vo.PagerVO;
-import top.zywork.vo.ResponseStatusVO;
+import top.zywork.vo.*;
+
+import java.util.List;
 
 /**
  * 分销数据查询控制器<br/>
@@ -44,9 +45,9 @@ public class DistributionController {
      *
      * @return
      */
-    @GetMapping("admin/all-top")
-    public ResponseStatusVO listAllTop(Integer pageNo, Integer pageSize) {
-        PagerDTO pagerDTO = distributionService.listAllTop(PageQueryUtils.getPageQuery(pageNo, pageSize));
+    @PostMapping("admin/all-top")
+    public ResponseStatusVO listAllTop(@RequestBody DistributionUserQuery distributionUserQuery) {
+        PagerDTO pagerDTO = distributionService.listAllTop(distributionUserQuery);
         PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
         pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), DistributionUserVO.class));
         return ResponseStatusVO.ok("查询成功", pagerVO);
@@ -88,6 +89,35 @@ public class DistributionController {
     }
 
     /**
+     * 分页查询指定用户的直接上级经销商
+     *
+     * @param userId
+     * @return
+     */
+    @PostMapping("admin/direct-above")
+    public ResponseStatusVO listDirectAboveUsers(Long userId) {
+        DefaultDistributionConfig defaultDistributionConfig = sysConfigService.getByName(SysConfigEnum.DEFAULT_DISTRIBUTION_CONFIG.getValue(), DefaultDistributionConfig.class);
+        PagerDTO pagerDTO = distributionService.allDirectAboveUsers(userId, defaultDistributionConfig.getDistributionLevel(), (long) (defaultDistributionConfig.getDistributionLevel() - 1));
+        PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
+        pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), DistributionUserVO.class));
+        return ResponseStatusVO.ok("查询成功", pagerVO);
+    }
+
+    /**
+     * 分页查询指定用户的直接上级经销商
+     *
+     * @return
+     */
+    @PostMapping("user/direct-above")
+    public ResponseStatusVO userListDirectAboveUsers() {
+        JwtUser jwtUser = SecurityUtils.getJwtUser();
+        if (jwtUser == null) {
+            return ResponseStatusVO.authenticationError();
+        }
+        return listDirectAboveUsers(jwtUser.getUserId());
+    }
+
+    /**
      * 分页查询指定用户下面的几级经销商
      *
      * @param levels
@@ -123,6 +153,35 @@ public class DistributionController {
     }
 
     /**
+     * 分页查询指定用户的直接下级经销商
+     *
+     * @param userId
+     * @return
+     */
+    @PostMapping("admin/direct-below")
+    public ResponseStatusVO listDirectBelowUsers(Long userId) {
+        DefaultDistributionConfig defaultDistributionConfig = sysConfigService.getByName(SysConfigEnum.DEFAULT_DISTRIBUTION_CONFIG.getValue(), DefaultDistributionConfig.class);
+        PagerDTO pagerDTO = distributionService.allDirectBelowUsers(userId, defaultDistributionConfig.getDistributionLevel(), 2L);
+        PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
+        pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), DistributionUserVO.class));
+        return ResponseStatusVO.ok("查询成功", pagerVO);
+    }
+
+    /**
+     * 分页查询指定用户的直接下级经销商
+     *
+     * @return
+     */
+    @PostMapping("user/direct-below")
+    public ResponseStatusVO userListDirectBelowUsers() {
+        JwtUser jwtUser = SecurityUtils.getJwtUser();
+        if (jwtUser == null) {
+            return ResponseStatusVO.authenticationError();
+        }
+        return listDirectBelowUsers(jwtUser.getUserId());
+    }
+
+    /**
      * 获取用户路径
      *
      * @param pageNo
@@ -151,6 +210,19 @@ public class DistributionController {
         PagerDTO pagerDTO = distributionService.listUserPathsByUserId(userId, PageQueryUtils.getPageQuery(pageNo, pageSize));
         PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
         pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), DistributionUserPathVO.class));
+        return ResponseStatusVO.ok("查询成功", pagerVO);
+    }
+
+    /**
+     * 查询用户层级关系
+     *
+     * @return
+     */
+    @PostMapping("admin/user-hierarchy")
+    public ResponseStatusVO listUserHierarchy(@RequestBody DistributionUserHierarchyQuery distributionUserHierarchyQuery) {
+        PagerDTO pagerDTO = distributionService.listUserHierarchy(distributionUserHierarchyQuery);
+        PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
+        pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), DistributionUserHierarchyVO.class));
         return ResponseStatusVO.ok("查询成功", pagerVO);
     }
 

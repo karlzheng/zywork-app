@@ -846,6 +846,47 @@
         ]
     },
     {
+        "moduleTitle": "用户路径管理",
+        "permissions": [
+            {
+                "title": "后台-用户路径管理",
+                "permission": "/user-path/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "演示-用户路径管理-查询单个",
+                "permission": "/user-path/admin/one/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-用户路径管理-查询所有",
+                "permission": "/user-path/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-用户路径管理-条件查询所有",
+                "permission": "/user-path/admin/all-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-用户路径管理-分页查询",
+                "permission": "/user-path/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
         "moduleTitle": "分销查询模块",
         "permissions": [
             {

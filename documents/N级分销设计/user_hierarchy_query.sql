@@ -9,9 +9,9 @@
 -- 假设当前分销级别为变量N，等级为变量k
 
 -- 查询所有顶级分销商(没有上级分销商)
-select t_user.id, t_user.name from t_user, t_user_hierarchy
+select t_user.id, t_user.phone from t_user, t_user_hierarchy
 where t_user.id = t_user_hierarchy.user_id
-group by t_user.id, t_user.name 
+group by t_user.id, t_user.phone
 having(count(t_user_hierarchy.user_id) = 1)
 
 -- 查询用户编号为1的分销商下面的二级分销商，k = t_user_hierarchy.user_level = 2
