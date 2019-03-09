@@ -71,6 +71,9 @@ mybatis:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   type-aliases-package: top.zywork.dos
   mapper-locations: classpath:/mapper/*Mapper.xml
+#XssFilter不过滤的url，从/开始配置
+xssFilter:
+  ignoreUrls: /demo/test1,/demo/test2
 #自定义jwt配置信息
 jwt:
   #header名称
@@ -118,12 +121,12 @@ user:
 exception:
   printStackTrace: false
 activiti:
-  processDir: "./process"
+  processDir: "/data/zywork-app-data/process"
   allowedExts: ".zip"
   #流程文件最大大小，单位MB
   maxSize: 20
 goods:
   #后台保存商品图片的路径
-  imgDir: "./image"
+  imgDir: "/data/zywork-app-data/upload/image"
   #前端显示商品图片的url路径
   imgUrl: "upload/image"

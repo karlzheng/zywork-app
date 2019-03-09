@@ -71,6 +71,9 @@ mybatis:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   type-aliases-package: top.zywork.dos
   mapper-locations: classpath:/mapper/*Mapper.xml
+#XssFilter不过滤的url，从/开始配置
+xssFilter:
+  ignoreUrls: /demo/test1,/demo/test2
 #自定义jwt配置信息
 jwt:
   #header名称
