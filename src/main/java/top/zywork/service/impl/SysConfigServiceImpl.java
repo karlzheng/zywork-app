@@ -1,9 +1,12 @@
 package top.zywork.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import top.zywork.common.BeanUtils;
 import top.zywork.common.IOUtils;
+import top.zywork.common.ReflectUtils;
 import top.zywork.dao.SysConfigDAO;
 import top.zywork.dos.SysConfigDO;
 import top.zywork.dto.SysConfigDTO;
@@ -11,6 +14,7 @@ import top.zywork.service.AbstractBaseService;
 import top.zywork.service.SysConfigService;
 
 import javax.annotation.PostConstruct;
+import java.io.Serializable;
 
 /**
  * SysConfigServiceImpl服务接口实现类<br/>
@@ -34,6 +38,12 @@ public class SysConfigServiceImpl extends AbstractBaseService implements SysConf
             t = IOUtils.readJsonStrToObject(sysConfigDO.getValue(), tClass);
         }
         return t;
+    }
+
+    @Override
+    @CacheEvict(value = "sys_config", key = "#dataTransferObj.name")
+    public int update(Object dataTransferObj) {
+        return super.update(dataTransferObj);
     }
 
     @Autowired
