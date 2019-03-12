@@ -78,10 +78,10 @@
         ]
     },
     {
-        "moduleTitle": "模块权限查询模块",
+        "moduleTitle": "模块权限管理",
         "permissions": [
             {
-                "title": "后台-模块权限查询",
+                "title": "后台-模块权限管理",
                 "permission": "/module-permission/admin/**",
                 "roles": [
                     "super_sys_admin",
@@ -152,10 +152,10 @@
         ]
     },
     {
-        "moduleTitle": "组织部门查询模块",
+        "moduleTitle": "用户组织部门管理",
         "permissions": [
             {
-                "title": "后台-用户组织部门查询",
+                "title": "后台-用户组织部门管理",
                 "permission": "/user-organization/admin/**",
                 "roles": [
                     "super_sys_admin",
@@ -212,7 +212,7 @@
         "moduleTitle": "用户详情管理",
         "permissions": [
             {
-                "title": "后台-用户详情查询",
+                "title": "后台-用户详情管理",
                 "permission": "/user-userdetail/admin/**",
                 "roles": [
                     "super_sys_admin",
@@ -376,10 +376,10 @@
         ]
     },
     {
-        "moduleTitle": "分销查询模块",
+        "moduleTitle": "分销管理",
         "permissions": [
             {
-                "title": "后台-分销查询",
+                "title": "后台-分销管理",
                 "permission": "/distribution/admin/**",
                 "roles": [
                     "super_sys_admin",
@@ -708,6 +708,84 @@
         ]
     },
     {
+        "moduleTitle": "商城订单管理",
+        "permissions": [
+            {
+                "title": "后台-商城订单管理",
+                "permission": "/goods-order/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "商城订单项管理",
+        "permissions": [
+            {
+                "title": "后台-商城订单项管理",
+                "permission": "/goods-order-item/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "商城订单物流管理",
+        "permissions": [
+            {
+                "title": "后台-商城订单物流管理",
+                "permission": "/goods-order-logistics/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "商城用户订单查询",
+        "permissions": [
+            {
+                "title": "后台-商城用户订单查询",
+                "permission": "/user-goods-order/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "商城用户订单项查询",
+        "permissions": [
+            {
+                "title": "后台-商城用户订单项查询",
+                "permission": "/user-goods-order-item/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "商城用户订单物流查询",
+        "permissions": [
+            {
+                "title": "后台-商城用户订单物流查询",
+                "permission": "/user-goods-order-logistics/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            }
+        ]
+    },
+    {
         "moduleTitle": "消息管理",
         "permissions": [
             {
@@ -721,7 +799,7 @@
         ]
     },
     {
-        "moduleTitle": "消息查询模块",
+        "moduleTitle": "消息查询",
         "permissions": [
             {
                 "title": "后台-消息查询",

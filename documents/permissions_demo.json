@@ -162,10 +162,10 @@
         ]
     },
     {
-        "moduleTitle": "模块权限查询模块",
+        "moduleTitle": "模块权限管理",
         "permissions": [
             {
-                "title": "后台-模块权限查询",
+                "title": "后台-模块权限管理",
                 "permission": "/module-permission/admin/**",
                 "roles": [
                     "super_sys_admin",
@@ -182,28 +182,28 @@
                 ]
             },
             {
-                "title": "演示-模块权限查询-查询单个",
+                "title": "演示-模块权限管理-查询单个",
                 "permission": "/module-permission/admin/multi/**",
                 "roles": [
                     "sys_user_demo"
                 ]
             },
             {
-                "title": "演示-模块权限查询-查询所有",
+                "title": "演示-模块权限管理-查询所有",
                 "permission": "/module-permission/admin/all",
                 "roles": [
                     "sys_user_demo"
                 ]
             },
             {
-                "title": "演示-模块权限查询-条件查询所有",
+                "title": "演示-模块权限管理-条件查询所有",
                 "permission": "/module-permission/admin/all-cond",
                 "roles": [
                     "sys_user_demo"
                 ]
             },
             {
-                "title": "演示-模块权限查询-分页查询",
+                "title": "演示-模块权限管理-分页查询",
                 "permission": "/module-permission/admin/pager-cond",
                 "roles": [
                     "sys_user_demo"
@@ -376,10 +376,10 @@
         ]
     },
     {
-        "moduleTitle": "用户组织部门查询模块",
+        "moduleTitle": "用户组织部门管理",
         "permissions": [
             {
-                "title": "后台-用户组织部门查询",
+                "title": "后台-用户组织部门管理",
                 "permission": "/user-organization/admin/**",
                 "roles": [
                     "super_sys_admin",
@@ -520,7 +520,7 @@
         "moduleTitle": "用户详情管理",
         "permissions": [
             {
-                "title": "后台-用户详情查询",
+                "title": "后台-用户详情管理",
                 "permission": "/user-userdetail/admin/**",
                 "roles": [
                     "super_sys_admin",
@@ -887,10 +887,10 @@
         ]
     },
     {
-        "moduleTitle": "分销查询模块",
+        "moduleTitle": "分销管理",
         "permissions": [
             {
-                "title": "后台-分销查询",
+                "title": "后台-分销管理",
                 "permission": "/distribution/admin/**",
                 "roles": [
                     "super_sys_admin",
@@ -1388,10 +1388,10 @@
         ]
     },
     {
-        "moduleTitle": "店铺审核历史查询",
+        "moduleTitle": "店铺审核历史管理",
         "permissions": [
             {
-                "title": "后台-店铺审核历史查询",
+                "title": "后台-店铺审核历史管理",
                 "permission": "/shop-certification-check/admin/**",
                 "roles": [
                     "super_sys_admin",
@@ -1399,28 +1399,28 @@
                 ]
             },
             {
-                "title": "演示-店铺审核历史查询-查询单个",
+                "title": "演示-店铺审核历史管理-查询单个",
                 "permission": "/shop-certification-check/admin/multi/**",
                 "roles": [
                     "sys_user_demo"
                 ]
             },
             {
-                "title": "演示-店铺审核历史查询-查询所有",
+                "title": "演示-店铺审核历史管理-查询所有",
                 "permission": "/shop-certification-check/admin/all",
                 "roles": [
                     "sys_user_demo"
                 ]
             },
             {
-                "title": "演示-店铺审核历史查询-条件查询所有",
+                "title": "演示-店铺审核历史管理-条件查询所有",
                 "permission": "/shop-certification-check/admin/all-cond",
                 "roles": [
                     "sys_user_demo"
                 ]
             },
             {
-                "title": "演示-店铺审核历史查询-分页查询",
+                "title": "演示-店铺审核历史管理-分页查询",
                 "permission": "/shop-certification-check/admin/pager-cond",
                 "roles": [
                     "sys_user_demo"
@@ -1647,7 +1647,280 @@
                 "permission": "/user-goods-cart/admin/**",
                 "roles": [
                     "super_sys_admin",
-                    "sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "演示-购物车查询-查询单个",
+                "permission": "/user-goods-cart/admin/multi/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-购物车查询-查询所有",
+                "permission": "/user-goods-cart/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-购物车查询-条件查询所有",
+                "permission": "/user-goods-cart/admin/all-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-购物车查询-分页查询",
+                "permission": "/user-goods-cart/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "商城订单管理",
+        "permissions": [
+            {
+                "title": "后台-商城订单管理",
+                "permission": "/goods-order/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "演示-商城订单管理-查询单个",
+                "permission": "/goods-order/admin/one/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-商城订单管理-查询所有",
+                "permission": "/goods-order/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-商城订单管理-条件查询所有",
+                "permission": "/goods-order/admin/all-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-商城订单管理-分页查询",
+                "permission": "/goods-order/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "商城订单项管理",
+        "permissions": [
+            {
+                "title": "后台-商城订单项管理",
+                "permission": "/goods-order-item/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "演示-商城订单项管理-查询单个",
+                "permission": "/goods-order-item/admin/one/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-商城订单项管理-查询所有",
+                "permission": "/goods-order-item/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-商城订单项管理-条件查询所有",
+                "permission": "/goods-order-item/admin/all-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-商城订单项管理-分页查询",
+                "permission": "/goods-order-item/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "商城订单物流管理",
+        "permissions": [
+            {
+                "title": "后台-商城订单物流管理",
+                "permission": "/goods-order-logistics/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "演示-商城订单物流管理-查询单个",
+                "permission": "/goods-order-logistics/admin/one/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-商城订单物流管理-查询所有",
+                "permission": "/goods-order-logistics/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-商城订单物流管理-条件查询所有",
+                "permission": "/goods-order-logistics/admin/all-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-商城订单物流管理-分页查询",
+                "permission": "/goods-order-logistics/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "商城用户订单查询",
+        "permissions": [
+            {
+                "title": "后台-商城用户订单查询",
+                "permission": "/user-goods-order/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "演示-商城用户订单查询-查询单个",
+                "permission": "/user-goods-order/admin/multi/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-商城用户订单查询-查询所有",
+                "permission": "/user-goods-order/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-商城用户订单查询-条件查询所有",
+                "permission": "/user-goods-order/admin/all-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-商城用户订单查询-分页查询",
+                "permission": "/user-goods-order/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "商城用户订单项查询",
+        "permissions": [
+            {
+                "title": "后台-商城用户订单项查询",
+                "permission": "/user-goods-order-item/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "演示-商城用户订单项查询-查询单个",
+                "permission": "/user-goods-order-item/admin/multi/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-商城用户订单项查询-查询所有",
+                "permission": "/user-goods-order-item/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-商城用户订单项查询-条件查询所有",
+                "permission": "/user-goods-order-item/admin/all-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-商城用户订单项查询-分页查询",
+                "permission": "/user-goods-order-item/admin/pager-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            }
+        ]
+    },
+    {
+        "moduleTitle": "商城用户订单物流查询",
+        "permissions": [
+            {
+                "title": "后台-商城用户订单物流查询",
+                "permission": "/user-goods-order-logistics/admin/**",
+                "roles": [
+                    "super_sys_admin",
+                    "sys_admin"
+                ]
+            },
+            {
+                "title": "演示-商城用户订单物流查询-查询单个",
+                "permission": "/user-goods-order-logistics/admin/multi/**",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-商城用户订单物流查询-查询所有",
+                "permission": "/user-goods-order-logistics/admin/all",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-商城用户订单物流查询-条件查询所有",
+                "permission": "/user-goods-order-logistics/admin/all-cond",
+                "roles": [
+                    "sys_user_demo"
+                ]
+            },
+            {
+                "title": "演示-商城用户订单物流查询-分页查询",
+                "permission": "/user-goods-order-logistics/admin/pager-cond",
+                "roles": [
                     "sys_user_demo"
                 ]
             }
@@ -1695,7 +1968,7 @@
         ]
     },
     {
-        "moduleTitle": "消息查询模块",
+        "moduleTitle": "消息查询",
         "permissions": [
             {
                 "title": "后台-消息查询",

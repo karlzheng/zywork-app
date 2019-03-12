@@ -11,7 +11,7 @@
  Target Server Version : 80013
  File Encoding         : 65001
 
- Date: 04/03/2019 16:38:40
+ Date: 12/03/2019 16:34:02
 */
 
 SET NAMES utf8mb4;
@@ -408,7 +408,7 @@ CREATE TABLE `t_goods_order_item` (
   `quantity` int(11) NOT NULL COMMENT '购买数量',
   `pay_amount` bigint(20) NOT NULL COMMENT '实付金额',
   `discount_amount` bigint(20) NOT NULL DEFAULT '0' COMMENT '优惠金额',
-  `integral_amount` bigint(20) NOT NULL COMMENT '赠送积分',
+  `integral_amount` bigint(20) NOT NULL DEFAULT '0' COMMENT '赠送积分',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',

@@ -1,0 +1,546 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.zywork.dao.GoodsOrderItemDAO">
+
+    <insert id="save" parameterType="goodsOrderItemDO">
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+    		SELECT LAST_INSERT_ID()
+    	</selectKey>
+        insert into t_goods_order_item
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">
+				order_id,
+			</if>
+			<if test="goodsId != null">
+				goods_id,
+			</if>
+			<if test="goodsSkuId != null">
+				goods_sku_id,
+			</if>
+			<if test="skuPicId != null">
+				sku_pic_id,
+			</if>
+			<if test="skuTitle != null">
+				sku_title,
+			</if>
+			<if test="skuInfo != null">
+				sku_info,
+			</if>
+			<if test="quantity != null">
+				quantity,
+			</if>
+			<if test="payAmount != null">
+				pay_amount,
+			</if>
+			<if test="discountAmount != null">
+				discount_amount,
+			</if>
+			<if test="integralAmount != null">
+				integral_amount,
+			</if>
+			<if test="version != null">
+				version,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="isActive != null">
+				is_active,
+			</if>
+			
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">
+				#{orderId},
+			</if>
+			<if test="goodsId != null">
+				#{goodsId},
+			</if>
+			<if test="goodsSkuId != null">
+				#{goodsSkuId},
+			</if>
+			<if test="skuPicId != null">
+				#{skuPicId},
+			</if>
+			<if test="skuTitle != null">
+				#{skuTitle},
+			</if>
+			<if test="skuInfo != null">
+				#{skuInfo},
+			</if>
+			<if test="quantity != null">
+				#{quantity},
+			</if>
+			<if test="payAmount != null">
+				#{payAmount},
+			</if>
+			<if test="discountAmount != null">
+				#{discountAmount},
+			</if>
+			<if test="integralAmount != null">
+				#{integralAmount},
+			</if>
+			<if test="version != null">
+				#{version},
+			</if>
+			<if test="createTime != null">
+				#{createTime},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime},
+			</if>
+			<if test="isActive != null">
+				#{isActive},
+			</if>
+			
+        </trim>
+    </insert>
+
+    <insert id="saveBatch" parameterType="java.util.List">
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+    		SELECT LAST_INSERT_ID()
+    	</selectKey>
+    	<foreach collection="list" item="item" separator=";">
+            insert into t_goods_order_item
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="item.orderId != null">
+				order_id,
+			</if>
+			<if test="item.goodsId != null">
+				goods_id,
+			</if>
+			<if test="item.goodsSkuId != null">
+				goods_sku_id,
+			</if>
+			<if test="item.skuPicId != null">
+				sku_pic_id,
+			</if>
+			<if test="item.skuTitle != null">
+				sku_title,
+			</if>
+			<if test="item.skuInfo != null">
+				sku_info,
+			</if>
+			<if test="item.quantity != null">
+				quantity,
+			</if>
+			<if test="item.payAmount != null">
+				pay_amount,
+			</if>
+			<if test="item.discountAmount != null">
+				discount_amount,
+			</if>
+			<if test="item.integralAmount != null">
+				integral_amount,
+			</if>
+			<if test="item.version != null">
+				version,
+			</if>
+			<if test="item.createTime != null">
+				create_time,
+			</if>
+			<if test="item.updateTime != null">
+				update_time,
+			</if>
+			<if test="item.isActive != null">
+				is_active,
+			</if>
+			
+            </trim>
+            <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="item.orderId != null">
+				#{item.orderId},
+			</if>
+			<if test="item.goodsId != null">
+				#{item.goodsId},
+			</if>
+			<if test="item.goodsSkuId != null">
+				#{item.goodsSkuId},
+			</if>
+			<if test="item.skuPicId != null">
+				#{item.skuPicId},
+			</if>
+			<if test="item.skuTitle != null">
+				#{item.skuTitle},
+			</if>
+			<if test="item.skuInfo != null">
+				#{item.skuInfo},
+			</if>
+			<if test="item.quantity != null">
+				#{item.quantity},
+			</if>
+			<if test="item.payAmount != null">
+				#{item.payAmount},
+			</if>
+			<if test="item.discountAmount != null">
+				#{item.discountAmount},
+			</if>
+			<if test="item.integralAmount != null">
+				#{item.integralAmount},
+			</if>
+			<if test="item.version != null">
+				#{item.version},
+			</if>
+			<if test="item.createTime != null">
+				#{item.createTime},
+			</if>
+			<if test="item.updateTime != null">
+				#{item.updateTime},
+			</if>
+			<if test="item.isActive != null">
+				#{item.isActive},
+			</if>
+			
+            </trim>
+        </foreach>
+    </insert>
+
+    <delete id="removeById" parameterType="long">
+        delete from t_goods_order_item where id = #{id}
+    </delete>
+
+    <delete id="removeByIds">
+        delete from t_goods_order_item where id in
+        <foreach item="id" collection="array" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="update" parameterType="goodsOrderItemDO">
+        update t_goods_order_item
+        <set>
+            <if test="orderId != null">
+				order_id = #{orderId},
+			</if>
+			<if test="goodsId != null">
+				goods_id = #{goodsId},
+			</if>
+			<if test="goodsSkuId != null">
+				goods_sku_id = #{goodsSkuId},
+			</if>
+			<if test="skuPicId != null">
+				sku_pic_id = #{skuPicId},
+			</if>
+			<if test="skuTitle != null">
+				sku_title = #{skuTitle},
+			</if>
+			<if test="skuInfo != null">
+				sku_info = #{skuInfo},
+			</if>
+			<if test="quantity != null">
+				quantity = #{quantity},
+			</if>
+			<if test="payAmount != null">
+				pay_amount = #{payAmount},
+			</if>
+			<if test="discountAmount != null">
+				discount_amount = #{discountAmount},
+			</if>
+			<if test="integralAmount != null">
+				integral_amount = #{integralAmount},
+			</if>
+			<if test="version != null">
+				version = #{version},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime},
+			</if>
+			<if test="isActive != null">
+				is_active = #{isActive},
+			</if>
+			update_time = CURRENT_TIMESTAMP,
+        </set>
+        where id = #{id} and version + 1 <![CDATA[<=]]> #{version}
+    </update>
+
+    <update id="updateBatch" parameterType="java.util.List">
+    	<foreach collection="list" item="item" separator=";">
+            update t_goods_order_item
+            <set>
+                <if test="item.orderId != null">
+				order_id = #{item.orderId},
+			</if>
+			<if test="item.goodsId != null">
+				goods_id = #{item.goodsId},
+			</if>
+			<if test="item.goodsSkuId != null">
+				goods_sku_id = #{item.goodsSkuId},
+			</if>
+			<if test="item.skuPicId != null">
+				sku_pic_id = #{item.skuPicId},
+			</if>
+			<if test="item.skuTitle != null">
+				sku_title = #{item.skuTitle},
+			</if>
+			<if test="item.skuInfo != null">
+				sku_info = #{item.skuInfo},
+			</if>
+			<if test="item.quantity != null">
+				quantity = #{item.quantity},
+			</if>
+			<if test="item.payAmount != null">
+				pay_amount = #{item.payAmount},
+			</if>
+			<if test="item.discountAmount != null">
+				discount_amount = #{item.discountAmount},
+			</if>
+			<if test="item.integralAmount != null">
+				integral_amount = #{item.integralAmount},
+			</if>
+			<if test="item.version != null">
+				version = #{item.version},
+			</if>
+			<if test="item.createTime != null">
+				create_time = #{item.createTime},
+			</if>
+			<if test="item.updateTime != null">
+				update_time = #{item.updateTime},
+			</if>
+			<if test="item.isActive != null">
+				is_active = #{item.isActive},
+			</if>
+			update_time = CURRENT_TIMESTAMP,
+                <if test="item.version == null">
+                    version = version + 1,
+                </if>
+            </set>
+            where id = #{item.id}
+        </foreach>
+    </update>
+
+    <sql id="select_columns">
+        id as id, order_id as orderId, goods_id as goodsId, goods_sku_id as goodsSkuId, sku_pic_id as skuPicId, sku_title as skuTitle, sku_info as skuInfo, quantity as quantity, pay_amount as payAmount, discount_amount as discountAmount, integral_amount as integralAmount, version as version, create_time as createTime, update_time as updateTime, is_active as isActive
+    </sql>
+
+    <sql id="query_where_clause">
+        <if test="query != null and query.id != null">
+			and id = #{query.id}
+		</if>
+		<if test="query != null and query.idMin != null and query.idMax == null">
+			and id <![CDATA[ >= ]]> #{query.idMin}
+		</if>
+		<if test="query != null and query.idMin == null and query.idMax != null">
+			and id <![CDATA[ <= ]]> #{query.idMax}
+		</if>
+		<if test="query != null and query.idMin != null and query.idMax != null">
+			and id <![CDATA[ >= ]]> #{query.idMin} and id <![CDATA[ <= ]]> #{query.idMax}
+		</if>
+		<if test="query != null and query.orderId != null">
+			and order_id = #{query.orderId}
+		</if>
+		<if test="query != null and query.orderIdMin != null and query.orderIdMax == null">
+			and order_id <![CDATA[ >= ]]> #{query.orderIdMin}
+		</if>
+		<if test="query != null and query.orderIdMin == null and query.orderIdMax != null">
+			and order_id <![CDATA[ <= ]]> #{query.orderIdMax}
+		</if>
+		<if test="query != null and query.orderIdMin != null and query.orderIdMax != null">
+			and order_id <![CDATA[ >= ]]> #{query.orderIdMin} and order_id <![CDATA[ <= ]]> #{query.orderIdMax}
+		</if>
+		<if test="query != null and query.goodsId != null">
+			and goods_id = #{query.goodsId}
+		</if>
+		<if test="query != null and query.goodsIdMin != null and query.goodsIdMax == null">
+			and goods_id <![CDATA[ >= ]]> #{query.goodsIdMin}
+		</if>
+		<if test="query != null and query.goodsIdMin == null and query.goodsIdMax != null">
+			and goods_id <![CDATA[ <= ]]> #{query.goodsIdMax}
+		</if>
+		<if test="query != null and query.goodsIdMin != null and query.goodsIdMax != null">
+			and goods_id <![CDATA[ >= ]]> #{query.goodsIdMin} and goods_id <![CDATA[ <= ]]> #{query.goodsIdMax}
+		</if>
+		<if test="query != null and query.goodsSkuId != null">
+			and goods_sku_id = #{query.goodsSkuId}
+		</if>
+		<if test="query != null and query.goodsSkuIdMin != null and query.goodsSkuIdMax == null">
+			and goods_sku_id <![CDATA[ >= ]]> #{query.goodsSkuIdMin}
+		</if>
+		<if test="query != null and query.goodsSkuIdMin == null and query.goodsSkuIdMax != null">
+			and goods_sku_id <![CDATA[ <= ]]> #{query.goodsSkuIdMax}
+		</if>
+		<if test="query != null and query.goodsSkuIdMin != null and query.goodsSkuIdMax != null">
+			and goods_sku_id <![CDATA[ >= ]]> #{query.goodsSkuIdMin} and goods_sku_id <![CDATA[ <= ]]> #{query.goodsSkuIdMax}
+		</if>
+		<if test="query != null and query.skuPicId != null">
+			and sku_pic_id = #{query.skuPicId}
+		</if>
+		<if test="query != null and query.skuPicIdMin != null and query.skuPicIdMax == null">
+			and sku_pic_id <![CDATA[ >= ]]> #{query.skuPicIdMin}
+		</if>
+		<if test="query != null and query.skuPicIdMin == null and query.skuPicIdMax != null">
+			and sku_pic_id <![CDATA[ <= ]]> #{query.skuPicIdMax}
+		</if>
+		<if test="query != null and query.skuPicIdMin != null and query.skuPicIdMax != null">
+			and sku_pic_id <![CDATA[ >= ]]> #{query.skuPicIdMin} and sku_pic_id <![CDATA[ <= ]]> #{query.skuPicIdMax}
+		</if>
+		<if test="query != null and query.skuTitle != null and query.skuTitle != ''">
+			and sku_title like concat('%', #{query.skuTitle}, '%')
+		</if>
+		<if test="query != null and query.skuInfo != null and query.skuInfo != ''">
+			and sku_info like concat('%', #{query.skuInfo}, '%')
+		</if>
+		<if test="query != null and query.quantity != null">
+			and quantity = #{query.quantity}
+		</if>
+		<if test="query != null and query.quantityMin != null and query.quantityMax == null">
+			and quantity <![CDATA[ >= ]]> #{query.quantityMin}
+		</if>
+		<if test="query != null and query.quantityMin == null and query.quantityMax != null">
+			and quantity <![CDATA[ <= ]]> #{query.quantityMax}
+		</if>
+		<if test="query != null and query.quantityMin != null and query.quantityMax != null">
+			and quantity <![CDATA[ >= ]]> #{query.quantityMin} and quantity <![CDATA[ <= ]]> #{query.quantityMax}
+		</if>
+		<if test="query != null and query.payAmount != null">
+			and pay_amount = #{query.payAmount}
+		</if>
+		<if test="query != null and query.payAmountMin != null and query.payAmountMax == null">
+			and pay_amount <![CDATA[ >= ]]> #{query.payAmountMin}
+		</if>
+		<if test="query != null and query.payAmountMin == null and query.payAmountMax != null">
+			and pay_amount <![CDATA[ <= ]]> #{query.payAmountMax}
+		</if>
+		<if test="query != null and query.payAmountMin != null and query.payAmountMax != null">
+			and pay_amount <![CDATA[ >= ]]> #{query.payAmountMin} and pay_amount <![CDATA[ <= ]]> #{query.payAmountMax}
+		</if>
+		<if test="query != null and query.discountAmount != null">
+			and discount_amount = #{query.discountAmount}
+		</if>
+		<if test="query != null and query.discountAmountMin != null and query.discountAmountMax == null">
+			and discount_amount <![CDATA[ >= ]]> #{query.discountAmountMin}
+		</if>
+		<if test="query != null and query.discountAmountMin == null and query.discountAmountMax != null">
+			and discount_amount <![CDATA[ <= ]]> #{query.discountAmountMax}
+		</if>
+		<if test="query != null and query.discountAmountMin != null and query.discountAmountMax != null">
+			and discount_amount <![CDATA[ >= ]]> #{query.discountAmountMin} and discount_amount <![CDATA[ <= ]]> #{query.discountAmountMax}
+		</if>
+		<if test="query != null and query.integralAmount != null">
+			and integral_amount = #{query.integralAmount}
+		</if>
+		<if test="query != null and query.integralAmountMin != null and query.integralAmountMax == null">
+			and integral_amount <![CDATA[ >= ]]> #{query.integralAmountMin}
+		</if>
+		<if test="query != null and query.integralAmountMin == null and query.integralAmountMax != null">
+			and integral_amount <![CDATA[ <= ]]> #{query.integralAmountMax}
+		</if>
+		<if test="query != null and query.integralAmountMin != null and query.integralAmountMax != null">
+			and integral_amount <![CDATA[ >= ]]> #{query.integralAmountMin} and integral_amount <![CDATA[ <= ]]> #{query.integralAmountMax}
+		</if>
+		<if test="query != null and query.version != null">
+			and version = #{query.version}
+		</if>
+		<if test="query != null and query.versionMin != null and query.versionMax == null">
+			and version <![CDATA[ >= ]]> #{query.versionMin}
+		</if>
+		<if test="query != null and query.versionMin == null and query.versionMax != null">
+			and version <![CDATA[ <= ]]> #{query.versionMax}
+		</if>
+		<if test="query != null and query.versionMin != null and query.versionMax != null">
+			and version <![CDATA[ >= ]]> #{query.versionMin} and version <![CDATA[ <= ]]> #{query.versionMax}
+		</if>
+		<if test="query != null and query.createTime != null">
+			and create_time = #{query.createTime}
+		</if>
+		<if test="query != null and query.createTimeMin != null and query.createTimeMax == null">
+			and create_time <![CDATA[ >= ]]> #{query.createTimeMin}
+		</if>
+		<if test="query != null and query.createTimeMin == null and query.createTimeMax != null">
+			and create_time <![CDATA[ <= ]]> #{query.createTimeMax}
+		</if>
+		<if test="query != null and query.createTimeMin != null and query.createTimeMax != null">
+			and create_time <![CDATA[ >= ]]> #{query.createTimeMin} and create_time <![CDATA[ <= ]]> #{query.createTimeMax}
+		</if>
+		<if test="query != null and query.updateTime != null">
+			and update_time = #{query.updateTime}
+		</if>
+		<if test="query != null and query.updateTimeMin != null and query.updateTimeMax == null">
+			and update_time <![CDATA[ >= ]]> #{query.updateTimeMin}
+		</if>
+		<if test="query != null and query.updateTimeMin == null and query.updateTimeMax != null">
+			and update_time <![CDATA[ <= ]]> #{query.updateTimeMax}
+		</if>
+		<if test="query != null and query.updateTimeMin != null and query.updateTimeMax != null">
+			and update_time <![CDATA[ >= ]]> #{query.updateTimeMin} and update_time <![CDATA[ <= ]]> #{query.updateTimeMax}
+		</if>
+		<if test="query != null and query.isActive != null">
+			and is_active = #{query.isActive}
+		</if>
+		<if test="query != null and query.isActiveMin != null and query.isActiveMax == null">
+			and is_active <![CDATA[ >= ]]> #{query.isActiveMin}
+		</if>
+		<if test="query != null and query.isActiveMin == null and query.isActiveMax != null">
+			and is_active <![CDATA[ <= ]]> #{query.isActiveMax}
+		</if>
+		<if test="query != null and query.isActiveMin != null and query.isActiveMax != null">
+			and is_active <![CDATA[ >= ]]> #{query.isActiveMin} and is_active <![CDATA[ <= ]]> #{query.isActiveMax}
+		</if>
+		
+    </sql>
+
+    <select id="getById" parameterType="long" resultType="goodsOrderItemDO">
+        select
+        <include refid="select_columns"/>
+        from t_goods_order_item where id = #{id}
+    </select>
+
+    <select id="getVersionById" parameterType="long" resultType="integer">
+        select version from t_goods_order_item where id = #{id}
+    </select>
+
+    <select id="listAll" resultType="goodsOrderItemDO">
+        select
+        <include refid="select_columns"/>
+        from t_goods_order_item
+        order by update_time desc, create_time desc
+    </select>
+
+    <select id="listAllByCondition" resultType="goodsOrderItemDO">
+        select
+        <include refid="select_columns"/>
+        from t_goods_order_item
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+        order by
+        <if test="query.sortColumn != null and query.sortColumn != ''">
+             ${query.sortColumn} ${query.sortOrder}
+        </if>
+        <if test="query.sortColumn == null or query.sortColumn == ''">
+            update_time desc, create_time desc
+        </if>
+    </select>
+
+    <select id="listPageByCondition" resultType="goodsOrderItemDO">
+        select
+        <include refid="select_columns"/>
+        from t_goods_order_item
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+        order by
+        <if test="query.sortColumn != null and query.sortColumn != ''">
+            ${query.sortColumn} ${query.sortOrder}
+        </if>
+        <if test="query.sortColumn == null or query.sortColumn == ''">
+            update_time desc, create_time desc
+        </if>
+        limit #{query.beginIndex}, #{query.pageSize}
+    </select>
+
+    <select id="countByCondition" resultType="long">
+        select count(*) from t_goods_order_item
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+    </select>
+
+</mapper>

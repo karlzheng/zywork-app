@@ -1,0 +1,483 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.zywork.dao.GoodsOrderLogisticsDAO">
+
+    <insert id="save" parameterType="goodsOrderLogisticsDO">
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+    		SELECT LAST_INSERT_ID()
+    	</selectKey>
+        insert into t_goods_order_logistics
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="realName != null">
+				real_name,
+			</if>
+			<if test="phone != null">
+				phone,
+			</if>
+			<if test="province != null">
+				province,
+			</if>
+			<if test="city != null">
+				city,
+			</if>
+			<if test="district != null">
+				district,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+			<if test="isDeliver != null">
+				is_deliver,
+			</if>
+			<if test="logisticsCompany != null">
+				logistics_company,
+			</if>
+			<if test="logisticsCode != null">
+				logistics_code,
+			</if>
+			<if test="logisticsNo != null">
+				logistics_no,
+			</if>
+			<if test="version != null">
+				version,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="isActive != null">
+				is_active,
+			</if>
+			
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="realName != null">
+				#{realName},
+			</if>
+			<if test="phone != null">
+				#{phone},
+			</if>
+			<if test="province != null">
+				#{province},
+			</if>
+			<if test="city != null">
+				#{city},
+			</if>
+			<if test="district != null">
+				#{district},
+			</if>
+			<if test="address != null">
+				#{address},
+			</if>
+			<if test="isDeliver != null">
+				#{isDeliver},
+			</if>
+			<if test="logisticsCompany != null">
+				#{logisticsCompany},
+			</if>
+			<if test="logisticsCode != null">
+				#{logisticsCode},
+			</if>
+			<if test="logisticsNo != null">
+				#{logisticsNo},
+			</if>
+			<if test="version != null">
+				#{version},
+			</if>
+			<if test="createTime != null">
+				#{createTime},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime},
+			</if>
+			<if test="isActive != null">
+				#{isActive},
+			</if>
+			
+        </trim>
+    </insert>
+
+    <insert id="saveBatch" parameterType="java.util.List">
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+    		SELECT LAST_INSERT_ID()
+    	</selectKey>
+    	<foreach collection="list" item="item" separator=";">
+            insert into t_goods_order_logistics
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="item.realName != null">
+				real_name,
+			</if>
+			<if test="item.phone != null">
+				phone,
+			</if>
+			<if test="item.province != null">
+				province,
+			</if>
+			<if test="item.city != null">
+				city,
+			</if>
+			<if test="item.district != null">
+				district,
+			</if>
+			<if test="item.address != null">
+				address,
+			</if>
+			<if test="item.isDeliver != null">
+				is_deliver,
+			</if>
+			<if test="item.logisticsCompany != null">
+				logistics_company,
+			</if>
+			<if test="item.logisticsCode != null">
+				logistics_code,
+			</if>
+			<if test="item.logisticsNo != null">
+				logistics_no,
+			</if>
+			<if test="item.version != null">
+				version,
+			</if>
+			<if test="item.createTime != null">
+				create_time,
+			</if>
+			<if test="item.updateTime != null">
+				update_time,
+			</if>
+			<if test="item.isActive != null">
+				is_active,
+			</if>
+			
+            </trim>
+            <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="item.realName != null">
+				#{item.realName},
+			</if>
+			<if test="item.phone != null">
+				#{item.phone},
+			</if>
+			<if test="item.province != null">
+				#{item.province},
+			</if>
+			<if test="item.city != null">
+				#{item.city},
+			</if>
+			<if test="item.district != null">
+				#{item.district},
+			</if>
+			<if test="item.address != null">
+				#{item.address},
+			</if>
+			<if test="item.isDeliver != null">
+				#{item.isDeliver},
+			</if>
+			<if test="item.logisticsCompany != null">
+				#{item.logisticsCompany},
+			</if>
+			<if test="item.logisticsCode != null">
+				#{item.logisticsCode},
+			</if>
+			<if test="item.logisticsNo != null">
+				#{item.logisticsNo},
+			</if>
+			<if test="item.version != null">
+				#{item.version},
+			</if>
+			<if test="item.createTime != null">
+				#{item.createTime},
+			</if>
+			<if test="item.updateTime != null">
+				#{item.updateTime},
+			</if>
+			<if test="item.isActive != null">
+				#{item.isActive},
+			</if>
+			
+            </trim>
+        </foreach>
+    </insert>
+
+    <delete id="removeById" parameterType="long">
+        delete from t_goods_order_logistics where id = #{id}
+    </delete>
+
+    <delete id="removeByIds">
+        delete from t_goods_order_logistics where id in
+        <foreach item="id" collection="array" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="update" parameterType="goodsOrderLogisticsDO">
+        update t_goods_order_logistics
+        <set>
+            <if test="realName != null">
+				real_name = #{realName},
+			</if>
+			<if test="phone != null">
+				phone = #{phone},
+			</if>
+			<if test="province != null">
+				province = #{province},
+			</if>
+			<if test="city != null">
+				city = #{city},
+			</if>
+			<if test="district != null">
+				district = #{district},
+			</if>
+			<if test="address != null">
+				address = #{address},
+			</if>
+			<if test="isDeliver != null">
+				is_deliver = #{isDeliver},
+			</if>
+			<if test="logisticsCompany != null">
+				logistics_company = #{logisticsCompany},
+			</if>
+			<if test="logisticsCode != null">
+				logistics_code = #{logisticsCode},
+			</if>
+			<if test="logisticsNo != null">
+				logistics_no = #{logisticsNo},
+			</if>
+			<if test="version != null">
+				version = #{version},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime},
+			</if>
+			<if test="isActive != null">
+				is_active = #{isActive},
+			</if>
+			update_time = CURRENT_TIMESTAMP,
+        </set>
+        where id = #{id} and version + 1 <![CDATA[<=]]> #{version}
+    </update>
+
+    <update id="updateBatch" parameterType="java.util.List">
+    	<foreach collection="list" item="item" separator=";">
+            update t_goods_order_logistics
+            <set>
+                <if test="item.realName != null">
+				real_name = #{item.realName},
+			</if>
+			<if test="item.phone != null">
+				phone = #{item.phone},
+			</if>
+			<if test="item.province != null">
+				province = #{item.province},
+			</if>
+			<if test="item.city != null">
+				city = #{item.city},
+			</if>
+			<if test="item.district != null">
+				district = #{item.district},
+			</if>
+			<if test="item.address != null">
+				address = #{item.address},
+			</if>
+			<if test="item.isDeliver != null">
+				is_deliver = #{item.isDeliver},
+			</if>
+			<if test="item.logisticsCompany != null">
+				logistics_company = #{item.logisticsCompany},
+			</if>
+			<if test="item.logisticsCode != null">
+				logistics_code = #{item.logisticsCode},
+			</if>
+			<if test="item.logisticsNo != null">
+				logistics_no = #{item.logisticsNo},
+			</if>
+			<if test="item.version != null">
+				version = #{item.version},
+			</if>
+			<if test="item.createTime != null">
+				create_time = #{item.createTime},
+			</if>
+			<if test="item.updateTime != null">
+				update_time = #{item.updateTime},
+			</if>
+			<if test="item.isActive != null">
+				is_active = #{item.isActive},
+			</if>
+			update_time = CURRENT_TIMESTAMP,
+                <if test="item.version == null">
+                    version = version + 1,
+                </if>
+            </set>
+            where id = #{item.id}
+        </foreach>
+    </update>
+
+    <sql id="select_columns">
+        id as id, real_name as realName, phone as phone, province as province, city as city, district as district, address as address, is_deliver as isDeliver, logistics_company as logisticsCompany, logistics_code as logisticsCode, logistics_no as logisticsNo, version as version, create_time as createTime, update_time as updateTime, is_active as isActive
+    </sql>
+
+    <sql id="query_where_clause">
+        <if test="query != null and query.id != null">
+			and id = #{query.id}
+		</if>
+		<if test="query != null and query.idMin != null and query.idMax == null">
+			and id <![CDATA[ >= ]]> #{query.idMin}
+		</if>
+		<if test="query != null and query.idMin == null and query.idMax != null">
+			and id <![CDATA[ <= ]]> #{query.idMax}
+		</if>
+		<if test="query != null and query.idMin != null and query.idMax != null">
+			and id <![CDATA[ >= ]]> #{query.idMin} and id <![CDATA[ <= ]]> #{query.idMax}
+		</if>
+		<if test="query != null and query.realName != null and query.realName != ''">
+			and real_name like concat('%', #{query.realName}, '%')
+		</if>
+		<if test="query != null and query.phone != null and query.phone != ''">
+			and phone like concat('%', #{query.phone}, '%')
+		</if>
+		<if test="query != null and query.province != null and query.province != ''">
+			and province like concat('%', #{query.province}, '%')
+		</if>
+		<if test="query != null and query.city != null and query.city != ''">
+			and city like concat('%', #{query.city}, '%')
+		</if>
+		<if test="query != null and query.district != null and query.district != ''">
+			and district like concat('%', #{query.district}, '%')
+		</if>
+		<if test="query != null and query.address != null and query.address != ''">
+			and address like concat('%', #{query.address}, '%')
+		</if>
+		<if test="query != null and query.isDeliver != null">
+			and is_deliver = #{query.isDeliver}
+		</if>
+		<if test="query != null and query.isDeliverMin != null and query.isDeliverMax == null">
+			and is_deliver <![CDATA[ >= ]]> #{query.isDeliverMin}
+		</if>
+		<if test="query != null and query.isDeliverMin == null and query.isDeliverMax != null">
+			and is_deliver <![CDATA[ <= ]]> #{query.isDeliverMax}
+		</if>
+		<if test="query != null and query.isDeliverMin != null and query.isDeliverMax != null">
+			and is_deliver <![CDATA[ >= ]]> #{query.isDeliverMin} and is_deliver <![CDATA[ <= ]]> #{query.isDeliverMax}
+		</if>
+		<if test="query != null and query.logisticsCompany != null and query.logisticsCompany != ''">
+			and logistics_company like concat('%', #{query.logisticsCompany}, '%')
+		</if>
+		<if test="query != null and query.logisticsCode != null and query.logisticsCode != ''">
+			and logistics_code like concat('%', #{query.logisticsCode}, '%')
+		</if>
+		<if test="query != null and query.logisticsNo != null and query.logisticsNo != ''">
+			and logistics_no like concat('%', #{query.logisticsNo}, '%')
+		</if>
+		<if test="query != null and query.version != null">
+			and version = #{query.version}
+		</if>
+		<if test="query != null and query.versionMin != null and query.versionMax == null">
+			and version <![CDATA[ >= ]]> #{query.versionMin}
+		</if>
+		<if test="query != null and query.versionMin == null and query.versionMax != null">
+			and version <![CDATA[ <= ]]> #{query.versionMax}
+		</if>
+		<if test="query != null and query.versionMin != null and query.versionMax != null">
+			and version <![CDATA[ >= ]]> #{query.versionMin} and version <![CDATA[ <= ]]> #{query.versionMax}
+		</if>
+		<if test="query != null and query.createTime != null">
+			and create_time = #{query.createTime}
+		</if>
+		<if test="query != null and query.createTimeMin != null and query.createTimeMax == null">
+			and create_time <![CDATA[ >= ]]> #{query.createTimeMin}
+		</if>
+		<if test="query != null and query.createTimeMin == null and query.createTimeMax != null">
+			and create_time <![CDATA[ <= ]]> #{query.createTimeMax}
+		</if>
+		<if test="query != null and query.createTimeMin != null and query.createTimeMax != null">
+			and create_time <![CDATA[ >= ]]> #{query.createTimeMin} and create_time <![CDATA[ <= ]]> #{query.createTimeMax}
+		</if>
+		<if test="query != null and query.updateTime != null">
+			and update_time = #{query.updateTime}
+		</if>
+		<if test="query != null and query.updateTimeMin != null and query.updateTimeMax == null">
+			and update_time <![CDATA[ >= ]]> #{query.updateTimeMin}
+		</if>
+		<if test="query != null and query.updateTimeMin == null and query.updateTimeMax != null">
+			and update_time <![CDATA[ <= ]]> #{query.updateTimeMax}
+		</if>
+		<if test="query != null and query.updateTimeMin != null and query.updateTimeMax != null">
+			and update_time <![CDATA[ >= ]]> #{query.updateTimeMin} and update_time <![CDATA[ <= ]]> #{query.updateTimeMax}
+		</if>
+		<if test="query != null and query.isActive != null">
+			and is_active = #{query.isActive}
+		</if>
+		<if test="query != null and query.isActiveMin != null and query.isActiveMax == null">
+			and is_active <![CDATA[ >= ]]> #{query.isActiveMin}
+		</if>
+		<if test="query != null and query.isActiveMin == null and query.isActiveMax != null">
+			and is_active <![CDATA[ <= ]]> #{query.isActiveMax}
+		</if>
+		<if test="query != null and query.isActiveMin != null and query.isActiveMax != null">
+			and is_active <![CDATA[ >= ]]> #{query.isActiveMin} and is_active <![CDATA[ <= ]]> #{query.isActiveMax}
+		</if>
+		
+    </sql>
+
+    <select id="getById" parameterType="long" resultType="goodsOrderLogisticsDO">
+        select
+        <include refid="select_columns"/>
+        from t_goods_order_logistics where id = #{id}
+    </select>
+
+    <select id="getVersionById" parameterType="long" resultType="integer">
+        select version from t_goods_order_logistics where id = #{id}
+    </select>
+
+    <select id="listAll" resultType="goodsOrderLogisticsDO">
+        select
+        <include refid="select_columns"/>
+        from t_goods_order_logistics
+        order by update_time desc, create_time desc
+    </select>
+
+    <select id="listAllByCondition" resultType="goodsOrderLogisticsDO">
+        select
+        <include refid="select_columns"/>
+        from t_goods_order_logistics
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+        order by
+        <if test="query.sortColumn != null and query.sortColumn != ''">
+             ${query.sortColumn} ${query.sortOrder}
+        </if>
+        <if test="query.sortColumn == null or query.sortColumn == ''">
+            update_time desc, create_time desc
+        </if>
+    </select>
+
+    <select id="listPageByCondition" resultType="goodsOrderLogisticsDO">
+        select
+        <include refid="select_columns"/>
+        from t_goods_order_logistics
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+        order by
+        <if test="query.sortColumn != null and query.sortColumn != ''">
+            ${query.sortColumn} ${query.sortOrder}
+        </if>
+        <if test="query.sortColumn == null or query.sortColumn == ''">
+            update_time desc, create_time desc
+        </if>
+        limit #{query.beginIndex}, #{query.pageSize}
+    </select>
+
+    <select id="countByCondition" resultType="long">
+        select count(*) from t_goods_order_logistics
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+    </select>
+
+</mapper>

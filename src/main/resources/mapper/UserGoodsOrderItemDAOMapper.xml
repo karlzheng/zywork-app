@@ -1,0 +1,340 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.zywork.dao.UserGoodsOrderItemDAO">
+
+    <sql id="select_columns">
+        t_user.id as userId, t_user.phone as userPhone, t_user.email as userEmail, t_user_detail.nickname as userDetailNickname, t_user_detail.headicon as userDetailHeadicon, t_goods_order.id as goodsOrderId, t_goods_order.order_no as goodsOrderOrderNo, t_goods_order.total_amount as goodsOrderTotalAmount, t_goods_order.pay_amount as goodsOrderPayAmount, t_goods_order.discount_amount as goodsOrderDiscountAmount, t_goods_order.integral_amount as goodsOrderIntegralAmount, t_goods_order.express_fee as goodsOrderExpressFee, t_goods_order.order_status as goodsOrderOrderStatus, t_goods_order.pay_time as goodsOrderPayTime, t_goods_order.pay_type as goodsOrderPayType, t_goods_order.transaction_no as goodsOrderTransactionNo, t_goods_order.pay_success as goodsOrderPaySuccess, t_goods_order.deliver_time as goodsOrderDeliverTime, t_goods_order.deal_time as goodsOrderDealTime, t_goods_order_item.goods_id as goodsOrderItemGoodsId, t_goods_order_item.goods_sku_id as goodsOrderItemGoodsSkuId, t_goods_order_item.sku_title as goodsOrderItemSkuTitle, t_goods_order_item.sku_info as goodsOrderItemSkuInfo, t_goods_order_item.quantity as goodsOrderItemQuantity, t_goods_order_item.pay_amount as goodsOrderItemPayAmount, t_goods_order_item.discount_amount as goodsOrderItemDiscountAmount, t_goods_order_item.integral_amount as goodsOrderItemIntegralAmount, t_goods_pic.id as goodsPicId, t_goods_pic.pic_url as goodsPicPicUrl
+    </sql>
+
+    <sql id="query_where_clause">
+        <if test="query != null and query.userId != null">
+			and t_user.id = #{query.userId}
+		</if>
+		<if test="query != null and query.userIdMin != null and query.userIdMax == null">
+			and t_user.id <![CDATA[ >= ]]> #{query.userIdMin}
+		</if>
+		<if test="query != null and query.userIdMin == null and query.userIdMax != null">
+			and t_user.id <![CDATA[ <= ]]> #{query.userIdMax}
+		</if>
+		<if test="query != null and query.userIdMin != null and query.userIdMax != null">
+			and t_user.id <![CDATA[ >= ]]> #{query.userIdMin} and t_user.id <![CDATA[ <= ]]> #{query.userIdMax}
+		</if>
+		<if test="query != null and query.userPhone != null and query.userPhone != ''">
+			and t_user.phone like concat('%', #{query.userPhone}, '%')
+		</if>
+		<if test="query != null and query.userEmail != null and query.userEmail != ''">
+			and t_user.email like concat('%', #{query.userEmail}, '%')
+		</if>
+		<if test="query != null and query.userDetailNickname != null and query.userDetailNickname != ''">
+			and t_user_detail.nickname like concat('%', #{query.userDetailNickname}, '%')
+		</if>
+		<if test="query != null and query.userDetailHeadicon != null and query.userDetailHeadicon != ''">
+			and t_user_detail.headicon like concat('%', #{query.userDetailHeadicon}, '%')
+		</if>
+		<if test="query != null and query.goodsOrderId != null">
+			and t_goods_order.id = #{query.goodsOrderId}
+		</if>
+		<if test="query != null and query.goodsOrderIdMin != null and query.goodsOrderIdMax == null">
+			and t_goods_order.id <![CDATA[ >= ]]> #{query.goodsOrderIdMin}
+		</if>
+		<if test="query != null and query.goodsOrderIdMin == null and query.goodsOrderIdMax != null">
+			and t_goods_order.id <![CDATA[ <= ]]> #{query.goodsOrderIdMax}
+		</if>
+		<if test="query != null and query.goodsOrderIdMin != null and query.goodsOrderIdMax != null">
+			and t_goods_order.id <![CDATA[ >= ]]> #{query.goodsOrderIdMin} and t_goods_order.id <![CDATA[ <= ]]> #{query.goodsOrderIdMax}
+		</if>
+		<if test="query != null and query.goodsOrderOrderNo != null and query.goodsOrderOrderNo != ''">
+			and t_goods_order.order_no like concat('%', #{query.goodsOrderOrderNo}, '%')
+		</if>
+		<if test="query != null and query.goodsOrderTotalAmount != null">
+			and t_goods_order.total_amount = #{query.goodsOrderTotalAmount}
+		</if>
+		<if test="query != null and query.goodsOrderTotalAmountMin != null and query.goodsOrderTotalAmountMax == null">
+			and t_goods_order.total_amount <![CDATA[ >= ]]> #{query.goodsOrderTotalAmountMin}
+		</if>
+		<if test="query != null and query.goodsOrderTotalAmountMin == null and query.goodsOrderTotalAmountMax != null">
+			and t_goods_order.total_amount <![CDATA[ <= ]]> #{query.goodsOrderTotalAmountMax}
+		</if>
+		<if test="query != null and query.goodsOrderTotalAmountMin != null and query.goodsOrderTotalAmountMax != null">
+			and t_goods_order.total_amount <![CDATA[ >= ]]> #{query.goodsOrderTotalAmountMin} and t_goods_order.total_amount <![CDATA[ <= ]]> #{query.goodsOrderTotalAmountMax}
+		</if>
+		<if test="query != null and query.goodsOrderPayAmount != null">
+			and t_goods_order.pay_amount = #{query.goodsOrderPayAmount}
+		</if>
+		<if test="query != null and query.goodsOrderPayAmountMin != null and query.goodsOrderPayAmountMax == null">
+			and t_goods_order.pay_amount <![CDATA[ >= ]]> #{query.goodsOrderPayAmountMin}
+		</if>
+		<if test="query != null and query.goodsOrderPayAmountMin == null and query.goodsOrderPayAmountMax != null">
+			and t_goods_order.pay_amount <![CDATA[ <= ]]> #{query.goodsOrderPayAmountMax}
+		</if>
+		<if test="query != null and query.goodsOrderPayAmountMin != null and query.goodsOrderPayAmountMax != null">
+			and t_goods_order.pay_amount <![CDATA[ >= ]]> #{query.goodsOrderPayAmountMin} and t_goods_order.pay_amount <![CDATA[ <= ]]> #{query.goodsOrderPayAmountMax}
+		</if>
+		<if test="query != null and query.goodsOrderDiscountAmount != null">
+			and t_goods_order.discount_amount = #{query.goodsOrderDiscountAmount}
+		</if>
+		<if test="query != null and query.goodsOrderDiscountAmountMin != null and query.goodsOrderDiscountAmountMax == null">
+			and t_goods_order.discount_amount <![CDATA[ >= ]]> #{query.goodsOrderDiscountAmountMin}
+		</if>
+		<if test="query != null and query.goodsOrderDiscountAmountMin == null and query.goodsOrderDiscountAmountMax != null">
+			and t_goods_order.discount_amount <![CDATA[ <= ]]> #{query.goodsOrderDiscountAmountMax}
+		</if>
+		<if test="query != null and query.goodsOrderDiscountAmountMin != null and query.goodsOrderDiscountAmountMax != null">
+			and t_goods_order.discount_amount <![CDATA[ >= ]]> #{query.goodsOrderDiscountAmountMin} and t_goods_order.discount_amount <![CDATA[ <= ]]> #{query.goodsOrderDiscountAmountMax}
+		</if>
+		<if test="query != null and query.goodsOrderIntegralAmount != null">
+			and t_goods_order.integral_amount = #{query.goodsOrderIntegralAmount}
+		</if>
+		<if test="query != null and query.goodsOrderIntegralAmountMin != null and query.goodsOrderIntegralAmountMax == null">
+			and t_goods_order.integral_amount <![CDATA[ >= ]]> #{query.goodsOrderIntegralAmountMin}
+		</if>
+		<if test="query != null and query.goodsOrderIntegralAmountMin == null and query.goodsOrderIntegralAmountMax != null">
+			and t_goods_order.integral_amount <![CDATA[ <= ]]> #{query.goodsOrderIntegralAmountMax}
+		</if>
+		<if test="query != null and query.goodsOrderIntegralAmountMin != null and query.goodsOrderIntegralAmountMax != null">
+			and t_goods_order.integral_amount <![CDATA[ >= ]]> #{query.goodsOrderIntegralAmountMin} and t_goods_order.integral_amount <![CDATA[ <= ]]> #{query.goodsOrderIntegralAmountMax}
+		</if>
+		<if test="query != null and query.goodsOrderExpressFee != null">
+			and t_goods_order.express_fee = #{query.goodsOrderExpressFee}
+		</if>
+		<if test="query != null and query.goodsOrderExpressFeeMin != null and query.goodsOrderExpressFeeMax == null">
+			and t_goods_order.express_fee <![CDATA[ >= ]]> #{query.goodsOrderExpressFeeMin}
+		</if>
+		<if test="query != null and query.goodsOrderExpressFeeMin == null and query.goodsOrderExpressFeeMax != null">
+			and t_goods_order.express_fee <![CDATA[ <= ]]> #{query.goodsOrderExpressFeeMax}
+		</if>
+		<if test="query != null and query.goodsOrderExpressFeeMin != null and query.goodsOrderExpressFeeMax != null">
+			and t_goods_order.express_fee <![CDATA[ >= ]]> #{query.goodsOrderExpressFeeMin} and t_goods_order.express_fee <![CDATA[ <= ]]> #{query.goodsOrderExpressFeeMax}
+		</if>
+		<if test="query != null and query.goodsOrderOrderStatus != null">
+			and t_goods_order.order_status = #{query.goodsOrderOrderStatus}
+		</if>
+		<if test="query != null and query.goodsOrderOrderStatusMin != null and query.goodsOrderOrderStatusMax == null">
+			and t_goods_order.order_status <![CDATA[ >= ]]> #{query.goodsOrderOrderStatusMin}
+		</if>
+		<if test="query != null and query.goodsOrderOrderStatusMin == null and query.goodsOrderOrderStatusMax != null">
+			and t_goods_order.order_status <![CDATA[ <= ]]> #{query.goodsOrderOrderStatusMax}
+		</if>
+		<if test="query != null and query.goodsOrderOrderStatusMin != null and query.goodsOrderOrderStatusMax != null">
+			and t_goods_order.order_status <![CDATA[ >= ]]> #{query.goodsOrderOrderStatusMin} and t_goods_order.order_status <![CDATA[ <= ]]> #{query.goodsOrderOrderStatusMax}
+		</if>
+		<if test="query != null and query.goodsOrderPayTime != null">
+			and t_goods_order.pay_time = #{query.goodsOrderPayTime}
+		</if>
+		<if test="query != null and query.goodsOrderPayTimeMin != null and query.goodsOrderPayTimeMax == null">
+			and t_goods_order.pay_time <![CDATA[ >= ]]> #{query.goodsOrderPayTimeMin}
+		</if>
+		<if test="query != null and query.goodsOrderPayTimeMin == null and query.goodsOrderPayTimeMax != null">
+			and t_goods_order.pay_time <![CDATA[ <= ]]> #{query.goodsOrderPayTimeMax}
+		</if>
+		<if test="query != null and query.goodsOrderPayTimeMin != null and query.goodsOrderPayTimeMax != null">
+			and t_goods_order.pay_time <![CDATA[ >= ]]> #{query.goodsOrderPayTimeMin} and t_goods_order.pay_time <![CDATA[ <= ]]> #{query.goodsOrderPayTimeMax}
+		</if>
+		<if test="query != null and query.goodsOrderPayType != null">
+			and t_goods_order.pay_type = #{query.goodsOrderPayType}
+		</if>
+		<if test="query != null and query.goodsOrderPayTypeMin != null and query.goodsOrderPayTypeMax == null">
+			and t_goods_order.pay_type <![CDATA[ >= ]]> #{query.goodsOrderPayTypeMin}
+		</if>
+		<if test="query != null and query.goodsOrderPayTypeMin == null and query.goodsOrderPayTypeMax != null">
+			and t_goods_order.pay_type <![CDATA[ <= ]]> #{query.goodsOrderPayTypeMax}
+		</if>
+		<if test="query != null and query.goodsOrderPayTypeMin != null and query.goodsOrderPayTypeMax != null">
+			and t_goods_order.pay_type <![CDATA[ >= ]]> #{query.goodsOrderPayTypeMin} and t_goods_order.pay_type <![CDATA[ <= ]]> #{query.goodsOrderPayTypeMax}
+		</if>
+		<if test="query != null and query.goodsOrderTransactionNo != null and query.goodsOrderTransactionNo != ''">
+			and t_goods_order.transaction_no like concat('%', #{query.goodsOrderTransactionNo}, '%')
+		</if>
+		<if test="query != null and query.goodsOrderPaySuccess != null">
+			and t_goods_order.pay_success = #{query.goodsOrderPaySuccess}
+		</if>
+		<if test="query != null and query.goodsOrderPaySuccessMin != null and query.goodsOrderPaySuccessMax == null">
+			and t_goods_order.pay_success <![CDATA[ >= ]]> #{query.goodsOrderPaySuccessMin}
+		</if>
+		<if test="query != null and query.goodsOrderPaySuccessMin == null and query.goodsOrderPaySuccessMax != null">
+			and t_goods_order.pay_success <![CDATA[ <= ]]> #{query.goodsOrderPaySuccessMax}
+		</if>
+		<if test="query != null and query.goodsOrderPaySuccessMin != null and query.goodsOrderPaySuccessMax != null">
+			and t_goods_order.pay_success <![CDATA[ >= ]]> #{query.goodsOrderPaySuccessMin} and t_goods_order.pay_success <![CDATA[ <= ]]> #{query.goodsOrderPaySuccessMax}
+		</if>
+		<if test="query != null and query.goodsOrderDeliverTime != null">
+			and t_goods_order.deliver_time = #{query.goodsOrderDeliverTime}
+		</if>
+		<if test="query != null and query.goodsOrderDeliverTimeMin != null and query.goodsOrderDeliverTimeMax == null">
+			and t_goods_order.deliver_time <![CDATA[ >= ]]> #{query.goodsOrderDeliverTimeMin}
+		</if>
+		<if test="query != null and query.goodsOrderDeliverTimeMin == null and query.goodsOrderDeliverTimeMax != null">
+			and t_goods_order.deliver_time <![CDATA[ <= ]]> #{query.goodsOrderDeliverTimeMax}
+		</if>
+		<if test="query != null and query.goodsOrderDeliverTimeMin != null and query.goodsOrderDeliverTimeMax != null">
+			and t_goods_order.deliver_time <![CDATA[ >= ]]> #{query.goodsOrderDeliverTimeMin} and t_goods_order.deliver_time <![CDATA[ <= ]]> #{query.goodsOrderDeliverTimeMax}
+		</if>
+		<if test="query != null and query.goodsOrderDealTime != null">
+			and t_goods_order.deal_time = #{query.goodsOrderDealTime}
+		</if>
+		<if test="query != null and query.goodsOrderDealTimeMin != null and query.goodsOrderDealTimeMax == null">
+			and t_goods_order.deal_time <![CDATA[ >= ]]> #{query.goodsOrderDealTimeMin}
+		</if>
+		<if test="query != null and query.goodsOrderDealTimeMin == null and query.goodsOrderDealTimeMax != null">
+			and t_goods_order.deal_time <![CDATA[ <= ]]> #{query.goodsOrderDealTimeMax}
+		</if>
+		<if test="query != null and query.goodsOrderDealTimeMin != null and query.goodsOrderDealTimeMax != null">
+			and t_goods_order.deal_time <![CDATA[ >= ]]> #{query.goodsOrderDealTimeMin} and t_goods_order.deal_time <![CDATA[ <= ]]> #{query.goodsOrderDealTimeMax}
+		</if>
+		<if test="query != null and query.goodsOrderItemGoodsId != null">
+			and t_goods_order_item.goods_id = #{query.goodsOrderItemGoodsId}
+		</if>
+		<if test="query != null and query.goodsOrderItemGoodsIdMin != null and query.goodsOrderItemGoodsIdMax == null">
+			and t_goods_order_item.goods_id <![CDATA[ >= ]]> #{query.goodsOrderItemGoodsIdMin}
+		</if>
+		<if test="query != null and query.goodsOrderItemGoodsIdMin == null and query.goodsOrderItemGoodsIdMax != null">
+			and t_goods_order_item.goods_id <![CDATA[ <= ]]> #{query.goodsOrderItemGoodsIdMax}
+		</if>
+		<if test="query != null and query.goodsOrderItemGoodsIdMin != null and query.goodsOrderItemGoodsIdMax != null">
+			and t_goods_order_item.goods_id <![CDATA[ >= ]]> #{query.goodsOrderItemGoodsIdMin} and t_goods_order_item.goods_id <![CDATA[ <= ]]> #{query.goodsOrderItemGoodsIdMax}
+		</if>
+		<if test="query != null and query.goodsOrderItemGoodsSkuId != null">
+			and t_goods_order_item.goods_sku_id = #{query.goodsOrderItemGoodsSkuId}
+		</if>
+		<if test="query != null and query.goodsOrderItemGoodsSkuIdMin != null and query.goodsOrderItemGoodsSkuIdMax == null">
+			and t_goods_order_item.goods_sku_id <![CDATA[ >= ]]> #{query.goodsOrderItemGoodsSkuIdMin}
+		</if>
+		<if test="query != null and query.goodsOrderItemGoodsSkuIdMin == null and query.goodsOrderItemGoodsSkuIdMax != null">
+			and t_goods_order_item.goods_sku_id <![CDATA[ <= ]]> #{query.goodsOrderItemGoodsSkuIdMax}
+		</if>
+		<if test="query != null and query.goodsOrderItemGoodsSkuIdMin != null and query.goodsOrderItemGoodsSkuIdMax != null">
+			and t_goods_order_item.goods_sku_id <![CDATA[ >= ]]> #{query.goodsOrderItemGoodsSkuIdMin} and t_goods_order_item.goods_sku_id <![CDATA[ <= ]]> #{query.goodsOrderItemGoodsSkuIdMax}
+		</if>
+		<if test="query != null and query.goodsOrderItemSkuTitle != null and query.goodsOrderItemSkuTitle != ''">
+			and t_goods_order_item.sku_title like concat('%', #{query.goodsOrderItemSkuTitle}, '%')
+		</if>
+		<if test="query != null and query.goodsOrderItemSkuInfo != null and query.goodsOrderItemSkuInfo != ''">
+			and t_goods_order_item.sku_info like concat('%', #{query.goodsOrderItemSkuInfo}, '%')
+		</if>
+		<if test="query != null and query.goodsOrderItemQuantity != null">
+			and t_goods_order_item.quantity = #{query.goodsOrderItemQuantity}
+		</if>
+		<if test="query != null and query.goodsOrderItemQuantityMin != null and query.goodsOrderItemQuantityMax == null">
+			and t_goods_order_item.quantity <![CDATA[ >= ]]> #{query.goodsOrderItemQuantityMin}
+		</if>
+		<if test="query != null and query.goodsOrderItemQuantityMin == null and query.goodsOrderItemQuantityMax != null">
+			and t_goods_order_item.quantity <![CDATA[ <= ]]> #{query.goodsOrderItemQuantityMax}
+		</if>
+		<if test="query != null and query.goodsOrderItemQuantityMin != null and query.goodsOrderItemQuantityMax != null">
+			and t_goods_order_item.quantity <![CDATA[ >= ]]> #{query.goodsOrderItemQuantityMin} and t_goods_order_item.quantity <![CDATA[ <= ]]> #{query.goodsOrderItemQuantityMax}
+		</if>
+		<if test="query != null and query.goodsOrderItemPayAmount != null">
+			and t_goods_order_item.pay_amount = #{query.goodsOrderItemPayAmount}
+		</if>
+		<if test="query != null and query.goodsOrderItemPayAmountMin != null and query.goodsOrderItemPayAmountMax == null">
+			and t_goods_order_item.pay_amount <![CDATA[ >= ]]> #{query.goodsOrderItemPayAmountMin}
+		</if>
+		<if test="query != null and query.goodsOrderItemPayAmountMin == null and query.goodsOrderItemPayAmountMax != null">
+			and t_goods_order_item.pay_amount <![CDATA[ <= ]]> #{query.goodsOrderItemPayAmountMax}
+		</if>
+		<if test="query != null and query.goodsOrderItemPayAmountMin != null and query.goodsOrderItemPayAmountMax != null">
+			and t_goods_order_item.pay_amount <![CDATA[ >= ]]> #{query.goodsOrderItemPayAmountMin} and t_goods_order_item.pay_amount <![CDATA[ <= ]]> #{query.goodsOrderItemPayAmountMax}
+		</if>
+		<if test="query != null and query.goodsOrderItemDiscountAmount != null">
+			and t_goods_order_item.discount_amount = #{query.goodsOrderItemDiscountAmount}
+		</if>
+		<if test="query != null and query.goodsOrderItemDiscountAmountMin != null and query.goodsOrderItemDiscountAmountMax == null">
+			and t_goods_order_item.discount_amount <![CDATA[ >= ]]> #{query.goodsOrderItemDiscountAmountMin}
+		</if>
+		<if test="query != null and query.goodsOrderItemDiscountAmountMin == null and query.goodsOrderItemDiscountAmountMax != null">
+			and t_goods_order_item.discount_amount <![CDATA[ <= ]]> #{query.goodsOrderItemDiscountAmountMax}
+		</if>
+		<if test="query != null and query.goodsOrderItemDiscountAmountMin != null and query.goodsOrderItemDiscountAmountMax != null">
+			and t_goods_order_item.discount_amount <![CDATA[ >= ]]> #{query.goodsOrderItemDiscountAmountMin} and t_goods_order_item.discount_amount <![CDATA[ <= ]]> #{query.goodsOrderItemDiscountAmountMax}
+		</if>
+		<if test="query != null and query.goodsOrderItemIntegralAmount != null">
+			and t_goods_order_item.integral_amount = #{query.goodsOrderItemIntegralAmount}
+		</if>
+		<if test="query != null and query.goodsOrderItemIntegralAmountMin != null and query.goodsOrderItemIntegralAmountMax == null">
+			and t_goods_order_item.integral_amount <![CDATA[ >= ]]> #{query.goodsOrderItemIntegralAmountMin}
+		</if>
+		<if test="query != null and query.goodsOrderItemIntegralAmountMin == null and query.goodsOrderItemIntegralAmountMax != null">
+			and t_goods_order_item.integral_amount <![CDATA[ <= ]]> #{query.goodsOrderItemIntegralAmountMax}
+		</if>
+		<if test="query != null and query.goodsOrderItemIntegralAmountMin != null and query.goodsOrderItemIntegralAmountMax != null">
+			and t_goods_order_item.integral_amount <![CDATA[ >= ]]> #{query.goodsOrderItemIntegralAmountMin} and t_goods_order_item.integral_amount <![CDATA[ <= ]]> #{query.goodsOrderItemIntegralAmountMax}
+		</if>
+		<if test="query != null and query.goodsPicId != null">
+			and t_goods_pic.id = #{query.goodsPicId}
+		</if>
+		<if test="query != null and query.goodsPicIdMin != null and query.goodsPicIdMax == null">
+			and t_goods_pic.id <![CDATA[ >= ]]> #{query.goodsPicIdMin}
+		</if>
+		<if test="query != null and query.goodsPicIdMin == null and query.goodsPicIdMax != null">
+			and t_goods_pic.id <![CDATA[ <= ]]> #{query.goodsPicIdMax}
+		</if>
+		<if test="query != null and query.goodsPicIdMin != null and query.goodsPicIdMax != null">
+			and t_goods_pic.id <![CDATA[ >= ]]> #{query.goodsPicIdMin} and t_goods_pic.id <![CDATA[ <= ]]> #{query.goodsPicIdMax}
+		</if>
+		<if test="query != null and query.goodsPicPicUrl != null and query.goodsPicPicUrl != ''">
+			and t_goods_pic.pic_url like concat('%', #{query.goodsPicPicUrl}, '%')
+		</if>
+		
+        and
+        t_user.id = t_user_detail.id and t_goods_order.user_id = t_user.id and t_goods_order.id = t_goods_order_item.order_id and t_goods_order_item.sku_pic_id = t_goods_pic.id
+    </sql>
+
+    <select id="listById" parameterType="long" resultType="userGoodsOrderItemDO">
+        select
+        <include refid="select_columns"/>
+        from t_user, t_user_detail, t_goods_order, t_goods_order_item, t_goods_pic where t_user.id = #{id} and
+        t_user.id = t_user_detail.id and t_goods_order.user_id = t_user.id and t_goods_order.id = t_goods_order_item.order_id and t_goods_order_item.sku_pic_id = t_goods_pic.id
+    </select>
+
+    <select id="listAll" resultType="userGoodsOrderItemDO">
+        select
+        <include refid="select_columns"/>
+        from t_user, t_user_detail, t_goods_order, t_goods_order_item, t_goods_pic
+        where
+        t_user.id = t_user_detail.id and t_goods_order.user_id = t_user.id and t_goods_order.id = t_goods_order_item.order_id and t_goods_order_item.sku_pic_id = t_goods_pic.id
+        order by t_user.update_time desc, t_user.create_time desc
+    </select>
+
+    <select id="listAllByCondition" resultType="userGoodsOrderItemDO">
+        select
+        <include refid="select_columns"/>
+        from t_user, t_user_detail, t_goods_order, t_goods_order_item, t_goods_pic
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+        order by
+        <if test="query.sortColumn != null and query.sortColumn != ''">
+            ${query.sortColumn} ${query.sortOrder}
+        </if>
+        <if test="query.sortColumn == null or query.sortColumn == ''">
+            t_user.update_time desc, t_user.create_time desc
+        </if>
+    </select>
+
+    <select id="listPageByCondition" resultType="userGoodsOrderItemDO">
+        select
+        <include refid="select_columns"/>
+        from t_user, t_user_detail, t_goods_order, t_goods_order_item, t_goods_pic
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+        order by
+        <if test="query.sortColumn != null and query.sortColumn != ''">
+            ${query.sortColumn} ${query.sortOrder}
+        </if>
+        <if test="query.sortColumn == null or query.sortColumn == ''">
+            t_user.update_time desc, t_user.create_time desc
+        </if>
+        limit #{query.beginIndex}, #{query.pageSize}
+    </select>
+
+    <select id="countByCondition" resultType="long">
+        select count(*) from t_user, t_user_detail, t_goods_order, t_goods_order_item, t_goods_pic
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+    </select>
+
+</mapper>
