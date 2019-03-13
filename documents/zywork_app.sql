@@ -1039,7 +1039,7 @@ BEGIN
 	-- 根据直接父id获取其所有祖先id，祖先id按倒序排列，方便得出用户id与祖先id间是多少级关系
 	declare ancestorList cursor for
 	select t_user_hierarchy.ancestor_id from t_user_hierarchy where t_user_hierarchy.user_id = pid
-	order by t_user_hierarchy.ancestor_id desc;
+	order by t_user_hierarchy.user_level asc;
 	declare continue handler for sqlexception set hasError = 1;
 	declare continue handler for not found set num = 1;
 	start transaction;
