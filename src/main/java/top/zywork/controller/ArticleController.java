@@ -12,6 +12,8 @@ import top.zywork.common.StringUtils;
 import top.zywork.dto.ArticleDTO;
 import top.zywork.dto.PagerDTO;
 import top.zywork.query.ArticleQuery;
+import top.zywork.security.JwtUser;
+import top.zywork.security.SecurityUtils;
 import top.zywork.service.ArticleService;
 import top.zywork.vo.ArticleVO;
 import top.zywork.vo.PagerVO;
@@ -40,6 +42,11 @@ public class ArticleController extends BaseController {
         if (bindingResult.hasErrors()) {
             return ResponseStatusVO.dataError(BindingResultUtils.errorString(bindingResult), null);
         }
+        JwtUser jwtUser = SecurityUtils.getJwtUser();
+        if (jwtUser == null) {
+            return ResponseStatusVO.authenticationError();
+        }
+        articleVO.setCreateId(jwtUser.getUserId());
         articleService.save(BeanUtils.copy(articleVO, ArticleDTO.class));
         return ResponseStatusVO.ok("添加成功", null);
     }
@@ -48,6 +55,13 @@ public class ArticleController extends BaseController {
     public ResponseStatusVO saveBatch(@RequestBody @Validated List<ArticleVO> articleVOList, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResponseStatusVO.dataError(BindingResultUtils.errorString(bindingResult), null);
+        }
+        JwtUser jwtUser = SecurityUtils.getJwtUser();
+        if (jwtUser == null) {
+            return ResponseStatusVO.authenticationError();
+        }
+        for (ArticleVO articleVO : articleVOList) {
+            articleVO.setCreateId(jwtUser.getUserId());
         }
         articleService.saveBatch(BeanUtils.copyListObj(articleVOList, ArticleDTO.class));
         return ResponseStatusVO.ok("批量添加成功", null);

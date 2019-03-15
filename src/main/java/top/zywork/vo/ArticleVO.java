@@ -46,7 +46,6 @@ public class ArticleVO extends BaseVO {
 	// 版本号
 	private Integer version;
 	// 创建人编号
-	@NotNull(message = "此项是必须项")
 	private Long createId;
 	// 创建时间
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")

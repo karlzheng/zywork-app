@@ -64,7 +64,7 @@ CREATE TABLE `t_article` (
   `content` text COLLATE utf8mb4_general_ci NOT NULL COMMENT '文章内容',
   `view_count` int(11) DEFAULT '0' COMMENT '阅读量',
   `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_id` bigint(20) NOT NULL COMMENT '创建人编号',
+  `create_id` bigint(20) COMMENT '创建人编号',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) DEFAULT '1' COMMENT '是否激活',
