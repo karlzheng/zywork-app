@@ -3,15 +3,15 @@
 
  Source Server         : MySQL
  Source Server Type    : MySQL
- Source Server Version : 80013
+ Source Server Version : 80015
  Source Host           : localhost:3306
  Source Schema         : zywork_app
 
  Target Server Type    : MySQL
- Target Server Version : 80013
+ Target Server Version : 80015
  File Encoding         : 65001
 
- Date: 12/03/2019 16:33:51
+ Date: 16/03/2019 19:11:20
 */
 
 SET NAMES utf8mb4;
@@ -21,26 +21,25 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- Table structure for t_account_detail
 -- ----------------------------
 DROP TABLE IF EXISTS `t_account_detail`;
-CREATE TABLE `t_account_detail` (
+CREATE TABLE `t_account_detail`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '账目编号',
-  `transaction_no` varchar(32) COLLATE utf8mb4_general_ci NOT NULL COMMENT '交易编号',
+  `transaction_no` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '交易编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
-  `amount` bigint(20) DEFAULT NULL COMMENT '金额',
-  `integral` bigint(20) DEFAULT NULL COMMENT '积分',
-  `type` tinyint(4) DEFAULT NULL COMMENT '收入或支出',
-  `sub_type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '收支类型',
-  `pay_type` tinyint(4) DEFAULT NULL COMMENT '支付方式',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户账目明细表';
+  `amount` bigint(20) NULL DEFAULT NULL COMMENT '金额',
+  `integral` bigint(20) NULL DEFAULT NULL COMMENT '积分',
+  `type` tinyint(4) NULL DEFAULT NULL COMMENT '收入或支出',
+  `sub_type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '收支类型',
+  `pay_type` tinyint(4) NULL DEFAULT NULL COMMENT '支付方式',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户账目明细表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_account_detail
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_account_detail` VALUES (1, '', 31, -50, NULL, 1, '提现', NULL, 1, '2018-12-25 23:24:19', NULL, 0);
 INSERT INTO `t_account_detail` VALUES (2, '', 31, -50, NULL, 1, '提现', NULL, 1, '2018-12-26 17:39:45', NULL, 0);
 INSERT INTO `t_account_detail` VALUES (3, '', 31, 500, NULL, 0, '人工充值', NULL, 1, '2018-12-26 17:42:32', NULL, 0);
@@ -49,250 +48,248 @@ INSERT INTO `t_account_detail` VALUES (5, '', 36, 100, NULL, 0, '转入', NULL, 
 INSERT INTO `t_account_detail` VALUES (6, '', 31, -100, NULL, 1, '转出', NULL, 1, '2019-01-15 20:51:44', NULL, 0);
 INSERT INTO `t_account_detail` VALUES (7, '', 36, 100, NULL, 0, '转入', NULL, 1, '2019-01-15 20:51:44', NULL, 0);
 INSERT INTO `t_account_detail` VALUES (8, '', 31, -10, NULL, 1, '消费', 3, 1, '2019-01-15 22:23:31', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_article
 -- ----------------------------
 DROP TABLE IF EXISTS `t_article`;
-CREATE TABLE `t_article` (
+CREATE TABLE `t_article`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '文章编号',
   `category_id` bigint(20) NOT NULL COMMENT '类别编号',
-  `title` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '文章标题',
-  `cover_img` varchar(500) COLLATE utf8mb4_general_ci NOT NULL COMMENT '封面图片',
-  `summary` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '文章摘要',
-  `content` text COLLATE utf8mb4_general_ci NOT NULL COMMENT '文章内容',
-  `view_count` int(11) DEFAULT '0' COMMENT '阅读量',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_id` bigint(20) COMMENT '创建人编号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '1' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='文章表';
+  `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '文章标题',
+  `cover_img` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '封面图片',
+  `summary` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '文章摘要',
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '文章内容',
+  `view_count` int(11) NULL DEFAULT 0 COMMENT '阅读量',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_id` bigint(20) NULL DEFAULT NULL COMMENT '创建人编号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 1 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '文章表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_article
+-- ----------------------------
+INSERT INTO `t_article` VALUES (1, 1, 'zywork-app后台体验应用发布', '暂无', NULL, '<p>zywork-app后台体验应用发布</p><p><img src=\"data:image/jpeg;base64,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\" style=\"max-width:100%;\"><br></p>', 0, 14, 31, '2019-03-15 17:50:01', '2019-03-16 16:21:08', 1);
 
 -- ----------------------------
 -- Table structure for t_article_category
 -- ----------------------------
 DROP TABLE IF EXISTS `t_article_category`;
-CREATE TABLE `t_article_category` (
+CREATE TABLE `t_article_category`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '类别编号',
   `parent_id` bigint(20) NOT NULL COMMENT '父编号',
-  `title` varchar(20) COLLATE utf8mb4_general_ci NOT NULL COMMENT '类别名称',
-  `description` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '类别描述',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '1' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='文章类别表';
+  `title` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '类别名称',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '类别描述',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 1 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '文章类别表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_article_category
+-- ----------------------------
+INSERT INTO `t_article_category` VALUES (1, 0, '科技', NULL, 1, '2019-03-15 17:22:23', NULL, 1);
 
 -- ----------------------------
 -- Table structure for t_article_comment
 -- ----------------------------
 DROP TABLE IF EXISTS `t_article_comment`;
-CREATE TABLE `t_article_comment` (
+CREATE TABLE `t_article_comment`  (
   `id` bigint(20) NOT NULL COMMENT '评论编号',
   `article_id` bigint(20) NOT NULL COMMENT '文章编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
-  `title` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '评论标题',
-  `content` varchar(500) COLLATE utf8mb4_general_ci NOT NULL COMMENT '评论详情',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '1' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='文章评论表';
+  `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '评论标题',
+  `content` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '评论详情',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 1 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '文章评论表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_funds_frezee
 -- ----------------------------
 DROP TABLE IF EXISTS `t_funds_frezee`;
-CREATE TABLE `t_funds_frezee` (
+CREATE TABLE `t_funds_frezee`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '冻结编号',
-  `transaction_no` varchar(32) COLLATE utf8mb4_general_ci NOT NULL COMMENT '交易编号',
+  `transaction_no` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '交易编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
   `amount` bigint(20) NOT NULL COMMENT '金额',
-  `frezee_type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '类型',
-  `frezee_description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '描述',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户资金冻结与解冻记录表';
+  `frezee_type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '类型',
+  `frezee_description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '描述',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户资金冻结与解冻记录表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_funds_recharge
 -- ----------------------------
 DROP TABLE IF EXISTS `t_funds_recharge`;
-CREATE TABLE `t_funds_recharge` (
+CREATE TABLE `t_funds_recharge`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '充值编号',
-  `transaction_no` varchar(32) COLLATE utf8mb4_general_ci NOT NULL COMMENT '交易编号',
+  `transaction_no` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '交易编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
   `amount` bigint(20) NOT NULL COMMENT '充值金额',
-  `recharge_type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '充值类型',
-  `is_success` tinyint(4) DEFAULT '0' COMMENT '是否成功',
-  `out_trade_no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '商户订单号',
-  `trade_no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '支付系统订单号',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户资金充值记录表';
+  `recharge_type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '充值类型',
+  `is_success` tinyint(4) NULL DEFAULT 0 COMMENT '是否成功',
+  `out_trade_no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '商户订单号',
+  `trade_no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '支付系统订单号',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户资金充值记录表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_funds_recharge
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_funds_recharge` VALUES (1, '', 31, 134, '人工充值', 0, NULL, NULL, 1, '2018-12-23 13:06:57', NULL, 0);
 INSERT INTO `t_funds_recharge` VALUES (2, '', 31, 134, '人工充值', 0, NULL, NULL, 1, '2018-12-23 13:08:11', NULL, 0);
 INSERT INTO `t_funds_recharge` VALUES (3, '', 31, 134, '人工充值', 0, NULL, NULL, 1, '2018-12-23 14:06:48', NULL, 0);
 INSERT INTO `t_funds_recharge` VALUES (4, '', 31, 500, '人工充值', 0, NULL, NULL, 1, '2018-12-26 17:42:32', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_funds_transfer
 -- ----------------------------
 DROP TABLE IF EXISTS `t_funds_transfer`;
-CREATE TABLE `t_funds_transfer` (
+CREATE TABLE `t_funds_transfer`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '转账编号',
-  `transaction_no` varchar(32) COLLATE utf8mb4_general_ci NOT NULL COMMENT '交易编号',
+  `transaction_no` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '交易编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
   `amount` bigint(20) NOT NULL COMMENT '金额',
-  `from_user_id` bigint(20) DEFAULT NULL COMMENT 'FROM',
-  `to_user_id` bigint(20) DEFAULT NULL COMMENT 'TO',
-  `transfer_type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '类型',
-  `transfer_description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '描述',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户资金转入与转出记录表';
+  `from_user_id` bigint(20) NULL DEFAULT NULL COMMENT 'FROM',
+  `to_user_id` bigint(20) NULL DEFAULT NULL COMMENT 'TO',
+  `transfer_type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '类型',
+  `transfer_description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '描述',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户资金转入与转出记录表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_funds_transfer
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_funds_transfer` VALUES (1, '', 31, 100, NULL, 36, '转出', NULL, 1, '2019-01-06 20:56:44', NULL, 0);
 INSERT INTO `t_funds_transfer` VALUES (2, '', 36, 100, 31, NULL, '转入', NULL, 1, '2019-01-06 20:56:44', NULL, 0);
 INSERT INTO `t_funds_transfer` VALUES (3, '', 31, 100, NULL, 36, '转出', NULL, 1, '2019-01-15 20:51:44', NULL, 0);
 INSERT INTO `t_funds_transfer` VALUES (4, '', 36, 100, 31, NULL, '转入', NULL, 1, '2019-01-15 20:51:44', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_funds_withdraw
 -- ----------------------------
 DROP TABLE IF EXISTS `t_funds_withdraw`;
-CREATE TABLE `t_funds_withdraw` (
+CREATE TABLE `t_funds_withdraw`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '提现编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
   `transaction_no` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '交易编号',
   `amount` bigint(20) NOT NULL COMMENT '提现金额',
   `bankcard_id` bigint(20) NOT NULL COMMENT '提现银行卡',
-  `withdraw_status` tinyint(4) DEFAULT NULL COMMENT '提现状态',
-  `withdraw_description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '提现描述',
-  `checked_user_id` bigint(20) DEFAULT NULL COMMENT '审核人编号',
-  `checked_time` datetime DEFAULT NULL COMMENT '审核时间',
-  `complete_time` datetime DEFAULT NULL COMMENT '完成时间',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户资金提现记录表';
+  `withdraw_status` tinyint(4) NULL DEFAULT NULL COMMENT '提现状态',
+  `withdraw_description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '提现描述',
+  `checked_user_id` bigint(20) NULL DEFAULT NULL COMMENT '审核人编号',
+  `checked_time` datetime(0) NULL DEFAULT NULL COMMENT '审核时间',
+  `complete_time` datetime(0) NULL DEFAULT NULL COMMENT '完成时间',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户资金提现记录表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_funds_withdraw
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_funds_withdraw` VALUES (5, 31, '3ea854cde3b842338cc7a0fb3fd49bcb', 100, 1, 2, '不能提现', 31, '2018-12-23 18:47:53', '2018-12-23 18:47:53', 1, '2018-12-23 18:43:49', '2018-12-23 18:47:53', 0);
 INSERT INTO `t_funds_withdraw` VALUES (6, 31, '77d07a5d6d2b4a7280e9ecff229d4888', 100, 1, 4, NULL, 31, '2018-12-23 20:56:16', '2018-12-23 21:05:20', 1, '2018-12-23 18:49:38', '2018-12-23 21:05:20', 0);
 INSERT INTO `t_funds_withdraw` VALUES (7, 31, '399a929dc59a48f0af9498a534252792', 100, 1, 4, NULL, 31, '2018-12-25 15:04:57', '2018-12-25 15:22:34', 4, '2018-12-23 22:25:54', '2018-12-25 15:22:34', 0);
 INSERT INTO `t_funds_withdraw` VALUES (8, 31, 'b84bdc6156554a27a57229faa361d6a4', 50, 1, 4, NULL, NULL, NULL, '2018-12-25 23:24:19', 2, '2018-12-25 18:22:14', '2018-12-25 23:24:19', 0);
 INSERT INTO `t_funds_withdraw` VALUES (12, 31, '2a5e0e09c3084e6ebee0dd36a6f3acc7', 100, 1, 1, '审核通过', 31, '2019-01-15 18:06:19', NULL, 6, '2018-12-26 17:36:15', '2019-01-15 18:06:19', 0);
 INSERT INTO `t_funds_withdraw` VALUES (13, 31, 'ef011bfb3ee94b6bb978f8fee2023177', 50, 1, 4, NULL, 31, '2018-12-26 17:39:26', '2018-12-26 17:39:45', 3, '2018-12-26 17:38:45', '2018-12-26 17:39:45', 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_funds_withdraw_check
 -- ----------------------------
 DROP TABLE IF EXISTS `t_funds_withdraw_check`;
-CREATE TABLE `t_funds_withdraw_check` (
+CREATE TABLE `t_funds_withdraw_check`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '提现审核编号',
   `withdraw_id` bigint(20) NOT NULL COMMENT '提现编号',
   `transaction_no` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '交易编号',
   `withdraw_status` tinyint(4) NOT NULL COMMENT '提现状态',
-  `withdraw_description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '提现描述',
+  `withdraw_description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '提现描述',
   `checked_user_id` bigint(20) NOT NULL COMMENT '审核人编号',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户资金提现审核历史表';
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户资金提现审核历史表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_funds_withdraw_check
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_funds_withdraw_check` VALUES (14, 12, '2a5e0e09c3084e6ebee0dd36a6f3acc7', 1, '审核通过', 31, 1, '2019-01-14 20:50:02', NULL, 0);
 INSERT INTO `t_funds_withdraw_check` VALUES (15, 12, '2a5e0e09c3084e6ebee0dd36a6f3acc7', 1, NULL, 31, 1, '2019-01-15 18:06:19', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_goods_attribute
 -- ----------------------------
 DROP TABLE IF EXISTS `t_goods_attribute`;
-CREATE TABLE `t_goods_attribute` (
+CREATE TABLE `t_goods_attribute`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '商品属性编号',
   `attr_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '属性名称',
   `attr_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '属性代码',
   `attr_type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '数据类型',
   `attr_length` int(11) NOT NULL COMMENT '数据长度',
-  `attr_required` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否必填',
-  `attr_display` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否前端显示',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品属性信息表';
+  `attr_required` tinyint(4) NOT NULL DEFAULT 0 COMMENT '是否必填',
+  `attr_display` tinyint(4) NOT NULL DEFAULT 0 COMMENT '是否前端显示',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '商品属性信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_goods_attribute
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_goods_attribute` VALUES (1, '售卖标题', 'title', 'String', 50, 0, 0, 2, '2019-02-13 17:47:09', '2019-02-13 17:54:43', 0);
 INSERT INTO `t_goods_attribute` VALUES (2, '品牌', 'brand', 'String', 20, 0, 0, 1, '2019-02-13 17:51:41', NULL, 0);
 INSERT INTO `t_goods_attribute` VALUES (3, '商品名称', 'name', 'String', 50, 0, 0, 4, '2019-02-13 17:54:27', '2019-02-21 23:00:34', 0);
 INSERT INTO `t_goods_attribute` VALUES (4, '毛重', 'grossWeight', 'Double', 20, 0, 0, 2, '2019-02-21 22:56:47', '2019-02-21 22:57:35', 0);
 INSERT INTO `t_goods_attribute` VALUES (5, '净重', 'netWeight', 'Double', 20, 0, 0, 1, '2019-02-21 22:57:25', NULL, 0);
 INSERT INTO `t_goods_attribute` VALUES (6, '价格', 'price', 'Long', 20, 0, 0, 1, '2019-02-21 22:56:47', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_goods_attribute_value
 -- ----------------------------
 DROP TABLE IF EXISTS `t_goods_attribute_value`;
-CREATE TABLE `t_goods_attribute_value` (
+CREATE TABLE `t_goods_attribute_value`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '商品属性值编号',
   `goods_sku_id` bigint(20) NOT NULL COMMENT 'SKU编号',
   `attr_id` bigint(20) NOT NULL COMMENT '属性编号',
   `attr_value` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '属性值',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品SKU属性及属性值表';
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 55 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '商品SKU属性及属性值表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_goods_attribute_value
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_goods_attribute_value` VALUES (44, 3, 1, '时尚女装款式二99元', 1, '2019-03-04 15:40:21', NULL, 0);
 INSERT INTO `t_goods_attribute_value` VALUES (45, 3, 2, '智悦', 1, '2019-03-04 15:40:21', NULL, 0);
 INSERT INTO `t_goods_attribute_value` VALUES (46, 3, 3, '智悦时尚女装', 1, '2019-03-04 15:40:21', NULL, 0);
@@ -305,80 +302,74 @@ INSERT INTO `t_goods_attribute_value` VALUES (52, 2, 3, '智悦时尚女装', 1,
 INSERT INTO `t_goods_attribute_value` VALUES (53, 2, 4, '1.5', 1, '2019-03-04 15:40:29', NULL, 0);
 INSERT INTO `t_goods_attribute_value` VALUES (54, 2, 5, '1', 1, '2019-03-04 15:40:29', NULL, 0);
 INSERT INTO `t_goods_attribute_value` VALUES (55, 2, 6, '99', 1, '2019-03-04 15:40:29', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_goods_cart
 -- ----------------------------
 DROP TABLE IF EXISTS `t_goods_cart`;
-CREATE TABLE `t_goods_cart` (
+CREATE TABLE `t_goods_cart`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '购物编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
   `goods_id` bigint(20) NOT NULL COMMENT '商品编号',
   `goods_sku_id` bigint(20) NOT NULL COMMENT 'SKU编号',
   `quantity` int(11) NOT NULL COMMENT '购买数量',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='购物车信息记录表';
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '购物车信息记录表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_goods_cart
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_goods_cart` VALUES (1, 31, 1, 2, 1, 1, '2019-03-06 11:42:41', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_goods_category
 -- ----------------------------
 DROP TABLE IF EXISTS `t_goods_category`;
-CREATE TABLE `t_goods_category` (
+CREATE TABLE `t_goods_category`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '类目编号',
   `parent_id` bigint(20) NOT NULL COMMENT '父编号',
   `title` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '类目名称',
-  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '类目描述',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品类目信息表';
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '类目描述',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '商品类目信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_goods_category
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_goods_category` VALUES (1, 0, '服装', NULL, 1, '2019-02-13 17:48:51', NULL, 0);
 INSERT INTO `t_goods_category` VALUES (2, 0, '鞋包', NULL, 1, '2019-02-13 17:49:03', NULL, 0);
 INSERT INTO `t_goods_category` VALUES (3, 1, '女装', NULL, 1, '2019-02-13 17:49:14', NULL, 0);
 INSERT INTO `t_goods_category` VALUES (4, 1, '男装', NULL, 1, '2019-02-13 17:49:21', NULL, 0);
 INSERT INTO `t_goods_category` VALUES (5, 1, '内衣', NULL, 1, '2019-02-13 17:49:45', NULL, 0);
 INSERT INTO `t_goods_category` VALUES (6, 1, '童装', NULL, 1, '2019-02-13 17:49:59', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_goods_category_attribute
 -- ----------------------------
 DROP TABLE IF EXISTS `t_goods_category_attribute`;
-CREATE TABLE `t_goods_category_attribute` (
+CREATE TABLE `t_goods_category_attribute`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '类目属性编号',
   `category_id` bigint(20) NOT NULL COMMENT '商品类目编号',
   `attr_id` bigint(20) NOT NULL COMMENT '属性编号',
-  `attr_order` int(11) NOT NULL DEFAULT '1000' COMMENT '属性排序',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品类目属性信息表';
+  `attr_order` int(11) NOT NULL DEFAULT 1000 COMMENT '属性排序',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 45 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '商品类目属性信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_goods_category_attribute
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_goods_category_attribute` VALUES (12, 3, 4, 4, 4, '2019-02-21 22:58:14', '2019-03-02 17:02:03', 0);
 INSERT INTO `t_goods_category_attribute` VALUES (13, 3, 3, 3, 4, '2019-02-21 22:58:14', '2019-03-02 17:02:03', 0);
 INSERT INTO `t_goods_category_attribute` VALUES (14, 3, 1, 1, 4, '2019-02-21 22:58:14', '2019-03-02 17:02:03', 0);
@@ -398,149 +389,144 @@ INSERT INTO `t_goods_category_attribute` VALUES (42, 5, 3, 2, 2, '2019-03-02 17:
 INSERT INTO `t_goods_category_attribute` VALUES (43, 5, 4, 3, 2, '2019-03-02 17:53:05', '2019-03-02 17:53:15', 0);
 INSERT INTO `t_goods_category_attribute` VALUES (44, 5, 1, 1, 2, '2019-03-02 17:53:05', '2019-03-02 17:53:15', 0);
 INSERT INTO `t_goods_category_attribute` VALUES (45, 5, 5, 4, 2, '2019-03-02 17:53:05', '2019-03-02 17:53:15', 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_goods_comment
 -- ----------------------------
 DROP TABLE IF EXISTS `t_goods_comment`;
-CREATE TABLE `t_goods_comment` (
+CREATE TABLE `t_goods_comment`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '商品评论编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
   `goods_id` bigint(20) NOT NULL COMMENT '商品编号',
   `goods_sku_id` bigint(20) NOT NULL COMMENT 'SKU编号',
   `comments` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '评论详情',
-  `append_comment` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '追加评论',
-  `reply` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '回复详情',
-  `stick_status` tinyint(4) DEFAULT '0' COMMENT '置顶状态',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品评论表';
+  `append_comment` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '追加评论',
+  `reply` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '回复详情',
+  `stick_status` tinyint(4) NULL DEFAULT 0 COMMENT '置顶状态',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '商品评论表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_goods_comment_pic
 -- ----------------------------
 DROP TABLE IF EXISTS `t_goods_comment_pic`;
-CREATE TABLE `t_goods_comment_pic` (
+CREATE TABLE `t_goods_comment_pic`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '评论图片编号',
   `comment_id` bigint(20) NOT NULL COMMENT '评论编号',
   `pic_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '图片URL',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品评论图片表';
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '商品评论图片表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_goods_coupon
 -- ----------------------------
 DROP TABLE IF EXISTS `t_goods_coupon`;
-CREATE TABLE `t_goods_coupon` (
+CREATE TABLE `t_goods_coupon`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '优惠券编号',
-  `category_id` bigint(20) DEFAULT NULL COMMENT '商品类目编号',
-  `goods_id` bigint(20) DEFAULT NULL COMMENT '商品编号',
-  `goods_sku_id` bigint(20) DEFAULT NULL COMMENT '商品SKU编号',
+  `category_id` bigint(20) NULL DEFAULT NULL COMMENT '商品类目编号',
+  `goods_id` bigint(20) NULL DEFAULT NULL COMMENT '商品编号',
+  `goods_sku_id` bigint(20) NULL DEFAULT NULL COMMENT '商品SKU编号',
   `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '优惠券标题',
-  `use_min_amount` bigint(20) DEFAULT NULL COMMENT '最小消费金额',
-  `discount_amount` bigint(20) DEFAULT NULL COMMENT '满减优惠金额',
-  `discount_percent` double(3,0) DEFAULT NULL COMMENT '满减折扣',
-  `integral_amount` int(11) DEFAULT NULL COMMENT '赠送积分',
+  `use_min_amount` bigint(20) NULL DEFAULT NULL COMMENT '最小消费金额',
+  `discount_amount` bigint(20) NULL DEFAULT NULL COMMENT '满减优惠金额',
+  `discount_percent` double(3, 0) NULL DEFAULT NULL COMMENT '满减折扣',
+  `integral_amount` int(11) NULL DEFAULT NULL COMMENT '赠送积分',
   `total_count` int(11) NOT NULL COMMENT '优惠券总量',
   `coupon_usable_range` tinyint(4) NOT NULL COMMENT '优惠券使用范围',
   `coupon_type` tinyint(4) NOT NULL COMMENT '优惠券类型',
-  `start_time` datetime NOT NULL COMMENT '开始时间',
-  `due_time` datetime DEFAULT NULL COMMENT '到期时间',
-  `valid_days` int(11) DEFAULT NULL COMMENT '有效时间',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品优惠券信息表';
+  `start_time` datetime(0) NOT NULL COMMENT '开始时间',
+  `due_time` datetime(0) NULL DEFAULT NULL COMMENT '到期时间',
+  `valid_days` int(11) NULL DEFAULT NULL COMMENT '有效时间',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '商品优惠券信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_goods_info
 -- ----------------------------
 DROP TABLE IF EXISTS `t_goods_info`;
-CREATE TABLE `t_goods_info` (
+CREATE TABLE `t_goods_info`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '商品编号',
   `shop_id` bigint(20) NOT NULL COMMENT '店铺编号',
   `category_id` bigint(20) NOT NULL COMMENT '类目编号',
   `intro` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '图文详情',
-  `shelf_status` tinyint(4) DEFAULT '0' COMMENT '上架状态',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品记录表，包含多个商品SKU';
+  `shelf_status` tinyint(4) NULL DEFAULT 0 COMMENT '上架状态',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '商品记录表，包含多个商品SKU' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_goods_info
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_goods_info` VALUES (1, 1, 3, '女装图文详情', 0, 1, '2019-02-27 11:46:27', NULL, 0);
 INSERT INTO `t_goods_info` VALUES (2, 1, 4, '图文详情', 0, 1, '2019-02-27 17:50:20', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_goods_order
 -- ----------------------------
 DROP TABLE IF EXISTS `t_goods_order`;
-CREATE TABLE `t_goods_order` (
+CREATE TABLE `t_goods_order`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '订单编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
   `order_no` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '订单号',
   `total_amount` bigint(20) NOT NULL COMMENT '订单金额',
   `pay_amount` bigint(20) NOT NULL COMMENT '实付金额',
-  `discount_amount` bigint(20) NOT NULL DEFAULT '0' COMMENT '优惠金额',
-  `integral_amount` bigint(20) NOT NULL DEFAULT '0' COMMENT '赠送积分',
-  `express_fee` bigint(20) DEFAULT '0' COMMENT '运费',
-  `order_status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '订单状态',
-  `pay_time` datetime DEFAULT NULL COMMENT '支付时间',
-  `pay_type` tinyint(4) DEFAULT NULL COMMENT '支付方式',
-  `transaction_no` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '支付订单号',
-  `pay_success` tinyint(4) DEFAULT NULL COMMENT '是否支付成功',
-  `deliver_time` datetime DEFAULT NULL COMMENT '发货时间',
-  `deal_time` datetime DEFAULT NULL COMMENT '成交时间',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='订单信息表，一个订单包含多个订单条目';
+  `discount_amount` bigint(20) NOT NULL DEFAULT 0 COMMENT '优惠金额',
+  `integral_amount` bigint(20) NOT NULL DEFAULT 0 COMMENT '赠送积分',
+  `express_fee` bigint(20) NULL DEFAULT 0 COMMENT '运费',
+  `order_status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '订单状态',
+  `pay_time` datetime(0) NULL DEFAULT NULL COMMENT '支付时间',
+  `pay_type` tinyint(4) NULL DEFAULT NULL COMMENT '支付方式',
+  `transaction_no` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '支付订单号',
+  `pay_success` tinyint(4) NULL DEFAULT NULL COMMENT '是否支付成功',
+  `deliver_time` datetime(0) NULL DEFAULT NULL COMMENT '发货时间',
+  `deal_time` datetime(0) NULL DEFAULT NULL COMMENT '成交时间',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '订单信息表，一个订单包含多个订单条目' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_goods_order
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_goods_order` VALUES (1, 31, 'order_no', 20000, 20000, 0, 200, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2019-03-12 15:45:24', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_goods_order_coupon
 -- ----------------------------
 DROP TABLE IF EXISTS `t_goods_order_coupon`;
-CREATE TABLE `t_goods_order_coupon` (
+CREATE TABLE `t_goods_order_coupon`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用券编号',
   `order_id` bigint(20) NOT NULL COMMENT '订单编号',
   `coupon_id` bigint(20) NOT NULL COMMENT '优惠券编号',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='订单优惠券使用记录表';
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '订单优惠券使用记录表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_goods_order_item
 -- ----------------------------
 DROP TABLE IF EXISTS `t_goods_order_item`;
-CREATE TABLE `t_goods_order_item` (
+CREATE TABLE `t_goods_order_item`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '订单项编号',
   `order_id` bigint(20) NOT NULL COMMENT '订单编号',
   `goods_id` bigint(20) NOT NULL COMMENT '商品编号',
@@ -550,27 +536,25 @@ CREATE TABLE `t_goods_order_item` (
   `sku_info` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'SKU属性JSON',
   `quantity` int(11) NOT NULL COMMENT '购买数量',
   `pay_amount` bigint(20) NOT NULL COMMENT '实付金额',
-  `discount_amount` bigint(20) NOT NULL DEFAULT '0' COMMENT '优惠金额',
-  `integral_amount` bigint(20) NOT NULL DEFAULT '0' COMMENT '赠送积分',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='订单详情信息表';
+  `discount_amount` bigint(20) NOT NULL DEFAULT 0 COMMENT '优惠金额',
+  `integral_amount` bigint(20) NOT NULL DEFAULT 0 COMMENT '赠送积分',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '订单详情信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_goods_order_item
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_goods_order_item` VALUES (1, 1, 1, 2, 34, '智悦时尚女装', 'sku详情', 1, 20000, 0, 200, 1, '2019-03-12 15:46:42', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_goods_order_logistics
 -- ----------------------------
 DROP TABLE IF EXISTS `t_goods_order_logistics`;
-CREATE TABLE `t_goods_order_logistics` (
+CREATE TABLE `t_goods_order_logistics`  (
   `id` bigint(20) NOT NULL COMMENT '订单编号',
   `real_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '收货人',
   `phone` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '手机号',
@@ -578,210 +562,195 @@ CREATE TABLE `t_goods_order_logistics` (
   `city` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '市',
   `district` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '区/县',
   `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '详细地址',
-  `is_deliver` tinyint(4) DEFAULT '0' COMMENT '是否已发货',
-  `logistics_company` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '物流公司名称',
-  `logistics_code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '物流公司编码',
-  `logistics_no` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '物流单号',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
+  `is_deliver` tinyint(4) NULL DEFAULT 0 COMMENT '是否已发货',
+  `logistics_company` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '物流公司名称',
+  `logistics_code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '物流公司编码',
+  `logistics_no` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '物流单号',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='订单物流信息表';
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '订单物流信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_goods_order_logistics
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_goods_order_logistics` VALUES (1, '王振宇', '13672297775', '江西省', '赣州市', '章贡区', '详细地址', 0, NULL, NULL, NULL, 1, '2019-03-12 15:48:14', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_goods_pic
 -- ----------------------------
 DROP TABLE IF EXISTS `t_goods_pic`;
-CREATE TABLE `t_goods_pic` (
+CREATE TABLE `t_goods_pic`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '商品图片编号',
   `goods_id` bigint(20) NOT NULL COMMENT '商品编号',
   `pic_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '图片URL',
-  `pic_order` int(11) DEFAULT '1000' COMMENT '图片顺序',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品图片信息表';
+  `pic_order` int(11) NULL DEFAULT 1000 COMMENT '图片顺序',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 36 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '商品图片信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_goods_pic
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_goods_pic` VALUES (34, 1, 'upload/image/2019022717454055870.png', 1, 2, '2019-02-27 17:45:40', '2019-02-28 11:01:41', 0);
 INSERT INTO `t_goods_pic` VALUES (35, 1, 'upload/image/2019022717463281944.png', 2, 2, '2019-02-27 17:46:32', '2019-02-28 11:01:41', 0);
 INSERT INTO `t_goods_pic` VALUES (36, 1, 'upload/image/2019022717463223970.png', 3, 2, '2019-02-27 17:46:32', '2019-02-28 11:01:41', 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_goods_shop
 -- ----------------------------
 DROP TABLE IF EXISTS `t_goods_shop`;
-CREATE TABLE `t_goods_shop` (
+CREATE TABLE `t_goods_shop`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '店铺编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
   `category_id` bigint(20) NOT NULL COMMENT '类目编号',
   `subject_type` tinyint(4) NOT NULL COMMENT '主体类型',
-  `logo` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '店铺Logo',
+  `logo` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '店铺Logo',
   `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '店铺标题',
   `intro` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '店铺简介',
-  `level` tinyint(4) DEFAULT '1' COMMENT '店铺等级',
-  `check_status` tinyint(4) DEFAULT '0' COMMENT '审核状态',
-  `check_description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '审核描述',
-  `checked_user_id` tinyint(4) DEFAULT NULL COMMENT '审核人编号',
-  `checked_time` datetime DEFAULT NULL COMMENT '审核时间',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='店铺信息表';
+  `level` tinyint(4) NULL DEFAULT 1 COMMENT '店铺等级',
+  `check_status` tinyint(4) NULL DEFAULT 0 COMMENT '审核状态',
+  `check_description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '审核描述',
+  `checked_user_id` tinyint(4) NULL DEFAULT NULL COMMENT '审核人编号',
+  `checked_time` datetime(0) NULL DEFAULT NULL COMMENT '审核时间',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '店铺信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_goods_shop
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_goods_shop` VALUES (1, 31, 1, 1, 'logo', '智悦服装', '智悦服装', 1, 0, NULL, NULL, NULL, 2, '2019-02-22 12:03:45', '2019-02-22 13:41:11', 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_goods_shop_certification
 -- ----------------------------
 DROP TABLE IF EXISTS `t_goods_shop_certification`;
-CREATE TABLE `t_goods_shop_certification` (
+CREATE TABLE `t_goods_shop_certification`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '店铺认证编号',
   `shop_id` bigint(20) NOT NULL COMMENT '店铺编号',
   `detail` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '认证详情JSON',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='店铺认证信息表';
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '店铺认证信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_goods_shop_certification
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_goods_shop_certification` VALUES (1, 1, '{\n    \"identity\": \"360723************\",\n    \"realName\": \"王振宇\",\n    \"validDate\": \"2028-10-10\",\n    \"idcardFront\": \"str\",\n    \"idcardReverse\": \"str\",\n    \"idcardHand\": \"str\",\n    \"companyName\": \"赣州智悦科技有限公司\",\n    \"creditNumber\": \"str\",\n    \"businessScope\": \"str\",\n    \"businessLicense\": \"str\"\n}', 1, '2019-02-22 14:04:18', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_goods_shop_check
 -- ----------------------------
 DROP TABLE IF EXISTS `t_goods_shop_check`;
-CREATE TABLE `t_goods_shop_check` (
+CREATE TABLE `t_goods_shop_check`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '店铺审核编号',
   `shop_id` bigint(20) NOT NULL COMMENT '店铺编号',
-  `check_status` tinyint(4) DEFAULT '0' COMMENT '审核状态',
-  `check_description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '审核描述',
-  `checked_user_id` tinyint(4) DEFAULT NULL COMMENT '审核人编号',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='店铺审核历史表';
+  `check_status` tinyint(4) NULL DEFAULT 0 COMMENT '审核状态',
+  `check_description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '审核描述',
+  `checked_user_id` tinyint(4) NULL DEFAULT NULL COMMENT '审核人编号',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '店铺审核历史表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_goods_shop_check
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_goods_shop_check` VALUES (1, 1, 1, '证件齐全，通过', 31, 1, '2019-02-22 14:22:30', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_goods_sku
 -- ----------------------------
 DROP TABLE IF EXISTS `t_goods_sku`;
-CREATE TABLE `t_goods_sku` (
+CREATE TABLE `t_goods_sku`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'SKU编号',
   `goods_id` bigint(20) NOT NULL COMMENT '商品编号',
-  `pic_id` bigint(20) DEFAULT NULL COMMENT '商品图片编号',
-  `shelf_status` tinyint(4) DEFAULT '0' COMMENT '上架状态',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品SKU信息表';
+  `pic_id` bigint(20) NULL DEFAULT NULL COMMENT '商品图片编号',
+  `shelf_status` tinyint(4) NULL DEFAULT 0 COMMENT '上架状态',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '商品SKU信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_goods_sku
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_goods_sku` VALUES (2, 1, 34, 0, 3, '2019-02-28 14:44:55', '2019-03-02 12:28:27', 0);
 INSERT INTO `t_goods_sku` VALUES (3, 1, 35, 0, 2, '2019-02-28 14:46:42', '2019-02-28 15:27:21', 0);
 INSERT INTO `t_goods_sku` VALUES (4, 1, 36, 0, 12, '2019-02-28 14:47:29', '2019-03-02 16:40:25', 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_goods_user_coupon
 -- ----------------------------
 DROP TABLE IF EXISTS `t_goods_user_coupon`;
-CREATE TABLE `t_goods_user_coupon` (
+CREATE TABLE `t_goods_user_coupon`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '购物编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
   `coupon_id` bigint(20) NOT NULL COMMENT '优惠券编号',
-  `coupon_status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '优惠券状态',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品优惠券用户领券信息表';
+  `coupon_status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '优惠券状态',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '商品优惠券用户领券信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_message
 -- ----------------------------
 DROP TABLE IF EXISTS `t_message`;
-CREATE TABLE `t_message` (
+CREATE TABLE `t_message`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '消息编号',
   `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '消息标题',
-  `summary` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '消息摘要',
+  `summary` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '消息摘要',
   `content` varchar(5000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '消息内容',
-  `message_type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '消息类型',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='消息记录表';
+  `message_type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '消息类型',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '消息记录表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_message
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_message` VALUES (1, 'zywork-app体验版发布', NULL, 'zywork-app体验版于2019-01-22晚上10点45分正式发布，邀请您使用！', '', 2, '2019-01-24 16:19:13', '2019-01-24 16:19:40', 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_module
 -- ----------------------------
 DROP TABLE IF EXISTS `t_module`;
-CREATE TABLE `t_module` (
+CREATE TABLE `t_module`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '模块编号',
   `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '模块标题',
-  `description` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '模块描述',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统模块表';
+  `description` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '模块描述',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 55 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统模块表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_module
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_module` VALUES (1, '测试模块', NULL, 1, '2019-03-12 16:33:21', NULL, 0);
 INSERT INTO `t_module` VALUES (2, '模块管理', NULL, 1, '2019-03-12 16:33:21', NULL, 0);
 INSERT INTO `t_module` VALUES (3, '权限管理', NULL, 1, '2019-03-12 16:33:21', NULL, 0);
@@ -837,53 +806,49 @@ INSERT INTO `t_module` VALUES (52, 'Redis缓存管理', NULL, 1, '2019-03-12 16:
 INSERT INTO `t_module` VALUES (53, '定时任务管理', NULL, 1, '2019-03-12 16:33:23', NULL, 0);
 INSERT INTO `t_module` VALUES (54, 'DAU管理', NULL, 1, '2019-03-12 16:33:23', NULL, 0);
 INSERT INTO `t_module` VALUES (55, '用户统计管理', NULL, 1, '2019-03-12 16:33:23', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_notice
 -- ----------------------------
 DROP TABLE IF EXISTS `t_notice`;
-CREATE TABLE `t_notice` (
+CREATE TABLE `t_notice`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '公告编号',
   `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '公告标题',
-  `summary` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '公告摘要',
+  `summary` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '公告摘要',
   `content` varchar(5000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '公告内容',
-  `end_time` datetime DEFAULT NULL COMMENT '截止时间',
-  `stick_status` tinyint(4) DEFAULT '0' COMMENT '置顶状态',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统公告表';
+  `end_time` datetime(0) NULL DEFAULT NULL COMMENT '截止时间',
+  `stick_status` tinyint(4) NULL DEFAULT 0 COMMENT '置顶状态',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统公告表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_notice
 -- ----------------------------
-BEGIN;
-INSERT INTO `t_notice` VALUES (1, '公告标题', '公告摘要', '公告内容', '2019-01-08 20:00:00', 1, 1, '2019-01-07 00:12:44', NULL, 0);
-COMMIT;
+INSERT INTO `t_notice` VALUES (1, '公告标题', '公告摘要', '公告内容<p>hello</p>', '2019-01-08 20:00:00', 1, 4, '2019-01-07 00:12:44', '2019-03-16 18:16:28', 0);
 
 -- ----------------------------
 -- Table structure for t_organization
 -- ----------------------------
 DROP TABLE IF EXISTS `t_organization`;
-CREATE TABLE `t_organization` (
+CREATE TABLE `t_organization`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '组织编号',
   `parent_id` bigint(20) NOT NULL COMMENT '父编号',
-  `title` varchar(20) COLLATE utf8mb4_general_ci NOT NULL COMMENT '组织名称',
-  `description` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '组织描述',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='组织或部门表';
+  `title` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '组织名称',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '组织描述',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '组织或部门表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_organization
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_organization` VALUES (1, 0, '赣州智悦科技有限公司', NULL, 1, '2019-01-24 16:15:02', NULL, 0);
 INSERT INTO `t_organization` VALUES (2, 1, '研发部', NULL, 1, '2019-01-24 16:15:13', NULL, 0);
 INSERT INTO `t_organization` VALUES (3, 1, '市场部', NULL, 1, '2019-01-24 16:15:27', NULL, 0);
@@ -891,29 +856,27 @@ INSERT INTO `t_organization` VALUES (4, 2, '后端组', NULL, 1, '2019-01-26 09:
 INSERT INTO `t_organization` VALUES (5, 2, '前端组', NULL, 1, '2019-01-26 10:04:42', NULL, 0);
 INSERT INTO `t_organization` VALUES (8, 2, '运维组', NULL, 1, '2019-01-26 10:37:52', NULL, 0);
 INSERT INTO `t_organization` VALUES (12, 2, '测试组', NULL, 1, '2019-01-26 10:47:41', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_permission
 -- ----------------------------
 DROP TABLE IF EXISTS `t_permission`;
-CREATE TABLE `t_permission` (
+CREATE TABLE `t_permission`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '权限编号',
   `module_id` bigint(20) NOT NULL COMMENT '所属模块',
   `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '权限标题',
   `permission` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '权限字符串',
-  `description` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '权限描述',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=261 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统权限表';
+  `description` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '权限描述',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 261 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统权限表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_permission
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_permission` VALUES (1, 1, '测试添加', '/test/add', NULL, 1, '2019-03-12 16:33:21', NULL, 0);
 INSERT INTO `t_permission` VALUES (2, 1, '测试修改', '/test/edit', NULL, 1, '2019-03-12 16:33:21', NULL, 0);
 INSERT INTO `t_permission` VALUES (3, 1, '测试删除', '/test/remove/*', NULL, 1, '2019-03-12 16:33:21', NULL, 0);
@@ -1174,81 +1137,75 @@ INSERT INTO `t_permission` VALUES (257, 54, '演示-DAU管理-条件查询所有
 INSERT INTO `t_permission` VALUES (258, 54, '演示-DAU管理-分页查询', '/statistics-dau/admin/pager-cond', NULL, 1, '2019-03-12 16:33:23', NULL, 0);
 INSERT INTO `t_permission` VALUES (259, 55, '后台-用户统计管理', '/user-liveness-stat/**', NULL, 1, '2019-03-12 16:33:23', NULL, 0);
 INSERT INTO `t_permission` VALUES (260, 55, '演示-用户统计管理', '/user-liveness-stat/**', NULL, 1, '2019-03-12 16:33:23', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_process
 -- ----------------------------
 DROP TABLE IF EXISTS `t_process`;
-CREATE TABLE `t_process` (
+CREATE TABLE `t_process`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '流程编号',
   `process_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '流程Name',
   `process_key` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '流程Key',
-  `file_path` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '流程文件路径',
-  `description` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '流程描述',
-  `is_deploy` tinyint(4) DEFAULT '0' COMMENT '是否部署',
-  `deploy_time` datetime DEFAULT NULL COMMENT '部署时间',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '上传时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='流程信息表';
+  `file_path` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '流程文件路径',
+  `description` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '流程描述',
+  `is_deploy` tinyint(4) NULL DEFAULT 0 COMMENT '是否部署',
+  `deploy_time` datetime(0) NULL DEFAULT NULL COMMENT '部署时间',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '上传时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '流程信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_process
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_process` VALUES (1, 'leave_process', 'leave_process', './process/2019021516022939624.zip', NULL, 1, '2019-02-15 17:18:43', 15, '2019-02-15 15:06:38', '2019-02-15 17:18:45', 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_role
 -- ----------------------------
 DROP TABLE IF EXISTS `t_role`;
-CREATE TABLE `t_role` (
+CREATE TABLE `t_role`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '角色编号',
   `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '角色标题',
-  `description` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '角色描述',
-  `is_default` tinyint(4) DEFAULT '0' COMMENT '是否默认角色',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统角色表';
+  `description` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '角色描述',
+  `is_default` tinyint(4) NULL DEFAULT 0 COMMENT '是否默认角色',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统角色表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_role
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_role` VALUES (1, 'super_sys_admin', '超级系统管理员', 0, 1, '2019-02-22 14:32:27', NULL, 0);
 INSERT INTO `t_role` VALUES (2, 'sys_admin', '系统管理员', 0, 1, '2019-02-22 14:32:27', NULL, 0);
 INSERT INTO `t_role` VALUES (3, 'sys_dev', '系统研发人员', 0, 1, '2019-02-22 14:32:27', NULL, 0);
 INSERT INTO `t_role` VALUES (4, 'sys_user_demo', '系统演示用户', 0, 1, '2019-02-22 14:32:27', NULL, 0);
 INSERT INTO `t_role` VALUES (5, 'sys_user', '系统用户', 1, 1, '2019-02-22 14:32:27', NULL, 0);
 INSERT INTO `t_role` VALUES (6, 'sys_shop_owner', '店铺拥有者', 0, 1, '2019-02-22 14:32:27', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_role_permission
 -- ----------------------------
 DROP TABLE IF EXISTS `t_role_permission`;
-CREATE TABLE `t_role_permission` (
+CREATE TABLE `t_role_permission`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `role_id` bigint(20) NOT NULL COMMENT '角色编号',
   `permission_id` bigint(20) NOT NULL COMMENT '权限编号',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=367 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='角色权限关联表';
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 367 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色权限关联表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_role_permission
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_role_permission` VALUES (1, 1, 1, 1, '2019-03-12 16:33:21', NULL, 0);
 INSERT INTO `t_role_permission` VALUES (2, 5, 1, 1, '2019-03-12 16:33:21', NULL, 0);
 INSERT INTO `t_role_permission` VALUES (3, 2, 1, 1, '2019-03-12 16:33:21', NULL, 0);
@@ -1615,43 +1572,40 @@ INSERT INTO `t_role_permission` VALUES (363, 4, 258, 1, '2019-03-12 16:33:23', N
 INSERT INTO `t_role_permission` VALUES (364, 1, 259, 1, '2019-03-12 16:33:23', NULL, 0);
 INSERT INTO `t_role_permission` VALUES (365, 2, 259, 1, '2019-03-12 16:33:23', NULL, 0);
 INSERT INTO `t_role_permission` VALUES (366, 4, 260, 1, '2019-03-12 16:33:23', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_scheduler
 -- ----------------------------
 DROP TABLE IF EXISTS `t_scheduler`;
-CREATE TABLE `t_scheduler` (
+CREATE TABLE `t_scheduler`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '作业编号',
   `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '作业名称',
   `class_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '完整类名',
   `cron_expression` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'cron表达式',
-  `group_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '作业组名称',
-  `trigger_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '触发器名称',
-  `trigger_group` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '触发器组',
-  `description` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '作业描述',
-  `job_status` tinyint(4) DEFAULT '0' COMMENT '作业状态',
-  `job_status_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '状态更新时间',
-  `auto_start` tinyint(4) DEFAULT '0' COMMENT '自动启动',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='作业调度表';
+  `group_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '作业组名称',
+  `trigger_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '触发器名称',
+  `trigger_group` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '触发器组',
+  `description` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '作业描述',
+  `job_status` tinyint(4) NULL DEFAULT 0 COMMENT '作业状态',
+  `job_status_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '状态更新时间',
+  `auto_start` tinyint(4) NULL DEFAULT 0 COMMENT '自动启动',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '作业调度表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_scheduler
 -- ----------------------------
-BEGIN;
-INSERT INTO `t_scheduler` VALUES (1, 'DauSaveJob', 'top.zywork.job.DauSaveJob', '59 59 23 * * ?', 'job_group', 'trigger_name', 'trigger_group', NULL, 1, '2019-03-12 16:00:05', 1, 187, '2019-01-18 17:34:42', '2019-03-12 16:00:05', 0);
-COMMIT;
+INSERT INTO `t_scheduler` VALUES (1, 'DauSaveJob', 'top.zywork.job.DauSaveJob', '59 59 23 * * ?', 'job_group', 'trigger_name', 'trigger_group', NULL, 1, '2019-03-16 18:09:55', 1, 222, '2019-01-18 17:34:42', '2019-03-16 18:09:54', 0);
 
 -- ----------------------------
 -- Table structure for t_shipping_address
 -- ----------------------------
 DROP TABLE IF EXISTS `t_shipping_address`;
-CREATE TABLE `t_shipping_address` (
+CREATE TABLE `t_shipping_address`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '地址编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
   `real_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '收货人',
@@ -1660,40 +1614,37 @@ CREATE TABLE `t_shipping_address` (
   `city` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '市',
   `district` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '区/县',
   `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '详细地址',
-  `is_default` tinyint(4) DEFAULT '0' COMMENT '是否默认',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户收货地址表';
+  `is_default` tinyint(4) NULL DEFAULT 0 COMMENT '是否默认',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户收货地址表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_shipping_address
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_shipping_address` VALUES (1, 31, '王振宇', '18888888888', '江西省', '赣州市', '章贡区', '**路', 1, 3, '2019-01-03 19:49:26', '2019-01-03 21:29:50', 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_statistics_dau
 -- ----------------------------
 DROP TABLE IF EXISTS `t_statistics_dau`;
-CREATE TABLE `t_statistics_dau` (
+CREATE TABLE `t_statistics_dau`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'DAU编号',
   `dau` bigint(20) NOT NULL COMMENT 'DAU',
-  `statistics_time` datetime NOT NULL COMMENT '统计时间',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='日活用户统计表';
+  `statistics_time` datetime(0) NOT NULL COMMENT '统计时间',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 97 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '日活用户统计表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_statistics_dau
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_statistics_dau` VALUES (68, 2, '2019-01-18 17:42:00', 1, '2019-01-18 17:43:00', NULL, 0);
 INSERT INTO `t_statistics_dau` VALUES (69, 16, '2019-01-25 10:47:40', 1, '2019-01-25 10:48:40', NULL, 0);
 INSERT INTO `t_statistics_dau` VALUES (71, 8, '2019-01-29 10:31:04', 1, '2019-01-29 10:32:04', NULL, 0);
@@ -1722,27 +1673,25 @@ INSERT INTO `t_statistics_dau` VALUES (93, 0, '2019-03-08 10:06:54', 1, '2019-03
 INSERT INTO `t_statistics_dau` VALUES (94, 7, '2019-03-09 09:24:07', 1, '2019-03-09 09:25:07', NULL, 0);
 INSERT INTO `t_statistics_dau` VALUES (95, 2, '2019-03-11 09:40:48', 1, '2019-03-11 09:41:47', NULL, 0);
 INSERT INTO `t_statistics_dau` VALUES (96, 1, '2019-03-12 13:46:46', 1, '2019-03-12 13:47:46', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_statistics_day
 -- ----------------------------
 DROP TABLE IF EXISTS `t_statistics_day`;
-CREATE TABLE `t_statistics_day` (
+CREATE TABLE `t_statistics_day`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '日期编号',
-  `the_date` datetime NOT NULL COMMENT '日期字符串',
+  `the_date` datetime(0) NOT NULL COMMENT '日期字符串',
   `am_pm` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '上午或下午',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2001 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用于数据统计的日期信息';
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2001 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用于数据统计的日期信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_statistics_day
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_statistics_day` VALUES (1, '2019-01-01 00:00:00', 'am', 1, '2019-02-20 10:45:57', NULL, 0);
 INSERT INTO `t_statistics_day` VALUES (2, '2019-01-01 00:00:00', 'pm', 1, '2019-02-20 10:45:57', NULL, 0);
 INSERT INTO `t_statistics_day` VALUES (3, '2019-01-02 00:00:00', 'am', 1, '2019-02-20 10:45:57', NULL, 0);
@@ -3743,70 +3692,66 @@ INSERT INTO `t_statistics_day` VALUES (1997, '2021-09-25 00:00:00', 'am', 1, '20
 INSERT INTO `t_statistics_day` VALUES (1998, '2021-09-25 00:00:00', 'pm', 1, '2019-02-20 10:45:58', NULL, 0);
 INSERT INTO `t_statistics_day` VALUES (1999, '2021-09-26 00:00:00', 'am', 1, '2019-02-20 10:45:58', NULL, 0);
 INSERT INTO `t_statistics_day` VALUES (2000, '2021-09-26 00:00:00', 'pm', 1, '2019-02-20 10:45:58', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_sys_config
 -- ----------------------------
 DROP TABLE IF EXISTS `t_sys_config`;
-CREATE TABLE `t_sys_config` (
+CREATE TABLE `t_sys_config`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '配置编号',
   `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '配置名称',
   `value` varchar(5000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '配置内容(JSON)',
-  `description` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '中文说明',
-  `comment` varchar(5000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '配置注释',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统配置表，以JSON格式记录常用配置，如阿里云，微信等';
+  `description` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '中文说明',
+  `comment` varchar(5000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '配置注释',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统配置表，以JSON格式记录常用配置，如阿里云，微信等' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_sys_config
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_sys_config` VALUES (1, 'aliyun_sms_config', '{\n  \"accessKeyId\": \"yourAccessKeyId\",\n  \"accessKeySecret\": \"yourAccessKeySecret\",\n  \"signName\": \"signName\"\n}', '阿里云短信', '{\n  \"accessKeyId\": \"访问ID\",\n  \"accessKeySecret\": \"访问密钥\",\n  \"signName\": \"短信签名\"\n}', 1, '2018-12-17 22:17:52', NULL, 0);
 INSERT INTO `t_sys_config` VALUES (2, 'aliyun_mail_config', '{\n  \"accessKeyId\": \"yourAccessKeyId\",\n  \"accessKeySecret\": \"yourAccessKeySecret\"\n}', '阿里云邮件推送', '{\n  \"accessKeyId\": \"访问ID\",\n  \"accessKeySecret\": \"访问密钥\"\n}', 1, '2018-12-17 22:17:52', NULL, 0);
 INSERT INTO `t_sys_config` VALUES (3, 'weixin_gzh_config', '{\n  \"appId\": \"appId\",\n  \"appSecret\": \"appSecret\",\n  \"baseUrl\": \"http://www.zywork.top\",\n  \"loginRedirectUrl\": \"\"\n}', '微信公众号', '{\n  \"appId\": \"公众号ID\",\n  \"appSecret\": \"公众号密钥\",\n  \"baseUrl\": \"服务器端base url\",\n  \"loginRedirectUrl\": \"服务器端登录回调接口地址\"\n}', 1, '2018-12-17 22:17:52', NULL, 0);
 INSERT INTO `t_sys_config` VALUES (4, 'weixin_xcx_config', '{\n  \"appId\": \"appId\",\n  \"appSecret\": \"appSecret\"\n}', '微信小程序', '{\n  \"appId\": \"公众号ID\",\n  \"appSecret\": \"公众号密钥\"\n}', 1, '2018-12-17 22:17:52', NULL, 0);
 INSERT INTO `t_sys_config` VALUES (5, 'wx_pay_config', '{\"mchId\":\"1523115971\",\"apiSecret\":\"e2d9fdc85825493cb5ae72bdce786930\",\"baseUrl\":\"http://www.zywork.top\",\"payNotifyUrl\":\"/byjc/tickeorder/result\"}', '微信支付', '{\"mchId\":\"商户ID\",\"apiSecret\":\"商户API密钥\",\"baseUrl\":\"服务器端base url\",\"payNotifyUrl\":\"服务器端支付通知接口\"}', 3, '2018-12-17 22:17:52', '2019-03-09 09:49:19', 0);
 INSERT INTO `t_sys_config` VALUES (14, 'default_distribution_config', '{\n  \"distributionLevel\": 3,\n  \"profitPercents\": {\n    \"level1\": 3,\n    \"level2\": 5,\n    \"level3\": 8\n  }\n}', '默认分销规则', '{\n  \"distributionLevel\": \"分销级别\",\n  \"profitPercents\": {\n    \"level1\": \"一级分销返佣比例\",\n    \"level2\": \"二级分销返佣比例\",\n    \"level3\": \"三级分销返佣比例\"\n  }\n}', 1, '2018-12-28 15:31:12', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_sys_log
 -- ----------------------------
 DROP TABLE IF EXISTS `t_sys_log`;
-CREATE TABLE `t_sys_log` (
+CREATE TABLE `t_sys_log`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '日志编号',
-  `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
-  `user_account` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '用户账号',
+  `user_id` bigint(20) NULL DEFAULT NULL COMMENT '用户编号',
+  `user_account` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户账号',
   `description` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '执行说明',
-  `user_agent` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'User-Agent',
-  `request_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '请求URL',
-  `request_method` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '请求方式',
-  `request_params` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '请求参数',
-  `response_code` int(11) DEFAULT NULL COMMENT '响应编码',
-  `response_msg` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '响应消息',
-  `execute_class` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '完整类名',
-  `execute_method` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '方法名称',
-  `execute_time` datetime DEFAULT NULL COMMENT '开始执行时间',
-  `execute_cost_time` bigint(20) DEFAULT NULL COMMENT '执行耗时(ms)',
-  `has_exception` tinyint(4) DEFAULT '0' COMMENT '是否异常',
-  `exception_msg` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '异常消息',
-  `execute_ip` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'IP地址',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=283 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统操作日志表';
+  `user_agent` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'User-Agent',
+  `request_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '请求URL',
+  `request_method` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '请求方式',
+  `request_params` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '请求参数',
+  `response_code` int(11) NULL DEFAULT NULL COMMENT '响应编码',
+  `response_msg` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '响应消息',
+  `execute_class` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '完整类名',
+  `execute_method` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '方法名称',
+  `execute_time` datetime(0) NULL DEFAULT NULL COMMENT '开始执行时间',
+  `execute_cost_time` bigint(20) NULL DEFAULT NULL COMMENT '执行耗时(ms)',
+  `has_exception` tinyint(4) NULL DEFAULT 0 COMMENT '是否异常',
+  `exception_msg` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '异常消息',
+  `execute_ip` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'IP地址',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 283 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统操作日志表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_sys_log
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_sys_log` VALUES (1, 1, '13672297775', '用户编辑', NULL, 'http://localhost:8088/test/edit', 'POST', '[]', 1001, '成功', 'top.zywork.controller.TestController', 'edit', '2018-12-18 15:28:26', 13, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2018-12-18 15:28:25', NULL, 0);
 INSERT INTO `t_sys_log` VALUES (2, 1, '13672297775', '用户编辑', NULL, 'http://localhost:8088/test/edit', 'POST', '[]', 1001, '成功', 'top.zywork.controller.TestController', 'edit', '2018-12-18 15:32:31', 7, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2018-12-18 15:32:30', NULL, 0);
 INSERT INTO `t_sys_log` VALUES (3, 1, '13672297775', '用户添加', NULL, 'http://localhost:8088/test/add', 'POST', '[]', 1001, '成功', 'top.zywork.controller.TestController', 'add', '2018-12-18 15:32:35', 0, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2018-12-18 15:32:35', NULL, 0);
@@ -4064,288 +4009,269 @@ INSERT INTO `t_sys_log` VALUES (279, 31, '18888888888', '导入权限配置', 'M
 INSERT INTO `t_sys_log` VALUES (280, 31, '18888888888', '导入权限配置', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.119 Safari/537.36', 'http://localhost:8088/permission-import-export/import-permission', 'POST', NULL, 1001, '成功导入权限配置信息', 'top.zywork.controller.PermissionImportExportController', 'importPermissions', '2019-03-06 14:10:48', 2529, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-03-06 14:10:48', NULL, 0);
 INSERT INTO `t_sys_log` VALUES (281, 31, '18888888888', '导入权限配置', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.119 Safari/537.36', 'http://localhost:8088/permission-import-export/import-permission', 'POST', NULL, 1001, '成功导入权限配置信息', 'top.zywork.controller.PermissionImportExportController', 'importPermissions', '2019-03-08 18:13:21', 2473, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-03-08 18:13:21', NULL, 0);
 INSERT INTO `t_sys_log` VALUES (282, 31, '18888888888', '导入权限配置', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.119 Safari/537.36', 'http://localhost:8088/permission-import-export/import-permission', 'POST', NULL, 1001, '成功导入权限配置信息', 'top.zywork.controller.PermissionImportExportController', 'importPermissions', '2019-03-12 16:33:23', 2426, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-03-12 16:33:23', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_user
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user`;
-CREATE TABLE `t_user` (
+CREATE TABLE `t_user`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用户编号',
-  `phone` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '手机号',
-  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '用户邮箱',
-  `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '登录密码',
-  `salt` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '加密盐值',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户基本信息表';
+  `phone` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '手机号',
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户邮箱',
+  `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '登录密码',
+  `salt` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '加密盐值',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 48 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户基本信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_user` VALUES (31, '18888888888', NULL, '$2a$10$7YNSwyW.FfL2iPBOqSEnD.8fNnM65QjumF2CD3glyQb9zdQBzXSr2', NULL, 1, '2018-12-22 15:46:43', NULL, 0);
 INSERT INTO `t_user` VALUES (36, '13666666666', NULL, '$2a$10$7YNSwyW.FfL2iPBOqSEnD.8fNnM65QjumF2CD3glyQb9zdQBzXSr2', NULL, 1, '2018-12-28 12:00:36', NULL, 0);
 INSERT INTO `t_user` VALUES (40, '', 'demo@zywork.top', '$2a$10$BxzUB3PvmEX9VqZIfIvsf.V4ltLJY9fF06GFX.J.d.3SFOApnFBm2', NULL, 1, '2019-01-17 10:30:21', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_user_bankcard
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user_bankcard`;
-CREATE TABLE `t_user_bankcard` (
+CREATE TABLE `t_user_bankcard`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '银行卡编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
   `account_name` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '持卡人姓名',
-  `bank_code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '银行代码',
+  `bank_code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '银行代码',
   `bank_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '银行名称',
   `bankcard_no` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '银行卡号',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT NULL COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户银行卡记录表';
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT NULL COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户银行卡记录表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_user_certification
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user_certification`;
-CREATE TABLE `t_user_certification` (
+CREATE TABLE `t_user_certification`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '认证编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
   `identity` varchar(18) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '身份证号',
   `real_name` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '真实姓名',
-  `valid_date` date DEFAULT NULL COMMENT '身份证有效期',
+  `valid_date` date NULL DEFAULT NULL COMMENT '身份证有效期',
   `idcard_front` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '身份证正面',
   `idcard_reverse` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '身份证反面',
-  `idcard_hand` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '手持身份证',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT NULL COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户实名认证表';
+  `idcard_hand` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '手持身份证',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT NULL COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户实名认证表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_user_detail
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user_detail`;
-CREATE TABLE `t_user_detail` (
+CREATE TABLE `t_user_detail`  (
   `id` bigint(20) NOT NULL COMMENT '用户编号',
-  `nickname` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '昵称',
-  `headicon` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '头像地址',
-  `gender` tinyint(4) DEFAULT '0' COMMENT '性别',
-  `birthday` date DEFAULT NULL COMMENT '生日',
-  `age` int(11) DEFAULT NULL COMMENT '年龄',
-  `qq` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'QQ号',
-  `qq_qrcode` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'QQ二维码',
-  `wechat` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '微信号',
-  `wechat_qrcode` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '微信二维码',
-  `alipay` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '支付宝账号',
-  `alipay_qrcode` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '支付宝二维码',
-  `share_code` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '分享码',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户扩展信息表';
+  `nickname` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '昵称',
+  `headicon` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '头像地址',
+  `gender` tinyint(4) NULL DEFAULT 0 COMMENT '性别',
+  `birthday` date NULL DEFAULT NULL COMMENT '生日',
+  `age` int(11) NULL DEFAULT NULL COMMENT '年龄',
+  `qq` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'QQ号',
+  `qq_qrcode` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'QQ二维码',
+  `wechat` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '微信号',
+  `wechat_qrcode` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '微信二维码',
+  `alipay` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '支付宝账号',
+  `alipay_qrcode` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '支付宝二维码',
+  `share_code` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '分享码',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户扩展信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_user_detail
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_user_detail` VALUES (31, 'Sys Super Admin', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'nxrLRk', 1, '2018-12-22 15:46:43', NULL, 0);
 INSERT INTO `t_user_detail` VALUES (36, 'Sys User', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '62TNSs', 1, '2018-12-28 12:00:36', NULL, 0);
 INSERT INTO `t_user_detail` VALUES (40, 'Sys User Demo', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'h345CG', 1, '2019-01-17 10:30:21', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_user_hierarchy
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user_hierarchy`;
-CREATE TABLE `t_user_hierarchy` (
+CREATE TABLE `t_user_hierarchy`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '关系编号',
   `ancestor_id` bigint(20) NOT NULL COMMENT '祖先编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
   `user_level` int(11) NOT NULL COMMENT '用户级别',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户关系表';
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户关系表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_user_hierarchy
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_user_hierarchy` VALUES (1, 31, 31, 1, 1, '2018-12-28 11:26:11', NULL, 0);
 INSERT INTO `t_user_hierarchy` VALUES (2, 31, 36, 2, 1, '2018-12-28 12:00:36', NULL, 0);
 INSERT INTO `t_user_hierarchy` VALUES (3, 36, 36, 1, 1, '2018-12-28 12:00:36', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_user_message
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user_message`;
-CREATE TABLE `t_user_message` (
+CREATE TABLE `t_user_message`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '消息发送编号',
   `message_id` bigint(20) NOT NULL COMMENT '消息编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
-  `is_read` tinyint(4) DEFAULT '0' COMMENT '是否已读',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户消息表';
+  `is_read` tinyint(4) NULL DEFAULT 0 COMMENT '是否已读',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户消息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_user_message
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_user_message` VALUES (1, 1, 40, 0, 1, '2019-01-24 16:20:13', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_user_organization
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user_organization`;
-CREATE TABLE `t_user_organization` (
+CREATE TABLE `t_user_organization`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用户组织编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
   `organization_id` bigint(20) NOT NULL COMMENT '组织编号',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户组织部门信息表';
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户组织部门信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_user_organization
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_user_organization` VALUES (1, 31, 2, 1, '2019-01-24 16:16:14', NULL, 0);
 INSERT INTO `t_user_organization` VALUES (2, 40, 2, 1, '2019-01-24 16:16:21', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_user_path
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user_path`;
-CREATE TABLE `t_user_path` (
+CREATE TABLE `t_user_path`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '路径编号',
   `user_path` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户路径',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`),
-  FULLTEXT KEY `idx_user_path` (`user_path`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户关系路径表';
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE,
+  FULLTEXT INDEX `idx_user_path`(`user_path`)
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户关系路径表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_user_path
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_user_path` VALUES (1, '31', 1, '2018-12-28 11:26:11', NULL, 0);
 INSERT INTO `t_user_path` VALUES (2, '31/36', 1, '2018-12-28 12:00:36', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_user_role
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user_role`;
-CREATE TABLE `t_user_role` (
+CREATE TABLE `t_user_role`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `user_id` bigint(20) NOT NULL COMMENT '用户编号',
   `role_id` bigint(20) NOT NULL COMMENT '角色编号',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户角色表';
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户角色表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_user_role
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_user_role` VALUES (7, 31, 1, 1, '2018-12-22 15:46:43', NULL, 0);
 INSERT INTO `t_user_role` VALUES (8, 36, 5, 1, '2018-12-28 12:00:36', NULL, 0);
 INSERT INTO `t_user_role` VALUES (9, 31, 2, 1, '2019-01-06 13:32:46', NULL, 0);
 INSERT INTO `t_user_role` VALUES (12, 31, 3, 1, '2019-01-10 15:38:21', NULL, 0);
 INSERT INTO `t_user_role` VALUES (25, 40, 4, 1, '2019-02-22 10:24:03', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_user_social
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user_social`;
-CREATE TABLE `t_user_social` (
+CREATE TABLE `t_user_social`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '第三方登录编号',
-  `user_id` bigint(20) DEFAULT NULL COMMENT '用户编号',
-  `openid` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'openid',
-  `union_id` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'unionid',
-  `access_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'AccessToken',
-  `session_key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'SessionKey',
-  `refresh_token` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '刷新Token',
-  `social_type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '第三方登录类型',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '第三方登录绑定时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户第三方登录信息表';
+  `user_id` bigint(20) NULL DEFAULT NULL COMMENT '用户编号',
+  `openid` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'openid',
+  `union_id` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'unionid',
+  `access_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'AccessToken',
+  `session_key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'SessionKey',
+  `refresh_token` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '刷新Token',
+  `social_type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '第三方登录类型',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '第三方登录绑定时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户第三方登录信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_user_social
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_user_social` VALUES (7, 31, 'openid_wechat', '123456', 'access_token', 'session_key', NULL, '微信小程序', 1, '2019-01-07 19:28:25', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for t_user_wallet
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user_wallet`;
-CREATE TABLE `t_user_wallet` (
+CREATE TABLE `t_user_wallet`  (
   `id` bigint(20) NOT NULL COMMENT '钱包编号',
-  `pay_password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '支付密码',
-  `rmb_balance` bigint(20) DEFAULT '0' COMMENT '人民币余额',
-  `usable_rmb_balance` bigint(20) DEFAULT '0' COMMENT '可用余额',
-  `frozen_rmb_balance` bigint(20) DEFAULT '0' COMMENT '冻结余额',
-  `integral` bigint(20) DEFAULT '0' COMMENT '总积分',
-  `usable_integral` bigint(20) DEFAULT '0' COMMENT '可用积分',
-  `frozen_integral` bigint(20) DEFAULT '0' COMMENT '冻结积分',
-  `version` int(11) DEFAULT '1' COMMENT '版本号',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_active` tinyint(4) DEFAULT '0' COMMENT '是否激活',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户钱包表';
+  `pay_password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '支付密码',
+  `rmb_balance` bigint(20) NULL DEFAULT 0 COMMENT '人民币余额',
+  `usable_rmb_balance` bigint(20) NULL DEFAULT 0 COMMENT '可用余额',
+  `frozen_rmb_balance` bigint(20) NULL DEFAULT 0 COMMENT '冻结余额',
+  `integral` bigint(20) NULL DEFAULT 0 COMMENT '总积分',
+  `usable_integral` bigint(20) NULL DEFAULT 0 COMMENT '可用积分',
+  `frozen_integral` bigint(20) NULL DEFAULT 0 COMMENT '冻结积分',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户钱包表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_user_wallet
 -- ----------------------------
-BEGIN;
 INSERT INTO `t_user_wallet` VALUES (31, '$2a$10$ApWvvBHw0IMFIHCAT5vHxu9dlE3Kw1j0JBmzDTUTJoQQk1UHPKYBO', 392, 392, 0, NULL, NULL, NULL, 14, NULL, '2019-01-15 22:23:31', 0);
 INSERT INTO `t_user_wallet` VALUES (36, '', 200, 200, 0, NULL, NULL, NULL, 4, '2018-12-28 12:00:36', '2019-01-15 20:51:44', 1);
 INSERT INTO `t_user_wallet` VALUES (40, '', 0, 0, 0, 0, 0, 0, 1, '2019-01-17 10:30:21', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Procedure structure for initStatisticsDay
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `initStatisticsDay`;
 delimiter ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `initStatisticsDay`(in beginDate datetime, in totalDays int)
+CREATE PROCEDURE `initStatisticsDay`(in beginDate datetime, in totalDays int)
 BEGIN
 	declare days int default 0;
 	declare theDate datetime;
@@ -4365,7 +4291,7 @@ BEGIN
 	else
 		commit;
   end if;
-END;
+END
 ;;
 delimiter ;
 
@@ -4374,7 +4300,7 @@ delimiter ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `invite_user`;
 delimiter ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `invite_user`(in pid bigint, in uid bigint)
+CREATE PROCEDURE `invite_user`(in pid bigint, in uid bigint)
 BEGIN
     -- 如果uid等于pid，表示某个用户自己成为顶级经销商
 	declare ancestorId bigint;
@@ -4415,7 +4341,7 @@ BEGIN
 	else
 		commit;
   end if;
-END;
+END
 ;;
 delimiter ;
 
