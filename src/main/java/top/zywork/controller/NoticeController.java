@@ -3,20 +3,26 @@ package top.zywork.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import top.zywork.common.BeanUtils;
 import top.zywork.common.BindingResultUtils;
 import top.zywork.common.StringUtils;
+import top.zywork.common.UploadUtils;
 import top.zywork.dto.NoticeDTO;
 import top.zywork.dto.PagerDTO;
+import top.zywork.enums.ResponseStatusEnum;
+import top.zywork.enums.UploadTypeEnum;
 import top.zywork.query.NoticeQuery;
 import top.zywork.service.NoticeService;
 import top.zywork.vo.NoticeVO;
 import top.zywork.vo.PagerVO;
 import top.zywork.vo.ResponseStatusVO;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -32,6 +38,12 @@ import java.util.List;
 public class NoticeController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(NoticeController.class);
+
+    @Value("${article.imgDir}")
+    private String imgDir;
+
+    @Value("${article.imgUrl}")
+    private String imgUrl;
 
     private NoticeService noticeService;
 
@@ -142,6 +154,15 @@ public class NoticeController extends BaseController {
     @PostMapping("user/pager-cond")
     public ResponseStatusVO userListPageByCondition(@RequestBody NoticeQuery noticeQuery) {
         return listPageByCondition(noticeQuery);
+    }
+
+    @PostMapping("admin/upload-img")
+    public ResponseStatusVO upload(MultipartFile file) {
+        ResponseStatusVO responseStatusVO = UploadUtils.uploadFile(file, UploadTypeEnum.IMAGE.getAllowedExts(), UploadTypeEnum.IMAGE.getMaxSize(), imgDir, "");
+        if (responseStatusVO.getCode().intValue() == ResponseStatusEnum.OK.getCode().intValue()) {
+            responseStatusVO.setData(imgUrl + File.separator + ((List) responseStatusVO.getData()).get(0));
+        }
+        return responseStatusVO;
     }
 
     @Autowired

@@ -127,6 +127,12 @@ activiti:
   maxSize: 20
 goods:
   #后台保存商品图片的路径
-  imgDir: "/data/zywork-app-data/upload/image"
+  imgDir: "./image/goods"
   #前端显示商品图片的url路径
-  imgUrl: "upload/image"
+  imgUrl: "upload/image/goods"
+article:
+  imgDir: "./image/article"
+  imgUrl: "upload/image/article"
+notice:
+  imgDir: "./image/notice"
+  imgUrl: "upload/image/notice"
