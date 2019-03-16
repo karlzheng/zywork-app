@@ -73,7 +73,7 @@ mybatis:
   mapper-locations: classpath:/mapper/*Mapper.xml
 #XssFilter不过滤的url，从/开始配置
 xssFilter:
-  ignoreUrls: /demo/test1,/demo/test2
+  ignoreUrls: /article/admin/save,/article/admin/batch-save,/article/admin/update,/article/admin/batch-update,/notice/admin/save,/notice/admin/batch-save,/notice/admin/update,/notice/admin/batch-update
 #自定义jwt配置信息
 jwt:
   #header名称
