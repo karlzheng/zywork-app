@@ -11,7 +11,7 @@ zywork-app依赖于zywork-common（[https://github.com/gz-zywork/zywork-common](
 zywork-common项目依赖了zywork-sdk（[https://github.com/gz-zywork/zywork-sdk](https://github.com/gz-zywork/zywork-sdk)）中的微信支付SDK，微信支付SDK需要自行mvn install。
 
 #### 官方网站及在线体验
-[赣州智悦科技-zywork.top](http://zywork.top/app/index.html)
+[赣州智悦科技-zywork.top](http://zywork.top)
 
 [直接体验zywork-app](http://39.108.116.103:8080)
 
@@ -20,18 +20,18 @@ zywork-common项目依赖了zywork-sdk（[https://github.com/gz-zywork/zywork-sd
 2. SpringBoot
 3. SpringBoot Admin
 4. SpringCloud
-3. SpringSecurity
-4. JWT
-5. MyBatis
-6. Druid
-7. MySQL
-8. Redis
-9. Activiti
-9. Slf4j & Logback
-10. Swagger2
-11. 微信支付SDK
-12. 阿里云短信API
-13. 阿里云邮件推送API
+5. SpringSecurity
+6. JWT
+7. MyBatis
+8. Druid
+9. MySQL
+10. Redis
+11. Activiti
+12. Slf4j & Logback
+13. Swagger2
+14. 微信支付SDK
+15. 阿里云短信API
+16. 阿里云邮件推送API
 
 #### 需要的服务器
 1. MySQL8
