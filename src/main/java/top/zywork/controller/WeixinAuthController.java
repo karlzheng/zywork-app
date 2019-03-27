@@ -88,7 +88,8 @@ public class WeixinAuthController {
      * @param request
      * @param response
      * @param code
-     * @param extraParams
+     * @param extraParams 包含三个部分，fromUrl表示从哪个网页发起的授权，notAuthUrl表示如果未授权成功跳转到的网页，
+     *                    shareCode表示分享码，三个部分都需要指定，每个部分使用__分割
      */
     @GetMapping("gzh")
     @SysLog(description = "微信公众号登录", requestParams = false)
@@ -139,6 +140,17 @@ public class WeixinAuthController {
         }
     }
 
+    private String generateAndSaveToken(String openid) {
+        JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(openid);
+        Map<String, Object> claims = jwtUtils.generateClaims(jwtUser);
+        String token = jwtUtils.generateToken(jwtUser.getUsername(), claims);
+        // 支持用户多平台同时登录，一次平台登录产生一个jwt token
+        JwtClaims jwtClaims = JSON.parseObject((String) claims.get(JwtUtils.JWT_CLAIMS), JwtClaims.class);
+        jwtTokenRedisUtils.storeToken(jwtUser.getUserId() + "_" + jwtClaims.getCreateDate().getTime(),
+                new JwtToken(token, DateFormatUtils.format(System.currentTimeMillis(), DatePatternEnum.DATE.getValue())));
+        return token;
+    }
+
     /**
      * 通过公众号cookie中的openid获取jwt token并返回
      * @param request
@@ -149,13 +161,7 @@ public class WeixinAuthController {
         String openid = WebUtils.getCookieValue(request, gzhCookieName);
         if (StringUtils.isNotEmpty(openid)) {
             // 重新根据openid获取JwtUser，生成jwt token并返回客户端
-            JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(openid);
-            Map<String, Object> claims = jwtUtils.generateClaims(jwtUser);
-            String token = jwtUtils.generateToken(jwtUser.getUsername(), claims);
-            // 支持用户多平台同时登录，一次平台登录产生一个jwt token
-            JwtClaims jwtClaims = JSON.parseObject((String) claims.get(JwtUtils.JWT_CLAIMS), JwtClaims.class);
-            jwtTokenRedisUtils.storeToken(jwtUser.getUserId() + "_" + jwtClaims.getCreateDate().getTime(),
-                    new JwtToken(token, DateFormatUtils.format(System.currentTimeMillis(), DatePatternEnum.DATE.getValue())));
+            String token = generateAndSaveToken(openid);
             return ResponseStatusVO.ok("成功获取jwt token", token);
         } else {
             return ResponseStatusVO.dataError("公众号Cookie中不存在openid", null);
@@ -209,14 +215,7 @@ public class WeixinAuthController {
     }
 
     private ResponseStatusVO outInfoToXcx(String openid) {
-        // 重新根据openid获取JwtUser，生成jwt token并返回客户端
-        JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(openid);
-        Map<String, Object> claims = jwtUtils.generateClaims(jwtUser);
-        String token = jwtUtils.generateToken(jwtUser.getUsername(), claims);
-        // 支持用户多平台同时登录，一次平台登录产生一个jwt token
-        JwtClaims jwtClaims = JSON.parseObject((String) claims.get(JwtUtils.JWT_CLAIMS), JwtClaims.class);
-        jwtTokenRedisUtils.storeToken(jwtUser.getUserId() + "_" + jwtClaims.getCreateDate().getTime(),
-                new JwtToken(token, DateFormatUtils.format(System.currentTimeMillis(), DatePatternEnum.DATE.getValue())));
+        String token = generateAndSaveToken(openid);
         // 微信授权登录成功，返回openid, jwt token
         return ResponseStatusVO.ok("微信用户授权登录成功", new String[]{openid, token});
     }
