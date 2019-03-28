@@ -11,7 +11,7 @@
  Target Server Version : 80015
  File Encoding         : 65001
 
- Date: 16/03/2019 19:11:20
+ Date: 28/03/2019 11:12:07
 */
 
 SET NAMES utf8mb4;
@@ -67,7 +67,7 @@ CREATE TABLE `t_article`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) NULL DEFAULT 1 COMMENT '是否激活',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '文章表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '文章表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_article
@@ -88,7 +88,7 @@ CREATE TABLE `t_article_category`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) NULL DEFAULT 1 COMMENT '是否激活',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '文章类别表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '文章类别表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_article_category
@@ -128,7 +128,7 @@ CREATE TABLE `t_funds_frezee`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户资金冻结与解冻记录表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户资金冻结与解冻记录表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_funds_recharge
@@ -234,7 +234,7 @@ CREATE TABLE `t_funds_withdraw_check`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户资金提现审核历史表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户资金提现审核历史表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_funds_withdraw_check
@@ -823,7 +823,7 @@ CREATE TABLE `t_notice`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统公告表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统公告表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_notice
@@ -844,7 +844,7 @@ CREATE TABLE `t_organization`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '组织或部门表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '组织或部门表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_organization
@@ -1599,7 +1599,7 @@ CREATE TABLE `t_scheduler`  (
 -- ----------------------------
 -- Records of t_scheduler
 -- ----------------------------
-INSERT INTO `t_scheduler` VALUES (1, 'DauSaveJob', 'top.zywork.job.DauSaveJob', '59 59 23 * * ?', 'job_group', 'trigger_name', 'trigger_group', NULL, 1, '2019-03-16 18:09:55', 1, 222, '2019-01-18 17:34:42', '2019-03-16 18:09:54', 0);
+INSERT INTO `t_scheduler` VALUES (1, 'DauSaveJob', 'top.zywork.job.DauSaveJob', '59 59 23 * * ?', 'job_group', 'trigger_name', 'trigger_group', NULL, 1, '2019-03-28 11:03:30', 1, 225, '2019-01-18 17:34:42', '2019-03-28 11:03:29', 0);
 
 -- ----------------------------
 -- Table structure for t_shipping_address
@@ -3708,13 +3708,13 @@ CREATE TABLE `t_sys_config`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统配置表，以JSON格式记录常用配置，如阿里云，微信等' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统配置表，以JSON格式记录常用配置，如阿里云，微信等' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_sys_config
 -- ----------------------------
-INSERT INTO `t_sys_config` VALUES (1, 'aliyun_sms_config', '{\n  \"accessKeyId\": \"yourAccessKeyId\",\n  \"accessKeySecret\": \"yourAccessKeySecret\",\n  \"signName\": \"signName\"\n}', '阿里云短信', '{\n  \"accessKeyId\": \"访问ID\",\n  \"accessKeySecret\": \"访问密钥\",\n  \"signName\": \"短信签名\"\n}', 1, '2018-12-17 22:17:52', NULL, 0);
-INSERT INTO `t_sys_config` VALUES (2, 'aliyun_mail_config', '{\n  \"accessKeyId\": \"yourAccessKeyId\",\n  \"accessKeySecret\": \"yourAccessKeySecret\"\n}', '阿里云邮件推送', '{\n  \"accessKeyId\": \"访问ID\",\n  \"accessKeySecret\": \"访问密钥\"\n}', 1, '2018-12-17 22:17:52', NULL, 0);
+INSERT INTO `t_sys_config` VALUES (1, 'aliyun_sms_config', '{\n  \"accessKeyId\": \"yourAccessKeyId\",\n  \"accessKeySecret\": \"yourAccessKeySecret\",\n  \"signName\": \"signName\",\n  \"regionId\": \"cn-hangzhou\"\n}', '阿里云短信', '{\n  \"accessKeyId\": \"访问ID\",\n  \"accessKeySecret\": \"访问密钥\",\n  \"signName\": \"短信签名\"\n,\n  \"regionId\": \"区域id\"}', 1, '2018-12-17 22:17:52', NULL, 0);
+INSERT INTO `t_sys_config` VALUES (2, 'aliyun_mail_config', '{\n  \"accessKeyId\": \"yourAccessKeyId\",\n  \"accessKeySecret\": \"yourAccessKeySecret\"\n,\n  \"regionId\": \"cn-hangzhou\"\n}', '阿里云邮件推送', '{\n  \"accessKeyId\": \"访问ID\",\n  \"accessKeySecret\": \"访问密钥\"\n,\n  \"regionId\": \"区域id\"\n}', 1, '2018-12-17 22:17:52', NULL, 0);
 INSERT INTO `t_sys_config` VALUES (3, 'weixin_gzh_config', '{\n  \"appId\": \"appId\",\n  \"appSecret\": \"appSecret\",\n  \"baseUrl\": \"http://www.zywork.top\",\n  \"loginRedirectUrl\": \"\"\n}', '微信公众号', '{\n  \"appId\": \"公众号ID\",\n  \"appSecret\": \"公众号密钥\",\n  \"baseUrl\": \"服务器端base url\",\n  \"loginRedirectUrl\": \"服务器端登录回调接口地址\"\n}', 1, '2018-12-17 22:17:52', NULL, 0);
 INSERT INTO `t_sys_config` VALUES (4, 'weixin_xcx_config', '{\n  \"appId\": \"appId\",\n  \"appSecret\": \"appSecret\"\n}', '微信小程序', '{\n  \"appId\": \"公众号ID\",\n  \"appSecret\": \"公众号密钥\"\n}', 1, '2018-12-17 22:17:52', NULL, 0);
 INSERT INTO `t_sys_config` VALUES (5, 'wx_pay_config', '{\"mchId\":\"1523115971\",\"apiSecret\":\"e2d9fdc85825493cb5ae72bdce786930\",\"baseUrl\":\"http://www.zywork.top\",\"payNotifyUrl\":\"/byjc/tickeorder/result\"}', '微信支付', '{\"mchId\":\"商户ID\",\"apiSecret\":\"商户API密钥\",\"baseUrl\":\"服务器端base url\",\"payNotifyUrl\":\"服务器端支付通知接口\"}', 3, '2018-12-17 22:17:52', '2019-03-09 09:49:19', 0);
@@ -3747,7 +3747,7 @@ CREATE TABLE `t_sys_log`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 283 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统操作日志表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 282 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统操作日志表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_sys_log
@@ -4070,7 +4070,7 @@ CREATE TABLE `t_user_certification`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) NULL DEFAULT NULL COMMENT '是否激活',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户实名认证表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户实名认证表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_user_detail
