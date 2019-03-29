@@ -11,7 +11,7 @@
  Target Server Version : 80015
  File Encoding         : 65001
 
- Date: 29/03/2019 17:04:47
+ Date: 29/03/2019 18:01:20
 */
 
 SET NAMES utf8mb4;
@@ -3720,7 +3720,7 @@ INSERT INTO `t_sys_config` VALUES (4, 'weixin_xcx_config', '{\n  \"appId\": \"ap
 INSERT INTO `t_sys_config` VALUES (5, 'wx_pay_config', '{\"mchId\":\"1523115971\",\"apiSecret\":\"e2d9fdc85825493cb5ae72bdce786930\",\"baseUrl\":\"http://www.zywork.top\",\"payNotifyUrl\":\"/byjc/tickeorder/result\"}', '微信支付', '{\"mchId\":\"商户ID\",\"apiSecret\":\"商户API密钥\",\"baseUrl\":\"服务器端base url\",\"payNotifyUrl\":\"服务器端支付通知接口\"}', 3, '2018-12-17 22:17:52', '2019-03-09 09:49:19', 0);
 INSERT INTO `t_sys_config` VALUES (14, 'default_distribution_config', '{\n  \"distributionLevel\": 3,\n  \"profitPercents\": {\n    \"level1\": 3,\n    \"level2\": 5,\n    \"level3\": 8\n  }\n}', '默认分销规则', '{\n  \"distributionLevel\": \"分销级别\",\n  \"profitPercents\": {\n    \"level1\": \"一级分销返佣比例\",\n    \"level2\": \"二级分销返佣比例\",\n    \"level3\": \"三级分销返佣比例\"\n  }\n}', 1, '2018-12-28 15:31:12', NULL, 0);
 INSERT INTO `t_sys_config` VALUES (15, 'aliyun_oss_config', '{\n  \"accessKeyId\": \"yourAccessKeyId\",\n  \"accessKeySecret\": \"yourAccessKeySecret\"\n,\n  \"regionId\": \"cn-hangzhou\"\n\n,\n  \"domain\": \"http://cdn.zywork.top\"\n\n,\n  \"defaultBucket\": \"defaultBucket\"}', '阿里云OSS', '{\n  \"accessKeyId\": \"访问ID\",\n  \"accessKeySecret\": \"访问密钥\"\n,\n  \"regionId\": \"区域id\"\n\n,\n  \"domain\": \"绑定的域名\"\n\n,\n  \"defaultBucket\": \"默认Bucket\"}', 1, '2019-03-28 16:33:51', NULL, 0);
-INSERT INTO `t_sys_config` VALUES (16, 'qiniu_oss_config', '{\"accessKey\":\"accessKey\",\"secretKey\":\"secretKey\",\"zoneName\":\"zone2\",\"domain\":\"http://cdn.zywork.top\",\"defaultBucket\":\"zywork-app\"}', '七牛云对象存储', '\"{\\r\\n  \\\"accessKey\\\": \\\"accessKey\\\",\\r\\n  \\\"secretKey\\\": \\\"secretKey\\\",\\r\\n  \\\"zoneName\\\": \\\"区域\\\",\\r\\n  \\\"domain\\\": \\\"绑定的域名\\\"，\\r\\n  \\\"defaultBucket\\\": \\\"默认Bucket\\\"\\r\\n}\"', 4, '2019-03-29 11:10:00', '2019-03-29 17:04:07', 0);
+INSERT INTO `t_sys_config` VALUES (16, 'qiniu_oss_config', '{\"accessKey\":\"accessKey\",\"secretKey\":\"secretKey\",\"zoneName\":\"zone2\",\"domain\":\"http://cdn.zywork.top\",\"defaultBucket\":\"zywork-app\"}', '七牛云对象存储', '{\"accessKey\": \"accessKey\", \"secretKey\": \"secretKey\",  \"zoneName\": \"区域\",  \"domain\": \"绑定的域名\", \"defaultBucket\": \"默认Bucket\"}', 4, '2019-03-29 11:10:00', '2019-03-29 17:04:07', 0);
 
 -- ----------------------------
 -- Table structure for t_sys_log
