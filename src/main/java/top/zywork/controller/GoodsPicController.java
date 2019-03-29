@@ -18,11 +18,11 @@ import top.zywork.enums.ResponseStatusEnum;
 import top.zywork.enums.UploadTypeEnum;
 import top.zywork.query.GoodsPicQuery;
 import top.zywork.service.GoodsPicService;
+import top.zywork.service.UploadService;
 import top.zywork.vo.GoodsPicVO;
 import top.zywork.vo.PagerVO;
 import top.zywork.vo.ResponseStatusVO;
 
-import java.io.File;
 import java.util.List;
 
 /**
@@ -39,12 +39,26 @@ public class GoodsPicController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(GoodsPicController.class);
 
-    @Value("${goods.imgDir}")
+    @Value("${storage.provider}")
+    private String storageProvider;
+
+    @Value("${storage.local.compressSizes}")
+    private String compressSizes;
+
+    @Value("${storage.local.compressScales}")
+    private String compressScales;
+
+    @Value("${storage.local.goods.imgParentDir}")
+    private String imgParentDir;
+
+    @Value("${storage.local.goods.imgDir}")
     private String imgDir;
-    @Value("${goods.imgUrl}")
+    @Value("${storage.local.goods.imgUrl}")
     private String imgUrl;
 
     private GoodsPicService goodsPicService;
+
+    private UploadService uploadService;
 
     /**
      * 上传商品图片
@@ -54,11 +68,13 @@ public class GoodsPicController extends BaseController {
      */
     @PostMapping("admin/upload/{goodsId}")
     public ResponseStatusVO upload(@PathVariable("goodsId") Long goodsId, MultipartFile file) {
-        ResponseStatusVO responseStatusVO = UploadUtils.uploadFile(file, UploadTypeEnum.IMAGE.getAllowedExts(), UploadTypeEnum.IMAGE.getMaxSize(), imgDir, "");
+        UploadUtils.UploadOptions uploadOptions = new UploadUtils.UploadOptions(imgParentDir, imgDir, imgUrl);
+        uploadOptions.generateCompressSizes(compressSizes);
+        ResponseStatusVO responseStatusVO = uploadService.uploadFile(storageProvider, file, UploadTypeEnum.IMAGE.getAllowedExts(), UploadTypeEnum.IMAGE.getMaxSize(), uploadOptions);
         if (responseStatusVO.getCode().intValue() == ResponseStatusEnum.OK.getCode().intValue()) {
             GoodsPicDTO goodsPicDTO = new GoodsPicDTO();
             goodsPicDTO.setGoodsId(goodsId);
-            goodsPicDTO.setPicUrl(imgUrl + File.separator + ((List) responseStatusVO.getData()).get(0));
+            goodsPicDTO.setPicUrl(responseStatusVO.getData().toString());
             goodsPicService.saveObj(goodsPicDTO);
             responseStatusVO.setData(goodsPicDTO);
         }
@@ -177,5 +193,10 @@ public class GoodsPicController extends BaseController {
     @Autowired
     public void setGoodsPicService(GoodsPicService goodsPicService) {
         this.goodsPicService = goodsPicService;
+    }
+
+    @Autowired
+    public void setUploadService(UploadService uploadService) {
+        this.uploadService = uploadService;
     }
 }

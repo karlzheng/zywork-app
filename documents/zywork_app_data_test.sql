@@ -11,7 +11,7 @@
  Target Server Version : 80015
  File Encoding         : 65001
 
- Date: 29/03/2019 11:57:51
+ Date: 29/03/2019 17:04:47
 */
 
 SET NAMES utf8mb4;
@@ -1599,7 +1599,7 @@ CREATE TABLE `t_scheduler`  (
 -- ----------------------------
 -- Records of t_scheduler
 -- ----------------------------
-INSERT INTO `t_scheduler` VALUES (1, 'DauSaveJob', 'top.zywork.job.DauSaveJob', '59 59 23 * * ?', 'job_group', 'trigger_name', 'trigger_group', NULL, 1, '2019-03-28 11:03:30', 1, 225, '2019-01-18 17:34:42', '2019-03-28 11:03:29', 0);
+INSERT INTO `t_scheduler` VALUES (1, 'DauSaveJob', 'top.zywork.job.DauSaveJob', '59 59 23 * * ?', 'job_group', 'trigger_name', 'trigger_group', NULL, 1, '2019-03-29 17:01:24', 1, 238, '2019-01-18 17:34:42', '2019-03-29 17:01:23', 0);
 
 -- ----------------------------
 -- Table structure for t_shipping_address
@@ -3719,8 +3719,8 @@ INSERT INTO `t_sys_config` VALUES (3, 'weixin_gzh_config', '{\n  \"appId\": \"ap
 INSERT INTO `t_sys_config` VALUES (4, 'weixin_xcx_config', '{\n  \"appId\": \"appId\",\n  \"appSecret\": \"appSecret\"\n}', '微信小程序', '{\n  \"appId\": \"公众号ID\",\n  \"appSecret\": \"公众号密钥\"\n}', 1, '2018-12-17 22:17:52', NULL, 0);
 INSERT INTO `t_sys_config` VALUES (5, 'wx_pay_config', '{\"mchId\":\"1523115971\",\"apiSecret\":\"e2d9fdc85825493cb5ae72bdce786930\",\"baseUrl\":\"http://www.zywork.top\",\"payNotifyUrl\":\"/byjc/tickeorder/result\"}', '微信支付', '{\"mchId\":\"商户ID\",\"apiSecret\":\"商户API密钥\",\"baseUrl\":\"服务器端base url\",\"payNotifyUrl\":\"服务器端支付通知接口\"}', 3, '2018-12-17 22:17:52', '2019-03-09 09:49:19', 0);
 INSERT INTO `t_sys_config` VALUES (14, 'default_distribution_config', '{\n  \"distributionLevel\": 3,\n  \"profitPercents\": {\n    \"level1\": 3,\n    \"level2\": 5,\n    \"level3\": 8\n  }\n}', '默认分销规则', '{\n  \"distributionLevel\": \"分销级别\",\n  \"profitPercents\": {\n    \"level1\": \"一级分销返佣比例\",\n    \"level2\": \"二级分销返佣比例\",\n    \"level3\": \"三级分销返佣比例\"\n  }\n}', 1, '2018-12-28 15:31:12', NULL, 0);
-INSERT INTO `t_sys_config` VALUES (15, 'aliyun_oss_config', '{\n  \"accessKeyId\": \"yourAccessKeyId\",\n  \"accessKeySecret\": \"yourAccessKeySecret\"\n,\n  \"regionId\": \"cn-hangzhou\"\n\n,\n  \"domain\": \"http://cdn.zywork.top\"}', '阿里云OSS', '{\n  \"accessKeyId\": \"访问ID\",\n  \"accessKeySecret\": \"访问密钥\"\n,\n  \"regionId\": \"区域id\"\n\n,\n  \"domain\": \"绑定的域名\"}', 1, '2019-03-28 16:33:51', NULL, 0);
-INSERT INTO `t_sys_config` VALUES (16, 'qiniu_oss_config', '{\r\n  \"accessKey\": \"accessKey\",\r\n  \"secretKey\": \"secretKey\",\r\n  \"zoneName\": \"zone0\",\r\n  \"domain\": \"http://cdn.zywork.top\"\r\n}', '七牛云对象存储', '{\r\n  \"accessKey\": \"accessKey\",\r\n  \"secretKey\": \"secretKey\",\r\n  \"zoneName\": \"区域\",\r\n  \"domain\": \"绑定的域名\"\r\n}', 1, '2019-03-29 11:10:00', NULL, 0);
+INSERT INTO `t_sys_config` VALUES (15, 'aliyun_oss_config', '{\n  \"accessKeyId\": \"yourAccessKeyId\",\n  \"accessKeySecret\": \"yourAccessKeySecret\"\n,\n  \"regionId\": \"cn-hangzhou\"\n\n,\n  \"domain\": \"http://cdn.zywork.top\"\n\n,\n  \"defaultBucket\": \"defaultBucket\"}', '阿里云OSS', '{\n  \"accessKeyId\": \"访问ID\",\n  \"accessKeySecret\": \"访问密钥\"\n,\n  \"regionId\": \"区域id\"\n\n,\n  \"domain\": \"绑定的域名\"\n\n,\n  \"defaultBucket\": \"默认Bucket\"}', 1, '2019-03-28 16:33:51', NULL, 0);
+INSERT INTO `t_sys_config` VALUES (16, 'qiniu_oss_config', '{\"accessKey\":\"accessKey\",\"secretKey\":\"secretKey\",\"zoneName\":\"zone2\",\"domain\":\"http://cdn.zywork.top\",\"defaultBucket\":\"zywork-app\"}', '七牛云对象存储', '\"{\\r\\n  \\\"accessKey\\\": \\\"accessKey\\\",\\r\\n  \\\"secretKey\\\": \\\"secretKey\\\",\\r\\n  \\\"zoneName\\\": \\\"区域\\\",\\r\\n  \\\"domain\\\": \\\"绑定的域名\\\"，\\r\\n  \\\"defaultBucket\\\": \\\"默认Bucket\\\"\\r\\n}\"', 4, '2019-03-29 11:10:00', '2019-03-29 17:04:07', 0);
 
 -- ----------------------------
 -- Table structure for t_sys_log

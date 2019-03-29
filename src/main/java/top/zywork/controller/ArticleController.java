@@ -13,19 +13,17 @@ import top.zywork.common.BindingResultUtils;
 import top.zywork.common.StringUtils;
 import top.zywork.common.UploadUtils;
 import top.zywork.dto.ArticleDTO;
-import top.zywork.dto.GoodsPicDTO;
 import top.zywork.dto.PagerDTO;
-import top.zywork.enums.ResponseStatusEnum;
 import top.zywork.enums.UploadTypeEnum;
 import top.zywork.query.ArticleQuery;
 import top.zywork.security.JwtUser;
 import top.zywork.security.SecurityUtils;
 import top.zywork.service.ArticleService;
+import top.zywork.service.UploadService;
 import top.zywork.vo.ArticleVO;
 import top.zywork.vo.PagerVO;
 import top.zywork.vo.ResponseStatusVO;
 
-import java.io.File;
 import java.util.List;
 
 /**
@@ -42,13 +40,27 @@ public class ArticleController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(ArticleController.class);
 
-    @Value("${article.imgDir}")
+    @Value("${storage.provider}")
+    private String storageProvider;
+
+    @Value("${storage.local.compressSizes}")
+    private String compressSizes;
+
+    @Value("${storage.local.compressScales}")
+    private String compressScales;
+
+    @Value("${storage.local.article.imgParentDir}")
+    private String imgParentDir;
+
+    @Value("${storage.local.article.imgDir}")
     private String imgDir;
 
-    @Value("${article.imgUrl}")
+    @Value("${storage.local.article.imgUrl}")
     private String imgUrl;
 
     private ArticleService articleService;
+
+    private UploadService uploadService;
 
     @PostMapping("admin/save")
     public ResponseStatusVO save(@RequestBody @Validated ArticleVO articleVO, BindingResult bindingResult) {
@@ -182,15 +194,18 @@ public class ArticleController extends BaseController {
 
     @PostMapping("admin/upload-img")
     public ResponseStatusVO upload(MultipartFile file) {
-        ResponseStatusVO responseStatusVO = UploadUtils.uploadFile(file, UploadTypeEnum.IMAGE.getAllowedExts(), UploadTypeEnum.IMAGE.getMaxSize(), imgDir, "");
-        if (responseStatusVO.getCode().intValue() == ResponseStatusEnum.OK.getCode().intValue()) {
-            responseStatusVO.setData(imgUrl + File.separator + ((List) responseStatusVO.getData()).get(0));
-        }
-        return responseStatusVO;
+        UploadUtils.UploadOptions uploadOptions = new UploadUtils.UploadOptions(imgParentDir, imgDir, imgUrl);
+        uploadOptions.generateCompressSizes(compressSizes);
+        return uploadService.uploadFile(storageProvider, file, UploadTypeEnum.IMAGE.getAllowedExts(), UploadTypeEnum.IMAGE.getMaxSize(), uploadOptions);
     }
 
     @Autowired
     public void setArticleService(ArticleService articleService) {
         this.articleService = articleService;
+    }
+
+    @Autowired
+    public UploadService getUploadService() {
+        return uploadService;
     }
 }

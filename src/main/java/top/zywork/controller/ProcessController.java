@@ -15,13 +15,14 @@ import top.zywork.common.UploadUtils;
 import top.zywork.dto.PagerDTO;
 import top.zywork.dto.ProcessDTO;
 import top.zywork.enums.ResponseStatusEnum;
+import top.zywork.enums.StorageProviderEnum;
 import top.zywork.query.ProcessQuery;
 import top.zywork.service.ProcessService;
+import top.zywork.service.UploadService;
 import top.zywork.vo.PagerVO;
 import top.zywork.vo.ProcessVO;
 import top.zywork.vo.ResponseStatusVO;
 
-import java.io.File;
 import java.util.List;
 
 /**
@@ -49,6 +50,8 @@ public class ProcessController extends BaseController {
 
     private ProcessService processService;
 
+    private UploadService uploadService;
+
     @PostMapping("admin/save")
     public ResponseStatusVO save(@RequestBody @Validated ProcessVO processVO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -72,9 +75,10 @@ public class ProcessController extends BaseController {
         }
         ProcessDTO processDTO = (ProcessDTO) object;
         String filePath = processDTO.getFilePath();
-        ResponseStatusVO responseStatusVO = UploadUtils.uploadFile(file, allowedExts, maxSize * 1024 * 1024, processDir, "");
+        UploadUtils.UploadOptions uploadOptions = new UploadUtils.UploadOptions(processDir, "", processDir);
+        ResponseStatusVO responseStatusVO = uploadService.uploadFile(StorageProviderEnum.LOCAL.getProvider(), file, allowedExts, maxSize * 1024 * 1024L, uploadOptions);
         if (responseStatusVO.getCode().intValue() == ResponseStatusEnum.OK.getCode().intValue()) {
-            processDTO.setFilePath(processDir + File.separator + ((List) responseStatusVO.getData()).get(0));
+            processDTO.setFilePath(responseStatusVO.getData().toString());
             int updateRows = processService.update(processDTO);
             if (updateRows == 1) {
                 if (org.apache.commons.lang.StringUtils.isNotEmpty(filePath)) {
@@ -201,5 +205,10 @@ public class ProcessController extends BaseController {
     @Autowired
     public void setProcessService(ProcessService processService) {
         this.processService = processService;
+    }
+
+    @Autowired
+    public void setUploadService(UploadService uploadService) {
+        this.uploadService = uploadService;
     }
 }

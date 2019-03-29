@@ -14,15 +14,15 @@ import top.zywork.common.StringUtils;
 import top.zywork.common.UploadUtils;
 import top.zywork.dto.NoticeDTO;
 import top.zywork.dto.PagerDTO;
-import top.zywork.enums.ResponseStatusEnum;
+import top.zywork.enums.StorageProviderEnum;
 import top.zywork.enums.UploadTypeEnum;
 import top.zywork.query.NoticeQuery;
 import top.zywork.service.NoticeService;
+import top.zywork.service.UploadService;
 import top.zywork.vo.NoticeVO;
 import top.zywork.vo.PagerVO;
 import top.zywork.vo.ResponseStatusVO;
 
-import java.io.File;
 import java.util.List;
 
 /**
@@ -39,13 +39,27 @@ public class NoticeController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(NoticeController.class);
 
-    @Value("${article.imgDir}")
+    @Value("${storage.provider}")
+    private String storageProvider;
+
+    @Value("${storage.local.compressSizes}")
+    private String compressSizes;
+
+    @Value("${storage.local.compressScales}")
+    private String compressScales;
+
+    @Value("${storage.local.notice.imgParentDir}")
+    private String imgParentDir;
+
+    @Value("${storage.local.notice.imgDir}")
     private String imgDir;
 
-    @Value("${article.imgUrl}")
+    @Value("${storage.local.notice.imgUrl}")
     private String imgUrl;
 
     private NoticeService noticeService;
+
+    private UploadService uploadService;
 
     @PostMapping("admin/save")
     public ResponseStatusVO save(@RequestBody @Validated NoticeVO noticeVO, BindingResult bindingResult) {
@@ -158,15 +172,18 @@ public class NoticeController extends BaseController {
 
     @PostMapping("admin/upload-img")
     public ResponseStatusVO upload(MultipartFile file) {
-        ResponseStatusVO responseStatusVO = UploadUtils.uploadFile(file, UploadTypeEnum.IMAGE.getAllowedExts(), UploadTypeEnum.IMAGE.getMaxSize(), imgDir, "");
-        if (responseStatusVO.getCode().intValue() == ResponseStatusEnum.OK.getCode().intValue()) {
-            responseStatusVO.setData(imgUrl + File.separator + ((List) responseStatusVO.getData()).get(0));
-        }
-        return responseStatusVO;
+        UploadUtils.UploadOptions uploadOptions = new UploadUtils.UploadOptions(imgParentDir, imgDir, imgUrl);
+        uploadOptions.generateCompressSizes(compressSizes);
+        return uploadService.uploadFile(storageProvider, file, UploadTypeEnum.IMAGE.getAllowedExts(), UploadTypeEnum.IMAGE.getMaxSize(), uploadOptions);
     }
 
     @Autowired
     public void setNoticeService(NoticeService noticeService) {
         this.noticeService = noticeService;
+    }
+
+    @Autowired
+    public void setUploadService(UploadService uploadService) {
+        this.uploadService = uploadService;
     }
 }

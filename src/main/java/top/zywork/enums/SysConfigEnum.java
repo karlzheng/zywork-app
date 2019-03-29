@@ -15,7 +15,9 @@ public enum SysConfigEnum {
     WEIXIN_GZH_CONFIG("weixin_gzh_config"),
     WEIXIN_XCX_CONFIG("weixin_xcx_config"),
     WX_PAY_CONFIG("wx_pay_config"),
-    DEFAULT_DISTRIBUTION_CONFIG("default_distribution_config");
+    DEFAULT_DISTRIBUTION_CONFIG("default_distribution_config"),
+    ALIYUN_OSS_CONFIG("aliyun_oss_config"),
+    QINIU_OSS_CONFIG("qiniu_oss_config");
 
     private String value;
 
