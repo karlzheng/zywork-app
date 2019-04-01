@@ -11,7 +11,7 @@
  Target Server Version : 80015
  File Encoding         : 65001
 
- Date: 29/03/2019 18:01:20
+ Date: 01/04/2019 16:08:18
 */
 
 SET NAMES utf8mb4;
@@ -48,6 +48,8 @@ INSERT INTO `t_account_detail` VALUES (5, '', 36, 100, NULL, 0, '转入', NULL, 
 INSERT INTO `t_account_detail` VALUES (6, '', 31, -100, NULL, 1, '转出', NULL, 1, '2019-01-15 20:51:44', NULL, 0);
 INSERT INTO `t_account_detail` VALUES (7, '', 36, 100, NULL, 0, '转入', NULL, 1, '2019-01-15 20:51:44', NULL, 0);
 INSERT INTO `t_account_detail` VALUES (8, '', 31, -10, NULL, 1, '消费', 3, 1, '2019-01-15 22:23:31', NULL, 0);
+INSERT INTO `t_account_detail` VALUES (9, '399a929dc59a48f0af9498a534252792', 31, -100, NULL, 1, '提现', NULL, 1, '2019-04-01 15:10:16', NULL, 0);
+INSERT INTO `t_account_detail` VALUES (10, '399a929dc59a48f0af9498a534252792', 31, -100, NULL, 1, '提现', NULL, 1, '2019-04-01 15:24:47', NULL, 0);
 
 -- ----------------------------
 -- Table structure for t_article
@@ -211,10 +213,10 @@ CREATE TABLE `t_funds_withdraw`  (
 -- ----------------------------
 -- Records of t_funds_withdraw
 -- ----------------------------
-INSERT INTO `t_funds_withdraw` VALUES (5, 31, '3ea854cde3b842338cc7a0fb3fd49bcb', 100, 1, 2, '不能提现', 31, '2018-12-23 18:47:53', '2018-12-23 18:47:53', 1, '2018-12-23 18:43:49', '2018-12-23 18:47:53', 0);
+INSERT INTO `t_funds_withdraw` VALUES (5, 31, '3ea854cde3b842338cc7a0fb3fd49bcb', 100, 1, 2, '不能提现', 31, '2018-12-23 18:47:53', '2018-12-23 18:47:53', 3, '2018-12-23 18:43:49', '2019-04-01 14:44:44', 0);
 INSERT INTO `t_funds_withdraw` VALUES (6, 31, '77d07a5d6d2b4a7280e9ecff229d4888', 100, 1, 4, NULL, 31, '2018-12-23 20:56:16', '2018-12-23 21:05:20', 1, '2018-12-23 18:49:38', '2018-12-23 21:05:20', 0);
-INSERT INTO `t_funds_withdraw` VALUES (7, 31, '399a929dc59a48f0af9498a534252792', 100, 1, 4, NULL, 31, '2018-12-25 15:04:57', '2018-12-25 15:22:34', 4, '2018-12-23 22:25:54', '2018-12-25 15:22:34', 0);
-INSERT INTO `t_funds_withdraw` VALUES (8, 31, 'b84bdc6156554a27a57229faa361d6a4', 50, 1, 4, NULL, NULL, NULL, '2018-12-25 23:24:19', 2, '2018-12-25 18:22:14', '2018-12-25 23:24:19', 0);
+INSERT INTO `t_funds_withdraw` VALUES (7, 31, '399a929dc59a48f0af9498a534252792', 100, 1, 4, NULL, 31, '2018-12-25 15:04:57', '2019-04-01 15:24:47', 6, '2018-12-23 22:25:54', '2019-04-01 15:24:47', 0);
+INSERT INTO `t_funds_withdraw` VALUES (8, 31, 'b84bdc6156554a27a57229faa361d6a4', 50, 1, 5, '提现失败', NULL, NULL, '2019-04-01 15:28:44', 4, '2018-12-25 18:22:14', '2019-04-01 15:28:44', 0);
 INSERT INTO `t_funds_withdraw` VALUES (12, 31, '2a5e0e09c3084e6ebee0dd36a6f3acc7', 100, 1, 1, '审核通过', 31, '2019-01-15 18:06:19', NULL, 6, '2018-12-26 17:36:15', '2019-01-15 18:06:19', 0);
 INSERT INTO `t_funds_withdraw` VALUES (13, 31, 'ef011bfb3ee94b6bb978f8fee2023177', 50, 1, 4, NULL, 31, '2018-12-26 17:39:26', '2018-12-26 17:39:45', 3, '2018-12-26 17:38:45', '2018-12-26 17:39:45', 0);
 
@@ -241,6 +243,8 @@ CREATE TABLE `t_funds_withdraw_check`  (
 -- ----------------------------
 INSERT INTO `t_funds_withdraw_check` VALUES (14, 12, '2a5e0e09c3084e6ebee0dd36a6f3acc7', 1, '审核通过', 31, 1, '2019-01-14 20:50:02', NULL, 0);
 INSERT INTO `t_funds_withdraw_check` VALUES (15, 12, '2a5e0e09c3084e6ebee0dd36a6f3acc7', 1, NULL, 31, 1, '2019-01-15 18:06:19', NULL, 0);
+INSERT INTO `t_funds_withdraw_check` VALUES (16, 7, '399a929dc59a48f0af9498a534252792', 4, '提现成功', 31, 1, '2019-04-01 15:24:47', NULL, 0);
+INSERT INTO `t_funds_withdraw_check` VALUES (17, 8, 'b84bdc6156554a27a57229faa361d6a4', 5, '提现失败', 31, 1, '2019-04-01 15:28:44', NULL, 0);
 
 -- ----------------------------
 -- Table structure for t_goods_attribute
@@ -1599,7 +1603,7 @@ CREATE TABLE `t_scheduler`  (
 -- ----------------------------
 -- Records of t_scheduler
 -- ----------------------------
-INSERT INTO `t_scheduler` VALUES (1, 'DauSaveJob', 'top.zywork.job.DauSaveJob', '59 59 23 * * ?', 'job_group', 'trigger_name', 'trigger_group', NULL, 1, '2019-03-29 17:01:24', 1, 238, '2019-01-18 17:34:42', '2019-03-29 17:01:23', 0);
+INSERT INTO `t_scheduler` VALUES (1, 'DauSaveJob', 'top.zywork.job.DauSaveJob', '59 59 23 * * ?', 'job_group', 'trigger_name', 'trigger_group', NULL, 1, '2019-04-01 15:28:24', 1, 249, '2019-01-18 17:34:42', '2019-04-01 15:28:24', 0);
 
 -- ----------------------------
 -- Table structure for t_shipping_address
@@ -3708,7 +3712,7 @@ CREATE TABLE `t_sys_config`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `is_active` tinyint(4) NULL DEFAULT 0 COMMENT '是否激活',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统配置表，以JSON格式记录常用配置，如阿里云，微信等' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统配置表，以JSON格式记录常用配置，如阿里云，微信等' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_sys_config
@@ -4011,6 +4015,16 @@ INSERT INTO `t_sys_log` VALUES (279, 31, '18888888888', '导入权限配置', 'M
 INSERT INTO `t_sys_log` VALUES (280, 31, '18888888888', '导入权限配置', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.119 Safari/537.36', 'http://localhost:8088/permission-import-export/import-permission', 'POST', NULL, 1001, '成功导入权限配置信息', 'top.zywork.controller.PermissionImportExportController', 'importPermissions', '2019-03-06 14:10:48', 2529, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-03-06 14:10:48', NULL, 0);
 INSERT INTO `t_sys_log` VALUES (281, 31, '18888888888', '导入权限配置', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.119 Safari/537.36', 'http://localhost:8088/permission-import-export/import-permission', 'POST', NULL, 1001, '成功导入权限配置信息', 'top.zywork.controller.PermissionImportExportController', 'importPermissions', '2019-03-08 18:13:21', 2473, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-03-08 18:13:21', NULL, 0);
 INSERT INTO `t_sys_log` VALUES (282, 31, '18888888888', '导入权限配置', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.119 Safari/537.36', 'http://localhost:8088/permission-import-export/import-permission', 'POST', NULL, 1001, '成功导入权限配置信息', 'top.zywork.controller.PermissionImportExportController', 'importPermissions', '2019-03-12 16:33:23', 2426, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-03-12 16:33:23', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (283, 31, '18888888888', '人工完成提现操作', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36', 'http://localhost:8088/withdraw/admin/confirm-human', 'POST', '{\"transactionNo\":\"ef011bfb3ee94b6bb978f8fee2023177\",\"withdrawStatus\":4}', 1003, '提现单号不正确或提现申请不是已通过状态', 'top.zywork.controller.UserWithdrawController', 'confirmWithdrawHuman', '2019-04-01 15:08:20', 6, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-04-01 15:08:20', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (284, 31, '18888888888', '人工完成提现操作', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36', 'http://localhost:8088/withdraw/admin/confirm-human', 'POST', '{\"transactionNo\":\"b84bdc6156554a27a57229faa361d6a4\",\"withdrawStatus\":4}', 1003, '提现单号不正确或提现申请不是已通过状态', 'top.zywork.controller.UserWithdrawController', 'confirmWithdrawHuman', '2019-04-01 15:09:07', 1, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-04-01 15:09:06', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (285, 31, '18888888888', '人工完成提现操作', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36', 'http://localhost:8088/withdraw/admin/confirm-human', 'POST', '{\"transactionNo\":\"399a929dc59a48f0af9498a534252792\",\"withdrawStatus\":4}', 1003, '提现单号不正确或提现申请不是已通过状态', 'top.zywork.controller.UserWithdrawController', 'confirmWithdrawHuman', '2019-04-01 15:09:11', 1, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-04-01 15:09:11', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (286, 31, '18888888888', '人工完成提现操作', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36', 'http://localhost:8088/withdraw/admin/confirm-human', 'POST', '{\"transactionNo\":\"399a929dc59a48f0af9498a534252792\",\"withdrawStatus\":4}', 1001, '已人工完成提现操作，提现成功', 'top.zywork.controller.UserWithdrawController', 'confirmWithdrawHuman', '2019-04-01 15:10:17', 25, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-04-01 15:10:16', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (287, 31, '18888888888', '人工完成提现操作', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36', 'http://localhost:8088/withdraw/admin/confirm-human', 'POST', '{\"transactionNo\":\"b84bdc6156554a27a57229faa361d6a4\",\"withdrawStatus\":5}', 1001, '已人工完成提现操作，提现失败', 'top.zywork.controller.UserWithdrawController', 'confirmWithdrawHuman', '2019-04-01 15:11:00', 10, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-04-01 15:11:00', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (288, 31, '18888888888', '人工完成提现操作', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36', 'http://localhost:8088/withdraw/admin/confirm-human', 'POST', '{\"transactionNo\":\"399a929dc59a48f0af9498a534252792\",\"withdrawStatus\":4}', 1001, '已人工完成提现操作，提现成功', 'top.zywork.controller.UserWithdrawController', 'confirmWithdrawHuman', '2019-04-01 15:24:48', 28, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-04-01 15:24:47', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (289, 31, '18888888888', '人工完成提现操作', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36', 'http://localhost:8088/withdraw/admin/confirm-human', 'POST', '{\"transactionNo\":\"b84bdc6156554a27a57229faa361d6a4\",\"withdrawStatus\":4}', NULL, NULL, 'top.zywork.controller.UserWithdrawController', 'confirmWithdrawHuman', '2019-04-01 15:27:56', 64, 1, '\r\n### Error updating database.  Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'complete_time = CURRENT_TIMESTAMP,\n        version = version + 1,\n        update\' at line 7\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: update t_funds_withdraw set         withdraw_status = ?,                       withdraw_description = \'提现成功\'                             complete_time = CURRENT_TIMESTAMP,         version = version + 1,         update_time = CURRENT_TIMESTAMP         where transaction_no = ? and version + 1  <=  ?\r\n### Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'complete_time = CURRENT_TIMESTAMP,\n        version = version + 1,\n        update\' at line 7\n; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'complete_time = CURRENT_TIMESTAMP,\n        version = version + 1,\n        update\' at line 7', '127.0.0.1', 1, '2019-04-01 15:27:55', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (290, 31, '18888888888', '人工完成提现操作', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36', 'http://localhost:8088/withdraw/admin/confirm-human', 'POST', '{\"transactionNo\":\"ef011bfb3ee94b6bb978f8fee2023177\",\"withdrawStatus\":5}', 1003, '交易编号不正确或提现申请不是已通过状态', 'top.zywork.controller.UserWithdrawController', 'confirmWithdrawHuman', '2019-04-01 15:28:37', 8, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-04-01 15:28:36', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (291, 31, '18888888888', '人工完成提现操作', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36', 'http://localhost:8088/withdraw/admin/confirm-human', 'POST', '{\"transactionNo\":\"ef011bfb3ee94b6bb978f8fee2023177\",\"withdrawStatus\":4}', 1003, '交易编号不正确或提现申请不是已通过状态', 'top.zywork.controller.UserWithdrawController', 'confirmWithdrawHuman', '2019-04-01 15:28:40', 3, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-04-01 15:28:40', NULL, 0);
+INSERT INTO `t_sys_log` VALUES (292, 31, '18888888888', '人工完成提现操作', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36', 'http://localhost:8088/withdraw/admin/confirm-human', 'POST', '{\"transactionNo\":\"b84bdc6156554a27a57229faa361d6a4\",\"withdrawStatus\":5}', 1001, '已人工完成提现操作，提现失败', 'top.zywork.controller.UserWithdrawController', 'confirmWithdrawHuman', '2019-04-01 15:28:44', 17, 0, NULL, '0:0:0:0:0:0:0:1', 1, '2019-04-01 15:28:44', NULL, 0);
 
 -- ----------------------------
 -- Table structure for t_user
@@ -4264,8 +4278,8 @@ CREATE TABLE `t_user_wallet`  (
 -- ----------------------------
 -- Records of t_user_wallet
 -- ----------------------------
-INSERT INTO `t_user_wallet` VALUES (31, '$2a$10$ApWvvBHw0IMFIHCAT5vHxu9dlE3Kw1j0JBmzDTUTJoQQk1UHPKYBO', 392, 392, 0, NULL, NULL, NULL, 14, NULL, '2019-01-15 22:23:31', 0);
-INSERT INTO `t_user_wallet` VALUES (36, '', 200, 200, 0, NULL, NULL, NULL, 4, '2018-12-28 12:00:36', '2019-01-15 20:51:44', 1);
+INSERT INTO `t_user_wallet` VALUES (31, '$2a$10$ApWvvBHw0IMFIHCAT5vHxu9dlE3Kw1j0JBmzDTUTJoQQk1UHPKYBO', 192, 192, 0, NULL, NULL, NULL, 16, NULL, '2019-04-01 15:24:47', 0);
+INSERT INTO `t_user_wallet` VALUES (36, '', 200, 200, 0, NULL, NULL, NULL, 5, '2018-12-28 12:00:36', '2019-04-01 14:46:39', 0);
 INSERT INTO `t_user_wallet` VALUES (40, '', 0, 0, 0, 0, 0, 0, 1, '2019-01-17 10:30:21', NULL, 0);
 
 -- ----------------------------
