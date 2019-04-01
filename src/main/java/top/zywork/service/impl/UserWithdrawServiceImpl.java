@@ -52,12 +52,15 @@ public class UserWithdrawServiceImpl implements UserWithdrawService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int completeWithdraw(String transactionNo, Byte withdrawStatus, Long userId, Long amount, Integer newVersion) {
+    public int completeWithdraw(Long withdrawId, String transactionNo, Byte withdrawStatus, Long userId, Long amount, Long completeUserId, Integer newVersion) {
         int updateRows = userWithdrawDAO.updateWithdraw(transactionNo, withdrawStatus, newVersion);
-        if (updateRows == 1 && withdrawStatus == WithdrawStatusEnum.SUCCESS.getValue().byteValue()) {
-            // 如果提现成功，则更新钱包余额和可用余额
-            saveAccountDetail(transactionNo, userId, amount);
-            userWalletDAO.updateWalletOut(userId, amount);
+        if (updateRows == 1) {
+            userWithdrawDAO.saveWithdrawCheck(withdrawId, transactionNo, withdrawStatus,  withdrawStatus == WithdrawStatusEnum.SUCCESS.getValue().byteValue() ? "提现成功" : "提现失败", completeUserId);
+            if ( withdrawStatus == WithdrawStatusEnum.SUCCESS.getValue().byteValue()) {
+                // 如果提现成功，则更新钱包余额和可用余额
+                saveAccountDetail(transactionNo, userId, amount);
+                userWalletDAO.updateWalletOut(userId, amount);
+            }
         }
         return updateRows;
     }

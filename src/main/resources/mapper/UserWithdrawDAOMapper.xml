@@ -47,6 +47,12 @@
     <update id="updateWithdraw">
         update t_funds_withdraw set
         withdraw_status = #{withdrawStatus},
+        <if test="withdrawStatus == 4">
+            withdraw_description = '提现成功',
+        </if>
+        <if test="withdrawStatus == 5">
+            withdraw_description = '提现失败',
+        </if>
         complete_time = CURRENT_TIMESTAMP,
         version = version + 1,
         update_time = CURRENT_TIMESTAMP

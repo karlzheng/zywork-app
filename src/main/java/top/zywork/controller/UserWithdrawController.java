@@ -101,10 +101,10 @@ public class UserWithdrawController {
         }
         UserWithdrawDO userWithdrawDO = userWithdrawService.getByTransactionNo(transactionNo);
         if (userWithdrawDO == null || userWithdrawDO.getWithdrawStatus().byteValue() != WithdrawStatusEnum.CHECKING.getValue()) {
-            return ResponseStatusVO.dataError("提现单号不正确或提现申请不是审核中状态", null);
+            return ResponseStatusVO.dataError("交易编号不正确或提现申请不是审核中状态", null);
         }
         if (userWithdrawDO.getUserId() != jwtUser.getUserId()) {
-            return ResponseStatusVO.dataError("提现单号不属于此用户", null);
+            return ResponseStatusVO.dataError("交易编号不属于此用户", null);
         }
         int updateRows = userWithdrawService.cancelWithdraw(transactionNo, userWithdrawDO.getVersion() + 1);
         if (updateRows == 1) {
@@ -135,11 +135,11 @@ public class UserWithdrawController {
             return ResponseStatusVO.dataError("审核状态错误，1通过，2未通过", null);
         }
         if (StringUtils.isEmpty(transactionNo)) {
-            return ResponseStatusVO.dataError("提现单号不能为空", null);
+            return ResponseStatusVO.dataError("交易编号不能为空", null);
         }
         UserWithdrawDO userWithdrawDO = userWithdrawService.getByTransactionNo(transactionNo);
         if (userWithdrawDO == null || userWithdrawDO.getWithdrawStatus().byteValue() != WithdrawStatusEnum.CHECKING.getValue()) {
-            return ResponseStatusVO.dataError("提现单号不正确或提现申请不是审核中状态", null);
+            return ResponseStatusVO.dataError("交易编号不正确或提现申请不是审核中状态", null);
         }
         int updateRows = userWithdrawService.checkWithdraw(userWithdrawDO.getUserId(), userWithdrawDO.getId(), transactionNo,
                 withdrawStatus, description, jwtUser.getUserId(), userWithdrawDO.getVersion() + 1);
@@ -169,19 +169,23 @@ public class UserWithdrawController {
     @PostMapping("admin/confirm-human")
     @SysLog(description = "人工完成提现操作")
     public ResponseStatusVO confirmWithdrawHuman(String transactionNo, Byte withdrawStatus) {
+        JwtUser jwtUser = SecurityUtils.getJwtUser();
+        if (jwtUser == null) {
+            return ResponseStatusVO.authenticationError();
+        }
         boolean isStatusError = withdrawStatus == null
                 || (withdrawStatus != WithdrawStatusEnum.SUCCESS.getValue().byteValue() && withdrawStatus != WithdrawStatusEnum.FAILURE.getValue().byteValue());
         if (isStatusError) {
             return ResponseStatusVO.dataError("审核状态错误，4成功，5失败", null);
         }
         if (StringUtils.isEmpty(transactionNo)) {
-            return ResponseStatusVO.dataError("提现单号不能为空", null);
+            return ResponseStatusVO.dataError("交易编号不能为空", null);
         }
         UserWithdrawDO userWithdrawDO = userWithdrawService.getByTransactionNo(transactionNo);
         if (userWithdrawDO == null || userWithdrawDO.getWithdrawStatus().byteValue() != WithdrawStatusEnum.CHECKED.getValue()) {
-            return ResponseStatusVO.dataError("提现单号不正确或提现申请不是已通过状态", null);
+            return ResponseStatusVO.dataError("交易编号不正确或提现申请不是已通过状态", null);
         }
-        int updateRows = userWithdrawService.completeWithdraw(transactionNo, withdrawStatus, userWithdrawDO.getUserId(), userWithdrawDO.getAmount(), userWithdrawDO.getVersion() + 1);
+        int updateRows = userWithdrawService.completeWithdraw(userWithdrawDO.getId(), transactionNo, withdrawStatus, userWithdrawDO.getUserId(), userWithdrawDO.getAmount(), jwtUser.getUserId(), userWithdrawDO.getVersion() + 1);
         if (updateRows == 1) {
             return ResponseStatusVO.ok("已人工完成提现操作，提现" + WithdrawStatusEnum.findByValue(withdrawStatus.intValue()).getDes(), null);
         } else {

@@ -1,0 +1,438 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.zywork.dao.FundsRechargeDAO">
+
+    <insert id="save" parameterType="fundsRechargeDO">
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+    		SELECT LAST_INSERT_ID()
+    	</selectKey>
+        insert into t_funds_recharge
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="transactionNo != null">
+				transaction_no,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="amount != null">
+				amount,
+			</if>
+			<if test="rechargeType != null">
+				recharge_type,
+			</if>
+			<if test="isSuccess != null">
+				is_success,
+			</if>
+			<if test="outTradeNo != null">
+				out_trade_no,
+			</if>
+			<if test="tradeNo != null">
+				trade_no,
+			</if>
+			<if test="version != null">
+				version,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="isActive != null">
+				is_active,
+			</if>
+			
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="transactionNo != null">
+				#{transactionNo},
+			</if>
+			<if test="userId != null">
+				#{userId},
+			</if>
+			<if test="amount != null">
+				#{amount},
+			</if>
+			<if test="rechargeType != null">
+				#{rechargeType},
+			</if>
+			<if test="isSuccess != null">
+				#{isSuccess},
+			</if>
+			<if test="outTradeNo != null">
+				#{outTradeNo},
+			</if>
+			<if test="tradeNo != null">
+				#{tradeNo},
+			</if>
+			<if test="version != null">
+				#{version},
+			</if>
+			<if test="createTime != null">
+				#{createTime},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime},
+			</if>
+			<if test="isActive != null">
+				#{isActive},
+			</if>
+			
+        </trim>
+    </insert>
+
+    <insert id="saveBatch" parameterType="java.util.List">
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+    		SELECT LAST_INSERT_ID()
+    	</selectKey>
+    	<foreach collection="list" item="item" separator=";">
+            insert into t_funds_recharge
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="item.transactionNo != null">
+				transaction_no,
+			</if>
+			<if test="item.userId != null">
+				user_id,
+			</if>
+			<if test="item.amount != null">
+				amount,
+			</if>
+			<if test="item.rechargeType != null">
+				recharge_type,
+			</if>
+			<if test="item.isSuccess != null">
+				is_success,
+			</if>
+			<if test="item.outTradeNo != null">
+				out_trade_no,
+			</if>
+			<if test="item.tradeNo != null">
+				trade_no,
+			</if>
+			<if test="item.version != null">
+				version,
+			</if>
+			<if test="item.createTime != null">
+				create_time,
+			</if>
+			<if test="item.updateTime != null">
+				update_time,
+			</if>
+			<if test="item.isActive != null">
+				is_active,
+			</if>
+			
+            </trim>
+            <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="item.transactionNo != null">
+				#{item.transactionNo},
+			</if>
+			<if test="item.userId != null">
+				#{item.userId},
+			</if>
+			<if test="item.amount != null">
+				#{item.amount},
+			</if>
+			<if test="item.rechargeType != null">
+				#{item.rechargeType},
+			</if>
+			<if test="item.isSuccess != null">
+				#{item.isSuccess},
+			</if>
+			<if test="item.outTradeNo != null">
+				#{item.outTradeNo},
+			</if>
+			<if test="item.tradeNo != null">
+				#{item.tradeNo},
+			</if>
+			<if test="item.version != null">
+				#{item.version},
+			</if>
+			<if test="item.createTime != null">
+				#{item.createTime},
+			</if>
+			<if test="item.updateTime != null">
+				#{item.updateTime},
+			</if>
+			<if test="item.isActive != null">
+				#{item.isActive},
+			</if>
+			
+            </trim>
+        </foreach>
+    </insert>
+
+    <delete id="removeById" parameterType="long">
+        delete from t_funds_recharge where id = #{id}
+    </delete>
+
+    <delete id="removeByIds">
+        delete from t_funds_recharge where id in
+        <foreach item="id" collection="array" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="update" parameterType="fundsRechargeDO">
+        update t_funds_recharge
+        <set>
+            <if test="transactionNo != null">
+				transaction_no = #{transactionNo},
+			</if>
+			<if test="userId != null">
+				user_id = #{userId},
+			</if>
+			<if test="amount != null">
+				amount = #{amount},
+			</if>
+			<if test="rechargeType != null">
+				recharge_type = #{rechargeType},
+			</if>
+			<if test="isSuccess != null">
+				is_success = #{isSuccess},
+			</if>
+			<if test="outTradeNo != null">
+				out_trade_no = #{outTradeNo},
+			</if>
+			<if test="tradeNo != null">
+				trade_no = #{tradeNo},
+			</if>
+			<if test="version != null">
+				version = #{version},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime},
+			</if>
+			<if test="isActive != null">
+				is_active = #{isActive},
+			</if>
+			update_time = CURRENT_TIMESTAMP,
+        </set>
+        where id = #{id} and version + 1 <![CDATA[<=]]> #{version}
+    </update>
+
+    <update id="updateBatch" parameterType="java.util.List">
+    	<foreach collection="list" item="item" separator=";">
+            update t_funds_recharge
+            <set>
+                <if test="item.transactionNo != null">
+				transaction_no = #{item.transactionNo},
+			</if>
+			<if test="item.userId != null">
+				user_id = #{item.userId},
+			</if>
+			<if test="item.amount != null">
+				amount = #{item.amount},
+			</if>
+			<if test="item.rechargeType != null">
+				recharge_type = #{item.rechargeType},
+			</if>
+			<if test="item.isSuccess != null">
+				is_success = #{item.isSuccess},
+			</if>
+			<if test="item.outTradeNo != null">
+				out_trade_no = #{item.outTradeNo},
+			</if>
+			<if test="item.tradeNo != null">
+				trade_no = #{item.tradeNo},
+			</if>
+			<if test="item.version != null">
+				version = #{item.version},
+			</if>
+			<if test="item.createTime != null">
+				create_time = #{item.createTime},
+			</if>
+			<if test="item.updateTime != null">
+				update_time = #{item.updateTime},
+			</if>
+			<if test="item.isActive != null">
+				is_active = #{item.isActive},
+			</if>
+			update_time = CURRENT_TIMESTAMP,
+                <if test="item.version == null">
+                    version = version + 1,
+                </if>
+            </set>
+            where id = #{item.id}
+        </foreach>
+    </update>
+
+    <sql id="select_columns">
+        id as id, transaction_no as transactionNo, user_id as userId, amount as amount, recharge_type as rechargeType, is_success as isSuccess, out_trade_no as outTradeNo, trade_no as tradeNo, version as version, create_time as createTime, update_time as updateTime, is_active as isActive
+    </sql>
+
+    <sql id="query_where_clause">
+        <if test="query != null and query.id != null">
+			and id = #{query.id}
+		</if>
+		<if test="query != null and query.idMin != null and query.idMax == null">
+			and id <![CDATA[ >= ]]> #{query.idMin}
+		</if>
+		<if test="query != null and query.idMin == null and query.idMax != null">
+			and id <![CDATA[ <= ]]> #{query.idMax}
+		</if>
+		<if test="query != null and query.idMin != null and query.idMax != null">
+			and id <![CDATA[ >= ]]> #{query.idMin} and id <![CDATA[ <= ]]> #{query.idMax}
+		</if>
+		<if test="query != null and query.transactionNo != null and query.transactionNo != ''">
+			and transaction_no like concat('%', #{query.transactionNo}, '%')
+		</if>
+		<if test="query != null and query.userId != null">
+			and user_id = #{query.userId}
+		</if>
+		<if test="query != null and query.userIdMin != null and query.userIdMax == null">
+			and user_id <![CDATA[ >= ]]> #{query.userIdMin}
+		</if>
+		<if test="query != null and query.userIdMin == null and query.userIdMax != null">
+			and user_id <![CDATA[ <= ]]> #{query.userIdMax}
+		</if>
+		<if test="query != null and query.userIdMin != null and query.userIdMax != null">
+			and user_id <![CDATA[ >= ]]> #{query.userIdMin} and user_id <![CDATA[ <= ]]> #{query.userIdMax}
+		</if>
+		<if test="query != null and query.amount != null">
+			and amount = #{query.amount}
+		</if>
+		<if test="query != null and query.amountMin != null and query.amountMax == null">
+			and amount <![CDATA[ >= ]]> #{query.amountMin}
+		</if>
+		<if test="query != null and query.amountMin == null and query.amountMax != null">
+			and amount <![CDATA[ <= ]]> #{query.amountMax}
+		</if>
+		<if test="query != null and query.amountMin != null and query.amountMax != null">
+			and amount <![CDATA[ >= ]]> #{query.amountMin} and amount <![CDATA[ <= ]]> #{query.amountMax}
+		</if>
+		<if test="query != null and query.rechargeType != null and query.rechargeType != ''">
+			and recharge_type like concat('%', #{query.rechargeType}, '%')
+		</if>
+		<if test="query != null and query.isSuccess != null">
+			and is_success = #{query.isSuccess}
+		</if>
+		<if test="query != null and query.isSuccessMin != null and query.isSuccessMax == null">
+			and is_success <![CDATA[ >= ]]> #{query.isSuccessMin}
+		</if>
+		<if test="query != null and query.isSuccessMin == null and query.isSuccessMax != null">
+			and is_success <![CDATA[ <= ]]> #{query.isSuccessMax}
+		</if>
+		<if test="query != null and query.isSuccessMin != null and query.isSuccessMax != null">
+			and is_success <![CDATA[ >= ]]> #{query.isSuccessMin} and is_success <![CDATA[ <= ]]> #{query.isSuccessMax}
+		</if>
+		<if test="query != null and query.outTradeNo != null and query.outTradeNo != ''">
+			and out_trade_no like concat('%', #{query.outTradeNo}, '%')
+		</if>
+		<if test="query != null and query.tradeNo != null and query.tradeNo != ''">
+			and trade_no like concat('%', #{query.tradeNo}, '%')
+		</if>
+		<if test="query != null and query.version != null">
+			and version = #{query.version}
+		</if>
+		<if test="query != null and query.versionMin != null and query.versionMax == null">
+			and version <![CDATA[ >= ]]> #{query.versionMin}
+		</if>
+		<if test="query != null and query.versionMin == null and query.versionMax != null">
+			and version <![CDATA[ <= ]]> #{query.versionMax}
+		</if>
+		<if test="query != null and query.versionMin != null and query.versionMax != null">
+			and version <![CDATA[ >= ]]> #{query.versionMin} and version <![CDATA[ <= ]]> #{query.versionMax}
+		</if>
+		<if test="query != null and query.createTime != null">
+			and create_time = #{query.createTime}
+		</if>
+		<if test="query != null and query.createTimeMin != null and query.createTimeMax == null">
+			and create_time <![CDATA[ >= ]]> #{query.createTimeMin}
+		</if>
+		<if test="query != null and query.createTimeMin == null and query.createTimeMax != null">
+			and create_time <![CDATA[ <= ]]> #{query.createTimeMax}
+		</if>
+		<if test="query != null and query.createTimeMin != null and query.createTimeMax != null">
+			and create_time <![CDATA[ >= ]]> #{query.createTimeMin} and create_time <![CDATA[ <= ]]> #{query.createTimeMax}
+		</if>
+		<if test="query != null and query.updateTime != null">
+			and update_time = #{query.updateTime}
+		</if>
+		<if test="query != null and query.updateTimeMin != null and query.updateTimeMax == null">
+			and update_time <![CDATA[ >= ]]> #{query.updateTimeMin}
+		</if>
+		<if test="query != null and query.updateTimeMin == null and query.updateTimeMax != null">
+			and update_time <![CDATA[ <= ]]> #{query.updateTimeMax}
+		</if>
+		<if test="query != null and query.updateTimeMin != null and query.updateTimeMax != null">
+			and update_time <![CDATA[ >= ]]> #{query.updateTimeMin} and update_time <![CDATA[ <= ]]> #{query.updateTimeMax}
+		</if>
+		<if test="query != null and query.isActive != null">
+			and is_active = #{query.isActive}
+		</if>
+		<if test="query != null and query.isActiveMin != null and query.isActiveMax == null">
+			and is_active <![CDATA[ >= ]]> #{query.isActiveMin}
+		</if>
+		<if test="query != null and query.isActiveMin == null and query.isActiveMax != null">
+			and is_active <![CDATA[ <= ]]> #{query.isActiveMax}
+		</if>
+		<if test="query != null and query.isActiveMin != null and query.isActiveMax != null">
+			and is_active <![CDATA[ >= ]]> #{query.isActiveMin} and is_active <![CDATA[ <= ]]> #{query.isActiveMax}
+		</if>
+		
+    </sql>
+
+    <select id="getById" parameterType="long" resultType="fundsRechargeDO">
+        select
+        <include refid="select_columns"/>
+        from t_funds_recharge where id = #{id}
+    </select>
+
+    <select id="getVersionById" parameterType="long" resultType="integer">
+        select version from t_funds_recharge where id = #{id}
+    </select>
+
+    <select id="listAll" resultType="fundsRechargeDO">
+        select
+        <include refid="select_columns"/>
+        from t_funds_recharge
+        order by update_time desc, create_time desc
+    </select>
+
+    <select id="listAllByCondition" resultType="fundsRechargeDO">
+        select
+        <include refid="select_columns"/>
+        from t_funds_recharge
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+        order by
+        <if test="query.sortColumn != null and query.sortColumn != ''">
+             ${query.sortColumn} ${query.sortOrder}
+        </if>
+        <if test="query.sortColumn == null or query.sortColumn == ''">
+            update_time desc, create_time desc
+        </if>
+    </select>
+
+    <select id="listPageByCondition" resultType="fundsRechargeDO">
+        select
+        <include refid="select_columns"/>
+        from t_funds_recharge
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+        order by
+        <if test="query.sortColumn != null and query.sortColumn != ''">
+            ${query.sortColumn} ${query.sortOrder}
+        </if>
+        <if test="query.sortColumn == null or query.sortColumn == ''">
+            update_time desc, create_time desc
+        </if>
+        limit #{query.beginIndex}, #{query.pageSize}
+    </select>
+
+    <select id="countByCondition" resultType="long">
+        select count(*) from t_funds_recharge
+        <where>
+            <include refid="query_where_clause"/>
+        </where>
+    </select>
+
+</mapper>

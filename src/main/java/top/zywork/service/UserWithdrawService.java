@@ -43,14 +43,16 @@ public interface UserWithdrawService {
 
     /**
      * 完成用户提现记录，如提现成功或提现失败
+     * @param withdrawId
      * @param transactionNo
      * @param withdrawStatus
      * @param userId
      * @param amount
+     * @param completeUserId
      * @param newVersion 更新的版本号
      * @return 如果版本错误，已经被更新过，则不更新，返回0
      */
-    int completeWithdraw(String transactionNo, Byte withdrawStatus, Long userId, Long amount, Integer newVersion);
+    int completeWithdraw(Long withdrawId, String transactionNo, Byte withdrawStatus, Long userId, Long amount, Long completeUserId, Integer newVersion);
 
     /**
      * 获取提现记录信息，包含用户编号和提现金额
