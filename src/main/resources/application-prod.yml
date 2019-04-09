@@ -132,6 +132,10 @@ storage:
   local:
     compressSizes: "800*600,600*400"
     compressScales: "0.8,0.5"
+    user:
+      imgParentDir: "."
+      imgDir: "image/user"
+      imgUrl: "upload/image/user"
     goods:
       #后台保存商品图片的路径
       imgParentDir: "/data/zywork-app-data/upload"

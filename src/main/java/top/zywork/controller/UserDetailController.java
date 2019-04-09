@@ -3,21 +3,26 @@ package top.zywork.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import top.zywork.common.BeanUtils;
 import top.zywork.common.BindingResultUtils;
 import top.zywork.common.StringUtils;
+import top.zywork.common.UploadUtils;
 import top.zywork.dto.PagerDTO;
 import top.zywork.dto.UserDetailDTO;
+import top.zywork.enums.ResponseStatusEnum;
+import top.zywork.enums.UploadTypeEnum;
 import top.zywork.query.UserDetailQuery;
 import top.zywork.security.JwtUser;
 import top.zywork.security.SecurityUtils;
+import top.zywork.service.UploadService;
 import top.zywork.service.UserDetailService;
-import top.zywork.vo.ResponseStatusVO;
 import top.zywork.vo.PagerVO;
+import top.zywork.vo.ResponseStatusVO;
 import top.zywork.vo.UserDetailVO;
 
 import java.util.List;
@@ -36,7 +41,27 @@ public class UserDetailController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserDetailController.class);
 
+    @Value("${storage.provider}")
+    private String storageProvider;
+
+    @Value("${storage.local.compressSizes}")
+    private String compressSizes;
+
+    @Value("${storage.local.compressScales}")
+    private String compressScales;
+
+    @Value("${storage.local.user.imgParentDir}")
+    private String imgParentDir;
+
+    @Value("${storage.local.user.imgDir}")
+    private String imgDir;
+
+    @Value("${storage.local.user.imgUrl}")
+    private String imgUrl;
+
     private UserDetailService userDetailService;
+
+    private UploadService uploadService;
 
     @PostMapping("admin/save")
     public ResponseStatusVO save(@RequestBody @Validated UserDetailVO userDetailVO, BindingResult bindingResult) {
@@ -73,6 +98,10 @@ public class UserDetailController extends BaseController {
         if (bindingResult.hasErrors()) {
             return ResponseStatusVO.dataError(BindingResultUtils.errorString(bindingResult), null);
         }
+        return update(userDetailVO);
+    }
+
+    private ResponseStatusVO update(UserDetailVO userDetailVO) {
         int updateRows = userDetailService.update(BeanUtils.copy(userDetailVO, UserDetailDTO.class));
         if (updateRows == 1) {
             return ResponseStatusVO.ok("更新成功", null);
@@ -165,8 +194,111 @@ public class UserDetailController extends BaseController {
         return ResponseStatusVO.ok("查询成功", pagerVO);
     }
 
+    /**
+     * 上传头像
+     * @param file
+     * @return
+     */
+    @PostMapping("admin/upload-headicon/{userId}")
+    public ResponseStatusVO uploadHeadicon(@PathVariable("userId") Long userId, MultipartFile file) {
+        UploadUtils.UploadOptions uploadOptions = new UploadUtils.UploadOptions(imgParentDir, imgDir, imgUrl);
+        ResponseStatusVO responseStatusVO = uploadService.uploadFile(storageProvider, file, UploadTypeEnum.IMAGE.getAllowedExts(), UploadTypeEnum.IMAGE.getMaxSize(), uploadOptions);
+        if (responseStatusVO.getCode() == ResponseStatusEnum.OK.getCode().intValue()) {
+            UserDetailVO userDetailVO = new UserDetailVO();
+            userDetailVO.setId(userId);
+            userDetailVO.setHeadicon(responseStatusVO.getData().toString());
+            update(userDetailVO);
+        }
+        return responseStatusVO;
+    }
+
+    /**
+     * 用户上传头像
+     * @param file
+     * @return
+     */
+    @PostMapping("user/upload-headicon")
+    public ResponseStatusVO userUploadHeadicon(MultipartFile file) {
+        JwtUser jwtUser = SecurityUtils.getJwtUser();
+        if (jwtUser == null) {
+            return ResponseStatusVO.authenticationError();
+        }
+        return uploadHeadicon(jwtUser.getUserId(), file);
+    }
+
+    /**
+     * 用户上传微信二维码
+     * @param file
+     * @return
+     */
+    @PostMapping("user/upload-wx-qrcode")
+    public ResponseStatusVO userUploadWechatQrcode(MultipartFile file) {
+        JwtUser jwtUser = SecurityUtils.getJwtUser();
+        if (jwtUser == null) {
+            return ResponseStatusVO.authenticationError();
+        }
+        UploadUtils.UploadOptions uploadOptions = new UploadUtils.UploadOptions(imgParentDir, imgDir, imgUrl);
+        ResponseStatusVO responseStatusVO = uploadService.uploadFile(storageProvider, file, UploadTypeEnum.IMAGE.getAllowedExts(), UploadTypeEnum.IMAGE.getMaxSize(), uploadOptions);
+        if (responseStatusVO.getCode() == ResponseStatusEnum.OK.getCode().intValue()) {
+            UserDetailVO userDetailVO = new UserDetailVO();
+            userDetailVO.setId(jwtUser.getUserId());
+            userDetailVO.setWechatQrcode(responseStatusVO.getData().toString());
+            update(userDetailVO);
+        }
+        return responseStatusVO;
+    }
+
+    /**
+     * 用户上传支付宝二维码
+     * @param file
+     * @return
+     */
+    @PostMapping("user/upload-ali-qrcode")
+    public ResponseStatusVO userUploadAlipayQrcode(MultipartFile file) {
+        JwtUser jwtUser = SecurityUtils.getJwtUser();
+        if (jwtUser == null) {
+            return ResponseStatusVO.authenticationError();
+        }
+        UploadUtils.UploadOptions uploadOptions = new UploadUtils.UploadOptions(imgParentDir, imgDir, imgUrl);
+        ResponseStatusVO responseStatusVO = uploadService.uploadFile(storageProvider, file, UploadTypeEnum.IMAGE.getAllowedExts(), UploadTypeEnum.IMAGE.getMaxSize(), uploadOptions);
+        if (responseStatusVO.getCode() == ResponseStatusEnum.OK.getCode().intValue()) {
+            UserDetailVO userDetailVO = new UserDetailVO();
+            userDetailVO.setId(jwtUser.getUserId());
+            userDetailVO.setAlipayQrcode(responseStatusVO.getData().toString());
+            update(userDetailVO);
+        }
+        return responseStatusVO;
+    }
+
+    /**
+     * 用户上传QQ二维码
+     * @param file
+     * @return
+     */
+    @PostMapping("user/upload-qq-qrcode")
+    public ResponseStatusVO userUploadQqQrcode(MultipartFile file) {
+        JwtUser jwtUser = SecurityUtils.getJwtUser();
+        if (jwtUser == null) {
+            return ResponseStatusVO.authenticationError();
+        }
+        UploadUtils.UploadOptions uploadOptions = new UploadUtils.UploadOptions(imgParentDir, imgDir, imgUrl);
+        ResponseStatusVO responseStatusVO = uploadService.uploadFile(storageProvider, file, UploadTypeEnum.IMAGE.getAllowedExts(), UploadTypeEnum.IMAGE.getMaxSize(), uploadOptions);
+        if (responseStatusVO.getCode() == ResponseStatusEnum.OK.getCode().intValue()) {
+            UserDetailVO userDetailVO = new UserDetailVO();
+            userDetailVO.setId(jwtUser.getUserId());
+            userDetailVO.setQqQrcode(responseStatusVO.getData().toString());
+            update(userDetailVO);
+        }
+        return responseStatusVO;
+    }
+
     @Autowired
     public void setUserDetailService(UserDetailService userDetailService) {
         this.userDetailService = userDetailService;
+    }
+
+    @Autowired
+    public void setUploadService(UploadService uploadService) {
+        this.uploadService = uploadService;
     }
 }
