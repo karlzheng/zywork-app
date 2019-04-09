@@ -13,6 +13,8 @@ import top.zywork.common.StringUtils;
 import top.zywork.dto.PagerDTO;
 import top.zywork.dto.UserWalletDTO;
 import top.zywork.query.UserWalletQuery;
+import top.zywork.security.JwtUser;
+import top.zywork.security.SecurityUtils;
 import top.zywork.service.UserWalletService;
 import top.zywork.vo.ResponseStatusVO;
 import top.zywork.vo.PagerVO;
@@ -108,6 +110,19 @@ public class UserWalletController extends BaseController {
             userWalletVO = BeanUtils.copy(obj, UserWalletVO.class);
         }
         return ResponseStatusVO.ok("查询成功", userWalletVO);
+    }
+
+    /**
+     * 用户查询钱包
+     * @return
+     */
+    @GetMapping("user/one")
+    public ResponseStatusVO userGetById() {
+        JwtUser jwtUser = SecurityUtils.getJwtUser();
+        if (jwtUser == null) {
+            return ResponseStatusVO.authenticationError();
+        }
+        return getById(jwtUser.getUserId());
     }
 
     @GetMapping("admin/all")

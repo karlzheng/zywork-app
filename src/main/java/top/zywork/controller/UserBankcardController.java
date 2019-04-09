@@ -201,6 +201,21 @@ public class UserBankcardController extends BaseController {
         return ResponseStatusVO.ok("查询成功", pagerVO);
     }
 
+    /**
+     * 用户根据条件查询自己的所有银行卡
+     * @param userBankcardQuery
+     * @return
+     */
+    @PostMapping("user/all-cond")
+    public ResponseStatusVO userListAllByCondition(@RequestBody UserBankcardQuery userBankcardQuery) {
+        JwtUser jwtUser = SecurityUtils.getJwtUser();
+        if (jwtUser == null) {
+            return ResponseStatusVO.authenticationError();
+        }
+        userBankcardQuery.setUserId(jwtUser.getUserId());
+        return listAllByCondition(userBankcardQuery);
+    }
+
     @PostMapping("admin/pager-cond")
     public ResponseStatusVO listPageByCondition(@RequestBody UserBankcardQuery userBankcardQuery) {
         PagerDTO pagerDTO = userBankcardService.listPageByCondition(userBankcardQuery);
