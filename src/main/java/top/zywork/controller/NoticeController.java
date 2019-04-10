@@ -17,6 +17,8 @@ import top.zywork.dto.PagerDTO;
 import top.zywork.enums.StorageProviderEnum;
 import top.zywork.enums.UploadTypeEnum;
 import top.zywork.query.NoticeQuery;
+import top.zywork.security.JwtUser;
+import top.zywork.security.SecurityUtils;
 import top.zywork.service.NoticeService;
 import top.zywork.service.UploadService;
 import top.zywork.vo.NoticeVO;
@@ -133,6 +135,16 @@ public class NoticeController extends BaseController {
             noticeVO = BeanUtils.copy(obj, NoticeVO.class);
         }
         return ResponseStatusVO.ok("查询成功", noticeVO);
+    }
+
+    /**
+     * 用户查看单个公告
+     * @param id
+     * @return
+     */
+    @GetMapping("user/one/{id}")
+    public ResponseStatusVO userGetById(@PathVariable("id") Long id) {
+        return getById(id);
     }
 
     @GetMapping("admin/all")
