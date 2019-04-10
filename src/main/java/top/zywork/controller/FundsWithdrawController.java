@@ -13,6 +13,8 @@ import top.zywork.common.StringUtils;
 import top.zywork.dto.PagerDTO;
 import top.zywork.dto.FundsWithdrawDTO;
 import top.zywork.query.FundsWithdrawQuery;
+import top.zywork.security.JwtUser;
+import top.zywork.security.SecurityUtils;
 import top.zywork.service.FundsWithdrawService;
 import top.zywork.vo.ResponseStatusVO;
 import top.zywork.vo.PagerVO;
@@ -132,6 +134,21 @@ public class FundsWithdrawController extends BaseController {
         PagerVO pagerVO = BeanUtils.copy(pagerDTO, PagerVO.class);
         pagerVO.setRows(BeanUtils.copyList(pagerDTO.getRows(), FundsWithdrawVO.class));
         return ResponseStatusVO.ok("查询成功", pagerVO);
+    }
+
+    /**
+     * 用户分页查询提现申请
+     * @param fundsWithdrawQuery
+     * @return
+     */
+    @PostMapping("user/pager-cond")
+    public ResponseStatusVO userListPageByCondition(@RequestBody FundsWithdrawQuery fundsWithdrawQuery) {
+        JwtUser jwtUser = SecurityUtils.getJwtUser();
+        if (jwtUser == null) {
+            return ResponseStatusVO.authenticationError();
+        }
+        fundsWithdrawQuery.setUserId(jwtUser.getUserId());
+        return listPageByCondition(fundsWithdrawQuery);
     }
 
     @Autowired
