@@ -205,7 +205,7 @@ public class ArticleController extends BaseController {
     }
 
     @Autowired
-    public UploadService getUploadService() {
-        return uploadService;
+    public void setUploadService(UploadService uploadService) {
+        this.uploadService = uploadService;
     }
 }
