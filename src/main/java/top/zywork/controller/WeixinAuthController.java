@@ -206,18 +206,18 @@ public class WeixinAuthController {
             userRegService.saveWeixinUser(xcxAuth.getOpenid(), xcxAuth.getUnionid(), null, xcxAuth.getSessionKey(),
                     SocialTypeEnum.WEIXIN_XCX.getValue(), null, null, null, null,
                     defaultRoleQueryService.getDefaultRole(), null);
-            return outInfoToXcx(xcxAuth.getOpenid());
+            return outInfoToXcx(xcxAuth.getOpenid(), true);
         } else {
             // 已保存用户信息，更新session key
             userRegService.updateWeixinUserSocial(xcxAuth.getOpenid(), null, xcxAuth.getSessionKey());
-            return outInfoToXcx(xcxAuth.getOpenid());
+            return outInfoToXcx(xcxAuth.getOpenid(), false);
         }
     }
 
-    private ResponseStatusVO outInfoToXcx(String openid) {
+    private ResponseStatusVO outInfoToXcx(String openid, Boolean isFirstWxLogin) {
         String token = generateAndSaveToken(openid);
         // 微信授权登录成功，返回openid, jwt token
-        return ResponseStatusVO.ok("微信用户授权登录成功", new String[]{openid, token});
+        return ResponseStatusVO.ok("微信用户授权登录成功", new String[]{isFirstWxLogin ? "firstLogin" : "", openid, token});
     }
 
     /**
