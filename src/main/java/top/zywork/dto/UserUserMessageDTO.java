@@ -4,14 +4,14 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * UserMessageDTO数据传输对象类<br/>
+ * UserUserMessageDTO数据传输对象类<br/>
  *
  * 创建于2019-01-24<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
-public class UserMessageDTO extends BaseDTO {
+public class UserUserMessageDTO extends BaseDTO {
 
     private static final long serialVersionUID = -9223372035189671565L;
 
@@ -41,9 +41,9 @@ public class UserMessageDTO extends BaseDTO {
 	// 更新时间
 	private Date userMessageUpdateTime;
 	
-    public UserMessageDTO () {}
+    public UserUserMessageDTO() {}
 
-    public UserMessageDTO (Long userId, String userPhone, String userEmail, Long messageId, String messageTitle, String messageSummary, String messageContent, String messageMessageType, Byte userMessageIsRead, Date userMessageCreateTime, Date userMessageUpdateTime) {
+    public UserUserMessageDTO(Long userId, String userPhone, String userEmail, Long messageId, String messageTitle, String messageSummary, String messageContent, String messageMessageType, Byte userMessageIsRead, Date userMessageCreateTime, Date userMessageUpdateTime) {
         this.userId = userId;
 		this.userPhone = userPhone;
 		this.userEmail = userEmail;
@@ -149,7 +149,7 @@ public class UserMessageDTO extends BaseDTO {
 	
     @Override
     public String toString() {
-        return "UserMessageDTO {" +
+        return "UserUserMessageDTO {" +
                 "userId = " + userId + 
 				", userPhone = " + userPhone + 
 				", userEmail = " + userEmail + 

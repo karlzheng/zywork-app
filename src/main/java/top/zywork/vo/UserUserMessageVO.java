@@ -10,14 +10,14 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
- * UserMessageVO值对象类<br/>
+ * UserUserMessageVO值对象类<br/>
  *
  * 创建于2019-01-24<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
-public class UserMessageVO extends BaseVO {
+public class UserUserMessageVO extends BaseVO {
 
     private static final long serialVersionUID = -9223372036356829151L;
 
@@ -58,9 +58,9 @@ public class UserMessageVO extends BaseVO {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date userMessageUpdateTime;
 	
-    public UserMessageVO () {}
+    public UserUserMessageVO() {}
 
-    public UserMessageVO (Long userId, String userPhone, String userEmail, Long messageId, String messageTitle, String messageSummary, String messageContent, String messageMessageType, Byte userMessageIsRead, Date userMessageCreateTime, Date userMessageUpdateTime) {
+    public UserUserMessageVO(Long userId, String userPhone, String userEmail, Long messageId, String messageTitle, String messageSummary, String messageContent, String messageMessageType, Byte userMessageIsRead, Date userMessageCreateTime, Date userMessageUpdateTime) {
         this.userId = userId;
 		this.userPhone = userPhone;
 		this.userEmail = userEmail;
@@ -166,7 +166,7 @@ public class UserMessageVO extends BaseVO {
 	
     @Override
     public String toString() {
-        return "UserMessageVO {" +
+        return "UserUserMessageVO {" +
                 "userId = " + userId + 
 				", userPhone = " + userPhone + 
 				", userEmail = " + userEmail + 

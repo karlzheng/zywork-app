@@ -2,7 +2,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="top.zywork.dao.UserMessageDAO">
+<mapper namespace="top.zywork.dao.UserUserMessageDAO">
 
     <sql id="select_columns">
         t_user.id as userId, t_user.phone as userPhone, t_user.email as userEmail, t_message.id as messageId, t_message.title as messageTitle, t_message.summary as messageSummary, t_message.content as messageContent, t_message.message_type as messageMessageType, t_user_message.is_read as userMessageIsRead, t_user_message.create_time as userMessageCreateTime, t_user_message.update_time as userMessageUpdateTime
@@ -92,14 +92,14 @@
         t_user.id = t_user_message.user_id and t_message.id = t_user_message.message_id
     </sql>
 
-    <select id="listById" parameterType="long" resultType="userMessageDO">
+    <select id="listById" parameterType="long" resultType="userUserMessageDO">
         select
         <include refid="select_columns"/>
         from t_user, t_message, t_user_message where t_user.id = #{id} and
         t_user.id = t_user_message.user_id and t_message.id = t_user_message.message_id
     </select>
 
-    <select id="listAll" resultType="userMessageDO">
+    <select id="listAll" resultType="userUserMessageDO">
         select
         <include refid="select_columns"/>
         from t_user, t_message, t_user_message
@@ -108,7 +108,7 @@
         order by t_user.update_time desc, t_user.create_time desc
     </select>
 
-	<select id="listAllByCondition" resultType="userMessageDO">
+	<select id="listAllByCondition" resultType="userUserMessageDO">
 		select
 		<include refid="select_columns"/>
 		from t_user, t_message, t_user_message
@@ -124,7 +124,7 @@
 		</if>
 	</select>
 
-    <select id="listPageByCondition" resultType="userMessageDO">
+    <select id="listPageByCondition" resultType="userUserMessageDO">
         select
         <include refid="select_columns"/>
         from t_user, t_message, t_user_message

@@ -6,14 +6,14 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
- * UserMessageQuery查询对象类<br/>
+ * UserUserMessageQuery查询对象类<br/>
  *
  * 创建于2019-01-24<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
-public class UserMessageQuery extends PageQuery {
+public class UserUserMessageQuery extends PageQuery {
 
     private static final long serialVersionUID = -9223372036722495777L;
 
@@ -69,9 +69,9 @@ public class UserMessageQuery extends PageQuery {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date userMessageUpdateTimeMax;
 	
-    public UserMessageQuery () {}
+    public UserUserMessageQuery() {}
 
-    public UserMessageQuery (Long userId, Long userIdMin, Long userIdMax, String userPhone, String userEmail, Long messageId, Long messageIdMin, Long messageIdMax, String messageTitle, String messageSummary, String messageContent, String messageMessageType, Byte userMessageIsRead, Byte userMessageIsReadMin, Byte userMessageIsReadMax, Date userMessageCreateTime, Date userMessageCreateTimeMin, Date userMessageCreateTimeMax, Date userMessageUpdateTime, Date userMessageUpdateTimeMin, Date userMessageUpdateTimeMax) {
+    public UserUserMessageQuery(Long userId, Long userIdMin, Long userIdMax, String userPhone, String userEmail, Long messageId, Long messageIdMin, Long messageIdMax, String messageTitle, String messageSummary, String messageContent, String messageMessageType, Byte userMessageIsRead, Byte userMessageIsReadMin, Byte userMessageIsReadMax, Date userMessageCreateTime, Date userMessageCreateTimeMin, Date userMessageCreateTimeMax, Date userMessageUpdateTime, Date userMessageUpdateTimeMin, Date userMessageUpdateTimeMax) {
         this.userId = userId;
 		this.userIdMin = userIdMin;
 		this.userIdMax = userIdMax;
@@ -267,7 +267,7 @@ public class UserMessageQuery extends PageQuery {
 	
     @Override
     public String toString() {
-        return "UserMessageQuery {" +
+        return "UserUserMessageQuery {" +
                 "userId = " + userId + 
 				", userIdMin = " + userIdMin + 
 				", userIdMax = " + userIdMax + 

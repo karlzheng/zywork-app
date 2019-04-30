@@ -148,10 +148,10 @@
           search: false
         },
         urls: {
-          searchUrl: '/user-message/admin/pager-cond',
-          allUrl: '/user-message/admin/all',
-          detailUrl: '/user-message/admin/one/',
-          multiUrl: '/user-message/admin/multi/'
+          searchUrl: '/user-usermessage/admin/pager-cond',
+          allUrl: '/user-usermessage/admin/all',
+          detailUrl: '/user-usermessage/admin/one/',
+          multiUrl: '/user-usermessage/admin/multi/'
         },
         page: {
           total: 0

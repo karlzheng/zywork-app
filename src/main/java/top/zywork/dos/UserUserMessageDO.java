@@ -4,14 +4,14 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * UserMessageDO数据对象实体类<br/>
+ * UserUserMessageDO数据对象实体类<br/>
  *
  * 创建于2019-01-24<br/>
  *
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
-public class UserMessageDO extends BaseDO {
+public class UserUserMessageDO extends BaseDO {
 
     private static final long serialVersionUID = -9223372036149689989L;
 
@@ -41,9 +41,9 @@ public class UserMessageDO extends BaseDO {
 	// 更新时间
 	private Date userMessageUpdateTime;
 	
-    public UserMessageDO () {}
+    public UserUserMessageDO() {}
 
-    public UserMessageDO (Long userId, String userPhone, String userEmail, Long messageId, String messageTitle, String messageSummary, String messageContent, String messageMessageType, Byte userMessageIsRead, Date userMessageCreateTime, Date userMessageUpdateTime) {
+    public UserUserMessageDO(Long userId, String userPhone, String userEmail, Long messageId, String messageTitle, String messageSummary, String messageContent, String messageMessageType, Byte userMessageIsRead, Date userMessageCreateTime, Date userMessageUpdateTime) {
         this.userId = userId;
 		this.userPhone = userPhone;
 		this.userEmail = userEmail;
@@ -149,7 +149,7 @@ public class UserMessageDO extends BaseDO {
 	
     @Override
     public String toString() {
-        return "UserMessageDO {" +
+        return "UserUserMessageDO {" +
                 "userId = " + userId + 
 				", userPhone = " + userPhone + 
 				", userEmail = " + userEmail + 
