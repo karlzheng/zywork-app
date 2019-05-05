@@ -18,7 +18,7 @@ import javax.annotation.PostConstruct;
  * @author http://zywork.top 王振宇
  * @version 1.0
  */
-@Service(value = "userMessageService")
+@Service(value = "userUserMessageService")
 public class UserUserMessageServiceImpl extends AbstractBaseService implements UserUserMessageService {
 
     private UserUserMessageDAO userUserMessageDAO;
