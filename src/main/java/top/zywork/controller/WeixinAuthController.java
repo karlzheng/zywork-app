@@ -38,7 +38,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/wx-auth")
-public class WeixinAuthController {
+public class WeixinAuthController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(WeixinAuthController.class);
 
@@ -77,7 +77,7 @@ public class WeixinAuthController {
             WeixinGzhConfig weixinGzhConfig = sysConfigService.getByName(SysConfigEnum.WEIXIN_GZH_CONFIG.getValue(), WeixinGzhConfig.class);
             return new ModelAndView("redirect:" + WeixinUtils.gzhAuthorizeUrl(weixinGzhConfig.getAppId(), weixinGzhConfig.getLoginRedirectUrl(), extraParams));
         } else {
-            return new ModelAndView("redirect:" + extraParams.split(WeixinUtils.EXTRA_PARAMS_SEPERATOR)[0]);
+            return new ModelAndView("redirect:" + extraParams.split(WeixinUtils.EXTRA_PARAMS_SEPARATOR)[0]);
         }
     }
 
@@ -97,7 +97,7 @@ public class WeixinAuthController {
         logger.info("extraParams: {}, code: {}", extraParams, code);
         String openid = WebUtils.getCookieValue(request, gzhCookieName);
         logger.info("openid: {}", openid);
-        String[] extraParamAry = extraParams.split(WeixinUtils.EXTRA_PARAMS_SEPERATOR);
+        String[] extraParamAry = extraParams.split(WeixinUtils.EXTRA_PARAMS_SEPARATOR);
         String fromUrl = extraParamAry[0];
         String notAuthUrl = extraParamAry[1];
         String shareCode = extraParamAry[2];

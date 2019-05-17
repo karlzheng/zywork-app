@@ -40,7 +40,7 @@ import top.zywork.vo.ResponseStatusVO;
  */
 @RestController
 @RequestMapping("/pwd")
-public class PasswordController {
+public class PasswordController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(PasswordController.class);
 

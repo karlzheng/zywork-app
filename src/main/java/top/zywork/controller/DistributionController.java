@@ -32,7 +32,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/distribution")
-public class DistributionController {
+public class DistributionController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(DistributionController.class);
 

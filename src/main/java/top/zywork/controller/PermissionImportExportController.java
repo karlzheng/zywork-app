@@ -35,7 +35,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/permission-import-export")
-public class PermissionImportExportController {
+public class PermissionImportExportController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(PermissionImportExportController.class);
 

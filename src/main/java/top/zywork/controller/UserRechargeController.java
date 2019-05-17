@@ -20,7 +20,7 @@ import top.zywork.vo.ResponseStatusVO;
  */
 @RestController
 @RequestMapping("/user-recharge")
-public class UserRechargeController {
+public class UserRechargeController extends BaseController {
 
     private UserRechargeService userRechargeService;
 

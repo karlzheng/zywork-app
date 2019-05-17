@@ -32,7 +32,7 @@ import java.io.OutputStream;
  */
 @RestController
 @RequestMapping("/share-generator")
-public class ShareGeneratorController {
+public class ShareGeneratorController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(DistributionController.class);
 

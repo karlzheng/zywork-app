@@ -26,7 +26,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/user-liveness-stat")
-public class UserLivenessStatisticsController {
+public class UserLivenessStatisticsController extends BaseController {
 
     private UserLivenessStatisticsService userLivenessStatisticsService;
 

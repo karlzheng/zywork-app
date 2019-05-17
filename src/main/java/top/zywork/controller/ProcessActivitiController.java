@@ -43,7 +43,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/process-activiti")
-public class ProcessActivitiController {
+public class ProcessActivitiController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(ProcessActivitiController.class);
 

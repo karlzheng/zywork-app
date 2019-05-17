@@ -15,9 +15,12 @@ import top.zywork.security.SecurityUtils;
 import top.zywork.service.UploadService;
 import top.zywork.vo.ResponseStatusVO;
 
+/**
+ * @author 王振宇
+ */
 @RestController
 @RequestMapping("/test")
-public class TestController {
+public class TestController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(TestController.class);
 
@@ -50,7 +53,7 @@ public class TestController {
         if (file == null) {
             return ResponseStatusVO.dataError("未上传文件", null);
         }
-        UploadUtils.UploadOptions uploadOptions = new UploadUtils.UploadOptions("./upload", "test", "dbSaveUrl");
+        UploadUtils.UploadOptions uploadOptions = UploadUtils.UploadOptions.builder().uploadParentDir("./upload").uploadDir("test").dbSaveUrl("dbSaveUrl").build();
         uploadOptions.generateCompressSizes("200x200,300x300");
         return uploadService.uploadFile(StorageProviderEnum.LOCAL.getProvider(), file, UploadTypeEnum.IMAGE.getAllowedExts(), UploadTypeEnum.IMAGE.getMaxSize(), uploadOptions);
     }

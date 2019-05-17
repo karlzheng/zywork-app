@@ -27,7 +27,7 @@ import top.zywork.vo.ResponseStatusVO;
  */
 @RestController
 @RequestMapping("/withdraw")
-public class UserWithdrawController {
+public class UserWithdrawController extends BaseController {
 
     private UserWithdrawService userWithdrawService;
 

@@ -25,7 +25,7 @@ import top.zywork.vo.ResponseStatusVO;
  */
 @RestController
 @RequestMapping("/transfer")
-public class UserTransferController {
+public class UserTransferController extends BaseController {
 
     private UserWalletService userWalletService;
 
